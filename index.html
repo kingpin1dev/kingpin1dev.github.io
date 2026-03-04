@@ -60,6 +60,7 @@
             <a href="#setup" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Sistem</a>
             <a href="#creative" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Kreatif</a>
             <a href="#minigame" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition hidden md:block"><i class="fas fa-terminal mr-1"></i>Oyun</a>
+            <a href="#activity" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Aktivite</a>
             <a href="#contact" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">İletişim</a>
         </div>
     </nav>
@@ -197,6 +198,30 @@
         </div>
     </section>
 
+    <section id="activity" class="py-20 px-4 max-w-5xl mx-auto border-t border-gray-800">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-satellite-dish text-neon mr-3"></i>Canlı Aktivite</h2>
+        <p class="text-gray-400 mb-10 text-sm md:text-base">Anlık aktivite bilgilerim.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+
+            <!-- Spotify Kartı -->
+            <div id="spotify-card" class="bg-cardbg border border-gray-800 hover:border-green-500/50 rounded-xl p-5 md:p-6 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
+                <div id="spotify-content" class="flex flex-col items-center gap-3 text-gray-600 text-center w-full">
+                    <i class="fab fa-spotify text-4xl"></i>
+                    <p class="text-sm font-medium">Yükleniyor...</p>
+                </div>
+            </div>
+
+            <!-- VS Code Kartı -->
+            <div id="vscode-card" class="bg-cardbg border border-gray-800 hover:border-blue-500/50 rounded-xl p-5 md:p-6 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
+                <div id="vscode-content" class="flex flex-col items-center gap-3 text-gray-600 text-center w-full">
+                    <i class="fas fa-code text-4xl"></i>
+                    <p class="text-sm font-medium">Yükleniyor...</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <footer id="contact" class="bg-[#090d13] py-16 mt-10 border-t border-gray-800 relative z-10">
         <div class="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div class="text-center md:text-left">
@@ -318,6 +343,87 @@
                         if(d.activities[0].name === 'Spotify') act.innerHTML = `<i class="fab fa-spotify text-green-500 mr-2"></i> Dinliyor: <b>${d.activities[0].details}</b>`;
                         else act.innerHTML = `<i class="fas fa-gamepad text-neon mr-2"></i> <b>${d.activities[0].name}</b>`;
                     } else act.classList.add('hidden');
+
+                    // --- Spotify Kartı ---
+                    const spContent = document.getElementById('spotify-content');
+                    const spCard = document.getElementById('spotify-card');
+                    if (spContent && spCard) {
+                        if (d.spotify) {
+                            const sp = d.spotify;
+                            const now = Date.now();
+                            const totalDur = sp.timestamps.end - sp.timestamps.start;
+                            const elapsed = now - sp.timestamps.start;
+                            const pct = Math.min(100, Math.max(0, (elapsed / totalDur) * 100)).toFixed(1);
+                            const remaining = Math.max(0, sp.timestamps.end - now);
+                            spCard.classList.add('border-green-500/30');
+                            spCard.classList.remove('border-gray-800');
+                            spContent.className = 'w-full';
+                            spContent.innerHTML = `
+                                <div class="flex items-center gap-1.5 mb-3">
+                                    <i class="fab fa-spotify text-green-500 text-xs"></i>
+                                    <span class="text-green-500 text-xs font-semibold uppercase tracking-wider">Şu An Dinliyor</span>
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full ml-1 animate-pulse"></span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <img src="${sp.album_art_url}" alt="Albüm" class="w-14 h-14 rounded-lg shadow-lg flex-shrink-0 object-cover">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-white font-bold text-sm truncate">${sp.song}</p>
+                                        <p class="text-gray-300 text-xs truncate mt-0.5">${sp.artist}</p>
+                                        <p class="text-gray-500 text-xs truncate">${sp.album}</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="w-full bg-gray-700/50 rounded-full h-1 overflow-hidden">
+                                        <div id="spotify-progress-bar" class="bg-green-500 h-1 rounded-full" style="width:${pct}%;"></div>
+                                    </div>
+                                </div>`;
+                            setTimeout(() => {
+                                const bar = document.getElementById('spotify-progress-bar');
+                                if (bar) { bar.style.transition = `width ${remaining}ms linear`; bar.style.width = '100%'; }
+                            }, 50);
+                        } else {
+                            spCard.classList.remove('border-green-500/30');
+                            spCard.classList.add('border-gray-800');
+                            spContent.className = 'flex flex-col items-center gap-3 text-gray-600 text-center w-full';
+                            spContent.innerHTML = `<i class="fab fa-spotify text-4xl"></i><div><p class="text-sm font-medium text-gray-500">Spotify Kapalı</p><p class="text-xs text-gray-600 mt-1">Şu an bir şey dinlenmiyor.</p></div>`;
+                        }
+                    }
+
+                    // --- VS Code Kartı ---
+                    const vsContent = document.getElementById('vscode-content');
+                    const vsCard = document.getElementById('vscode-card');
+                    if (vsContent && vsCard) {
+                        const vsAct = d.activities && d.activities.find(a => a.name === 'Visual Studio Code');
+                        if (vsAct) {
+                            const details = vsAct.details || 'Dosya düzenleniyor';
+                            const state = vsAct.state || '';
+                            const lang = vsAct.assets && vsAct.assets.large_text ? vsAct.assets.large_text : '';
+                            vsCard.classList.add('border-blue-500/30');
+                            vsCard.classList.remove('border-gray-800');
+                            vsContent.className = 'w-full';
+                            vsContent.innerHTML = `
+                                <div class="flex items-center gap-1.5 mb-3">
+                                    <i class="fas fa-code text-blue-400 text-xs"></i>
+                                    <span class="text-blue-400 text-xs font-semibold uppercase tracking-wider">Şu An Kodluyor</span>
+                                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full ml-1 animate-pulse"></span>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-file-code text-blue-400 text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-white font-bold text-sm truncate">${details}</p>
+                                        ${state ? `<p class="text-gray-400 text-xs truncate mt-0.5">${state}</p>` : ''}
+                                        ${lang ? `<span class="inline-block mt-2 text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">${lang}</span>` : ''}
+                                    </div>
+                                </div>`;
+                        } else {
+                            vsCard.classList.remove('border-blue-500/30');
+                            vsCard.classList.add('border-gray-800');
+                            vsContent.className = 'flex flex-col items-center gap-3 text-gray-600 text-center w-full';
+                            vsContent.innerHTML = `<i class="fas fa-code text-4xl"></i><div><p class="text-sm font-medium text-gray-500">VS Code Kapalı</p><p class="text-xs text-gray-600 mt-1">Şu an aktif bir proje yok.</p></div>`;
+                        }
+                    }
                 }
             } catch (e) {}
         }
@@ -535,4 +641,3 @@
     </script>
 </body>
 </html>
-
