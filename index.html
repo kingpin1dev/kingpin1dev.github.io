@@ -47,6 +47,8 @@
 
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .ig-card img { transition: transform 0.5s ease; }
+        .ig-card:hover img { transform: scale(1.05); }
     </style>
 </head>
 <body class="antialiased selection:bg-neon selection:text-white relative">
@@ -139,6 +141,24 @@
                 <h3 class="text-xl font-bold text-white mb-2">Spotify</h3>
                 <p class="text-gray-400 mb-4 text-sm">Zaman zaman hobi olarak ürettiğim ve yayınladığım parçalar.</p>
                 <a href="https://open.spotify.com/intl-tr/artist/3KwVC87AX4WLGOS8oLWvc0?si=1n1RJoF7SruHa5ZbUIIt2Q" target="_blank" class="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 rounded-lg text-sm transition border border-green-500/20">Spotify'da Dinle</a>
+            </div>
+        </div>
+
+        <!-- Instagram Postları -->
+        <div class="mt-12">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fab fa-instagram text-pink-500 text-xl"></i>
+                <h3 class="text-lg font-semibold text-white">@sineorbit'ten Öne Çıkan Editler</h3>
+                <a href="https://www.instagram.com/sineorbit/" target="_blank" class="ml-auto text-xs text-gray-500 hover:text-pink-400 transition flex items-center gap-1">Tümünü Gör <i class="fas fa-arrow-right text-[10px]"></i></a>
+            </div>
+            <div id="ig-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+                <!-- JS tarafından doldurulur -->
+                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
+                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
+                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
+                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
+                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
+                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
             </div>
         </div>
     </section>
@@ -632,11 +652,49 @@
             }, 500);
         }
 
+        /* 7. Instagram Postları
+           img/ klasörüne ig1.jpg–ig6.jpg olarak ekran görüntülerini koy.
+           likes/comments: null bırakılırsa o sayaç gösterilmez. */
+        const igPosts = [
+            { url: 'https://www.instagram.com/p/DF5Ur9UN0nn/', img: 'img/ig1.jpg', likes: '8,6B', comments: 105 },
+            { url: 'https://www.instagram.com/p/DD2znKCtNWy/', img: 'img/ig2.jpg', likes: '397', comments: 4 },
+            { url: 'https://www.instagram.com/p/C9r4GdPtqMD/', img: 'img/ig3.jpg', likes: '476', comments: 26 },
+            { url: 'https://www.instagram.com/p/C7jI_oftVvz/', img: 'img/ig4.jpg', likes: '91,8B', comments: 457 },
+            { url: 'https://www.instagram.com/p/C5vgkL8M14j/', img: 'img/ig5.jpg', likes: '72,4B', comments: 297 },
+            { url: 'https://www.instagram.com/p/C22EVl5sPN_/', img: 'img/ig6.jpg', likes: '5,5B', comments: 58 },
+        ];
+
+        function renderInstagramPosts() {
+            const grid = document.getElementById('ig-grid');
+            if (!grid) return;
+            grid.innerHTML = igPosts.map(({ url, img, likes, comments }) => `
+                <a href="${url}" target="_blank"
+                   class="ig-card group block relative overflow-hidden rounded-xl aspect-square border border-gray-800 hover:border-pink-500/50 transition-all duration-300 bg-cardbg">
+                    <img src="${img}" alt="Instagram post" class="w-full h-full object-cover" loading="lazy"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-pink-900/20 to-transparent items-center justify-center" style="display:none;">
+                        <i class="fab fa-instagram text-gray-700 text-4xl"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end pb-4 gap-2">
+                        ${(likes !== null || comments !== null) ? `
+                        <div class="flex items-center gap-5 text-white text-sm font-bold drop-shadow">
+                            ${likes !== null ? `<span class="flex items-center gap-1.5"><i class="fas fa-heart text-pink-400"></i>${likes}</span>` : ''}
+                            ${comments !== null ? `<span class="flex items-center gap-1.5"><i class="fas fa-comment text-white/80"></i>${comments}</span>` : ''}
+                        </div>` : ''}
+                        <span class="flex items-center gap-1.5 text-white/80 text-xs font-medium tracking-wide">
+                            <i class="fab fa-instagram"></i> Instagram'da Gör
+                        </span>
+                    </div>
+                </a>
+            `).join('');
+        }
+
         // Ortak Yüklemeler
         document.addEventListener('DOMContentLoaded', () => {
             fetchGitHubProjects();
             fetchDiscordStatus();
-            setInterval(fetchDiscordStatus, 15000); 
+            renderInstagramPosts();
+            setInterval(fetchDiscordStatus, 15000);
         });
     </script>
 </body>
