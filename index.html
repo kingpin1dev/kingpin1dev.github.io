@@ -12,16 +12,8 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'] 
-                    },
-                    colors: {
-                        neon: '#58a6ff',
-                        darkbg: '#0d1117',
-                        cardbg: '#161b22',
-                        discord: '#5865F2'
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['Fira Code', 'monospace'] },
+                    colors: { neon: '#58a6ff', darkbg: '#0d1117', cardbg: '#161b22', discord: '#5865F2' }
                 }
             }
         }
@@ -31,24 +23,32 @@
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -10; opacity: 0.4; }
         .dynamic-island { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .dynamic-island:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(88, 166, 255, 0.2); }
-        
         .nav-link.active { color: #58a6ff; text-shadow: 0 0 10px rgba(88, 166, 255, 0.5); }
-        
         .typing-effect { border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(30, end), blink-caret .75s step-end infinite; }
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #58a6ff; } }
-        
         .glow-button:hover { box-shadow: 0 0 15px #58a6ff; text-shadow: 0 0 5px #fff; }
         .terminal-glow { box-shadow: 0 0 30px rgba(88, 166, 255, 0.05); }
         .status-online { background-color: #3ba55c; box-shadow: 0 0 8px #3ba55c; }
         .status-idle { background-color: #faa61a; box-shadow: 0 0 8px #faa61a; }
         .status-dnd { background-color: #ed4245; box-shadow: 0 0 8px #ed4245; }
         .status-offline { background-color: #747f8d; }
-
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .ig-card img { transition: transform 0.5s ease; }
         .ig-card:hover img { transform: scale(1.05); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0d1117; }
+        ::-webkit-scrollbar-thumb { background: #161b22; border-radius: 4px; border: 1px solid rgba(88, 166, 255, 0.3); }
+        ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
+        
+        /* Yenilenen Marquee Sürükle-Bırak Stilleri */
+        .marquee-container { overflow: hidden; white-space: nowrap; width: 100%; position: relative; cursor: grab; touch-action: pan-y; }
+        .marquee-container:active { cursor: grabbing; }
+        .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 60px; height: 100%; z-index: 2; pointer-events: none; }
+        .marquee-container::before { left: 0; background: linear-gradient(to right, #0d1117 0%, transparent 100%); }
+        .marquee-container::after { right: 0; background: linear-gradient(to left, #0d1117 0%, transparent 100%); }
+        .marquee-content { display: flex; width: max-content; will-change: transform; }
     </style>
 </head>
 <body class="antialiased selection:bg-neon selection:text-white relative">
@@ -61,7 +61,6 @@
             <a href="#projects" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Projeler</a>
             <a href="#setup" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Sistem</a>
             <a href="#creative" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Kreatif</a>
-            <a href="#minigame" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition hidden md:block"><i class="fas fa-terminal mr-1"></i>Oyun</a>
             <a href="#activity" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">Aktivite</a>
             <a href="#contact" class="nav-link scroll-link text-xs md:text-sm font-semibold text-gray-300 hover:text-neon transition block">İletişim</a>
         </div>
@@ -75,11 +74,39 @@
             <h2 class="text-sm sm:text-lg md:text-2xl text-neon font-mono typing-effect">Software Developer & Video Editor</h2>
         </div>
         <p class="mt-6 max-w-xl text-gray-400 text-base md:text-lg relative z-10">
-            Yaratıcı uygulamaları geliştirmeyi ve fikirleri cilalanmış araçlara dönüştürmeyi seviyorum. Aynı zamanda video kurgu ve UI/UX tasarımı tutkunuyum. Yazılımın mantığı ile görsel sanatın estetiğini bir araya getiren bir geliştirici ve video editörüyüm.
+            Yaratıcı uygulamaları geliştirmeyi ve fikirleri araçlara dönüştürmeyi seviyorum. Aynı zamanda video kurgu ve UI/UX tasarımı tutkunu bir geliştirici ve video editörüyüm.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-4 relative z-10">
             <a href="#projects" class="scroll-link glow-button px-6 py-3 bg-neon text-darkbg font-bold rounded-lg transition-all w-full sm:w-auto">Projeleri İncele</a>
             <a href="https://github.com/kingpin1dev" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-neon text-white font-bold rounded-lg transition-all w-full sm:w-auto"><i class="fab fa-github mr-2"></i>GitHub</a>
+        </div>
+    </section>
+
+    <section id="skills" class="py-10 px-4 max-w-5xl mx-auto border-t border-gray-800">
+        <div class="marquee-container bg-[#090b0f] border border-gray-800 rounded-xl py-5 shadow-[0_0_15px_rgba(88,166,255,0.03)] select-none">
+            <div class="marquee-content flex w-max" id="skills-track">
+                
+                <div class="flex items-center gap-12 px-6">
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-js text-yellow-400 text-2xl"></i><span class="font-mono text-sm">JavaScript</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-python text-blue-400 text-2xl"></i><span class="font-mono text-sm">Python</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-windows text-purple-400 text-2xl"></i><span class="font-mono text-sm">C# / .NET</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fas fa-wind text-cyan-400 text-2xl"></i><span class="font-mono text-sm">Tailwind CSS</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fas fa-video text-pink-500 text-2xl"></i><span class="font-mono text-sm">Premiere Pro</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fas fa-film text-indigo-500 text-2xl"></i><span class="font-mono text-sm">After Effects</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-figma text-orange-400 text-2xl"></i><span class="font-mono text-sm">Figma</span></div>
+                </div>
+
+                <div class="flex items-center gap-12 px-6">
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-js text-yellow-400 text-2xl"></i><span class="font-mono text-sm">JavaScript</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-python text-blue-400 text-2xl"></i><span class="font-mono text-sm">Python</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-windows text-purple-400 text-2xl"></i><span class="font-mono text-sm">C# / .NET</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fas fa-wind text-cyan-400 text-2xl"></i><span class="font-mono text-sm">Tailwind CSS</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fas fa-video text-pink-500 text-2xl"></i><span class="font-mono text-sm">Premiere Pro</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fas fa-film text-indigo-500 text-2xl"></i><span class="font-mono text-sm">After Effects</span></div>
+                    <div class="flex items-center gap-2 text-gray-500 hover:text-white transition"><i class="fab fa-figma text-orange-400 text-2xl"></i><span class="font-mono text-sm">Figma</span></div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -132,7 +159,7 @@
                 <div class="w-16 h-16 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-pink-500/20">
                     <i class="fab fa-instagram text-white text-2xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2">@sineorbit</h3>
+                <h3 class="text-xl font-bold text-white mb-2">SineOrbit</h3>
                 <p class="text-gray-400 mb-4 text-sm">Film sahnelerine hayat verdiğim, sinematografik video edit sayfam.</p>
                 <a href="https://www.instagram.com/sineorbit/" target="_blank" class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm transition border border-gray-700">Sayfayı İncele</a>
             </div>
@@ -144,101 +171,235 @@
             </div>
         </div>
 
-        <!-- Instagram Postları -->
         <div class="mt-12">
             <div class="flex items-center gap-3 mb-6">
                 <i class="fab fa-instagram text-pink-500 text-xl"></i>
                 <h3 class="text-lg font-semibold text-white">@sineorbit'ten Öne Çıkan Editler</h3>
                 <a href="https://www.instagram.com/sineorbit/" target="_blank" class="ml-auto text-xs text-gray-500 hover:text-pink-400 transition flex items-center gap-1">Tümünü Gör <i class="fas fa-arrow-right text-[10px]"></i></a>
             </div>
-            <div id="ig-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-                <!-- JS tarafından doldurulur -->
-                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
-                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
-                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
-                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
-                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
-                <div class="aspect-square rounded-xl bg-cardbg border border-gray-800 animate-pulse"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="minigame" class="py-20 px-4 max-w-5xl mx-auto border-t border-gray-800 flex flex-col items-center text-center">
-        
-        <div class="md:hidden w-full flex flex-col items-center">
-            <h2 class="text-2xl font-bold text-white mb-2"><i class="fas fa-fingerprint text-neon mr-2"></i>Siber Refleks</h2>
-            <p class="text-gray-400 mb-6 text-sm">Neon veri paketleri kaybolmadan onlara dokunarak yeteneklerini göster.</p>
-            
-            <div class="bg-[#090b0f] p-4 rounded-2xl border border-gray-700/50 terminal-glow w-full max-w-[400px]">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="text-left">
-                        <span class="text-gray-500 font-mono text-xs block">SKOR</span>
-                        <span id="m-score" class="text-neon font-bold text-xl font-mono">0</span>
-                    </div>
-                    <button id="m-start-btn" class="px-4 py-2 bg-neon/10 hover:bg-neon text-neon hover:text-darkbg border border-neon/30 hover:border-neon transition-all rounded-lg font-bold text-xs">
-                        BAŞLA
-                    </button>
-                </div>
-                
-                <div class="relative w-full aspect-square bg-black border border-gray-800 rounded-lg shadow-[0_0_20px_rgba(88,166,255,0.05)] overflow-hidden">
-                    <canvas id="mobile-game-canvas" class="w-full h-full block touch-none"></canvas>
-                    <div id="m-game-over" class="absolute inset-0 bg-red-900/90 flex items-center justify-center flex-col hidden backdrop-blur-sm z-20">
-                        <h3 class="text-white font-mono font-bold text-2xl mb-1">BAĞLANTI KOPTU!</h3>
-                        <p class="text-red-200 font-mono text-sm mb-4">Paketi kaçırdın.</p>
-                        <button id="m-restart-btn" class="px-4 py-2 bg-black text-red-500 border border-red-500 font-bold font-mono text-sm rounded transition">Tekrar Dene</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="hidden md:flex w-full flex-col items-center">
-            <h2 class="text-3xl font-bold text-white mb-2"><i class="fas fa-terminal text-neon mr-3"></i>Terminal Code Breaker</h2>
-            <p class="text-gray-400 mb-8 max-w-lg">Kelimeler sistemi çökertmeden önce klavyeyle onları yaz ve imha et.</p>
-            
-            <div class="bg-[#090b0f] p-6 rounded-2xl border border-gray-700/50 terminal-glow w-full max-w-[600px]">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="text-left">
-                        <span class="text-gray-500 font-mono text-sm block">SKOR</span>
-                        <span id="score" class="text-neon font-bold text-2xl font-mono">0</span>
-                    </div>
-                    <button id="start-btn" class="px-6 py-2 bg-neon/10 hover:bg-neon text-neon hover:text-darkbg border border-neon/30 hover:border-neon transition-all rounded-lg font-bold">
-                        SİSTEMİ BAŞLAT
-                    </button>
-                </div>
-                
-                <div class="relative w-full aspect-[4/3] bg-black border border-gray-800 rounded-lg shadow-[0_0_20px_rgba(88,166,255,0.05)] overflow-hidden">
-                    <canvas id="game-canvas" class="w-full h-full block"></canvas>
-                    <div id="game-over" class="absolute inset-0 bg-red-900/90 flex items-center justify-center flex-col hidden backdrop-blur-sm z-20">
-                        <h3 class="text-white font-mono font-bold text-3xl mb-2">SİSTEM ÇÖKTÜ!</h3>
-                        <p class="text-red-200 font-mono mb-4">Yeterince hızlı değilsin.</p>
-                        <button id="restart-btn" class="px-6 py-2 bg-black text-red-500 border border-red-500 font-bold font-mono rounded hover:bg-red-500 hover:text-black transition">Yeniden Bağlan</button>
-                    </div>
-                </div>
-            </div>
+            <div id="ig-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4"></div>
         </div>
     </section>
 
     <section id="activity" class="py-20 px-4 max-w-5xl mx-auto border-t border-gray-800">
         <h2 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-satellite-dish text-neon mr-3"></i>Canlı Aktivite</h2>
-        <p class="text-gray-400 mb-10 text-sm md:text-base">Anlık aktivite bilgilerim.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-
-            <!-- Spotify Kartı -->
-            <div id="spotify-card" class="bg-cardbg border border-gray-800 hover:border-green-500/50 rounded-xl p-5 md:p-6 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
+        <p class="text-gray-400 mb-10 text-sm md:text-base">Anlık aktivite ve oyuncu profillerim.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div id="spotify-card" class="bg-cardbg border border-gray-800 hover:border-green-500/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
                 <div id="spotify-content" class="flex flex-col items-center gap-3 text-gray-600 text-center w-full">
-                    <i class="fab fa-spotify text-4xl"></i>
-                    <p class="text-sm font-medium">Yükleniyor...</p>
+                    <i class="fab fa-spotify text-4xl"></i><p class="text-sm font-medium">Yükleniyor...</p>
                 </div>
             </div>
 
-            <!-- VS Code Kartı -->
-            <div id="vscode-card" class="bg-cardbg border border-gray-800 hover:border-blue-500/50 rounded-xl p-5 md:p-6 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
+            <div id="vscode-card" class="bg-cardbg border border-gray-800 hover:border-blue-500/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
                 <div id="vscode-content" class="flex flex-col items-center gap-3 text-gray-600 text-center w-full">
-                    <i class="fas fa-code text-4xl"></i>
-                    <p class="text-sm font-medium">Yükleniyor...</p>
+                    <i class="fas fa-code text-4xl"></i><p class="text-sm font-medium">Yükleniyor...</p>
                 </div>
             </div>
 
+            <a href="https://steamcommunity.com/id/burakpekel/" target="_blank" class="bg-cardbg border border-gray-800 hover:border-[#66c0f4]/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center cursor-pointer">
+                <div class="flex items-center gap-1.5 mb-3">
+                    <i class="fab fa-steam text-[#66c0f4] text-xs group-hover:animate-pulse"></i>
+                    <span class="text-[#66c0f4] text-xs font-semibold uppercase tracking-wider">Steam</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://avatars.fastly.steamstatic.com/6699308c9128ee16df2523235ee7d01ddbfb7b63_full.jpg" alt="Steam Avatar" class="w-12 h-12 rounded-lg border border-[#66c0f4]/30 group-hover:border-[#66c0f4] transition-colors object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white font-bold text-sm truncate">Kingpin</p>
+                        <p class="text-gray-400 text-xs truncate mt-0.5">PC Oyuncusu</p>
+                        <p class="text-[#66c0f4]/80 text-[10px] font-mono mt-2 border border-[#66c0f4]/20 bg-[#66c0f4]/10 inline-block px-2 py-0.5 rounded">Profili Gör</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" class="bg-cardbg border border-gray-800 hover:border-[#107C10]/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center cursor-pointer">
+                <div class="flex items-center gap-1.5 mb-3">
+                    <i class="fab fa-xbox text-[#107C10] text-xs group-hover:animate-pulse"></i>
+                    <span class="text-[#107C10] text-xs font-semibold uppercase tracking-wider">Xbox Live</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative flex-shrink-0">
+                        <div class="w-12 h-12 bg-[#107C10]/10 rounded-full border border-[#107C10]/30 group-hover:border-[#107C10] transition-colors flex items-center justify-center">
+                            <i class="fab fa-xbox text-2xl text-[#107C10]"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white font-bold text-sm truncate">Kingpin7841</p>
+                        <p class="text-gray-400 text-xs truncate mt-0.5">Konsol & PC</p>
+                        <p class="text-[#107C10]/80 text-[10px] font-mono mt-2 border border-[#107C10]/20 bg-[#107C10]/10 inline-block px-2 py-0.5 rounded transition group-hover:bg-[#107C10]/20">Profili Gör</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="mt-8 bg-[#0d1117] border border-gray-800 hover:border-[#66c0f4]/50 rounded-xl overflow-hidden transition-all duration-500 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#66c0f4]/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#66c0f4]/10 transition-all duration-700"></div>
+            <div class="relative z-10 bg-gradient-to-r from-[#161b22] to-[#0d1117] px-6 py-4 border-b border-gray-800/80 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-[#66c0f4]/10 flex items-center justify-center border border-[#66c0f4]/20">
+                        <i class="fab fa-steam text-[#66c0f4] text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-bold text-sm tracking-widest uppercase block">Kişisel Oyun Vitrini</span>
+                        <span class="text-gray-500 text-[10px] font-mono">ID: KINGPIN • OYUNCU PROFİLİ</span>
+                    </div>
+                </div>
+                <a href="https://steamcommunity.com/id/burakpekel/" target="_blank" class="text-xs text-[#66c0f4] hover:text-white transition font-mono border border-[#66c0f4]/30 hover:bg-[#66c0f4]/10 px-4 py-2 rounded-lg flex items-center gap-2">
+                    <i class="fas fa-external-link-alt"></i> PROFİLE GİT
+                </a>
+            </div>
+            
+            <div class="relative z-10 p-6 md:p-8 flex flex-col gap-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
+                        <div class="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-[#66c0f4] to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
+                        <i class="fas fa-gamepad text-gray-600 group-hover/stat:text-[#66c0f4] text-xl mb-2 transition-colors"></i>
+                        <span class="text-2xl font-black text-white mb-1">30</span>
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Oynanan Oyun</span>
+                    </div>
+                    <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
+                        <div class="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
+                        <i class="fas fa-stopwatch text-gray-600 group-hover/stat:text-purple-500 text-xl mb-2 transition-colors"></i>
+                        <span class="text-2xl font-black text-white mb-1">206</span>
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Oyun Oturumu</span>
+                    </div>
+                    <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
+                        <div class="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
+                        <i class="fas fa-trophy text-gray-600 group-hover/stat:text-yellow-500 text-xl mb-2 transition-colors"></i>
+                        <span class="text-2xl font-black text-yellow-500 mb-1 drop-shadow-[0_0_8px_rgba(234,179,8,0.5)]">6.533</span>
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Kazanılan Başarım</span>
+                    </div>
+                    <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
+                        <div class="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
+                        <i class="fas fa-plus-circle text-gray-600 group-hover/stat:text-green-500 text-xl mb-2 transition-colors"></i>
+                        <span class="text-2xl font-black text-white mb-1">15</span>
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Yeni Keşif</span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-1.5 h-4 bg-[#66c0f4] rounded-full"></div>
+                        <h3 class="text-white text-sm font-bold uppercase tracking-wider">Kütüphane Özetim</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="group/game relative aspect-[3/4] rounded-lg overflow-hidden border border-gray-800 hover:border-[#00ff9f] transition-all cursor-pointer bg-[#161b22]">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg" alt="Cyberpunk 2077" class="w-full h-full object-cover opacity-70 group-hover/game:opacity-100 group-hover/game:scale-105 transition-all duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-4 w-full transform translate-y-2 group-hover/game:translate-y-0 transition-transform">
+                                <h4 class="text-white font-bold text-sm truncate mb-1">Cyberpunk 2077</h4>
+                                <div class="w-full bg-gray-800 rounded-full h-1">
+                                    <div class="bg-[#00ff9f] h-full rounded-full shadow-[0_0_8px_rgba(0,255,159,0.8)]" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group/game relative aspect-[3/4] rounded-lg overflow-hidden border border-gray-800 hover:border-orange-500 transition-all cursor-pointer bg-[#161b22]">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_600x900.jpg" alt="ARC Raiders" class="w-full h-full object-cover opacity-70 group-hover/game:opacity-100 group-hover/game:scale-105 transition-all duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-4 w-full transform translate-y-2 group-hover/game:translate-y-0 transition-transform">
+                                <h4 class="text-white font-bold text-sm truncate mb-1">ARC Raiders</h4>
+                                <div class="w-full bg-gray-800 rounded-full h-1">
+                                    <div class="bg-orange-500 h-full rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group/game relative aspect-[3/4] rounded-lg overflow-hidden border border-gray-800 hover:border-yellow-500 transition-all cursor-pointer bg-[#161b22] hidden md:block">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_600x900.jpg" alt="Dying Light" class="w-full h-full object-cover opacity-70 group-hover/game:opacity-100 group-hover/game:scale-105 transition-all duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-4 w-full transform translate-y-2 group-hover/game:translate-y-0 transition-transform">
+                                <h4 class="text-white font-bold text-sm truncate mb-1">Dying Light</h4>
+                                <div class="w-full bg-gray-800 rounded-full h-1">
+                                    <div class="bg-yellow-500 h-full rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group/game relative aspect-[3/4] rounded-lg overflow-hidden border border-gray-800 hover:border-purple-500 transition-all cursor-pointer bg-[#161b22] hidden md:block">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg" alt="Split Fiction" class="w-full h-full object-cover opacity-70 group-hover/game:opacity-100 group-hover/game:scale-105 transition-all duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-4 w-full transform translate-y-2 group-hover/game:translate-y-0 transition-transform z-10">
+                                <h4 class="text-white font-bold text-sm truncate mb-1">Split Fiction</h4>
+                                <div class="w-full bg-gray-800 rounded-full h-1">
+                                    <div class="bg-purple-500 h-full rounded-full" style="width: 55%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-1.5 h-4 bg-yellow-500 rounded-full"></div>
+                        <h3 class="text-white text-sm font-bold uppercase tracking-wider">Koleksiyon Başarımları</h3>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-1.5 md:gap-2">
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - K!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/ff473e4edb88865aa2204ca5cbb3b8430ed469c1.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - I!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/0fa9f59cef98ed26a2830ba1bd303955c5ad61b1.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - N!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/4cf7bf4cb63dae3a678b7884c23957728f78367d.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - G!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/ae55ecb37205f05eb4a5dcdb8c03e721df5cbfb8.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - P!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/2624a2514dd83bc2412c57fea4431e678f9128be.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - I!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/0fa9f59cef98ed26a2830ba1bd303955c5ad61b1.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - N!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/4cf7bf4cb63dae3a678b7884c23957728f78367d.jpg" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="w-1.5 h-8 sm:h-10"></div> 
+                        
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - O!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/b6f9183c35c6e75641994d91f23518b714166ab9.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - N!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/6848899b96700a6dccb129191b4b03d7d4a1b217.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - -!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/274f87c76648d4a5c3f36a229d3a104947b7ec2c.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - T!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/f386305a0ae748d9d48e8e8c68fa90072116c46b.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - O!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/b6f9183c35c6e75641994d91f23518b714166ab9.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - P!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/e47271f28eda7f9d02214c316a8ef7b020985dc0.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="group/ach relative w-8 h-8 sm:w-10 sm:h-10 bg-[#161b22] border border-gray-700 hover:border-yellow-400 rounded overflow-hidden transition-all hover:scale-110 shadow-lg cursor-help" title="Zup! S - 🌟!">
+                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/d0294a5412e445c6c974d3dec4aab6e106c26648.jpg" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="ml-auto mt-2 sm:mt-0 flex items-center bg-[#161b22] border border-gray-800 rounded-full pr-1 pl-4 py-1">
+                            <div class="text-right mr-3 hidden lg:block">
+                                <div class="text-[#66c0f4] text-[10px] font-bold uppercase tracking-widest">Steam Level</div>
+                                <div class="text-gray-500 text-[10px] font-mono">Eris Was Here</div>
+                            </div>
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-[#66c0f4] bg-[#0d1117] flex items-center justify-center shadow-[0_0_10px_rgba(102,192,244,0.3)] relative">
+                                <span class="text-white font-black text-sm z-10">24</span>
+                                <div class="absolute inset-0 rounded-full border border-[#66c0f4]/30 animate-ping"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -246,17 +407,16 @@
         <div class="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div class="text-center md:text-left">
                 <h2 class="text-3xl font-bold text-white mb-6">Bağlantıda Kalalım</h2>
-                <p class="text-gray-400 mb-8 max-w-sm mx-auto md:mx-0">Projelerim hakkında konuşmak, işbirliği yapmak veya sadece selam vermek için bana ulaşabilirsin.</p>
+                <p class="text-gray-400 mb-8 max-w-sm mx-auto md:mx-0">Projelerim hakkında konuşmak veya işbirliği yapmak için bana ulaşabilirsin.</p>
                 <div class="flex justify-center md:justify-start space-x-6 mb-8">
-                    <a href="https://discord.com/users/Kingpindev" target="_blank" class="text-gray-400 hover:text-discord text-2xl transition transform hover:scale-110"><i class="fab fa-discord"></i></a>
-                    <a href="https://github.com/kingpin1dev" target="_blank" class="text-gray-400 hover:text-white text-2xl transition transform hover:scale-110"><i class="fab fa-github"></i></a>
-                    <a href="https://www.instagram.com/burakpekeel/" target="_blank" class="text-gray-400 hover:text-pink-500 text-2xl transition transform hover:scale-110"><i class="fas fa-user-circle"></i></a>
-                    <a href="https://www.instagram.com/sineorbit/" target="_blank" class="text-gray-400 hover:text-purple-500 text-2xl transition transform hover:scale-110"><i class="fas fa-film"></i></a>
+                    <a href="https://discord.com/users/Kingpindev" target="_blank" class="text-gray-400 hover:text-discord text-2xl transition"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/kingpin1dev" target="_blank" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/burakpekeel/" target="_blank" class="text-gray-400 hover:text-pink-500 text-2xl transition"><i class="fas fa-user-circle"></i></a>
+                    <a href="https://www.instagram.com/sineorbit/" target="_blank" class="text-gray-400 hover:text-purple-500 text-2xl transition"><i class="fas fa-film"></i></a>
                 </div>
             </div>
 
-            <div class="bg-cardbg border border-gray-800 rounded-xl p-6 flex flex-col items-center justify-center relative overflow-hidden group">
-                <div class="absolute inset-0 bg-discord/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
+            <div class="bg-cardbg border border-gray-800 rounded-xl p-6 flex flex-col items-center justify-center relative group">
                 <h3 class="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wider w-full text-center md:text-left">Canlı Discord Durumu</h3>
                 <div class="flex flex-col sm:flex-row items-center gap-4 w-full">
                     <div class="relative">
@@ -265,7 +425,7 @@
                     </div>
                     <div class="flex-1 text-center sm:text-left">
                         <h4 class="text-lg font-bold text-white">Kingpindev</h4>
-                        <p id="discord-status-text" class="text-sm text-gray-400">Durum yükleniyor...</p>
+                        <p id="discord-status-text" class="text-sm text-gray-400">Yükleniyor...</p>
                     </div>
                 </div>
                 <div id="discord-activity" class="mt-4 w-full bg-black/40 rounded-lg p-3 text-sm text-gray-300 hidden border border-gray-800 text-center sm:text-left"></div>
@@ -276,34 +436,25 @@
         </div>
     </footer>
 
+    <button id="backToTopBtn" class="fixed bottom-6 right-6 bg-cardbg/80 backdrop-blur-md text-neon border border-neon/30 hover:border-neon hover:bg-neon hover:text-darkbg w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(88,166,255,0.15)] transition-all duration-300 opacity-0 pointer-events-none translate-y-4 z-50">
+        <i class="fas fa-arrow-up text-lg"></i>
+    </button>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
     <script>
-        /* 1. Arka Plan Etkileşimi */
-        particlesJS("particles-js", {
-            "particles": { "number": { "value": 40 }, "color": { "value": "#58a6ff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.2 }, "size": { "value": 3 }, "line_linked": { "enable": true, "distance": 150, "color": "#58a6ff", "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } },
-            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } } },
-            "retina_detect": true
-        });
+        particlesJS("particles-js", {"particles": { "number": { "value": 40 }, "color": { "value": "#58a6ff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.2 }, "size": { "value": 3 }, "line_linked": { "enable": true, "distance": 150, "color": "#58a6ff", "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } },"interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } } }});
 
-        /* 2. Smooth Scroll & ScrollSpy */
         const sections = document.querySelectorAll("section, footer");
         const navLinks = document.querySelectorAll(".nav-link");
 
         window.addEventListener("scroll", () => {
             let current = "";
-            sections.forEach((section) => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) {
-                    current = section.getAttribute("id");
-                }
-            });
-            navLinks.forEach((link) => {
-                link.classList.remove("active");
-                if (link.getAttribute("href").includes(current)) {
-                    link.classList.add("active");
-                }
-            });
+            sections.forEach((section) => { if (pageYOffset >= section.offsetTop - 150) current = section.getAttribute("id"); });
+            navLinks.forEach((link) => { link.classList.remove("active"); if (link.getAttribute("href").includes(current)) link.classList.add("active"); });
+            
+            const backToTopBtn = document.getElementById("backToTopBtn");
+            if (window.scrollY > 300) { backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-4"); backToTopBtn.classList.add("opacity-100", "translate-y-0"); } 
+            else { backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-4"); backToTopBtn.classList.remove("opacity-100", "translate-y-0"); }
         });
 
         document.querySelectorAll('.scroll-link').forEach(anchor => {
@@ -314,7 +465,8 @@
             });
         });
 
-        /* 3. GitHub API */
+        document.getElementById("backToTopBtn").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
         async function fetchGitHubProjects() {
             try {
                 const res = await fetch(`https://api.github.com/users/kingpin1dev/repos?per_page=100`);
@@ -327,21 +479,11 @@
                     if(repo.language === 'C#') icon = 'fab fa-windows text-blue-400';
                     if(repo.language === 'Python') icon = 'fab fa-python text-yellow-400';
                     if(repo.language === 'JavaScript') icon = 'fab fa-js text-yellow-300';
-                    container.innerHTML += `
-                        <div class="bg-cardbg border border-gray-800 rounded-xl p-6 hover:border-neon transition group flex flex-col h-full">
-                            <div class="flex justify-between items-start mb-4">
-                                <i class="${icon} text-3xl opacity-70 group-hover:opacity-100 transition"></i>
-                                <div class="flex space-x-4"><span class="text-gray-400 text-sm"><i class="fas fa-star text-yellow-500 mr-1"></i>${repo.stargazers_count}</span><a href="${repo.html_url}" target="_blank" class="text-gray-400 hover:text-white"><i class="fas fa-external-link-alt"></i></a></div>
-                            </div>
-                            <h3 class="text-xl font-bold text-white mb-2 break-words">${repo.name}</h3>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">${repo.description || ''}</p>
-                            <span class="text-xs font-mono text-neon bg-neon/10 px-2 py-1 rounded w-max">${repo.language || 'Markdown'}</span>
-                        </div>`;
+                    container.innerHTML += `<div class="bg-cardbg border border-gray-800 rounded-xl p-6 hover:border-neon transition group flex flex-col h-full"><div class="flex justify-between items-start mb-4"><i class="${icon} text-3xl opacity-70 group-hover:opacity-100 transition"></i><div class="flex space-x-4"><span class="text-gray-400 text-sm"><i class="fas fa-star text-yellow-500 mr-1"></i>${repo.stargazers_count}</span><a href="${repo.html_url}" target="_blank" class="text-gray-400 hover:text-white"><i class="fas fa-external-link-alt"></i></a></div></div><h3 class="text-xl font-bold text-white mb-2 break-words">${repo.name}</h3><p class="text-sm text-gray-400 mb-4 flex-grow">${repo.description || ''}</p><span class="text-xs font-mono text-neon bg-neon/10 px-2 py-1 rounded w-max">${repo.language || 'Markdown'}</span></div>`;
                 });
             } catch (e) {}
         }
 
-        /* 4. Discord Lanyard */
         async function fetchDiscordStatus() {
             try {
                 const res = await fetch(`https://api.lanyard.rest/v1/users/349640233651798027`);
@@ -364,337 +506,126 @@
                         else act.innerHTML = `<i class="fas fa-gamepad text-neon mr-2"></i> <b>${d.activities[0].name}</b>`;
                     } else act.classList.add('hidden');
 
-                    // --- Spotify Kartı ---
                     const spContent = document.getElementById('spotify-content');
                     const spCard = document.getElementById('spotify-card');
                     if (spContent && spCard) {
                         if (d.spotify) {
-                            const sp = d.spotify;
-                            const now = Date.now();
-                            const totalDur = sp.timestamps.end - sp.timestamps.start;
-                            const elapsed = now - sp.timestamps.start;
-                            const pct = Math.min(100, Math.max(0, (elapsed / totalDur) * 100)).toFixed(1);
-                            const remaining = Math.max(0, sp.timestamps.end - now);
-                            spCard.classList.add('border-green-500/30');
-                            spCard.classList.remove('border-gray-800');
+                            const sp = d.spotify; const now = Date.now(); const totalDur = sp.timestamps.end - sp.timestamps.start; const elapsed = now - sp.timestamps.start; const pct = Math.min(100, Math.max(0, (elapsed / totalDur) * 100)).toFixed(1); const remaining = Math.max(0, sp.timestamps.end - now);
+                            spCard.classList.add('border-green-500/30'); spCard.classList.remove('border-gray-800');
                             spContent.className = 'w-full';
-                            spContent.innerHTML = `
-                                <div class="flex items-center gap-1.5 mb-3">
-                                    <i class="fab fa-spotify text-green-500 text-xs"></i>
-                                    <span class="text-green-500 text-xs font-semibold uppercase tracking-wider">Şu An Dinliyor</span>
-                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full ml-1 animate-pulse"></span>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <img src="${sp.album_art_url}" alt="Albüm" class="w-14 h-14 rounded-lg shadow-lg flex-shrink-0 object-cover">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-white font-bold text-sm truncate">${sp.song}</p>
-                                        <p class="text-gray-300 text-xs truncate mt-0.5">${sp.artist}</p>
-                                        <p class="text-gray-500 text-xs truncate">${sp.album}</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <div class="w-full bg-gray-700/50 rounded-full h-1 overflow-hidden">
-                                        <div id="spotify-progress-bar" class="bg-green-500 h-1 rounded-full" style="width:${pct}%;"></div>
-                                    </div>
-                                </div>`;
-                            setTimeout(() => {
-                                const bar = document.getElementById('spotify-progress-bar');
-                                if (bar) { bar.style.transition = `width ${remaining}ms linear`; bar.style.width = '100%'; }
-                            }, 50);
+                            spContent.innerHTML = `<div class="flex items-center gap-1.5 mb-3"><i class="fab fa-spotify text-green-500 text-xs"></i><span class="text-green-500 text-xs font-semibold uppercase tracking-wider">Şu An Dinliyor</span><span class="w-1.5 h-1.5 bg-green-500 rounded-full ml-1 animate-pulse"></span></div><div class="flex items-center gap-4"><img src="${sp.album_art_url}" alt="Albüm" class="w-12 h-12 rounded-lg shadow-lg flex-shrink-0 object-cover"><div class="flex-1 min-w-0"><p class="text-white font-bold text-sm truncate">${sp.song}</p><p class="text-gray-300 text-xs truncate mt-0.5">${sp.artist}</p></div></div><div class="mt-4"><div class="w-full bg-gray-700/50 rounded-full h-1 overflow-hidden"><div id="spotify-progress-bar" class="bg-green-500 h-1 rounded-full" style="width:${pct}%;"></div></div></div>`;
+                            setTimeout(() => { const bar = document.getElementById('spotify-progress-bar'); if (bar) { bar.style.transition = `width ${remaining}ms linear`; bar.style.width = '100%'; } }, 50);
                         } else {
-                            spCard.classList.remove('border-green-500/30');
-                            spCard.classList.add('border-gray-800');
-                            spContent.className = 'flex flex-col items-center gap-3 text-gray-600 text-center w-full';
-                            spContent.innerHTML = `<i class="fab fa-spotify text-4xl"></i><div><p class="text-sm font-medium text-gray-500">Spotify Kapalı</p><p class="text-xs text-gray-600 mt-1">Şu an bir şey dinlenmiyor.</p></div>`;
+                            spCard.classList.remove('border-green-500/30'); spCard.classList.add('border-gray-800'); spContent.className = 'flex flex-col items-center gap-3 text-gray-600 text-center w-full'; spContent.innerHTML = `<i class="fab fa-spotify text-4xl"></i><div><p class="text-sm font-medium text-gray-500">Spotify Kapalı</p></div>`;
                         }
                     }
 
-                    // --- VS Code Kartı ---
                     const vsContent = document.getElementById('vscode-content');
                     const vsCard = document.getElementById('vscode-card');
                     if (vsContent && vsCard) {
                         const vsAct = d.activities && d.activities.find(a => a.name === 'Visual Studio Code');
                         if (vsAct) {
-                            const details = vsAct.details || 'Dosya düzenleniyor';
-                            const state = vsAct.state || '';
-                            const lang = vsAct.assets && vsAct.assets.large_text ? vsAct.assets.large_text : '';
-                            vsCard.classList.add('border-blue-500/30');
-                            vsCard.classList.remove('border-gray-800');
-                            vsContent.className = 'w-full';
-                            vsContent.innerHTML = `
-                                <div class="flex items-center gap-1.5 mb-3">
-                                    <i class="fas fa-code text-blue-400 text-xs"></i>
-                                    <span class="text-blue-400 text-xs font-semibold uppercase tracking-wider">Şu An Kodluyor</span>
-                                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full ml-1 animate-pulse"></span>
-                                </div>
-                                <div class="flex items-start gap-4">
-                                    <div class="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-file-code text-blue-400 text-2xl"></i>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-white font-bold text-sm truncate">${details}</p>
-                                        ${state ? `<p class="text-gray-400 text-xs truncate mt-0.5">${state}</p>` : ''}
-                                        ${lang ? `<span class="inline-block mt-2 text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">${lang}</span>` : ''}
-                                    </div>
-                                </div>`;
+                            const details = vsAct.details || 'Dosya düzenleniyor'; const state = vsAct.state || ''; const lang = vsAct.assets && vsAct.assets.large_text ? vsAct.assets.large_text : '';
+                            vsCard.classList.add('border-blue-500/30'); vsCard.classList.remove('border-gray-800'); vsContent.className = 'w-full';
+                            vsContent.innerHTML = `<div class="flex items-center gap-1.5 mb-3"><i class="fas fa-code text-blue-400 text-xs"></i><span class="text-blue-400 text-xs font-semibold uppercase tracking-wider">Şu An Kodluyor</span><span class="w-1.5 h-1.5 bg-blue-400 rounded-full ml-1 animate-pulse"></span></div><div class="flex items-start gap-4"><div class="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-file-code text-blue-400 text-xl"></i></div><div class="flex-1 min-w-0"><p class="text-white font-bold text-sm truncate">${details}</p>${state ? `<p class="text-gray-400 text-xs truncate mt-0.5">${state}</p>` : ''}</div></div>`;
                         } else {
-                            vsCard.classList.remove('border-blue-500/30');
-                            vsCard.classList.add('border-gray-800');
-                            vsContent.className = 'flex flex-col items-center gap-3 text-gray-600 text-center w-full';
-                            vsContent.innerHTML = `<i class="fas fa-code text-4xl"></i><div><p class="text-sm font-medium text-gray-500">VS Code Kapalı</p><p class="text-xs text-gray-600 mt-1">Şu an aktif bir proje yok.</p></div>`;
+                            vsCard.classList.remove('border-blue-500/30'); vsCard.classList.add('border-gray-800'); vsContent.className = 'flex flex-col items-center gap-3 text-gray-600 text-center w-full'; vsContent.innerHTML = `<i class="fas fa-code text-4xl"></i><div><p class="text-sm font-medium text-gray-500">VS Code Kapalı</p></div>`;
                         }
                     }
                 }
             } catch (e) {}
         }
 
-        /* =======================================
-           5. MASAÜSTÜ OYUNU (Terminal Code Breaker) 
-           ======================================= */
-        const canvas = document.getElementById('game-canvas');
-        if(canvas) { 
-            const ctx = canvas.getContext('2d');
-            function resizeCanvas() {
-                const rect = canvas.parentElement.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            const dict = ['csharp', 'python', 'javascript', 'tailwind', 'discord', 'render', 'timeline', 'keyframe', 'opacity', 'neofetch', 'sudo', 'commit', 'push', 'merge', 'async', 'await', 'transition', 'export', 'import'];
-            let words = []; let score = 0; let isPlaying = false; let currentInput = ''; let animationId; let spawnInterval;
-            let baseSpeed = 0.3; let spawnRate = 3000; 
-
-            const scoreEl = document.getElementById('score');
-            const startBtn = document.getElementById('start-btn');
-            const restartBtn = document.getElementById('restart-btn');
-            const gameOverScreen = document.getElementById('game-over');
-
-            function spawnWord() {
-                const text = dict[Math.floor(Math.random() * dict.length)];
-                const x = Math.random() * (canvas.width - 120) + 20; 
-                words.push({ text: text, x: x, y: -20 });
-            }
-
-            function initGame() {
-                words = []; score = 0; baseSpeed = 0.3; spawnRate = 3000; currentInput = ''; scoreEl.innerText = score; isPlaying = true;
-                gameOverScreen.classList.add('hidden');
-                startBtn.innerText = "SİSTEM DEVREDE"; startBtn.classList.replace('text-neon', 'text-gray-400'); startBtn.disabled = true;
-                if (spawnInterval) clearInterval(spawnInterval);
-                spawnInterval = setInterval(spawnWord, spawnRate);
-                cancelAnimationFrame(animationId); gameLoop();
-            }
-
-            function gameOver() {
-                isPlaying = false; clearInterval(spawnInterval); cancelAnimationFrame(animationId);
-                gameOverScreen.classList.remove('hidden'); startBtn.innerText = "SİSTEMİ BAŞLAT"; startBtn.classList.replace('text-gray-400', 'text-neon'); startBtn.disabled = false;
-            }
-
-            function gameLoop() {
-                if (!isPlaying) return;
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#161b22'; ctx.fillRect(0, canvas.height - 40, canvas.width, 40);
-                ctx.fillStyle = '#58a6ff'; ctx.font = 'bold 20px "Fira Code", monospace'; ctx.textAlign = 'center'; ctx.fillText("> " + currentInput + "_", canvas.width / 2, canvas.height - 15);
-                ctx.font = '16px "Fira Code", monospace'; ctx.textAlign = 'left';
-                
-                for (let i = 0; i < words.length; i++) {
-                    let w = words[i]; w.y += baseSpeed;
-                    if (currentInput.length > 0 && w.text.startsWith(currentInput)) {
-                        ctx.fillStyle = '#3ba55c'; ctx.fillText(currentInput, w.x, w.y); ctx.fillStyle = '#8b949e'; ctx.fillText(w.text.substring(currentInput.length), w.x + ctx.measureText(currentInput).width, w.y);
-                    } else { ctx.fillStyle = '#c9d1d9'; ctx.fillText(w.text, w.x, w.y); }
-                    if (w.y > canvas.height - 40) { gameOver(); return; }
-                }
-                animationId = requestAnimationFrame(gameLoop);
-            }
-
-            window.addEventListener('keydown', (e) => {
-                if (!isPlaying || window.innerWidth < 768) return; // Sadece masaüstünde çalışsın
-                if (e.key === ' ' || e.key === 'Backspace') e.preventDefault();
-                if (e.key === 'Backspace') currentInput = currentInput.slice(0, -1);
-                else if (e.key === 'Escape' || e.key === ' ') currentInput = '';
-                else if (e.key.length === 1 && e.key.match(/[a-zA-Z0-9-]/)) currentInput += e.key.toLowerCase();
-
-                let hitIndex = words.findIndex(w => w.text === currentInput);
-                if (hitIndex !== -1) {
-                    words.splice(hitIndex, 1); currentInput = ''; score += 10; scoreEl.innerText = score;
-                    baseSpeed += 0.02; 
-                    if (spawnRate > 800) { spawnRate -= 30; clearInterval(spawnInterval); spawnInterval = setInterval(spawnWord, spawnRate); }
-                    spawnWord();
-                }
-            });
-
-            if(startBtn) startBtn.addEventListener('click', initGame);
-            if(restartBtn) restartBtn.addEventListener('click', initGame);
-
-            setTimeout(() => {
-                ctx.fillStyle = '#0d1117'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#58a6ff'; ctx.font = '20px "Fira Code"'; ctx.textAlign = 'center'; ctx.fillText("Klavyeni hazırla.", canvas.width/2, canvas.height/2 - 15); ctx.fillStyle = '#8b949e'; ctx.font = '14px "Fira Code"'; ctx.fillText("Hata yaparsan ESC veya Boşluk ile silebilirsin.", canvas.width/2, canvas.height/2 + 15);
-            }, 500);
-        }
-
-        /* =======================================
-           6. MOBİL OYUNU (Siber Refleks - Dokunmatik) 
-           ======================================= */
-        const mCanvas = document.getElementById('mobile-game-canvas');
-        if (mCanvas) {
-            const mCtx = mCanvas.getContext('2d');
-            let mScore = 0; let mIsPlaying = false; let mNodes = []; let mAnimationId; let mSpawnInterval; let mSpawnRate = 1200;
-
-            function resizeMobileCanvas() {
-                const rect = mCanvas.parentElement.getBoundingClientRect();
-                mCanvas.width = rect.width; mCanvas.height = rect.width; // Kare oran
-            }
-            window.addEventListener('resize', resizeMobileCanvas);
-            resizeMobileCanvas();
-
-            const mScoreEl = document.getElementById('m-score');
-            const mStartBtn = document.getElementById('m-start-btn');
-            const mRestartBtn = document.getElementById('m-restart-btn');
-            const mGameOverScreen = document.getElementById('m-game-over');
-
-            function spawnNode() {
-                const r = 30; // Node boyutu
-                const x = Math.random() * (mCanvas.width - r * 2) + r;
-                const y = Math.random() * (mCanvas.height - r * 2) + r;
-                // expanding: büyüyor mu, life: küçülme ve yok olma süresi
-                mNodes.push({ x: x, y: y, r: 0, maxR: r, expanding: true, life: 100 });
-            }
-
-            function mInitGame() {
-                mNodes = []; mScore = 0; mSpawnRate = 1200; mScoreEl.innerText = mScore; mIsPlaying = true;
-                mGameOverScreen.classList.add('hidden');
-                mStartBtn.innerText = "DEVREDE"; mStartBtn.classList.replace('text-neon', 'text-gray-400'); mStartBtn.disabled = true;
-                
-                if (mSpawnInterval) clearInterval(mSpawnInterval);
-                mSpawnInterval = setInterval(spawnNode, mSpawnRate);
-                cancelAnimationFrame(mAnimationId); mGameLoop();
-            }
-
-            function mGameOver() {
-                mIsPlaying = false; clearInterval(mSpawnInterval); cancelAnimationFrame(mAnimationId);
-                mGameOverScreen.classList.remove('hidden');
-                mStartBtn.innerText = "BAŞLA"; mStartBtn.classList.replace('text-gray-400', 'text-neon'); mStartBtn.disabled = false;
-            }
-
-            function mGameLoop() {
-                if (!mIsPlaying) return;
-                
-                // Hafif saydam arkaplan (hareket izi)
-                mCtx.fillStyle = 'rgba(0, 0, 0, 0.4)'; 
-                mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-
-                for (let i = mNodes.length - 1; i >= 0; i--) {
-                    let n = mNodes[i];
-                    
-                    mCtx.beginPath();
-                    mCtx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-                    mCtx.fillStyle = '#58a6ff';
-                    mCtx.shadowBlur = 15;
-                    mCtx.shadowColor = '#58a6ff';
-                    mCtx.fill();
-                    mCtx.shadowBlur = 0; // Sıfırla
-
-                    if (n.expanding) {
-                        n.r += 2; // Büyüme hızı
-                        if (n.r >= n.maxR) n.expanding = false;
-                    } else {
-                        n.life -= 1.5; // Küçülme / zaman aşımı hızı
-                        n.r = n.maxR * (n.life / 100);
-                        if (n.life <= 0) {
-                            mGameOver(); // Yakalanamadan kaybolursa oyun biter
-                            return;
-                        }
-                    }
-                }
-                mAnimationId = requestAnimationFrame(mGameLoop);
-            }
-
-            // Dokunma (Touch) Kontrolü
-            function handleTap(e) {
-                if (!mIsPlaying) return;
-                e.preventDefault(); // Ekranın kaymasını engelle
-                
-                const rect = mCanvas.getBoundingClientRect();
-                const touch = e.touches ? e.touches[0] : e;
-                const tx = touch.clientX - rect.left;
-                const ty = touch.clientY - rect.top;
-
-                for (let i = mNodes.length - 1; i >= 0; i--) {
-                    let n = mNodes[i];
-                    let dist = Math.hypot(n.x - tx, n.y - ty);
-                    
-                    if (dist <= n.maxR + 15) { // +15 tolerans (parmak payı)
-                        mNodes.splice(i, 1);
-                        mScore += 10;
-                        mScoreEl.innerText = mScore;
-                        
-                        // Hızlanma
-                        if (mSpawnRate > 500) {
-                            mSpawnRate -= 20;
-                            clearInterval(mSpawnInterval);
-                            mSpawnInterval = setInterval(spawnNode, mSpawnRate);
-                        }
-                        break; // Aynı anda tek bir tane vur
-                    }
-                }
-            }
-
-            mCanvas.addEventListener('touchstart', handleTap, {passive: false});
-            mCanvas.addEventListener('mousedown', handleTap);
-
-            if(mStartBtn) mStartBtn.addEventListener('click', mInitGame);
-            if(mRestartBtn) mRestartBtn.addEventListener('click', mInitGame);
-
-            setTimeout(() => {
-                mCtx.fillStyle = '#0d1117'; mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-                mCtx.fillStyle = '#58a6ff'; mCtx.font = '16px "Fira Code"'; mCtx.textAlign = 'center';
-                mCtx.fillText("Paketleri yakala.", mCanvas.width/2, mCanvas.height/2);
-            }, 500);
-        }
-
-        /* 7. Instagram Postları
-           img/ klasörüne ig1.jpg–ig6.jpg olarak ekran görüntülerini koy.
-           likes/comments: null bırakılırsa o sayaç gösterilmez. */
-        const igPosts = [
-            { url: 'https://www.instagram.com/p/DF5Ur9UN0nn/', img: 'ig1.jpg', likes: '8,6B', comments: 105 },
-            { url: 'https://www.instagram.com/p/DD2znKCtNWy/', img: 'ig2.jpg', likes: '397', comments: 4 },
-            { url: 'https://www.instagram.com/p/C9r4GdPtqMD/', img: 'ig3.jpg', likes: '476', comments: 26 },
-            { url: 'https://www.instagram.com/p/C7jI_oftVvz/', img: 'ig4.jpg', likes: '91,8B', comments: 457 },
-            { url: 'https://www.instagram.com/p/C5vgkL8M14j/', img: 'ig5.jpg', likes: '72,4B', comments: 297 },
-            { url: 'https://www.instagram.com/p/C22EVl5sPN_/', img: 'ig6.jpg', likes: '5,5B', comments: 58 },
-        ];
-
+        const igPosts = [ { url: '#', img: 'img/ig1.jpg', likes: '8,6B', comments: 105 }, { url: '#', img: 'img/ig2.jpg', likes: '397', comments: 4 }, { url: '#', img: 'img/ig3.jpg', likes: '476', comments: 26 }, { url: '#', img: 'img/ig4.jpg', likes: '91,8B', comments: 457 }, { url: '#', img: 'img/ig5.jpg', likes: '72,4B', comments: 297 }, { url: '#', img: 'img/ig6.jpg', likes: '5,5B', comments: 58 } ];
         function renderInstagramPosts() {
-            const grid = document.getElementById('ig-grid');
-            if (!grid) return;
-            grid.innerHTML = igPosts.map(({ url, img, likes, comments }) => `
-                <a href="${url}" target="_blank"
-                   class="ig-card group block relative overflow-hidden rounded-xl aspect-square border border-gray-800 hover:border-pink-500/50 transition-all duration-300 bg-cardbg">
-                    <img src="${img}" alt="Instagram post" class="w-full h-full object-cover" loading="lazy"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-pink-900/20 to-transparent items-center justify-center" style="display:none;">
-                        <i class="fab fa-instagram text-gray-700 text-4xl"></i>
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end pb-4 gap-2">
-                        ${(likes !== null || comments !== null) ? `
-                        <div class="flex items-center gap-5 text-white text-sm font-bold drop-shadow">
-                            ${likes !== null ? `<span class="flex items-center gap-1.5"><i class="fas fa-heart text-pink-400"></i>${likes}</span>` : ''}
-                            ${comments !== null ? `<span class="flex items-center gap-1.5"><i class="fas fa-comment text-white/80"></i>${comments}</span>` : ''}
-                        </div>` : ''}
-                        <span class="flex items-center gap-1.5 text-white/80 text-xs font-medium tracking-wide">
-                            <i class="fab fa-instagram"></i> Instagram'da Gör
-                        </span>
-                    </div>
-                </a>
-            `).join('');
+            const grid = document.getElementById('ig-grid'); if (!grid) return;
+            grid.innerHTML = igPosts.map(({ url, img, likes, comments }) => `<a href="${url}" target="_blank" class="ig-card group block relative overflow-hidden rounded-xl aspect-square border border-gray-800 hover:border-pink-500/50 transition-all duration-300 bg-cardbg"><img src="${img}" alt="Instagram post" class="w-full h-full object-cover" loading="lazy" onerror="this.style.display='none';"><div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end pb-4 gap-2"><div class="flex items-center gap-5 text-white text-sm font-bold drop-shadow"><span class="flex items-center gap-1.5"><i class="fas fa-heart text-pink-400"></i>${likes}</span><span class="flex items-center gap-1.5"><i class="fas fa-comment text-white/80"></i>${comments}</span></div></div></a>`).join('');
         }
 
-        // Ortak Yüklemeler
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchGitHubProjects();
-            fetchDiscordStatus();
-            renderInstagramPosts();
-            setInterval(fetchDiscordStatus, 15000);
+        // --- YENİ EKLENEN MARQUEE SÜRÜKLE BIRAK SİSTEMİ ---
+// --- YENİ EKLENEN MARQUEE SÜRÜKLE BIRAK SİSTEMİ (SAĞA AKIŞ) ---
+        function initMarqueeDrag() {
+            const marqueeContainer = document.querySelector('.marquee-container');
+            const marqueeTrack = document.getElementById('skills-track');
+            
+            if (marqueeContainer && marqueeTrack) {
+                let isDragging = false;
+                let startX = 0;
+                let dragStartX = 0;
+                
+                // Sağa akarken solda boşluk olmaması için başlangıcı eksi pozisyondan başlatıyoruz
+                let halfWidth = marqueeTrack.scrollWidth / 2;
+                let pos = -halfWidth; 
+                
+                function step() {
+                    // Ekran boyutu değişirse genişliği güncel tut
+                    halfWidth = marqueeTrack.scrollWidth / 2;
+
+                    if (!isDragging) {
+                        pos += 0.3; // Artı değer: Sağa doğru kaydırır
+                    }
+                    
+                    // Sağa doğru pürüzsüz sonsuz döngü
+                    if (pos >= 0) {
+                        pos -= halfWidth;
+                    }
+                    // Kullanıcı tutup sola doğru sürüklerse sonsuz döngü
+                    else if (pos <= -halfWidth) {
+                        pos += halfWidth;
+                    }
+                    
+                    marqueeTrack.style.transform = `translateX(${pos}px)`;
+                    requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+
+                // Mouse (Fare) Kontrolleri
+                marqueeContainer.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.pageX;
+                    dragStartX = pos;
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    const walk = e.pageX - startX;
+                    pos = dragStartX + walk;
+                });
+
+                window.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+                
+                // Fare alanın dışına çıkarsa takılı kalmaması için
+                marqueeContainer.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                });
+
+                // Touch (Dokunmatik) Kontrolleri
+                marqueeContainer.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    startX = e.touches[0].pageX;
+                    dragStartX = pos;
+                }, { passive: true });
+
+                window.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    const walk = e.touches[0].pageX - startX;
+                    pos = dragStartX + walk;
+                }, { passive: true });
+
+                window.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            fetchGitHubProjects(); 
+            fetchDiscordStatus(); 
+            renderInstagramPosts(); 
+            initMarqueeDrag(); // Sürükle-Bırak sistemini başlat
+            setInterval(fetchDiscordStatus, 15000); 
         });
     </script>
 </body>
