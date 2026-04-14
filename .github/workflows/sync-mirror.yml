@@ -1,0 +1,27 @@
+name: Sync to kingpindev-net mirror
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Push to mirror repo
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          git clone https://x-access-token:${MIRROR_TOKEN}@github.com/kingpin1dev/kingpindev-net.git mirror
+          cp index.html mirror/index.html
+          cd mirror
+          git add index.html
+          git diff --staged --quiet || git commit -m "Sync from kingpindev.com — $(date +'%Y-%m-%d %H:%M')"
+          git push
