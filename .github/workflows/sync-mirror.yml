@@ -20,8 +20,8 @@ jobs:
           git config --global user.name "GitHub Actions"
 
           git clone https://x-access-token:${MIRROR_TOKEN}@github.com/kingpin1dev/kingpindev-net.git mirror
-          cp index.html mirror/index.html
+          cp -r img/* mirror/img/
           cd mirror
-          git add index.html
-          git diff --staged --quiet || git commit -m "Sync from kingpindev.com — $(date +'%Y-%m-%d %H:%M')"
+          git add img/
+          git diff --staged --quiet || git commit -m "Sync img/ from kingpindev.com — $(date +'%Y-%m-%d %H:%M')"
           git push
