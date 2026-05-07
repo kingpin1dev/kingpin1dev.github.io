@@ -20,7 +20,22 @@
         }
     </script>
     <style>
-        body { background-color: #0d1117; color: #c9d1d9; overflow-x: hidden; touch-action: manipulation; }
+        body { background-color: #0d1117; background-image: radial-gradient(ellipse 70% 50% at 18% 0%, rgba(88,166,255,.11), transparent 55%), radial-gradient(ellipse 55% 40% at 82% 65%, rgba(88,166,255,.07), transparent 52%); color: #c9d1d9; overflow-x: hidden; touch-action: manipulation; cursor: none; }
+
+        /* CURSOR */
+        #cur { position: fixed; width: 8px; height: 8px; border-radius: 50%; background: #58a6ff; pointer-events: none; z-index: 9999; will-change: transform; }
+        #cur2 { position: fixed; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid rgba(88,166,255,.5); pointer-events: none; z-index: 9998; will-change: transform; transition: border-color .2s, width .18s, height .18s; }
+
+        /* SPOTLIGHT */
+        #spot { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(550px circle at var(--mx,50vw) var(--my,50vh), rgba(88,166,255,.07), transparent 50%); }
+
+        /* SCROLL REVEAL */
+        .rv { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+        .rv.on { opacity: 1; transform: none; }
+        .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
+
+        /* 3D TILT */
+        .tilt-com { transition: transform .07s; transform-style: preserve-3d; }
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -10; opacity: 0.4; }
         .dynamic-island { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .dynamic-island:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(88, 166, 255, 0.2); }
@@ -53,7 +68,9 @@
     </style>
 </head>
 <body class="antialiased selection:bg-neon selection:text-white relative">
-
+    <div id="cur"></div>
+    <div id="cur2"></div>
+    <div id="spot"></div>
     <div id="particles-js"></div>
 
     <nav class="fixed top-4 md:top-6 left-1/2 transform -translate-x-1/2 z-50 w-[90%] md:w-auto max-w-[400px] md:max-w-none">
@@ -112,13 +129,13 @@
     </section>
 
     <section id="projects" class="py-20 px-4 max-w-5xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-code text-neon mr-3"></i>Öne Çıkan Projeler</h2>
-        <p class="text-gray-400 mb-10 text-sm md:text-base">Güncel projelerim.</p>
+        <h2 class="rv text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-code text-neon mr-3"></i>Öne Çıkan Projeler</h2>
+        <p class="rv d1 text-gray-400 mb-10 text-sm md:text-base">Güncel projelerim.</p>
         <!-- Featured Projects Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
             <!-- BokMail Kartı -->
-            <div class="group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-neon/50 transition-all duration-300 flex flex-col">
+            <div class="rv d1 tilt-com group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-neon/50 transition-all duration-300 flex flex-col">
                 <div class="relative h-28 bg-gradient-to-br from-[#0d2847] via-[#0d1f3c] to-[#0a0f1a] flex items-center justify-center overflow-hidden">
                     <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 50%, #58a6ff 0%, transparent 60%), radial-gradient(circle at 80% 20%, #1f6feb 0%, transparent 50%);"></div>
                     <i class="fas fa-envelope-open-text text-neon text-5xl relative z-10 drop-shadow-[0_0_20px_rgba(88,166,255,0.6)]"></i>
@@ -147,7 +164,7 @@
             </div>
 
             <!-- Notchify Kartı -->
-            <div class="group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-[#38bdf8]/50 transition-all duration-300 flex flex-col">
+            <div class="rv d2 tilt-com group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-[#38bdf8]/50 transition-all duration-300 flex flex-col">
                 <div class="relative h-28 bg-gradient-to-br from-[#0c2a3d] via-[#071e2e] to-[#0a0f1a] flex items-center justify-center overflow-hidden">
                     <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 50%, #38bdf8 0%, transparent 60%), radial-gradient(circle at 80% 20%, #0ea5e9 0%, transparent 50%);"></div>
                     <img src="img/notchify.png" alt="Notchify" class="w-16 h-16 relative z-10 rounded-2xl">
@@ -177,7 +194,7 @@
 
 
             <!-- VICE-Sonar Kartı -->
-            <div class="group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-[#38bdf8]/50 transition-all duration-300 flex flex-col">
+            <div class="rv d3 tilt-com group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-[#38bdf8]/50 transition-all duration-300 flex flex-col">
                 <div class="relative h-28 bg-gradient-to-br from-[#0c2a3d] via-[#071e2e] to-[#0a0f1a] flex items-center justify-center overflow-hidden">
                     <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 50%, #38bdf8 0%, transparent 60%), radial-gradient(circle at 80% 20%, #0ea5e9 0%, transparent 50%);"></div>
                     <img src="img/vice-sonar.png" alt="VICE Sonar" class="w-16 h-16 relative z-10 rounded-2xl">
@@ -230,7 +247,7 @@
                 </div>
             </div>
             <div class="flex flex-col h-full justify-center order-1 lg:order-2">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4"><i class="fas fa-microchip text-neon mr-3"></i>Donanım & Ekipman</h2>
+                <h2 class="rv text-2xl md:text-3xl font-bold text-white mb-4"><i class="fas fa-microchip text-neon mr-3"></i>Donanım & Ekipman</h2>
                 <p class="text-gray-400 leading-relaxed text-sm md:text-lg">
                     Yüksek performanslı kod derleme, akıcı video kurgu süreçleri ve sağlam bir oyun deneyimi için özenle topladığım güncel sistemim.
                 </p>
@@ -239,10 +256,10 @@
     </section>
 
     <section id="creative" class="py-20 px-4 max-w-5xl mx-auto border-t border-gray-800">
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-film text-neon mr-3"></i>Kreatif Evren</h2>
-        <p class="text-gray-400 mb-10 text-sm md:text-base">Video kurgu, film editleri ve müzik üretimlerim.</p>
+        <h2 class="rv text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-film text-neon mr-3"></i>Kreatif Evren</h2>
+        <p class="rv d1 text-gray-400 mb-10 text-sm md:text-base">Video kurgu, film editleri ve müzik üretimlerim.</p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-cardbg border border-gray-800 rounded-xl p-6 flex flex-col justify-center items-center text-center hover:border-pink-500 transition">
+            <div class="rv d2 bg-cardbg border border-gray-800 rounded-xl p-6 flex flex-col justify-center items-center text-center hover:border-pink-500 transition">
                 <div class="w-16 h-16 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-pink-500/20">
                     <i class="fab fa-instagram text-white text-2xl"></i>
                 </div>
@@ -250,7 +267,7 @@
                 <p class="text-gray-400 mb-4 text-sm">Film sahnelerine hayat verdiğim, sinematografik video edit sayfam.</p>
                 <a href="https://www.instagram.com/sineorbit/" target="_blank" class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm transition border border-gray-700">Sayfayı İncele</a>
             </div>
-            <div class="bg-cardbg border border-gray-800 rounded-xl p-6 flex flex-col justify-center items-center text-center hover:border-green-500 transition">
+            <div class="rv d3 bg-cardbg border border-gray-800 rounded-xl p-6 flex flex-col justify-center items-center text-center hover:border-green-500 transition">
                 <i class="fab fa-spotify text-green-500 text-5xl mb-4 drop-shadow-[0_0_10px_rgba(34,197,94,0.3)]"></i>
                 <h3 class="text-xl font-bold text-white mb-2">Spotify</h3>
                 <p class="text-gray-400 mb-4 text-sm">Zaman zaman hobi olarak ürettiğim ve yayınladığım parçalar.</p>
@@ -269,23 +286,23 @@
     </section>
 
     <section id="activity" class="py-20 px-4 max-w-5xl mx-auto border-t border-gray-800">
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-satellite-dish text-neon mr-3"></i>Canlı Aktivite</h2>
-        <p class="text-gray-400 mb-10 text-sm md:text-base">Anlık aktivite ve oyuncu profillerim.</p>
+        <h2 class="rv text-2xl md:text-3xl font-bold text-white mb-2"><i class="fas fa-satellite-dish text-neon mr-3"></i>Canlı Aktivite</h2>
+        <p class="rv d1 text-gray-400 mb-10 text-sm md:text-base">Anlık aktivite ve oyuncu profillerim.</p>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <div id="spotify-card" class="bg-cardbg border border-gray-800 hover:border-green-500/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
+            <div id="spotify-card" class="rv d1 bg-cardbg border border-gray-800 hover:border-green-500/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
                 <div id="spotify-content" class="flex flex-col items-center gap-3 text-gray-600 text-center w-full">
                     <i class="fab fa-spotify text-4xl"></i><p class="text-sm font-medium">Yükleniyor...</p>
                 </div>
             </div>
 
-            <div id="vscode-card" class="bg-cardbg border border-gray-800 hover:border-blue-500/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
+            <div id="vscode-card" class="rv d2 bg-cardbg border border-gray-800 hover:border-blue-500/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center">
                 <div id="vscode-content" class="flex flex-col items-center gap-3 text-gray-600 text-center w-full">
                     <i class="fas fa-code text-4xl"></i><p class="text-sm font-medium">Yükleniyor...</p>
                 </div>
             </div>
 
-            <a href="https://steamcommunity.com/id/burakpekel/" target="_blank" class="bg-cardbg border border-gray-800 hover:border-[#66c0f4]/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center cursor-pointer">
+            <a href="https://steamcommunity.com/id/burakpekel/" target="_blank" class="rv d3 bg-cardbg border border-gray-800 hover:border-[#66c0f4]/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center cursor-pointer">
                 <div class="flex items-center gap-1.5 mb-3">
                     <i class="fab fa-steam text-[#66c0f4] text-xs group-hover:animate-pulse"></i>
                     <span class="text-[#66c0f4] text-xs font-semibold uppercase tracking-wider">Steam</span>
@@ -302,7 +319,7 @@
                 </div>
             </a>
 
-            <a href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" class="bg-cardbg border border-gray-800 hover:border-[#107C10]/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center cursor-pointer">
+            <a href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" class="rv d3 bg-cardbg border border-gray-800 hover:border-[#107C10]/50 rounded-xl p-5 transition-all duration-300 relative overflow-hidden group min-h-[150px] flex flex-col justify-center cursor-pointer">
                 <div class="flex items-center gap-1.5 mb-3">
                     <i class="fab fa-xbox text-[#107C10] text-xs group-hover:animate-pulse"></i>
                     <span class="text-[#107C10] text-xs font-semibold uppercase tracking-wider">Xbox Live</span>
@@ -322,7 +339,7 @@
             </a>
         </div>
 
-        <div class="mt-8 bg-[#0d1117] border border-gray-800 hover:border-[#66c0f4]/50 rounded-xl overflow-hidden transition-all duration-500 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative">
+        <div class="rv mt-8 bg-[#0d1117] border border-gray-800 hover:border-[#66c0f4]/50 rounded-xl overflow-hidden transition-all duration-500 group shadow-[0_0_30px_rgba(0,0,0,0.5)] relative">
             <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#66c0f4]/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#66c0f4]/10 transition-all duration-700"></div>
             <div class="relative z-10 bg-gradient-to-r from-[#161b22] to-[#0d1117] px-6 py-4 border-b border-gray-800/80 flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -492,7 +509,7 @@
 
     <footer id="contact" class="bg-[#090d13] py-16 mt-10 border-t border-gray-800 relative z-10">
         <div class="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div class="text-center md:text-left">
+            <div class="rv text-center md:text-left">
                 <h2 class="text-3xl font-bold text-white mb-6">Bağlantıda Kalalım</h2>
                 <p class="text-gray-400 mb-6 max-w-sm mx-auto md:mx-0">Projelerim hakkında konuşmak veya işbirliği yapmak için bana ulaşabilirsin.</p>
                 <div class="flex justify-center md:justify-start gap-3 mb-8">
@@ -692,11 +709,48 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => { 
-            fetchDiscordStatus(); 
-            renderInstagramPosts(); 
-            initMarqueeDrag(); // Sürükle-Bırak sistemini başlat
-            setInterval(fetchDiscordStatus, 15000); 
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchDiscordStatus();
+            renderInstagramPosts();
+            initMarqueeDrag();
+            setInterval(fetchDiscordStatus, 15000);
+        });
+
+        // CURSOR
+        const curEl = document.getElementById('cur'), curR = document.getElementById('cur2');
+        let mx = 0, my = 0, lx = 0, ly = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            curEl.style.transform = `translate(${mx - 4}px,${my - 4}px)`;
+            document.documentElement.style.setProperty('--mx', mx + 'px');
+            document.documentElement.style.setProperty('--my', my + 'px');
+        });
+        (function loopR() {
+            lx += (mx - lx) * .1; ly += (my - ly) * .1;
+            curR.style.transform = `translate(${lx - 15}px,${ly - 15}px)`;
+            requestAnimationFrame(loopR);
+        })();
+        document.querySelectorAll('a, button, .tilt-com').forEach(el => {
+            el.addEventListener('mouseenter', () => { curR.style.width = '44px'; curR.style.height = '44px'; curR.style.borderColor = 'rgba(88,166,255,.85)'; });
+            el.addEventListener('mouseleave', () => { curR.style.width = '30px'; curR.style.height = '30px'; curR.style.borderColor = 'rgba(88,166,255,.5)'; });
+        });
+
+        // SCROLL REVEAL
+        const rvObs = new IntersectionObserver(es => {
+            es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); rvObs.unobserve(e.target); } });
+        }, { threshold: .1 });
+        document.querySelectorAll('.rv').forEach(el => rvObs.observe(el));
+
+        // 3D TILT
+        document.querySelectorAll('.tilt-com').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+                const rx = ((y / r.height) - .5) * 10, ry = -((x / r.width) - .5) * 10;
+                card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale(1)';
+            });
         });
     </script>
 </body>
