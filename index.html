@@ -50,6 +50,8 @@
         .marquee-container::before { left: 0; background: linear-gradient(to right, #0d1117 0%, transparent 100%); }
         .marquee-container::after { right: 0; background: linear-gradient(to left, #0d1117 0%, transparent 100%); }
         .marquee-content { display: flex; width: max-content; will-change: transform; }
+
+@keyframes floatHeart2{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-110vh) scale(.5);opacity:0}}
     </style>
 </head>
 <body class="antialiased selection:bg-neon selection:text-white relative">
@@ -75,11 +77,12 @@
             <h2 class="text-sm sm:text-lg md:text-2xl text-neon font-mono typing-effect">Software Developer & Video Editor</h2>
         </div>
         <p class="mt-6 max-w-xl text-gray-400 text-base md:text-lg relative z-10">
-            Yaratıcı uygulamaları geliştirmeyi ve fikirleri gerçeğe dönüştürmeyi seviyorum. Aynı zamanda video kurgu ve UI/UX tasarımı tutkunu bir geliştirici ve video editörüyüm. Güncel olarak Vensor, Genisys ve BokMail projeleri üzerinde çalışmaktayım.
+            Yaratıcı uygulamaları geliştirmeyi ve fikirleri gerçeğe dönüştürmeyi seviyorum. Aynı zamanda video kurgu ve UI/UX tasarımı tutkunu bir geliştirici ve video editörüyüm. Güncel olarak Fluent Mixer, Genisys ve BokMail projeleri üzerinde çalışmaktayım.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-4 relative z-10">
             <a href="#projects" class="scroll-link glow-button px-6 py-3 bg-neon text-darkbg font-bold rounded-lg transition-all w-full sm:w-auto">Projeleri İncele</a>
             <a href="https://github.com/kingpin1dev" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-neon text-white font-bold rounded-lg transition-all w-full sm:w-auto"><i class="fab fa-github mr-2"></i>GitHub</a>
+            <a href="https://apps.microsoft.com/search/publisher?name=Kingpindev" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-[#0078d4] text-white font-bold rounded-lg transition-all w-full sm:w-auto"><i class="fab fa-windows mr-2" style="color:#0078d4"></i>Microsoft Store</a>
         </div>
     </section>
 
@@ -264,26 +267,28 @@
                 </div>
             </div>
 
-            <!-- Vensor Kartı -->
-            <div class="group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-purple-500/50 transition-all duration-300 flex flex-col">
-                <div class="relative h-28 bg-gradient-to-br from-[#1a0d2e] via-[#120820] to-[#0a0f1a] flex items-center justify-center overflow-hidden">
-                    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 50%, #a855f7 0%, transparent 60%), radial-gradient(circle at 80% 20%, #7c3aed 0%, transparent 50%);"></div>
+            <!-- Fluent Mixer Kartı -->
+            <div class="group bg-[#161b22] rounded-2xl overflow-hidden border border-gray-800 hover:border-[#38bdf8]/50 transition-all duration-300 flex flex-col">
+                <div class="relative h-28 bg-gradient-to-br from-[#0c2a3d] via-[#071e2e] to-[#0a0f1a] flex items-center justify-center overflow-hidden">
+                    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 50%, #38bdf8 0%, transparent 60%), radial-gradient(circle at 80% 20%, #0ea5e9 0%, transparent 50%);"></div>
+                    <img src="img/FluentMixer.png" alt="Fluent Mixer" class="w-16 h-16 relative z-10 rounded-2xl">
                     <div class="absolute top-3 right-3">
-                        <span class="text-[10px] font-mono bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-2 py-0.5 rounded-full">Yakında</span>
+                        <span class="text-[10px] font-mono bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/30 px-2 py-0.5 rounded-full">Windows</span>
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-1">
-                    <h3 class="text-xl font-bold text-white mb-1">Vensor</h3>
-                    <p class="text-gray-400 text-sm mb-5 flex-1 leading-relaxed">Dijital gizliliğinizi bir adım öne taşıyın. Vensor, hassas bilgilerinizi koruma altına alır.</p>
+                    <h3 class="text-xl font-bold text-white mb-1">Fluent Mixer</h3>
+                    <p class="text-gray-400 text-sm mb-5 flex-1 leading-relaxed">Ses çıkaran uygulamaları Game / Chat / Media / Aux gruplarına atayın, seslerini ve mute durumunu tek yerden yönetin. Sistem tepsisi, flyout panel ve Island Mode ile tam kontrol.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="text-xs font-mono bg-purple-500/5 text-purple-400/70 border border-purple-500/10 px-2 py-1 rounded-md">Gizlilik</span>
-                        <span class="text-xs font-mono bg-purple-500/5 text-purple-400/70 border border-purple-500/10 px-2 py-1 rounded-md">Veri Koruma</span>
-                        <span class="text-xs font-mono bg-purple-500/5 text-purple-400/70 border border-purple-500/10 px-2 py-1 rounded-md">Windows</span>
+                        <span class="text-xs font-mono bg-[#38bdf8]/5 text-[#38bdf8]/70 border border-[#38bdf8]/10 px-2 py-1 rounded-md">Ses Grupları</span>
+                        <span class="text-xs font-mono bg-[#38bdf8]/5 text-[#38bdf8]/70 border border-[#38bdf8]/10 px-2 py-1 rounded-md">Island Mode</span>
+                        <span class="text-xs font-mono bg-[#38bdf8]/5 text-[#38bdf8]/70 border border-[#38bdf8]/10 px-2 py-1 rounded-md">Flyout</span>
+                        <span class="text-xs font-mono bg-[#38bdf8]/5 text-[#38bdf8]/70 border border-[#38bdf8]/10 px-2 py-1 rounded-md">Windows</span>
                     </div>
                     <div class="flex gap-3 pt-4 border-t border-gray-800">
-                        <button disabled class="flex-1 text-center py-2.5 bg-gray-800 text-gray-500 font-bold rounded-lg text-sm cursor-not-allowed flex items-center justify-center gap-2">
-                            <i class="fas fa-clock text-xs"></i> Çok Yakında
-                        </button>
+                        <a href="https://apps.microsoft.com/detail/9NN5W7D23VLJ?hl=neutral&gl=TR&ocid=pdpshare" target="_blank" class="flex-1 text-center py-2.5 bg-[#38bdf8] hover:bg-[#38bdf8]/85 text-darkbg font-bold rounded-lg text-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fab fa-windows text-xs"></i> Microsoft Store
+                        </a>
                     </div>
                 </div>
             </div>
@@ -427,7 +432,7 @@
                     <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
                         <div class="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-[#66c0f4] to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
                         <i class="fas fa-gamepad text-gray-600 group-hover/stat:text-[#66c0f4] text-xl mb-2 transition-colors"></i>
-                        <span class="text-2xl font-black text-white mb-1">118</span>
+                        <span class="text-2xl font-black text-white mb-1">128</span>
                         <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Sahip Olunan Oyun</span>
                     </div>
                     <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
@@ -439,7 +444,7 @@
                     <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
                         <div class="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
                         <i class="fas fa-trophy text-gray-600 group-hover/stat:text-yellow-500 text-xl mb-2 transition-colors"></i>
-                        <span class="text-2xl font-black text-yellow-500 mb-1 drop-shadow-[0_0_8px_rgba(234,179,8,0.5)]">6.905</span>
+                        <span class="text-2xl font-black text-yellow-500 mb-1 drop-shadow-[0_0_8px_rgba(234,179,8,0.5)]">6.906</span>
                         <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Kazanılan Başarım</span>
                     </div>
                     <div class="bg-[#161b22] border border-gray-800 rounded-lg p-4 flex flex-col items-center justify-center relative overflow-hidden group/stat">
@@ -782,7 +787,45 @@
             initMarqueeDrag(); // Sürükle-Bırak sistemini başlat
             setInterval(fetchDiscordStatus, 15000); 
         });
-    </script>
+    
+(function(){
+  let b1='',b2='';
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.altKey||e.metaKey)return;
+    const k=e.key;
+    b1=(b1+k.toLowerCase()).slice(-11);
+    b2=(b2+k).slice(-8);
+    if(b1==='eriswashere'){
+      b1='';
+      const o=document.createElement('div');
+      o.style.cssText='position:fixed;inset:0;background:#fff;z-index:99999;opacity:1;pointer-events:none';
+      document.body.appendChild(o);
+      setTimeout(()=>{o.style.transition='opacity 1s ease';o.style.opacity='0';setTimeout(()=>o.remove(),1000);},4000);
+    }
+    if(b2==='04012025'){
+      b2='';
+      if(document.getElementById('ee2'))return;
+      const ov=document.createElement('div');
+      ov.id='ee2';
+      ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:99999;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden';
+      ov.innerHTML='<div style="text-align:center;font-family:'Inter',sans-serif;color:#fff;font-size:clamp(22px,5vw,52px);font-weight:800;line-height:1.5;user-select:none;pointer-events:none">To eternity<br><span style="color:#58a6ff;font-style:italic">E'</span></div>';
+      const hh=['❤️','💙','🤍','💗','💖','💝','🩵'];
+      for(let i=0;i<24;i++){
+        const h=document.createElement('span');
+        h.textContent=hh[i%hh.length];
+        h.style.cssText=`position:fixed;font-size:${16+Math.random()*28}px;left:${Math.random()*100}vw;bottom:-60px;animation:floatHeart2 ${2.5+Math.random()*2.5}s ease-in ${Math.random()*4}s infinite;pointer-events:none;z-index:100000`;
+        ov.appendChild(h);
+      }
+      document.body.appendChild(ov);
+      const dismiss=()=>{const el=document.getElementById('ee2');if(el)el.remove();document.removeEventListener('keydown',escH);};
+      const escH=(ev)=>{if(ev.key==='Escape')dismiss();};
+      document.addEventListener('keydown',escH);
+      ov.addEventListener('click',dismiss);
+      setTimeout(dismiss,7000);
+    }
+  });
+})();
+</script>
 </body>
 </html>
 
