@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – Lolable</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #0d0d0d;
+      color: #d4d4d4;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 40px 20px 80px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    header .bot-name {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #5865f2;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    header .meta {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-top: 36px;
+      margin-bottom: 10px;
+      padding-left: 12px;
+      border-left: 3px solid #5865f2;
+    }
+
+    p { margin-bottom: 12px; }
+
+    ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    ul li { margin-bottom: 6px; }
+
+    a {
+      color: #5865f2;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .note {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid #5865f2;
+      border-radius: 4px;
+      padding: 14px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .col-box {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+
+    .col-box h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .col-box ul {
+      margin: 0;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    @media (max-width: 560px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="bot-name">Lolable</div>
+      <h1>Privacy Policy</h1>
+      <div class="meta">Last updated: June 17, 2026</div>
+    </header>
+
+    <h2>1. Overview</h2>
+    <p>Lolable is a non-commercial Discord bot that helps League of Legends communities view in-server stats, rankings, and match information. This Privacy Policy explains what data we collect, why we collect it, and how it is used and protected.</p>
+    <p>We collect only what is necessary to provide the bot's features. We do not sell, trade, or share your data with third parties beyond what is strictly required to operate the service.</p>
+
+    <h2>2. Data We Collect</h2>
+    <p>When you use Lolable, the following information may be stored:</p>
+    <ul>
+      <li><strong>Discord user ID</strong> – to identify your account across commands</li>
+      <li><strong>Discord server (guild) ID</strong> – to scope data to the correct server</li>
+      <li><strong>Discord channel ID</strong> – only if you or your server admin configures a <code>/feed</code> notification channel</li>
+      <li><strong>Riot gameName and tagLine</strong> – the Riot ID you link via <code>/bagla</code></li>
+      <li><strong>Riot PUUID</strong> – a unique identifier provided by the Riot Games API to look up match data</li>
+      <li><strong>Encrypted summoner ID</strong> – when available from the Riot API</li>
+      <li><strong>Platform and region settings</strong> – your selected server region (e.g. EUW, TR)</li>
+      <li><strong>Profile icon ID and summoner level</strong> – for display in profile commands</li>
+      <li><strong>Ranked snapshot data</strong> – tier, division, LP, wins, losses, and recent win rate, used for leaderboard and comparison features</li>
+      <li><strong>Last seen match IDs</strong> – used only to detect new matches for feed/notification purposes</li>
+      <li><strong>Minimal server configuration</strong> – settings needed for features such as feed channels</li>
+    </ul>
+
+    <h2>3. Data We Do NOT Collect</h2>
+    <div class="two-col">
+      <div class="col-box">
+        <h3>Discord</h3>
+        <ul>
+          <li>Message content</li>
+          <li>Direct or private messages</li>
+          <li>Username or display name</li>
+          <li>Email address</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <h3>Personal / Other</h3>
+        <ul>
+          <li>Real names</li>
+          <li>Passwords</li>
+          <li>Payment or financial information</li>
+          <li>Raw Riot API responses for resale or public dumping</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>4. How We Use Your Data</h2>
+    <p>Collected data is used exclusively to provide Lolable's features:</p>
+    <ul>
+      <li>Displaying your profile, rank, and match statistics via <code>/profil</code>, <code>/me</code>, <code>/sonmac</code>, <code>/live</code></li>
+      <li>Generating server leaderboards via <code>/leaderboard</code></li>
+      <li>Enabling duo matching and player comparisons via <code>/duo</code>, <code>/compare</code></li>
+      <li>Showing daily performance summaries via <code>/gunluk</code></li>
+      <li>Analyzing champion pool data via <code>/championpool</code></li>
+      <li>Sending match, rank, and streak notifications if a feed channel is configured via <code>/feed</code></li>
+    </ul>
+    <p>Your data is <strong>never</strong> used for advertising, profiling, gambling, betting, boosting, cheating services, or any form of competitive integrity abuse.</p>
+
+    <h2>5. Riot Games API Data</h2>
+    <p>Game data displayed by Lolable is retrieved in real time from the Riot Games API and Data Dragon. This data is used only to power the features described above and is not stored beyond what is listed in Section 2.</p>
+    <div class="note">
+      Lolable is not affiliated with, endorsed by, sponsored by, or approved by Riot Games. League of Legends and Riot Games are trademarks or service marks of Riot Games, Inc. Use of the Riot Games API is subject to Riot's <a href="https://developer.riotgames.com/policies/general" target="_blank">Developer Policies</a>.
+    </div>
+
+    <h2>6. Data Sharing</h2>
+    <p>We do not sell, rent, or trade your data. Data may only be shared in the following limited circumstances:</p>
+    <ul>
+      <li><strong>Infrastructure providers</strong> – hosting and database services necessary to run the bot, bound by their own privacy policies</li>
+      <li><strong>Legal requirements</strong> – if required by law, court order, or governmental authority</li>
+    </ul>
+    <p>No other third-party sharing occurs.</p>
+
+    <h2>7. Data Retention and Deletion</h2>
+    <p>Data is retained for as long as:</p>
+    <ul>
+      <li>The bot remains active in your Discord server, <strong>or</strong></li>
+      <li>Your Riot ID remains linked via <code>/bagla</code></li>
+    </ul>
+    <p>You can request deletion of your data at any time. Upon a valid request, your linked account data (Riot ID, PUUID, ranked snapshots, match IDs) will be removed. Server configuration data will be removed when the bot is kicked from the server or upon an admin request.</p>
+    <p><strong>To request data deletion:</strong> Contact us via Discord (see Section 11) and provide your Discord user ID. We will process your request as soon as reasonably possible.</p>
+
+    <h2>8. Security</h2>
+    <p>We take reasonable precautions to protect stored data:</p>
+    <ul>
+      <li>API keys and tokens are never exposed publicly</li>
+      <li>Data is stored in a private database with restricted access</li>
+      <li>Summoner IDs are stored in encrypted form where applicable</li>
+    </ul>
+    <p>No system can be guaranteed 100% secure. In the unlikely event of a data breach affecting your information, we will make reasonable efforts to notify affected users.</p>
+
+    <h2>9. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> – request a summary of the data stored about you</li>
+      <li><strong>Correction</strong> – update or relink your Riot ID at any time using <code>/bagla</code></li>
+      <li><strong>Deletion</strong> – request that your data be erased (see Section 7)</li>
+      <li><strong>Opt out</strong> – simply do not use <code>/bagla</code>; no data is stored about you unless you voluntarily link your account</li>
+    </ul>
+    <p>To exercise any of these rights, contact us through the channels listed in Section 11.</p>
+
+    <h2>10. Children and Minors</h2>
+    <p>Lolable is intended for Discord users who meet Discord's minimum age requirements (13 years of age or older, or older where required by local law). We do not knowingly collect data from users who do not meet these requirements. If you believe a minor has linked an account without appropriate consent, please contact us so we can remove their data.</p>
+
+    <h2>11. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page will reflect the most recent revision. Continued use of Lolable after changes are posted constitutes acceptance of the updated policy.</p>
+
+    <h2>12. Contact</h2>
+    <p>For privacy requests, data deletion, or any questions about this policy:</p>
+    <ul>
+      <li>Discord: <a href="https://discord.gg/kingpin" target="_blank">discord.gg/kingpin</a></li>
+      <li>Website: <a href="https://kingpindev.com" target="_blank">kingpindev.com</a></li>
+    </ul>
+
+    <footer>
+      &copy; 2026 Kingpindev &middot; <a href="https://kingpindev.com/lolable-terms-of-service.html">Terms of Service</a>
+    </footer>
+
+  </div>
+</body>
+</html>
