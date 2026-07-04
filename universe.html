@@ -1265,36 +1265,75 @@
     }
 
     .reel-tile {
-      min-height: 210px;
-      border-radius: 24px;
+      min-height: 150px;
+      border-radius: 20px;
       border: 1px solid rgba(255,255,255,.12);
       background:
-        linear-gradient(180deg, transparent, rgba(0,0,0,.62)),
-        radial-gradient(circle at 35% 20%, rgba(255,255,255,.2), transparent 26%),
         linear-gradient(135deg, rgba(255,101,216,.3), rgba(88,166,255,.2), rgba(156,124,255,.22));
       overflow: hidden;
       position: relative;
-      animation: reelFloat 5.5s ease-in-out infinite alternate;
+      transition: border-color .3s ease, transform .3s ease;
     }
 
-    .reel-tile:nth-child(2) { transform: translateY(24px); animation-delay: .3s; }
-    .reel-tile:nth-child(3) { animation-delay: .6s; }
+    .reel-tile:hover { border-color: rgba(255,101,216,.55); transform: translateY(-3px); }
 
-    @keyframes reelFloat {
-      from { filter: saturate(1); }
-      to { filter: saturate(1.35) hue-rotate(12deg); }
+    .reel-tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      opacity: .9;
+      transition: transform .4s ease, opacity .3s ease;
     }
+
+    .reel-tile:hover img { transform: scale(1.06); opacity: 1; }
 
     .reel-tile span {
       position: absolute;
       left: 14px;
       right: 14px;
-      bottom: 14px;
+      bottom: 12px;
       color: var(--soft);
       font-weight: 950;
       font-size: 13px;
       z-index: 2;
+      text-shadow: 0 2px 8px rgba(0,0,0,.7);
+      transition: opacity .25s ease;
     }
+
+    .reel-tile:hover span { opacity: 0; }
+
+    .reel-tile .reel-meta {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.72));
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .reel-tile:hover .reel-meta { opacity: 1; }
+
+    .reel-tile .reel-meta span {
+      position: static;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,.6);
+    }
+
+    .reel-tile .reel-meta i.fa-heart { color: #ff6ec7; }
+    .reel-tile .reel-meta i.fa-comment { color: rgba(255,255,255,.85); }
 
     .music-visual {
       position: relative;
@@ -2004,10 +2043,13 @@
               Film sahneleri, mood cut'lar, renk, ritim ve atmosfer üzerine kurulu yaratıcı video alanı.
             </p>
 
-            <div class="reel" aria-hidden="true">
-              <a class="reel-tile" href="https://www.instagram.com/p/DF5Ur9UN0nn/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig1.jpg" alt="Invincible" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;opacity:.85;"><span>Invincible</span></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/C7jI_oftVvz/" target="_blank" rel="noreferrer" style="text-decoration:none;transform:translateY(24px);"><img src="img/ig4.jpg" alt="Star Wars" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;opacity:.85;"><span>Star Wars</span></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/C9r4GdPtqMD/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig3.jpg" alt="Edit" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;opacity:.85;"><span>Mood Edit</span></a>
+            <div class="reel">
+              <a class="reel-tile" href="https://www.instagram.com/p/C7jI_oftVvz/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig4.jpg" alt="Star Wars"><span>Star Wars</span><div class="reel-meta"><span><i class="fas fa-heart"></i>91,8B</span><span><i class="fas fa-comment"></i>457</span></div></a>
+              <a class="reel-tile" href="https://www.instagram.com/p/C5vgkL8M14j/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig5.jpg" alt="What If..?"><span>What If..?</span><div class="reel-meta"><span><i class="fas fa-heart"></i>72,4B</span><span><i class="fas fa-comment"></i>297</span></div></a>
+              <a class="reel-tile" href="https://www.instagram.com/p/DF5Ur9UN0nn/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig1.jpg" alt="Invincible"><span>Invincible</span><div class="reel-meta"><span><i class="fas fa-heart"></i>8,6B</span><span><i class="fas fa-comment"></i>105</span></div></a>
+              <a class="reel-tile" href="https://www.instagram.com/p/C22EVl5sPN_/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig6.jpg" alt="Atmosfer"><span>Atmosfer</span><div class="reel-meta"><span><i class="fas fa-heart"></i>5,5B</span><span><i class="fas fa-comment"></i>58</span></div></a>
+              <a class="reel-tile" href="https://www.instagram.com/p/C9r4GdPtqMD/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig3.jpg" alt="Mood Edit"><span>Mood Edit</span><div class="reel-meta"><span><i class="fas fa-heart"></i>476</span><span><i class="fas fa-comment"></i>26</span></div></a>
+              <a class="reel-tile" href="https://www.instagram.com/p/DD2znKCtNWy/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig2.jpg" alt="Sinematik"><span>Sinematik</span><div class="reel-meta"><span><i class="fas fa-heart"></i>397</span><span><i class="fas fa-comment"></i>4</span></div></a>
             </div>
 
             <div class="card-actions">
