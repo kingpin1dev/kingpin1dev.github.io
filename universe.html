@@ -960,14 +960,22 @@
     }
 
     .slider {
-      min-height: 150px;
-      border-radius: 24px;
+      min-height: 172px;
+      border-radius: 22px;
       border: 1px solid rgba(255,255,255,.11);
       background: rgba(3,7,18,.38);
-      padding: 16px;
-      display: grid;
-      align-content: end;
+      padding: 15px 12px 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 10px;
+    }
+
+    .slider .lvl {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--cyan);
+      font-variant-numeric: tabular-nums;
     }
 
     .slider b {
@@ -975,26 +983,41 @@
     }
 
     .slider-track {
-      height: 82px;
+      flex: 1;
+      width: 10px;
+      min-height: 88px;
       border-radius: 999px;
       background: rgba(255,255,255,.09);
       position: relative;
-      overflow: hidden;
     }
 
     .slider-track i {
       position: absolute;
-      inset: auto 0 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       height: var(--h);
-      border-radius: inherit;
+      border-radius: 999px;
       background: linear-gradient(180deg, var(--blue), var(--cyan));
-      box-shadow: 0 0 26px rgba(66,248,255,.46);
-      animation: levelWave 3.6s ease-in-out infinite alternate;
+      animation: faderGlow 3.6s ease-in-out infinite alternate;
     }
 
-    @keyframes levelWave {
-      from { filter: hue-rotate(0deg); }
-      to { filter: hue-rotate(35deg); }
+    .slider-track i::after {
+      content: "";
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fff, var(--cyan));
+      box-shadow: 0 2px 9px rgba(0,0,0,.5), 0 0 14px rgba(66,248,255,.6);
+    }
+
+    @keyframes faderGlow {
+      from { box-shadow: 0 0 9px rgba(66,248,255,.3); }
+      to { box-shadow: 0 0 22px rgba(66,248,255,.6); }
     }
 
     .project-side {
@@ -1933,10 +1956,10 @@
             </div>
 
             <div class="mixer-visual" id="feat-visual" aria-hidden="true">
-              <div class="slider"><div class="slider-track"><i style="--h: 78%"></i></div><b>Game</b></div>
-              <div class="slider"><div class="slider-track"><i style="--h: 52%"></i></div><b>Chat</b></div>
-              <div class="slider"><div class="slider-track"><i style="--h: 66%"></i></div><b>Media</b></div>
-              <div class="slider"><div class="slider-track"><i style="--h: 40%"></i></div><b>Aux</b></div>
+              <div class="slider"><span class="lvl">78</span><div class="slider-track"><i style="--h: 78%"></i></div><b>Game</b></div>
+              <div class="slider"><span class="lvl">52</span><div class="slider-track"><i style="--h: 52%"></i></div><b>Chat</b></div>
+              <div class="slider"><span class="lvl">66</span><div class="slider-track"><i style="--h: 66%"></i></div><b>Media</b></div>
+              <div class="slider"><span class="lvl">40</span><div class="slider-track"><i style="--h: 40%"></i></div><b>Aux</b></div>
             </div>
 
             <div class="card-actions" id="feat-actions">
