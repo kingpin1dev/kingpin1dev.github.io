@@ -899,6 +899,20 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
     }
 
+    .app-icon.brand i { font-size: 32px; line-height: 1; }
+
+    .app-icon.ig {
+      background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      border-color: rgba(255,255,255,.28);
+    }
+    .app-icon.ig i { color: #fff; }
+
+    .app-icon.sp {
+      background: rgba(29,185,84,.14);
+      border-color: rgba(29,185,84,.42);
+    }
+    .app-icon.sp i { color: #1ed760; }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -1392,6 +1406,19 @@
       to { transform: scaleY(1.08); filter: hue-rotate(25deg); }
     }
 
+    .spotify-embed {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.42);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .spotify-embed iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+
     .activity-grid {
       display: grid;
       grid-template-columns: 1.1fr .9fr;
@@ -1444,14 +1471,13 @@
     .game-shelf {
       position: relative;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin-top: 24px;
     }
 
     .game {
-      min-height: 130px;
-      border-radius: 24px;
+      aspect-ratio: 3 / 4;
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,.11);
       background:
         linear-gradient(0deg, rgba(0,0,0,.62), transparent 62%),
@@ -1460,9 +1486,129 @@
       position: relative;
       overflow: hidden;
       display: flex;
-      align-items: end;
-      padding: 16px;
+      flex-direction: column;
+      justify-content: end;
+      padding: 14px;
+      transition: transform .3s ease, border-color .3s ease;
     }
+
+    .game:hover { transform: translateY(-4px); border-color: rgba(102,192,244,.55); }
+
+    .game-bar {
+      position: relative;
+      z-index: 2;
+      margin-top: 8px;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.18);
+      overflow: hidden;
+    }
+
+    .game-bar i {
+      display: block;
+      height: 100%;
+      border-radius: 99px;
+      background: var(--c, #66c0f4);
+      box-shadow: 0 0 8px var(--c, #66c0f4);
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .status-card {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.055);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    }
+
+    .status-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.24);
+      background: rgba(255,255,255,.08);
+    }
+
+    .status-ic {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .status-ic img { width: 100%; height: 100%; object-fit: cover; }
+    .status-ic.dc { background: rgba(88,101,242,.16); color: #8b96f4; }
+    .status-ic.st, .status-ic.st2 { background: rgba(102,192,244,.14); color: #66c0f4; }
+    .status-ic.xb { background: rgba(16,124,16,.18); color: #4bd44b; }
+    .status-ic.gh { background: rgba(255,255,255,.08); color: #fff; }
+
+    .status-txt { flex: 1; min-width: 0; }
+    .status-txt b { display: block; font-size: 14px; margin-bottom: 3px; }
+    .status-txt span {
+      display: block;
+      color: var(--muted);
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .status-go { color: var(--faint); font-size: 12px; flex-shrink: 0; }
+    .status-card:hover .status-go { color: var(--soft); }
+
+    .steam-panel {
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+
+    .steam-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(102,192,244,.05);
+    }
+
+    .sp-title { display: flex; align-items: center; gap: 13px; }
+    .sp-title b { display: block; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+    .sp-title span { display: block; font-size: 10px; color: var(--muted); font-family: monospace; margin-top: 2px; }
+
+    .steam-panel-body { padding: 22px; }
+
+    .shelf-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 26px 0 14px;
+    }
+
+    .shelf-label:first-child { margin-top: 4px; }
+    .shelf-label .bar { width: 6px; height: 16px; border-radius: 99px; background: #66c0f4; }
+    .shelf-label .bar.y { background: #ffc96d; }
 
     .game::after {
       content: "";
@@ -1706,6 +1852,10 @@
         grid-template-columns: repeat(3, 1fr);
       }
 
+      .status-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .hero-stage {
         min-height: 0;
         padding: 8px 0 4px;
@@ -1779,13 +1929,14 @@
 
       .micro-stats,
       .mixer-visual,
-      .app-wall,
-      .game-stats,
-      .game-shelf {
+      .app-wall {
         grid-template-columns: 1fr;
       }
 
-      .edit-grid {
+      .edit-grid,
+      .game-stats,
+      .game-shelf,
+      .status-row {
         grid-template-columns: repeat(2, 1fr);
       }
 
@@ -2133,8 +2284,8 @@
         <div class="creative-grid">
           <article class="card creative-card reveal" style="--accent: rgba(255,101,216,1);">
             <div class="creative-top">
-              <div class="app-icon">🎬</div>
-              <span class="pill">SineOrbit</span>
+              <div class="app-icon brand ig"><i class="fab fa-instagram"></i></div>
+              <span class="pill"><i class="fab fa-instagram"></i> SineOrbit</span>
             </div>
 
             <h3>SineOrbit</h3>
@@ -2149,8 +2300,8 @@
 
           <article class="card creative-card reveal" style="--accent: rgba(66,248,255,1);">
             <div class="creative-top">
-              <div class="app-icon">🎵</div>
-              <span class="pill">Spotify</span>
+              <div class="app-icon brand sp"><i class="fab fa-spotify"></i></div>
+              <span class="pill"><i class="fab fa-spotify"></i> Spotify</span>
             </div>
 
             <h3>Spotify</h3>
@@ -2158,21 +2309,8 @@
               Zaman zaman hobi olarak ürettiğim ve yayınladığım parçalar.
             </p>
 
-            <div class="music-visual" aria-hidden="true">
-              <div class="wave" style="--h: 46%; --d: .0s"></div>
-              <div class="wave" style="--h: 70%; --d: .1s"></div>
-              <div class="wave" style="--h: 34%; --d: .2s"></div>
-              <div class="wave" style="--h: 88%; --d: .3s"></div>
-              <div class="wave" style="--h: 58%; --d: .4s"></div>
-              <div class="wave" style="--h: 76%; --d: .5s"></div>
-              <div class="wave" style="--h: 42%; --d: .6s"></div>
-              <div class="wave" style="--h: 92%; --d: .7s"></div>
-              <div class="wave" style="--h: 64%; --d: .8s"></div>
-              <div class="wave" style="--h: 50%; --d: .9s"></div>
-            </div>
-
-            <div class="card-actions" style="margin-top:auto;">
-              <a class="mini-link" href="https://open.spotify.com/intl-tr/artist/7tqKllQw5Qmb8W2rxxBykt?si=5235320fb4d34e84" target="_blank" rel="noreferrer">Spotify'da Dinle</a>
+            <div class="spotify-embed" style="margin-top:auto;">
+              <iframe src="https://open.spotify.com/embed/artist/7tqKllQw5Qmb8W2rxxBykt?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Spotify"></iframe>
             </div>
           </article>
         </div>
@@ -2207,16 +2345,57 @@
           </p>
         </div>
 
-        <div class="activity-grid">
-          <article class="activity-card reveal">
-            <div class="creative-top">
-              <div class="app-icon">🎮</div>
-              <span class="pill">KINGPIN • Steam</span>
+        <div class="status-row reveal">
+          <div class="status-card">
+            <div class="status-ic dc"><i class="fab fa-discord"></i></div>
+            <div class="status-txt">
+              <b>Discord</b>
+              <span id="discord-activity">Yükleniyor...</span>
             </div>
+            <i class="status-dot" id="discord-dot"></i>
+          </div>
 
-            <h3>Kişisel oyun vitrini</h3>
-            <p>Oyun koleksiyonu, başarımlar ve profil kimliği için görsel ağırlıklı alan.</p>
+          <a class="status-card" href="https://steamcommunity.com/id/burakpekel/" target="_blank" rel="noreferrer">
+            <div class="status-ic st"><img src="https://avatars.fastly.steamstatic.com/6699308c9128ee16df2523235ee7d01ddbfb7b63_full.jpg" alt="Steam"></div>
+            <div class="status-txt">
+              <b>Kingpin</b>
+              <span>Steam • PC Oyuncusu</span>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square status-go"></i>
+          </a>
 
+          <a class="status-card" href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" rel="noreferrer">
+            <div class="status-ic xb"><i class="fab fa-xbox"></i></div>
+            <div class="status-txt">
+              <b>Kingpin7841</b>
+              <span>Xbox • Konsol & PC</span>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square status-go"></i>
+          </a>
+
+          <a class="status-card" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">
+            <div class="status-ic gh"><i class="fab fa-github"></i></div>
+            <div class="status-txt">
+              <b>kingpin1dev</b>
+              <span>GitHub</span>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square status-go"></i>
+          </a>
+        </div>
+
+        <div class="steam-panel reveal">
+          <div class="steam-panel-head">
+            <div class="sp-title">
+              <div class="status-ic st2"><i class="fab fa-steam"></i></div>
+              <div>
+                <b>Kişisel Oyun Vitrini</b>
+                <span>ID: KINGPIN • OYUNCU PROFİLİ</span>
+              </div>
+            </div>
+            <a class="mini-link" href="https://steamcommunity.com/id/burakpekel/" target="_blank" rel="noreferrer">Profile Git</a>
+          </div>
+
+          <div class="steam-panel-body">
             <div class="game-stats">
               <div class="game-stat"><b>159</b><span>Sahip olunan oyun</span></div>
               <div class="game-stat"><b>40</b><span>%100 tamamlanan</span></div>
@@ -2224,13 +2403,15 @@
               <div class="game-stat"><b>%74</b><span>Bitirme oranı</span></div>
             </div>
 
+            <div class="shelf-label"><span class="bar"></span> Kütüphane Özetim</div>
             <div class="game-shelf">
-              <div class="game" style="--d:.0s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg') center/cover;"><b>Cyberpunk 2077</b></div>
-              <div class="game" style="--d:.2s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_600x900.jpg') center/cover;"><b>ARC Raiders</b></div>
-              <div class="game" style="--d:.4s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_600x900.jpg') center/cover;"><b>Dying Light</b></div>
-              <div class="game" style="--d:.6s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg') center/cover;"><b>Split Fiction</b></div>
+              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg') center/cover;"><b>Cyberpunk 2077</b><div class="game-bar"><i style="width:85%; --c:#00ff9f"></i></div></div>
+              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_600x900.jpg') center/cover;"><b>ARC Raiders</b><div class="game-bar"><i style="width:40%; --c:#ff9d42"></i></div></div>
+              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_600x900.jpg') center/cover;"><b>Dying Light</b><div class="game-bar"><i style="width:75%; --c:#ffc96d"></i></div></div>
+              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg') center/cover;"><b>Split Fiction</b><div class="game-bar"><i style="width:55%; --c:#b57cff"></i></div></div>
             </div>
 
+            <div class="shelf-label"><span class="bar y"></span> Koleksiyon Başarımları</div>
             <div class="steam-extra">
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/ff473e4edb88865aa2204ca5cbb3b8430ed469c1.jpg" alt="Başarım"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/0fa9f59cef98ed26a2830ba1bd303955c5ad61b1.jpg" alt="Başarım"></div>
@@ -2245,52 +2426,7 @@
                 <div class="sl-num">36</div>
               </div>
             </div>
-          </article>
-
-          <article class="activity-card reveal">
-            <div class="creative-top">
-              <div class="app-icon">🛰️</div>
-              <span class="pill">Presence</span>
-            </div>
-
-            <h3>Canlı profil sinyalleri</h3>
-            <p>Discord, Xbox ve diğer sosyal/profil alanları için kompakt, canlı his veren kart yapısı.</p>
-
-            <div class="live-panel">
-              <div class="live-row">
-                <div class="live-avatar">KP</div>
-                <div>
-                  <b>Discord</b>
-                  <span id="discord-activity">Yükleniyor...</span>
-                </div>
-                <i class="status-dot" id="discord-dot"></i>
-              </div>
-
-              <div class="live-row">
-                <div class="live-avatar">XB</div>
-                <div>
-                  <b>Xbox Live</b>
-                  <span>Kingpin7841</span>
-                </div>
-                <i class="status-dot"></i>
-              </div>
-
-              <div class="live-row">
-                <div class="live-avatar">GH</div>
-                <div>
-                  <b>GitHub</b>
-                  <span>kingpin1dev</span>
-                </div>
-                <i class="status-dot"></i>
-              </div>
-            </div>
-
-            <div class="card-actions">
-              <a class="mini-link" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="mini-link" href="https://steamcommunity.com/id/burakpekel/" target="_blank" rel="noreferrer">Steam</a>
-              <a class="mini-link" href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" rel="noreferrer">Xbox</a>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
