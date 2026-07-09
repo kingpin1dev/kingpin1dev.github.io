@@ -1073,18 +1073,25 @@
     }
     .viz-chips.lg { margin-top: 14px; }
 
-    /* EQ (VICE Sonar) */
-    .eq-bars { flex: 1; display: flex; align-items: flex-end; gap: 4px; min-height: 96px; }
-    .eq-bars span {
-      flex: 1;
-      height: var(--h);
-      border-radius: 4px 4px 2px 2px;
-      background: linear-gradient(180deg, var(--cyan), var(--blue));
-      transform-origin: bottom;
-      animation: eqPulse 1.3s ease-in-out infinite alternate;
-      animation-delay: var(--d);
-    }
-    @keyframes eqPulse { from { transform: scaleY(.55); } to { transform: scaleY(1); } }
+    /* Sonar (VICE Sonar) */
+    .viz-sonar { padding: 14px; }
+    .son-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
+    .son-title { font-size: 12px; font-weight: 900; display: inline-flex; align-items: center; gap: 7px; }
+    .son-title i { color: #9c7cff; }
+    .son-tabs { display: flex; gap: 2px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 9px; padding: 2px; }
+    .son-tabs i { font-style: normal; font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: 6px; color: var(--muted); }
+    .son-tabs i.on { background: #58a6ff; color: #03060f; }
+    .son-rows { display: grid; gap: 9px; flex: 1; align-content: center; }
+    .son-row { display: flex; align-items: center; gap: 9px; }
+    .son-ic { width: 24px; height: 24px; flex-shrink: 0; border-radius: 7px; display: grid; place-items: center; font-size: 11px; color: #fff; background: linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 62%, #000)); }
+    .son-row b { font-size: 11.5px; width: 46px; flex-shrink: 0; }
+    .son-track { position: relative; flex: 1; height: 4px; border-radius: 99px; background: rgba(255,255,255,.15); }
+    .son-track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 99px; background: linear-gradient(90deg, #58a6ff, #42f8ff); }
+    .son-track i::after { content: ""; position: absolute; right: -4px; top: 50%; transform: translateY(-50%); width: 11px; height: 11px; border-radius: 50%; background: #fff; box-shadow: 0 0 8px rgba(88,166,255,.7); }
+    .son-pct { font-size: 10px; font-weight: 800; color: var(--soft); width: 30px; text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+    .son-mix { display: flex; align-items: center; gap: 11px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.08); }
+    .son-mix > i { font-size: 12px; color: #3ddc84; flex-shrink: 0; }
+    .son-mix > i:last-child { color: #9c7cff; }
 
     /* Snap (GlideSnap) */
     .viz-snap {
@@ -2941,7 +2948,7 @@
       },
       {
         id: 'vice-sonar',
-        visual: 'eq',
+        visual: 'sonar',
         accent: 'rgba(66,248,255,1)',
         accentBg: 'rgba(66,248,255,.24)',
         icon: 'img/vice-sonar.png',
@@ -3020,11 +3027,23 @@
             <div class="slider"><span class="lvl">66</span><div class="slider-track"><i style="--h:66%"></i></div><b>Media</b></div>
             <div class="slider"><span class="lvl">40</span><div class="slider-track"><i style="--h:40%"></i></div><b>Aux</b></div>
           </div>`;
-        case 'eq': {
-          const hs = [42, 68, 30, 84, 56, 92, 48, 74, 38, 88, 60, 34, 80, 52, 70, 44];
-          return `<div class="viz viz-eq">
-            <div class="viz-head"><span><i class="fas fa-sliders"></i> SONAR</span><span class="viz-chips"><i>Game</i><i>Chat</i><i>Mic</i></span></div>
-            <div class="eq-bars">${hs.map((h, i) => `<span style="--h:${h}%; --d:${(i % 8) * .09}s"></span>`).join('')}</div>
+        case 'sonar': {
+          const ch = [
+            ['#9c7cff', 'fa-sliders', 'Master', 100],
+            ['#3ddc84', 'fa-gamepad', 'Game', 100],
+            ['#ff5fa2', 'fa-comment', 'Chat', 82],
+            ['#3aa0ff', 'fa-music', 'Media', 53],
+            ['#2fe0d0', 'fa-wave-square', 'Aux', 22],
+          ];
+          return `<div class="viz viz-sonar">
+            <div class="son-head">
+              <span class="son-title"><i class="fas fa-headphones-simple"></i> VICE Sonar</span>
+              <span class="son-tabs"><i class="on">Audio</i><i>EQ</i><i>RGB</i></span>
+            </div>
+            <div class="son-rows">
+              ${ch.map(([c, ic, l, w]) => `<div class="son-row"><span class="son-ic" style="--c:${c}"><i class="fas ${ic}"></i></span><b>${l}</b><span class="son-track"><i style="width:${w}%"></i></span><span class="son-pct">${w}%</span></div>`).join('')}
+            </div>
+            <div class="son-mix"><i class="fas fa-gamepad"></i><span class="son-track"><i style="width:55%"></i></span><i class="fas fa-headphones"></i></div>
           </div>`;
         }
         case 'snap':
