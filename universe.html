@@ -1462,6 +1462,54 @@
       font-size: 14px;
     }
 
+    .steam-extra {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ach {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .ach img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ach:hover { transform: translateY(-3px) scale(1.08); border-color: rgba(255,201,109,.7); }
+
+    .steam-level {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 6px 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.055);
+    }
+
+    .steam-level .sl-meta { text-align: right; line-height: 1.25; }
+    .steam-level .sl-meta b { display: block; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+    .steam-level .sl-meta span { font-size: 10px; color: var(--muted); font-family: monospace; }
+
+    .steam-level .sl-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--cyan);
+      background: rgba(3,7,18,.6);
+      font-weight: 1000;
+      font-size: 14px;
+      box-shadow: 0 0 12px rgba(66,248,255,.3);
+    }
+
     .live-panel {
       display: grid;
       gap: 14px;
@@ -1910,18 +1958,20 @@
 
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>Windows Utilities</span>
-        <span>Glass UI</span>
-        <span>Video Editing</span>
-        <span>Gaming Profile</span>
-        <span>Microsoft Store</span>
-        <span>Creative Systems</span>
-        <span>Windows Utilities</span>
-        <span>Glass UI</span>
-        <span>Video Editing</span>
-        <span>Gaming Profile</span>
-        <span>Microsoft Store</span>
-        <span>Creative Systems</span>
+        <span>JavaScript</span>
+        <span>Python</span>
+        <span>C# / .NET</span>
+        <span>Tailwind CSS</span>
+        <span>Premiere Pro</span>
+        <span>After Effects</span>
+        <span>Figma</span>
+        <span>JavaScript</span>
+        <span>Python</span>
+        <span>C# / .NET</span>
+        <span>Tailwind CSS</span>
+        <span>Premiere Pro</span>
+        <span>After Effects</span>
+        <span>Figma</span>
       </div>
     </div>
 
@@ -1978,6 +2028,7 @@
               <p>Gerçek e-postanı koruyan, şifresiz ve kullanıcı adıyla çalışan geçici mail servisi.</p>
               <div class="card-actions">
                 <a class="mini-link" href="https://bokmails.com" target="_blank" rel="noreferrer">Siteyi Aç</a>
+                <a class="mini-link" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">GitHub</a>
               </div>
             </article>
 
@@ -1987,9 +2038,10 @@
                 <span class="pill">Dynamic Island</span>
               </div>
               <h3>Notchify</h3>
-              <p>Windows için dinamik ada hissi veren overlay, bildirim ve hızlı erişim deneyimi.</p>
+              <p>Windows için Dynamic Island tarzı overlay; fizik tabanlı animasyonlar, modüler widget'lar ve 10 dil desteği.</p>
               <div class="card-actions">
                 <a class="mini-link" href="https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare" target="_blank" rel="noreferrer">Microsoft Store</a>
+                <a class="mini-link" href="https://github.com/kingpin1dev/Notchify" target="_blank" rel="noreferrer">GitHub</a>
               </div>
             </article>
           </div>
@@ -2006,7 +2058,7 @@
             <div class="kicker">Main Rig</div>
             <h2 class="section-title">Kod, kurgu ve oyun için güç odası.</h2>
           </div>
-          <p class=”section-copy”>
+          <p class="section-copy">
             Geliştirme, kurgu ve oyun için tasarlanmış yüksek performanslı sistem. Her bileşen hem iş akışına hem de estetik anlayışa göre seçildi.
           </p>
         </div>
@@ -2043,7 +2095,7 @@
             <div class="kicker">Creative Layer</div>
             <h2 class="section-title">Kodun yanında görüntü de var.</h2>
           </div>
-          <p class=”section-copy”>
+          <p class="section-copy">
             Yazılımın dışında kalan yaratıcı alan; sinematik video editleri, atmosfer çalışmaları ve müzik üretimini barındıran SineOrbit evreni.
           </p>
         </div>
@@ -2113,7 +2165,7 @@
             <div class="kicker">Live Identity</div>
             <h2 class="section-title">Aktivite, profil ve oyun izi.</h2>
           </div>
-          <p class=”section-copy”>
+          <p class="section-copy">
             Steam koleksiyonu, Xbox profili ve anlık sosyal sinyal noktalarını bir araya getiren kişisel aktivite alanı.
           </p>
         </div>
@@ -2140,6 +2192,21 @@
               <div class="game" style="--d:.2s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_600x900.jpg') center/cover;"><b>ARC Raiders</b></div>
               <div class="game" style="--d:.4s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_600x900.jpg') center/cover;"><b>Dying Light</b></div>
               <div class="game" style="--d:.6s; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 62%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg') center/cover;"><b>Split Fiction</b></div>
+            </div>
+
+            <div class="steam-extra">
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/ff473e4edb88865aa2204ca5cbb3b8430ed469c1.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/0fa9f59cef98ed26a2830ba1bd303955c5ad61b1.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/4cf7bf4cb63dae3a678b7884c23957728f78367d.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/ae55ecb37205f05eb4a5dcdb8c03e721df5cbfb8.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/2624a2514dd83bc2412c57fea4431e678f9128be.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/b6f9183c35c6e75641994d91f23518b714166ab9.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/6848899b96700a6dccb129191b4b03d7d4a1b217.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/f386305a0ae748d9d48e8e8c68fa90072116c46b.jpg" alt="Başarım"></div>
+              <div class="steam-level">
+                <div class="sl-meta"><b>Steam Level</b><span>#1473 Vice Club</span></div>
+                <div class="sl-num">36</div>
+              </div>
             </div>
           </article>
 
@@ -2399,7 +2466,7 @@
         tags: ['Game / Chat / Media / Aux', 'Island Mode', 'Tray Flyout', 'ChatMix', 'Hotkeys'],
         links: [
           { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9NN5W7D23VLJ?hl=neutral&gl=TR&ocid=pdpshare' },
-          { text: 'Ürünü İncele', url: 'https://apps.microsoft.com/detail/9NN5W7D23VLJ?hl=neutral&gl=TR&ocid=pdpshare' }
+          { text: 'Tüm Uygulamalar', url: 'https://apps.microsoft.com/search/publisher?name=Kingpindev&hl=tr-TR&gl=TR' }
         ],
         showMixer: true
       },
@@ -2411,8 +2478,11 @@
         pill: 'Windows App',
         title: 'VICE Sonar',
         desc: 'SteelSeries Sonar ses kontrollerini masaüstüne taşıyan, sade ve hızlı bir widget.',
-        tags: ['Sonar', 'Windows', 'Ses Kontrolü', 'Widget'],
-        links: [{ text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9p40tmplqb43?hl=tr-TR&gl=TR' }],
+        tags: ['Ses Kontrolü', 'EQ Profilleri', 'RGB', '7 Tema'],
+        links: [
+          { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9p40tmplqb43?hl=tr-TR&gl=TR' },
+          { text: 'GitHub', url: 'https://github.com/kingpin1dev/VICE-Sonar' }
+        ],
         showMixer: false
       },
       {
