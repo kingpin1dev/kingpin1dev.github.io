@@ -1770,6 +1770,101 @@
       margin-top: 34px;
     }
 
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(3,7,18,.72);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .modal {
+      width: min(420px, 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.045));
+      backdrop-filter: blur(26px);
+      box-shadow: 0 40px 120px rgba(0,0,0,.5);
+      padding: 30px 26px 26px;
+      position: relative;
+      transform: translateY(14px) scale(.97);
+      transition: transform .25s ease;
+    }
+
+    .modal-overlay.open .modal { transform: none; }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--soft);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,.12); }
+
+    .modal-head { text-align: center; margin-bottom: 20px; }
+    .modal-head h3 { font-size: 22px; font-weight: 1000; margin: 8px 0 6px; letter-spacing: -.02em; }
+    .modal-head p { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+    .modal-links { display: grid; gap: 12px; }
+
+    .modal-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s ease, transform .2s ease, background .2s ease;
+    }
+
+    .modal-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.26);
+      background: rgba(255,255,255,.08);
+    }
+
+    .ml-ic {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .ml-ic.ig { background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); color: #fff; }
+    .ml-ic.dc { background: rgba(88,101,242,.16); color: #8b96f4; }
+    .ml-ic.em { background: rgba(88,166,255,.16); color: var(--blue); }
+
+    .ml-txt { flex: 1; min-width: 0; }
+    .ml-txt b { display: block; font-size: 14px; margin-bottom: 2px; }
+    .ml-txt span { display: block; color: var(--muted); font-size: 12px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+
+    .ml-go { color: var(--faint); font-size: 12px; flex-shrink: 0; }
+    .modal-link:hover .ml-go { color: var(--soft); }
+
     .footer {
       padding: 46px 0 58px;
       color: var(--muted);
@@ -2025,7 +2120,7 @@
       </div>
 
       <div class="nav-actions">
-        <a class="btn" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://apps.microsoft.com/search/publisher?name=Kingpindev&hl=tr-TR&gl=TR" target="_blank" rel="noreferrer">Microsoft Store</a>
         <a class="btn primary" href="#projects">Enter</a>
       </div>
     </nav>
@@ -2049,22 +2144,7 @@
           <div class="hero-actions">
             <a class="btn primary" href="#projects">Evrene Gir</a>
             <a class="btn" href="https://apps.microsoft.com/search/publisher?name=Kingpindev" target="_blank" rel="noreferrer">Microsoft Store</a>
-            <a class="btn" href="mailto:burakpekel@bokmails.com">İletişim</a>
-          </div>
-
-          <div class="micro-stats">
-            <div class="micro">
-              <b>Windows</b>
-              <span>Fluent Mixer, Notchify, GlideSnap, Aurora Radios</span>
-            </div>
-            <div class="micro">
-              <b>Creative</b>
-              <span>Video edit, SineOrbit, müzik ve görsel üretim</span>
-            </div>
-            <div class="micro">
-              <b>Gaming</b>
-              <span>Steam, Xbox ve kişisel achievement vitrini</span>
-            </div>
+            <button class="btn" type="button" id="open-contact">İletişim</button>
           </div>
         </div>
 
@@ -2445,7 +2525,7 @@
             </p>
 
             <div class="final-actions">
-              <a class="btn primary" href="mailto:burakpekel@bokmails.com">E-posta Gönder</a>
+              <a class="btn primary" href="mailto:admin@bokmails.com">E-posta Gönder</a>
               <a class="btn" href="https://www.instagram.com/burakpekeel/" target="_blank" rel="noreferrer">Instagram</a>
               <a class="btn" href="https://discord.com/users/Kingpindev" target="_blank" rel="noreferrer">Discord</a>
               <a class="btn" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">GitHub</a>
@@ -2482,6 +2562,34 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="contact-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="İletişim">
+      <button class="modal-close" type="button" id="close-contact" aria-label="Kapat">&times;</button>
+      <div class="modal-head">
+        <div class="kicker" style="justify-content:center;">İletişim</div>
+        <h3>Bana ulaş</h3>
+        <p>Proje, işbirliği ya da sadece bir merhaba için.</p>
+      </div>
+      <div class="modal-links">
+        <a class="modal-link" href="https://www.instagram.com/burakpekeel/" target="_blank" rel="noreferrer">
+          <span class="ml-ic ig"><i class="fab fa-instagram"></i></span>
+          <span class="ml-txt"><b>Instagram</b><span>@burakpekeel</span></span>
+          <i class="fas fa-arrow-up-right-from-square ml-go"></i>
+        </a>
+        <a class="modal-link" href="https://discord.com/users/Kingpindev" target="_blank" rel="noreferrer">
+          <span class="ml-ic dc"><i class="fab fa-discord"></i></span>
+          <span class="ml-txt"><b>Discord</b><span>kingpindev</span></span>
+          <i class="fas fa-arrow-up-right-from-square ml-go"></i>
+        </a>
+        <a class="modal-link" href="mailto:admin@bokmails.com">
+          <span class="ml-ic em"><i class="fas fa-envelope"></i></span>
+          <span class="ml-txt"><b>E-posta</b><span>admin@bokmails.com</span></span>
+          <i class="fas fa-arrow-up-right-from-square ml-go"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script>
     const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -2807,6 +2915,22 @@
 
       fetchStatus();
       setInterval(fetchStatus, 30000);
+    })();
+
+    // Contact modal
+    (function initContactModal() {
+      const openBtn = document.getElementById('open-contact');
+      const modal = document.getElementById('contact-modal');
+      const closeBtn = document.getElementById('close-contact');
+      if (!openBtn || !modal) return;
+
+      const open = () => { modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); };
+      const close = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); };
+
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', e => { if (e.target === modal) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
     })();
   </script>
 </body>
