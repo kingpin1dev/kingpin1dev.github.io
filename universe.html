@@ -1279,6 +1279,53 @@
       font-weight: 850;
     }
 
+    .terminal {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(3,7,12,.74);
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(0,0,0,.45), 0 0 40px rgba(112,255,178,.05);
+      font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,.045);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .tdot { width: 12px; height: 12px; border-radius: 50%; }
+    .tdot.r { background: #ff5f57; }
+    .tdot.y { background: #febc2e; }
+    .tdot.g { background: #28c840; }
+    .terminal-title { margin-left: 12px; font-size: 12px; color: var(--muted); }
+
+    .terminal-body {
+      padding: 22px 22px 26px;
+      font-size: 14px;
+      line-height: 1.85;
+      overflow-x: auto;
+    }
+
+    .tprompt { color: #70ffb2; margin-bottom: 14px; white-space: nowrap; }
+    .tprompt .tcmd { color: #fff; }
+
+    .tlist { list-style: none; display: grid; gap: 8px; }
+    .tlist li { white-space: nowrap; }
+    .tlist .tkey { color: var(--faint); }
+    .tlist .tval { color: var(--soft); }
+
+    .tcursor {
+      color: #70ffb2;
+      margin-top: 14px;
+      animation: termBlink 1.1s step-end infinite;
+    }
+
+    @keyframes termBlink { 50% { opacity: 0; } }
+
     .creative-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2279,33 +2326,7 @@
             </div>
           </article>
 
-          <div class="project-side">
-            <article class="card tilt project-small reveal" style="--accent: rgba(255,101,216,1);">
-              <div class="project-topline">
-                <div class="app-icon"><img src="img/BokMail.png" alt="BokMail" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
-                <span class="pill">Web App</span>
-              </div>
-              <h3>BokMail</h3>
-              <p>Gerçek e-postanı koruyan, şifresiz ve kullanıcı adıyla çalışan geçici mail servisi.</p>
-              <div class="card-actions">
-                <a class="mini-link" href="https://bokmails.com" target="_blank" rel="noreferrer">Siteyi Aç</a>
-                <a class="mini-link" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
-            </article>
-
-            <article class="card tilt project-small reveal" style="--accent: rgba(156,124,255,1);">
-              <div class="project-topline">
-                <div class="app-icon"><img src="img/notchify.png" alt="Notchify" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
-                <span class="pill">Dynamic Island</span>
-              </div>
-              <h3>Notchify</h3>
-              <p>Windows için Dynamic Island tarzı overlay; fizik tabanlı animasyonlar, modüler widget'lar ve 10 dil desteği.</p>
-              <div class="card-actions">
-                <a class="mini-link" href="https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare" target="_blank" rel="noreferrer">Microsoft Store</a>
-                <a class="mini-link" href="https://github.com/kingpin1dev/Notchify" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
-            </article>
-          </div>
+          <div class="project-side" id="project-side"></div>
         </div>
 
         <div class="app-wall" id="app-wall"></div>
@@ -2324,27 +2345,22 @@
           </p>
         </div>
 
-        <div class="rig-grid" style="grid-template-columns: 1fr;">
-          <article class="card rig-card reveal" style="--accent: rgba(112,255,178,1);">
-            <div class="rig-top">
-              <div class="app-icon">🖥️</div>
-              <span class="pill">Development • Editing • Gaming</span>
-            </div>
-
-            <h3>Burak PEKEL's Main Rig</h3>
-            <p>
-              Windows uygulamaları geliştirmek, video edit yapmak ve oyun tarafında akıcı bir deneyim yakalamak için
-              performans ve estetik dengesine kurulu sistem.
-            </p>
-
-            <div class="spec-list">
-              <div class="spec"><b>CPU</b><span>AMD Ryzen™ 7 8700F — 8 Core, up to 5.0 GHz</span></div>
-              <div class="spec"><b>GPU</b><span>ASUS Dual GeForce RTX™ 4070 OC — 12GB</span></div>
-              <div class="spec"><b>RAM</b><span>32GB Corsair Dominator Platinum RGB DDR5</span></div>
-              <div class="spec"><b>MOBO</b><span>ASUS Prime A620M-K</span></div>
-              <div class="spec"><b>COOL</b><span>Thermalright Aqua Elite 240 ARGB</span></div>
-            </div>
-          </article>
+        <div class="terminal reveal">
+          <div class="terminal-bar">
+            <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+            <span class="terminal-title">kingpin1dev@main-rig ~</span>
+          </div>
+          <div class="terminal-body">
+            <p class="tprompt">kingpin1dev@main-rig ~ % <span class="tcmd">neofetch --hardware</span></p>
+            <ul class="tlist">
+              <li><span class="tkey">CPU </span>: <span class="tval">AMD Ryzen™ 7 8700F (8-Core, 5.0 GHz)</span></li>
+              <li><span class="tkey">GPU </span>: <span class="tval">ASUS Dual GeForce RTX™ 4070 OC 12GB</span></li>
+              <li><span class="tkey">RAM </span>: <span class="tval">32GB Corsair Dominator Platinum RGB DDR5</span></li>
+              <li><span class="tkey">MOBO</span>: <span class="tval">ASUS Prime A620M-K</span></li>
+              <li><span class="tkey">COOL</span>: <span class="tval">Thermalright Aqua Elite 240 ARGB</span></li>
+            </ul>
+            <p class="tcursor">_</p>
+          </div>
         </div>
       </div>
     </section>
@@ -2754,6 +2770,36 @@
         showMixer: true
       },
       {
+        id: 'bokmail',
+        accent: 'rgba(255,101,216,1)',
+        accentBg: 'rgba(255,101,216,.22)',
+        icon: 'img/BokMail.png',
+        pill: 'Web App',
+        title: 'BokMail',
+        desc: 'Gerçek e-postanı koruyan, şifresiz ve kullanıcı adıyla çalışan geçici mail servisi. Anonim, anında aktif ve kalıcı saklama destekli.',
+        tags: ['Şifresiz', 'Kalıcı Depolama', 'Anonim', 'Spam Koruması'],
+        links: [
+          { text: 'Siteyi Aç', url: 'https://bokmails.com' },
+          { text: 'GitHub', url: 'https://github.com/kingpin1dev' }
+        ],
+        showMixer: false
+      },
+      {
+        id: 'notchify',
+        accent: 'rgba(156,124,255,1)',
+        accentBg: 'rgba(156,124,255,.22)',
+        icon: 'img/notchify.png',
+        pill: 'Dynamic Island',
+        title: 'Notchify',
+        desc: 'Windows için Dynamic Island tarzı masaüstü overlay; fizik tabanlı animasyonlar, modüler widget\'lar (hava durumu, medya, sistem) ve 10 dil desteği.',
+        tags: ['Akıcı Animasyonlar', 'Bildirimler', 'Medya Kontrolü', 'Kısayollar', 'Takvim', 'Hava Durumu', 'Tray'],
+        links: [
+          { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare' },
+          { text: 'GitHub', url: 'https://github.com/kingpin1dev/Notchify' }
+        ],
+        showMixer: false
+      },
+      {
         id: 'vice-sonar',
         accent: 'rgba(66,248,255,1)',
         accentBg: 'rgba(66,248,255,.24)',
@@ -2829,9 +2875,42 @@
       }, 180);
     }
 
+    function setFeatured(id) {
+      if (id === featuredId) return;
+      featuredId = id;
+      renderFeatured(APPS.find(a => a.id === id));
+      renderSide();
+      renderWall();
+    }
+
+    function renderSide() {
+      const side = document.getElementById('project-side');
+      const sideApps = APPS.filter(a => a.id !== featuredId).slice(0, 2);
+      side.innerHTML = sideApps.map(app => `
+        <article class="card tilt project-small" style="--accent:${app.accent}; cursor:none;" data-app-id="${app.id}">
+          <div class="project-topline">
+            <div class="app-icon"><img src="${app.icon}" alt="${app.title}" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
+            <span class="pill">${app.pill}</span>
+          </div>
+          <h3>${app.title}</h3>
+          <p>${app.desc}</p>
+          <div class="card-actions">
+            ${app.links.map(l => `<a class="mini-link" href="${l.url}" target="_blank" rel="noreferrer">${l.text}</a>`).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      side.querySelectorAll('.project-small').forEach(card => {
+        card.addEventListener('click', e => {
+          if (e.target.closest('a')) return;
+          setFeatured(card.dataset.appId);
+        });
+      });
+    }
+
     function renderWall() {
       const wall = document.getElementById('app-wall');
-      const wallApps = APPS.filter(a => a.id !== featuredId);
+      const wallApps = APPS.filter(a => a.id !== featuredId).slice(2);
       wall.innerHTML = wallApps.map(app => `
         <article class="wall-card" style="--accent:${app.accentBg}; cursor:none;" data-app-id="${app.id}">
           <em style="overflow:hidden; font-size:0;"><img src="${app.icon}" alt="${app.title}" style="width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;"></em>
@@ -2841,16 +2920,11 @@
       `).join('');
 
       wall.querySelectorAll('.wall-card').forEach(card => {
-        card.addEventListener('click', () => {
-          const id = card.dataset.appId;
-          if (id === featuredId) return;
-          featuredId = id;
-          renderFeatured(APPS.find(a => a.id === id));
-          renderWall();
-        });
+        card.addEventListener('click', () => setFeatured(card.dataset.appId));
       });
     }
 
+    renderSide();
     renderWall();
 
     // Custom cursor
