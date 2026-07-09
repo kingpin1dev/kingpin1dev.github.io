@@ -1272,24 +1272,47 @@
     }
 
     .creative-card {
-      min-height: 520px;
+      min-height: 300px;
       padding: 28px;
       display: flex;
       flex-direction: column;
     }
 
-    .reel {
-      position: relative;
-      margin-top: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .edits {
+      margin-top: 26px;
+    }
+
+    .edits-head {
+      display: flex;
+      align-items: center;
       gap: 12px;
-      padding-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    .edits-head i.fa-instagram { color: #ff6ec7; font-size: 18px; }
+    .edits-head h3 { font-size: 16px; font-weight: 900; letter-spacing: -.01em; }
+    .edits-head a {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .edits-head a:hover { color: #ff6ec7; }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
     }
 
     .reel-tile {
       aspect-ratio: 1 / 1;
-      min-height: 190px;
+      min-height: 120px;
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,.12);
       background:
@@ -1679,6 +1702,10 @@
         grid-template-columns: 1fr;
       }
 
+      .edit-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
       .hero-stage {
         min-height: 0;
         padding: 8px 0 4px;
@@ -1754,9 +1781,12 @@
       .mixer-visual,
       .app-wall,
       .game-stats,
-      .game-shelf,
-      .reel {
+      .game-shelf {
         grid-template-columns: 1fr;
+      }
+
+      .edit-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .core-card {
@@ -2092,11 +2122,11 @@
       <div class="shell">
         <div class="section-head reveal">
           <div>
-            <div class="kicker">Creative Layer</div>
+            <div class="kicker">Kreatif Evren</div>
             <h2 class="section-title">Kodun yanında görüntü de var.</h2>
           </div>
           <p class="section-copy">
-            Yazılımın dışında kalan yaratıcı alan; sinematik video editleri, atmosfer çalışmaları ve müzik üretimini barındıran SineOrbit evreni.
+            Video kurgu, film editleri ve müzik üretimlerim.
           </p>
         </div>
 
@@ -2107,22 +2137,13 @@
               <span class="pill">SineOrbit</span>
             </div>
 
-            <h3>Sinematik video editleri</h3>
+            <h3>SineOrbit</h3>
             <p>
-              Film sahneleri, mood cut'lar, renk, ritim ve atmosfer üzerine kurulu yaratıcı video alanı.
+              Film sahnelerine hayat verdiğim, sinematografik video edit sayfam.
             </p>
 
-            <div class="reel">
-              <a class="reel-tile" href="https://www.instagram.com/p/C7jI_oftVvz/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig4.jpg" alt="Bridge to Terabithia edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>91,8B</span><span><i class="fas fa-comment"></i>457</span></div></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/C5vgkL8M14j/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig5.jpg" alt="What If..? edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>72,4B</span><span><i class="fas fa-comment"></i>297</span></div></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/DF5Ur9UN0nn/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig1.jpg" alt="Invincible edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>8,6B</span><span><i class="fas fa-comment"></i>105</span></div></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/C22EVl5sPN_/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig6.jpg" alt="Star Wars edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>5,5B</span><span><i class="fas fa-comment"></i>58</span></div></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/C9r4GdPtqMD/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig3.jpg" alt="The Boys edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>476</span><span><i class="fas fa-comment"></i>26</span></div></a>
-              <a class="reel-tile" href="https://www.instagram.com/p/DD2znKCtNWy/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig2.jpg" alt="Star Wars edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>397</span><span><i class="fas fa-comment"></i>4</span></div></a>
-            </div>
-
-            <div class="card-actions">
-              <a class="mini-link" href="https://www.instagram.com/sineorbit/" target="_blank" rel="noreferrer">SineOrbit'i Aç</a>
+            <div class="card-actions" style="margin-top:auto;">
+              <a class="mini-link" href="https://www.instagram.com/sineorbit/" target="_blank" rel="noreferrer">Sayfayı İncele</a>
             </div>
           </article>
 
@@ -2132,9 +2153,9 @@
               <span class="pill">Spotify</span>
             </div>
 
-            <h3>Müzik & atmosfer</h3>
+            <h3>Spotify</h3>
             <p>
-              Hobi olarak üretilen parçalar, ses denemeleri ve kreatif dünyanın müzik tarafı için hareketli bir alan.
+              Zaman zaman hobi olarak ürettiğim ve yayınladığım parçalar.
             </p>
 
             <div class="music-visual" aria-hidden="true">
@@ -2150,10 +2171,26 @@
               <div class="wave" style="--h: 50%; --d: .9s"></div>
             </div>
 
-            <div class="card-actions">
+            <div class="card-actions" style="margin-top:auto;">
               <a class="mini-link" href="https://open.spotify.com/intl-tr/artist/7tqKllQw5Qmb8W2rxxBykt?si=5235320fb4d34e84" target="_blank" rel="noreferrer">Spotify'da Dinle</a>
             </div>
           </article>
+        </div>
+
+        <div class="edits reveal">
+          <div class="edits-head">
+            <i class="fab fa-instagram"></i>
+            <h3>@sineorbit'ten Öne Çıkan Editler</h3>
+            <a href="https://www.instagram.com/sineorbit/" target="_blank" rel="noreferrer">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="edit-grid">
+            <a class="reel-tile" href="https://www.instagram.com/p/C7jI_oftVvz/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig4.jpg" alt="Bridge to Terabithia edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>91,8B</span><span><i class="fas fa-comment"></i>457</span></div></a>
+            <a class="reel-tile" href="https://www.instagram.com/p/C5vgkL8M14j/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig5.jpg" alt="What If..? edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>72,4B</span><span><i class="fas fa-comment"></i>297</span></div></a>
+            <a class="reel-tile" href="https://www.instagram.com/p/DF5Ur9UN0nn/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig1.jpg" alt="Invincible edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>8,6B</span><span><i class="fas fa-comment"></i>105</span></div></a>
+            <a class="reel-tile" href="https://www.instagram.com/p/C22EVl5sPN_/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig6.jpg" alt="Star Wars edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>5,5B</span><span><i class="fas fa-comment"></i>58</span></div></a>
+            <a class="reel-tile" href="https://www.instagram.com/p/C9r4GdPtqMD/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig3.jpg" alt="The Boys edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>476</span><span><i class="fas fa-comment"></i>26</span></div></a>
+            <a class="reel-tile" href="https://www.instagram.com/p/DD2znKCtNWy/" target="_blank" rel="noreferrer" style="text-decoration:none;"><img src="img/ig2.jpg" alt="Star Wars edit"><div class="reel-meta"><span><i class="fas fa-heart"></i>397</span><span><i class="fas fa-comment"></i>4</span></div></a>
+          </div>
         </div>
       </div>
     </section>
@@ -2262,17 +2299,18 @@
       <div class="shell">
         <article class="final-card reveal" style="--accent: rgba(88,166,255,1);">
           <div>
-            <div class="kicker" style="justify-content:center;">Contact</div>
+            <div class="kicker" style="justify-content:center;">İletişim</div>
             <h2>
-              Fikir varsa,
-              <span class="gradient-text">evren genişler.</span>
+              Bağlantıda
+              <span class="gradient-text">kalalım.</span>
             </h2>
             <p>
-              Proje fikrin mi var? İşbirliği mi istiyorsun? Bir merhaba bile yeterli, doğrudan ulaşmak için en sade yol burası.
+              Projelerim hakkında konuşmak veya işbirliği yapmak için bana ulaşabilirsin.
             </p>
 
             <div class="final-actions">
               <a class="btn primary" href="mailto:burakpekel@bokmails.com">E-posta Gönder</a>
+              <a class="btn" href="https://discord.com/users/Kingpindev" target="_blank" rel="noreferrer">Discord</a>
               <a class="btn" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">GitHub</a>
               <a class="btn" href="https://apps.microsoft.com/search/publisher?name=Kingpindev" target="_blank" rel="noreferrer">Microsoft Store</a>
             </div>
