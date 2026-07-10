@@ -2432,13 +2432,6 @@
         <div class="skill"><i class="fas fa-video" style="--c:#ff6ec7"></i><span>Premiere Pro</span></div>
         <div class="skill"><i class="fas fa-film" style="--c:#818cf8"></i><span>After Effects</span></div>
         <div class="skill"><i class="fab fa-figma" style="--c:#f59e0b"></i><span>Figma</span></div>
-        <div class="skill"><i class="fab fa-js" style="--c:#f0db4f"></i><span>JavaScript</span></div>
-        <div class="skill"><i class="fab fa-python" style="--c:#4b8bbe"></i><span>Python</span></div>
-        <div class="skill"><i class="fab fa-windows" style="--c:#a78bfa"></i><span>C# / .NET</span></div>
-        <div class="skill"><i class="fas fa-wind" style="--c:#38bdf8"></i><span>Tailwind CSS</span></div>
-        <div class="skill"><i class="fas fa-video" style="--c:#ff6ec7"></i><span>Premiere Pro</span></div>
-        <div class="skill"><i class="fas fa-film" style="--c:#818cf8"></i><span>After Effects</span></div>
-        <div class="skill"><i class="fab fa-figma" style="--c:#f59e0b"></i><span>Figma</span></div>
       </div>
     </div>
 
@@ -3290,25 +3283,46 @@
       document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
     })();
 
-    // Skills marquee: auto-scroll + drag
+    // Skills marquee: auto-scroll + drag (seamless loop)
     (function initMarqueeDrag() {
       const container = document.querySelector('.marquee');
       const track = document.getElementById('skills-track');
       if (!container || !track) return;
 
-      let isDragging = false, startX = 0, dragStart = 0;
-      let half = track.scrollWidth / 2;
+      const setHTML = track.innerHTML;
+      let setWidth = 0;
       let pos = 0;
 
+      // Rebuild with just enough clones that the strip always exceeds the
+      // viewport, so the loop never reveals a gap.
+      function build() {
+        track.innerHTML = setHTML;
+        setWidth = track.scrollWidth;
+        let guard = 0;
+        while (track.scrollWidth < container.clientWidth * 2 + setWidth && guard < 30) {
+          track.insertAdjacentHTML('beforeend', setHTML);
+          guard++;
+        }
+        pos = -setWidth;
+      }
+      build();
+
+      let isDragging = false, startX = 0, dragStart = 0;
+      const speed = 0.4;
+
       function step() {
-        half = track.scrollWidth / 2;
-        if (!isDragging) pos -= 0.35;
-        if (pos <= -half) pos += half;
-        else if (pos >= 0) pos -= half;
+        if (!isDragging) pos += speed;
+        while (pos >= 0) pos -= setWidth;
+        while (pos <= -setWidth) pos += setWidth;
         track.style.transform = `translateX(${pos}px)`;
         requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
+
+      // Recompute once icon fonts are ready and on resize (widths change).
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+      let rt;
+      window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 200); });
 
       const down = x => { isDragging = true; startX = x; dragStart = pos; };
       const move = x => { if (isDragging) pos = dragStart + (x - startX); };
