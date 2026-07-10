@@ -646,17 +646,17 @@
       padding: 16px;
       border-radius: 24px;
       border: 1px solid rgba(255,255,255,.2);
-      background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.06));
-      backdrop-filter: blur(26px) saturate(1.25);
+      background: linear-gradient(180deg, rgba(255,255,255,.17), rgba(255,255,255,.11));
+      backdrop-filter: blur(34px) saturate(1.2);
       box-shadow: 0 26px 74px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.22);
-      transform: translateZ(60px);
+      transform: translateZ(70px);
       transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
     }
 
     .orbital-card:hover {
-      transform: translateZ(60px) translateY(-6px) scale(1.02);
+      transform: translateZ(70px) translateY(-6px) scale(1.02);
       border-color: rgba(255,255,255,.34);
-      background: linear-gradient(180deg, rgba(255,255,255,.19), rgba(255,255,255,.09));
+      background: linear-gradient(180deg, rgba(255,255,255,.21), rgba(255,255,255,.14));
       box-shadow: 0 32px 88px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.28);
     }
 
@@ -691,7 +691,7 @@
     .oc1 { left: 0; top: 13%; animation: bob 5.2s ease-in-out infinite; }
     .oc2 { right: 1%; top: 10%; animation: bob 5.7s ease-in-out infinite .3s; }
     .oc3 { left: 4%; bottom: 12%; animation: bob 6s ease-in-out infinite .2s; }
-    .oc4 { right: 0; bottom: 13%; animation: bob 5.5s ease-in-out infinite .45s; }
+    .oc4 { right: 5%; bottom: 16%; animation: bob 5.5s ease-in-out infinite .45s; }
 
     @keyframes bob {
       0%, 100% { translate: 0 0; }
