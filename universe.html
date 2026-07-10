@@ -1233,21 +1233,33 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 38px;
-      padding: 0 13px;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.06);
-      border-radius: 999px;
-      color: var(--soft);
+      gap: 7px;
+      min-height: 40px;
+      padding: 0 18px;
+      border: 1px solid color-mix(in srgb, var(--accent, #58a6ff) 48%, transparent);
+      background: color-mix(in srgb, var(--accent, #58a6ff) 16%, transparent);
+      border-radius: 12px;
+      color: #fff;
       font-size: 13px;
       font-weight: 950;
+      box-shadow: 0 2px 12px color-mix(in srgb, var(--accent, #58a6ff) 18%, transparent);
       transition: 160ms ease;
     }
 
+    .mini-link::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent, #58a6ff);
+      box-shadow: 0 0 8px var(--accent, #58a6ff);
+    }
+
     .mini-link:hover {
-      background: rgba(255,255,255,.105);
-      border-color: rgba(255,255,255,.25);
+      background: color-mix(in srgb, var(--accent, #58a6ff) 30%, transparent);
+      border-color: color-mix(in srgb, var(--accent, #58a6ff) 78%, transparent);
       transform: translateY(-2px);
+      box-shadow: 0 8px 22px color-mix(in srgb, var(--accent, #58a6ff) 30%, transparent);
     }
 
     .app-wall {
@@ -2454,7 +2466,7 @@
           <article id="feat-card" class="card tilt project-hero-card reveal" style="--accent: rgba(88,166,255,1); transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;">
             <div class="project-hero-header">
               <div class="app-icon" id="feat-icon"><img src="img/FluentMixer.png" alt="Fluent Mixer" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
-              <span class="pill" id="feat-pill">Featured Windows App</span>
+              <span class="pill" id="feat-pill">Windows App</span>
             </div>
 
             <h3 id="feat-title">Fluent Mixer</h3>
@@ -2917,7 +2929,7 @@
         accent: 'rgba(88,166,255,1)',
         accentBg: 'rgba(88,166,255,.24)',
         icon: 'img/FluentMixer.png',
-        pill: 'Featured Windows App',
+        pill: 'Windows App',
         title: 'Fluent Mixer',
         desc: 'Fluent Mixer, Windows için geliştirilmiş, uygulamaları gruplandırarak ses seviyelerini tek bir merkezden kontrol etmeye yarayan gelişmiş ve basit bir ses mikseri programıdır. Uygulamaları tek tek aramak yerine "Oyun", "Sohbet", "Medya" ve "Aux" gibi gruplara ayırıp hepsini pratik bir şekilde yönetmenizi sağlar.',
         tags: ['Game / Chat / Media / Aux', 'Island Mode', 'Tray Flyout', 'ChatMix', 'Hotkeys'],
@@ -2933,13 +2945,12 @@
         accent: 'rgba(255,101,216,1)',
         accentBg: 'rgba(255,101,216,.22)',
         icon: 'img/BokMail.png',
-        pill: 'Web App',
+        pill: 'Mail Service',
         title: 'BokMail',
         desc: 'BokMail, kişisel e-posta adresinizi paylaşmadan, çevrimiçi platformlara kayıt olmanızı sağlayan ücretsiz bir geçici (temp) e-posta servisidir. Bu hizmet sayesinde spam maillerden, istenmeyen bültenlerden ve kişisel verilerinizi riske atmaktan kolayca kurtulabilirsiniz.',
         tags: ['Şifresiz', 'Kalıcı Depolama', 'Anonim', 'Spam Koruması'],
         links: [
-          { text: 'Siteyi Aç', url: 'https://bokmails.com' },
-          { text: 'GitHub', url: 'https://github.com/kingpin1dev' }
+          { text: 'Siteyi Aç', url: 'https://bokmails.com' }
         ],
         showMixer: false
       },
@@ -2949,13 +2960,12 @@
         accent: 'rgba(156,124,255,1)',
         accentBg: 'rgba(156,124,255,.22)',
         icon: 'img/notchify.png',
-        pill: 'Dynamic Island',
+        pill: 'Windows App',
         title: 'Notchify',
         desc: 'Notchify, ekranınızın üst kısmına Dinamik Ada ekleyen şık bir kişiselleştirme uygulamasıdır. Arka planda çalan müzikleri, işlemci performansını ve anlık bildirimleri ekranı kaplamadan tek bir panelden takip etmenizi sağlar. Dosya sürükleyip saklayabileceğiniz pratik bir çekmece ve hava durumu gibi araçları tek bir modern arayüzde birleştirir.',
         tags: ['Akıcı Animasyonlar', 'Bildirimler', 'Medya Kontrolü', 'Kısayollar', 'Takvim', 'Hava Durumu', 'Tray'],
         links: [
-          { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare' },
-          { text: 'GitHub', url: 'https://github.com/kingpin1dev/Notchify' }
+          { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare' }
         ],
         showMixer: false
       },
@@ -2970,8 +2980,7 @@
         desc: 'VICE Sonar, SteelSeries GG Sonar ses yazılımını daha hızlı yönetmek için geliştirilmiş hafif bir masaüstü kontrol aracıdır. Büyük ana uygulamayı açmaya gerek kalmadan; oyun, sohbet, medya kanallarının ses seviyelerini ve ekolayzır profillerini ekran üzerindeki küçük bir widget vasıtasıyla anında değiştirmenizi sağlar.',
         tags: ['Ses Kontrolü', 'EQ Profilleri', 'RGB', '7 Tema'],
         links: [
-          { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9p40tmplqb43?hl=tr-TR&gl=TR' },
-          { text: 'GitHub', url: 'https://github.com/kingpin1dev/VICE-Sonar' }
+          { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9p40tmplqb43?hl=tr-TR&gl=TR' }
         ],
         showMixer: false
       },
