@@ -503,27 +503,36 @@
     }
 
     @keyframes floatStage {
-      from { transform: translateY(4px); }
-      to { transform: translateY(-8px); }
+      from { transform: translateY(4px) rotateX(0deg) rotateY(-2deg); }
+      to { transform: translateY(-8px) rotateX(2deg) rotateY(2deg); }
     }
 
     .core-card {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: min(370px, 72vw);
+      width: min(380px, 72vw);
       min-height: 440px;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) rotateX(8deg) rotateY(-12deg);
       z-index: 1;
       border-radius: 38px;
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.18);
       background:
-        radial-gradient(circle at 32% 0%, rgba(88,166,255,.22), transparent 40%),
-        radial-gradient(circle at 82% 24%, rgba(255,101,216,.14), transparent 42%),
-        linear-gradient(180deg, rgba(18,24,40,.72), rgba(12,16,28,.66));
-      backdrop-filter: blur(20px);
-      box-shadow: 0 38px 120px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.14);
+        radial-gradient(circle at 32% 0%, rgba(88,166,255,.25), transparent 36%),
+        radial-gradient(circle at 82% 24%, rgba(255,101,216,.16), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.055));
+      backdrop-filter: blur(26px);
+      box-shadow: 0 38px 120px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.16);
       overflow: hidden;
+    }
+
+    .core-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: translateX(-70%);
+      animation: coreSweep 5s ease-in-out infinite;
     }
 
     @keyframes coreSweep {
@@ -636,19 +645,19 @@
       min-height: 134px;
       padding: 16px;
       border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.16);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
-        rgba(14,19,32,.82);
-      backdrop-filter: blur(22px);
-      box-shadow: 0 24px 70px rgba(0,0,0,.45);
-      transition: 220ms ease;
+      border: 1px solid rgba(255,255,255,.2);
+      background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.06));
+      backdrop-filter: blur(26px) saturate(1.25);
+      box-shadow: 0 26px 74px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.22);
+      transform: translateZ(60px);
+      transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
     }
 
     .orbital-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: rgba(255,255,255,.3);
-      box-shadow: 0 30px 84px rgba(0,0,0,.55);
+      transform: translateZ(60px) translateY(-6px) scale(1.02);
+      border-color: rgba(255,255,255,.34);
+      background: linear-gradient(180deg, rgba(255,255,255,.19), rgba(255,255,255,.09));
+      box-shadow: 0 32px 88px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.28);
     }
 
     .orbital-card b {
@@ -2177,6 +2186,7 @@
         position: relative;
         inset: auto !important;
         width: min(440px, 94%);
+        transform: none;
         animation: none !important;
       }
 
