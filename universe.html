@@ -1576,6 +1576,15 @@
       filter: drop-shadow(0 0 10px rgba(120,160,255,.08));
     }
 
+    .eris-img {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
     .eris-moon { color: #cfe0ff; text-shadow: 0 0 10px rgba(160,190,255,.45); }
     .eris-hearts { color: #ff5c8a; text-shadow: 0 0 12px rgba(255,92,138,.5); }
     .eris-sun { color: #ffd24a; text-shadow: 0 0 12px rgba(255,210,74,.5); }
@@ -3907,6 +3916,20 @@
         box.append(d1, p, d2);
         out.appendChild(box);
         out.appendChild(back);
+
+        // If the exact artwork exists as an asset, show it verbatim instead
+        const artImg = new Image();
+        artImg.className = 'eris-img';
+        artImg.alt = 'moon sun love';
+        artImg.onload = function () {
+          out.innerHTML = '';
+          const s = document.createElement('div'); s.className = 'eris-scene'; s.appendChild(artImg);
+          out.appendChild(s);
+          const b = document.createElement('div'); b.className = 'eris-back'; b.textContent = 'geri dönmek için: clear';
+          out.appendChild(b);
+          out.scrollTop = 0;
+        };
+        artImg.src = 'img/moon_sun_love.png';
 
         out.scrollTop = 0;
         if (window.__party) window.__party();
