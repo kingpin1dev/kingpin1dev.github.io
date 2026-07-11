@@ -1552,19 +1552,26 @@
       letter-spacing: 1px;
     }
 
+    .terminal-body.eris-mode .tprompt,
+    .terminal-body.eris-mode .tlist,
+    .terminal-body.eris-mode .thint { display: none; }
+    .terminal-body.eris-mode #term-out { max-height: none; }
+
+    .eris-back { text-align: center; color: var(--faint); font-size: 11px; margin-top: 4px; }
+
     .eris-scene {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 8px 26px;
-      margin: 18px 0 4px;
+      gap: 10px 34px;
+      margin: 8px 0 4px;
     }
 
     .eris-scene pre {
       margin: 0;
-      line-height: 1.3;
-      font-size: 13px;
+      line-height: 1.35;
+      font-size: 15px;
       white-space: pre;
     }
 
@@ -3732,41 +3739,41 @@
 
       function moonSun() {
         const MOON = [
-          "        . *  .",
-          "     *_.-``-._",
-          "    .´  .--.   `.",
-          "   /   /  u `.   \\",
-          "  |   |  u    \\   |",
-          "  |   |   ‿    |  |",
-          "   \\   \\      /   /",
-          "    `.  `.__.´  .´",
-          "     *`-.____.-´ *",
-          "        `  *  ´"
+          "   ✦",
+          "    ╭───╮",
+          "   ╱     ╲",
+          "  │   ╭───",
+          "  │   │",
+          "  │   ╰───",
+          "   ╲     ╱",
+          "    ╰───╯"
         ].join('\n');
-        const HEARTS = [
-          "  ✧",
-          "   ♥♥   ♥♥",
-          "  ♥  ♥ ♥  ♥",
-          "  ♥   ♥   ♥",
-          "   ♥     ♥",
-          "    ♥   ♥        ♡",
-          "     ♥ ♥",
-          "      ♥      ♡",
-          "  ·   ♡   ·"
+        const HEART = [
+          "",
+          "  ╭─╮ ╭─╮",
+          " ╭╯ ╰╯ ╰╮",
+          " │      │",
+          " ╰╮    ╭╯",
+          "  ╰╮  ╭╯",
+          "   ╰╮╭╯",
+          "    ╰╯"
         ].join('\n');
         const SUN = [
-          "    \\   |   /",
-          "  .   .---.   .",
-          " -   ( ^ ‿ ^ )   -",
-          "  '   `---´   '",
-          "    /   |   \\",
-          "   *   .   *"
+          "         ✦",
+          "    ╲  │  ╱",
+          "   ╭─────╮",
+          " ──│ ◠ ◠ │──",
+          "   ╰──‿──╯",
+          "    ╱  │  ╲"
         ].join('\n');
+
+        body.classList.add('eris-mode');
+        out.innerHTML = '';
 
         const scene = document.createElement('div');
         scene.className = 'eris-scene';
         const mk = (cls, txt) => { const pre = document.createElement('pre'); pre.className = cls; pre.textContent = txt; return pre; };
-        scene.append(mk('eris-moon', MOON), mk('eris-hearts', HEARTS), mk('eris-sun', SUN));
+        scene.append(mk('eris-moon', MOON), mk('eris-hearts', HEART), mk('eris-sun', SUN));
         out.appendChild(scene);
 
         const box = document.createElement('div');
@@ -3774,11 +3781,13 @@
         const d1 = document.createElement('div'); d1.className = 'eris-deco'; d1.textContent = '♡  ♥  ♡  ♥  ♡  ♥  ♡  ♥  ♡';
         const p = document.createElement('p');
         p.textContent = "You've created a space in my heart thats yours alone. If you ever find yourself lost come and find me. No one could ever fill or reach your space in my heart. No matter what happens, that space will always belong to you.";
+        const back = document.createElement('div'); back.className = 'eris-back'; back.textContent = "geri dönmek için: clear";
         const d2 = d1.cloneNode(true);
         box.append(d1, p, d2);
         out.appendChild(box);
+        out.appendChild(back);
 
-        out.scrollTop = out.scrollHeight;
+        out.scrollTop = 0;
         if (window.__party) window.__party();
       }
 
@@ -3878,7 +3887,7 @@
         },
         tarih: () => print(new Date().toLocaleString('tr-TR')),
         date: () => cmds.tarih(),
-        clear: () => { out.innerHTML = ''; },
+        clear: () => { out.innerHTML = ''; body.classList.remove('eris-mode'); },
         temizle: () => cmds.clear(),
         kingpin: () => { print("♛  Kingpindev"); print("   geliştir · tasarla · yayınla — ve biraz da eğlen."); window.__achv('Taç Sende ♛'); },
         coffee: () => print("☕  Kahve hazırlanıyor... kafeinsiz kod derlenmez."),
