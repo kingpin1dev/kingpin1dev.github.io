@@ -1476,13 +1476,29 @@
     .tlist .tkey { color: var(--faint); }
     .tlist .tval { color: var(--soft); }
 
-    .tcursor {
-      color: #70ffb2;
-      margin-top: 14px;
-      animation: termBlink 1.1s step-end infinite;
-    }
-
     @keyframes termBlink { 50% { opacity: 0; } }
+
+    .thint { margin-top: 14px; color: var(--faint); font-size: 12.5px; }
+    .thint span { color: #70ffb2; background: rgba(112,255,178,.1); padding: 1px 6px; border-radius: 5px; }
+
+    #term-out { max-height: 176px; overflow-y: auto; }
+    #term-out .tline { margin-top: 8px; white-space: pre-wrap; word-break: break-word; line-height: 1.6; }
+    #term-out .tin { color: #70ffb2; }
+    #term-out .terr { color: #ff6b8f; }
+
+    .tinput-line { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+    .tprompt-inline { color: #70ffb2; white-space: nowrap; }
+    #term-input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      color: #fff;
+      font: inherit;
+      caret-color: #70ffb2;
+      padding: 0;
+    }
 
     .creative-grid {
       display: grid;
@@ -1719,7 +1735,7 @@
 
     .status-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       margin-bottom: 18px;
     }
@@ -1760,6 +1776,8 @@
     .status-ic.st, .status-ic.st2 { background: rgba(102,192,244,.14); color: #66c0f4; }
     .status-ic.xb { background: rgba(16,124,16,.18); color: #4bd44b; }
     .status-ic.gh { background: rgba(255,255,255,.08); color: #fff; }
+    .status-ic.code { background: rgba(88,166,255,.16); color: #58a6ff; }
+    .status-ic.sp { background: rgba(29,185,84,.16); color: #1ed760; }
 
     .status-txt { flex: 1; min-width: 0; }
     .status-txt b { display: block; font-size: 14px; margin-bottom: 3px; }
@@ -2152,10 +2170,6 @@
         grid-template-columns: repeat(3, 1fr);
       }
 
-      .status-row {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .hero-stage {
         min-height: 0;
         padding: 8px 0 4px;
@@ -2236,9 +2250,12 @@
 
       .edit-grid,
       .game-stats,
-      .game-shelf,
-      .status-row {
+      .game-shelf {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .status-row {
+        grid-template-columns: 1fr;
       }
 
       .core-card {
@@ -2504,7 +2521,7 @@
             <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
             <span class="terminal-title">kingpin1dev@main-rig ~</span>
           </div>
-          <div class="terminal-body">
+          <div class="terminal-body" id="term-body">
             <p class="tprompt">kingpin1dev@main-rig ~ % <span class="tcmd">neofetch --hardware</span></p>
             <ul class="tlist">
               <li><span class="tkey">CPU </span>: <span class="tval">AMD Ryzen™ 7 8700F (8-Core, 5.0 GHz)</span></li>
@@ -2513,7 +2530,12 @@
               <li><span class="tkey">MOBO</span>: <span class="tval">ASUS Prime A620M-K</span></li>
               <li><span class="tkey">COOL</span>: <span class="tval">Thermalright Aqua Elite 240 ARGB</span></li>
             </ul>
-            <p class="tcursor">_</p>
+            <p class="thint">İpucu: <span>help</span> yazıp Enter'a bas.</p>
+            <div id="term-out"></div>
+            <div class="tinput-line">
+              <span class="tprompt-inline">kingpin1dev@main-rig ~ %</span>
+              <input id="term-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal komut girişi">
+            </div>
           </div>
         </div>
       </div>
@@ -2600,37 +2622,28 @@
             <div class="status-ic dc"><i class="fab fa-discord"></i></div>
             <div class="status-txt">
               <b>Discord</b>
-              <span id="discord-activity">Yükleniyor...</span>
+              <span id="discord-state">Yükleniyor...</span>
             </div>
             <i class="status-dot" id="discord-dot"></i>
           </div>
 
-          <a class="status-card" href="https://steamcommunity.com/id/burakpekel/" target="_blank" rel="noreferrer">
-            <div class="status-ic st"><img src="https://avatars.fastly.steamstatic.com/6699308c9128ee16df2523235ee7d01ddbfb7b63_full.jpg" alt="Steam"></div>
+          <div class="status-card">
+            <div class="status-ic code"><i class="fas fa-code"></i></div>
             <div class="status-txt">
-              <b>Kingpin</b>
-              <span>Steam • PC Oyuncusu</span>
+              <b>Kodlama</b>
+              <span id="coding-state">Yükleniyor...</span>
             </div>
-            <i class="fas fa-arrow-up-right-from-square status-go"></i>
-          </a>
+            <i class="status-dot" id="coding-dot"></i>
+          </div>
 
-          <a class="status-card" href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" rel="noreferrer">
-            <div class="status-ic xb"><i class="fab fa-xbox"></i></div>
+          <div class="status-card">
+            <div class="status-ic sp"><i class="fab fa-spotify"></i></div>
             <div class="status-txt">
-              <b>Kingpin7841</b>
-              <span>Xbox • Konsol & PC</span>
+              <b id="spotify-title">Spotify</b>
+              <span id="spotify-state">Yükleniyor...</span>
             </div>
-            <i class="fas fa-arrow-up-right-from-square status-go"></i>
-          </a>
-
-          <a class="status-card" href="https://github.com/kingpin1dev" target="_blank" rel="noreferrer">
-            <div class="status-ic gh"><i class="fab fa-github"></i></div>
-            <div class="status-txt">
-              <b>kingpin1dev</b>
-              <span>GitHub</span>
-            </div>
-            <i class="fas fa-arrow-up-right-from-square status-go"></i>
-          </a>
+            <i class="status-dot" id="spotify-dot"></i>
+          </div>
         </div>
 
         <div class="steam-panel reveal">
@@ -3225,8 +3238,6 @@
     // Lanyard — Discord canlı durum
     (function initLanyard() {
       const DISCORD_ID = '349640233651798027';
-      const dot = document.getElementById('discord-dot');
-      const activity = document.getElementById('discord-activity');
 
       const statusColors = {
         online: { bg: 'var(--green)', shadow: 'rgba(112,255,178,.55)' },
@@ -3234,25 +3245,51 @@
         dnd:    { bg: 'var(--red)',   shadow: 'rgba(255,107,143,.55)' },
         offline:{ bg: 'var(--faint)', shadow: 'transparent' },
       };
-
       const statusLabels = { online: 'Çevrimiçi', idle: 'Boşta', dnd: 'Rahatsız Etmeyin', offline: 'Çevrimdışı' };
 
-      function applyStatus(data) {
-        const status = data.discord_status || 'offline';
+      function setDot(id, status) {
+        const el = document.getElementById(id);
+        if (!el) return;
         const col = statusColors[status] || statusColors.offline;
-        dot.style.background = col.bg;
-        dot.style.boxShadow = `0 0 0 7px ${col.shadow.replace('.55)', '.11)')}, 0 0 18px ${col.shadow}`;
+        el.style.background = col.bg;
+        el.style.boxShadow = `0 0 0 6px ${col.shadow.replace('.55)', '.11)')}, 0 0 16px ${col.shadow}`;
+      }
+      function setText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
 
-        let label = statusLabels[status] || 'Çevrimdışı';
+      const codeRe = /code|visual studio|cursor|neovim|\bvim\b|intellij|pycharm|webstorm|rider|sublime|atom|\bzed\b/i;
 
-        if (data.listening_to_spotify && data.spotify) {
-          label = `${data.spotify.song} — ${data.spotify.artist}`;
-        } else if (data.activities && data.activities.length) {
-          const act = data.activities.find(a => a.type === 0);
-          if (act) label = `${act.name} oynuyor`;
+      function applyStatus(data) {
+        const acts = data.activities || [];
+        const status = data.discord_status || 'offline';
+
+        // Discord — status or custom status text
+        setDot('discord-dot', status);
+        const custom = acts.find(a => a.type === 4);
+        setText('discord-state', (custom && custom.state) ? custom.state : (statusLabels[status] || 'Çevrimdışı'));
+
+        // Coding — any editor activity
+        const code = acts.find(a => codeRe.test(a.name || ''));
+        if (code) {
+          setText('coding-state', code.details || code.name);
+          setDot('coding-dot', 'online');
+        } else {
+          setText('coding-state', 'Şu an kod yazmıyor');
+          setDot('coding-dot', 'offline');
         }
 
-        activity.textContent = label;
+        // Spotify — now playing
+        if (data.listening_to_spotify && data.spotify) {
+          setText('spotify-title', data.spotify.song);
+          setText('spotify-state', data.spotify.artist);
+          setDot('spotify-dot', 'online');
+        } else {
+          setText('spotify-title', 'Spotify');
+          setText('spotify-state', 'Şu an çalmıyor');
+          setDot('spotify-dot', 'offline');
+        }
       }
 
       async function fetchStatus() {
@@ -3335,6 +3372,82 @@
       container.addEventListener('touchstart', e => down(e.touches[0].pageX), { passive: true });
       window.addEventListener('touchmove', e => move(e.touches[0].pageX), { passive: true });
       window.addEventListener('touchend', up);
+    })();
+
+    // Interactive main-rig terminal
+    (function initTerminal() {
+      const input = document.getElementById('term-input');
+      const out = document.getElementById('term-out');
+      const body = document.getElementById('term-body');
+      if (!input || !out || !body) return;
+
+      const HW = [
+        'CPU  : AMD Ryzen™ 7 8700F (8-Core, 5.0 GHz)',
+        'GPU  : ASUS Dual GeForce RTX™ 4070 OC 12GB',
+        'RAM  : 32GB Corsair Dominator Platinum RGB DDR5',
+        'MOBO : ASUS Prime A620M-K',
+        'COOL : Thermalright Aqua Elite 240 ARGB',
+      ];
+      const APPS_LIST = ['Fluent Mixer', 'BokMail', 'Notchify', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath'];
+      const history = [];
+      let hIndex = -1;
+
+      const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+      function print(text, cls) {
+        const div = document.createElement('div');
+        div.className = 'tline' + (cls ? ' ' + cls : '');
+        div.textContent = text;
+        out.appendChild(div);
+      }
+      function echo(cmd) {
+        const div = document.createElement('div');
+        div.className = 'tline';
+        div.innerHTML = '<span class="tin">kingpin1dev@main-rig ~ %</span> ' + esc(cmd);
+        out.appendChild(div);
+      }
+
+      const cmds = {
+        help: () => print("Komutlar: help · whoami · neofetch · ls · sosyal · iletisim · tarih · echo <metin> · clear"),
+        whoami: () => print("Burak PEKEL — bağımsız geliştirici. Windows uygulamaları, web servisleri, sinematik video edit ve UI/UX tasarımı."),
+        neofetch: () => HW.forEach(l => print(l)),
+        ls: () => print(APPS_LIST.join('   ')),
+        projeler: () => cmds.ls(),
+        sosyal: () => { print("GitHub    : github.com/kingpin1dev"); print("Instagram : @burakpekeel"); print("Discord   : kingpindev"); },
+        social: () => cmds.sosyal(),
+        iletisim: () => { print("İletişim penceresi açılıyor..."); const b = document.getElementById('open-contact'); if (b) b.click(); },
+        contact: () => cmds.iletisim(),
+        tarih: () => print(new Date().toLocaleString('tr-TR')),
+        date: () => cmds.tarih(),
+        clear: () => { out.innerHTML = ''; },
+        temizle: () => cmds.clear(),
+        kingpin: () => { print("♛  Kingpindev"); print("   geliştir · tasarla · yayınla — ve biraz da eğlen."); },
+        coffee: () => print("☕  Kahve hazırlanıyor... kafeinsiz kod derlenmez."),
+        matrix: () => print("01001011 01101001 01101110 01100111 01110000 01101001 01101110 ..."),
+      };
+
+      function run(raw) {
+        const line = raw.trim();
+        if (!line) return;
+        echo(line);
+        if (history[history.length - 1] !== line) history.push(line);
+        hIndex = history.length;
+        const parts = line.split(/\s+/);
+        const key = parts[0].toLowerCase();
+        if (key === 'echo') print(parts.slice(1).join(' '));
+        else if (line.toLowerCase().startsWith('rm -rf')) print("Nice try. Bu sistem senden daha inatçı. 🧱", 'terr');
+        else if (key === 'sudo') print("Bu terminalde sudo yok — ama denemen hoştu 😏", 'terr');
+        else if (cmds[key]) cmds[key]();
+        else print("komut bulunamadı: " + parts[0] + " — 'help' dene", 'terr');
+        out.scrollTop = out.scrollHeight;
+      }
+
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { run(input.value); input.value = ''; }
+        else if (e.key === 'ArrowUp') { if (hIndex > 0) { hIndex--; input.value = history[hIndex]; e.preventDefault(); } }
+        else if (e.key === 'ArrowDown') { if (hIndex < history.length - 1) { hIndex++; input.value = history[hIndex]; } else { hIndex = history.length; input.value = ''; } }
+      });
+      body.addEventListener('click', e => { if (e.target.tagName !== 'A') input.focus(); });
     })();
   </script>
 </body>
