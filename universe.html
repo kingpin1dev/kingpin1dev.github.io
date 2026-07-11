@@ -1559,15 +1559,18 @@
 
     .eris-back { text-align: center; color: var(--faint); font-size: 11px; margin-top: 4px; }
 
+    .eris-cmd { color: #ff9fc4; font-size: 13px; margin: 2px 0 2px; }
+    .eris-cmd::before { content: "C:\\Users\\user> "; color: var(--soft); }
+
     .eris-scene {
       display: flex;
       justify-content: center;
-      margin: 6px 0 2px;
+      margin: 4px 0 2px;
     }
 
     .eris-svg {
       width: 100%;
-      max-width: 540px;
+      max-width: 640px;
       height: auto;
       display: block;
       filter: drop-shadow(0 0 10px rgba(120,160,255,.08));
@@ -3815,36 +3818,75 @@
 
       function moonSun() {
         const HP = "M50 30 C50 20 40 10 25 10 C10 10 0 22 0 40 C0 65 25 80 50 95 C75 80 100 65 100 40 C100 22 90 10 75 10 C60 10 50 20 50 30 Z";
-        const cx = 520, cy = 130, rays = [];
-        for (let a = 0; a < 360; a += 30) {
-          const r = a * Math.PI / 180;
-          rays.push('<line x1="' + (cx + Math.cos(r) * 52).toFixed(1) + '" y1="' + (cy + Math.sin(r) * 52).toFixed(1) +
-            '" x2="' + (cx + Math.cos(r) * 70).toFixed(1) + '" y2="' + (cy + Math.sin(r) * 70).toFixed(1) + '"/>');
+        const n = v => v.toFixed(1);
+        const plus = (x, y, s, c) => '<path d="M' + (x - s) + ' ' + y + 'h' + (2 * s) + 'M' + x + ' ' + (y - s) + 'v' + (2 * s) + '" stroke="' + c + '" stroke-width="1.5" stroke-linecap="round"/>';
+        const spark = (x, y, s, c) => '<path d="M' + x + ' ' + (y - s) + 'L' + (x + s * .28) + ' ' + (y - s * .28) + 'L' + (x + s) + ' ' + y + 'L' + (x + s * .28) + ' ' + (y + s * .28) + 'L' + x + ' ' + (y + s) + 'L' + (x - s * .28) + ' ' + (y + s * .28) + 'L' + (x - s) + ' ' + y + 'L' + (x - s * .28) + ' ' + (y - s * .28) + 'Z" fill="' + c + '"/>';
+        const blush = (x, y, c) => '<g stroke="' + c + '" stroke-width="1.7" stroke-linecap="round">' +
+          '<line x1="' + x + '" y1="' + (y + 6) + '" x2="' + (x + 6) + '" y2="' + y + '"/>' +
+          '<line x1="' + (x + 6) + '" y1="' + (y + 6) + '" x2="' + (x + 12) + '" y2="' + y + '"/>' +
+          '<line x1="' + (x + 12) + '" y1="' + (y + 6) + '" x2="' + (x + 18) + '" y2="' + y + '"/></g>';
+
+        // sun rays
+        const scx = 560, scy = 165, rays = [];
+        for (let i = 0; i < 24; i++) {
+          const a = i * 15 * Math.PI / 180, r1 = 88, r2 = (i % 2 === 0) ? 142 : 114;
+          rays.push('<line x1="' + n(scx + Math.cos(a) * r1) + '" y1="' + n(scy + Math.sin(a) * r1) + '" x2="' + n(scx + Math.cos(a) * r2) + '" y2="' + n(scy + Math.sin(a) * r2) + '"/>');
         }
-        const spk = [[60, 52], [188, 40], [300, 28], [452, 46], [598, 60], [150, 214], [332, 222], [486, 208], [566, 188], [40, 150], [258, 62], [402, 60]];
-        const stars = spk.map(s => '<circle cx="' + s[0] + '" cy="' + s[1] + '" r="1.7"/>').join('');
+        // moon inner starfield
+        const mStars = [];
+        let tries = 0;
+        while (mStars.length < 34 && tries < 600) {
+          tries++;
+          const x = 90 + Math.random() * 130, y = 90 + Math.random() * 170;
+          if (Math.hypot(x - 170, y - 170) < 90 && Math.hypot(x - 214, y - 162) > 78) {
+            mStars.push('<circle cx="' + n(x) + '" cy="' + n(y) + '" r="' + (Math.random() < .3 ? 1.7 : 1) + '"/>');
+          }
+        }
+        // scattered decorations
+        let decoA = '', decoB = '', decoC = '';
+        const P = [[70, 300, 6], [120, 250, 5], [55, 210, 5], [90, 150, 7], [175, 95, 5], [235, 120, 5], [250, 250, 5], [300, 300, 6], [470, 300, 5], [560, 90, 5], [640, 120, 6], [690, 200, 5], [660, 280, 5], [420, 110, 5]];
+        P.forEach((p, i) => { const c = i % 3 === 0 ? '#ffd88a' : (i % 3 === 1 ? '#bcd0ff' : '#ff9fc4'); decoA += plus(p[0], p[1], p[2], c); });
+        const S = [[150, 300, 6, '#bcd0ff'], [110, 210, 5, '#e6ecff'], [305, 250, 6, '#ff9fc4'], [420, 250, 5, '#ffd88a'], [700, 250, 6, '#ffd88a'], [640, 300, 5, '#ff9fc4'], [250, 300, 5, '#bcd0ff'], [600, 110, 5, '#e6ecff']];
+        S.forEach(s => decoB += spark(s[0], s[1], s[2], s[3]));
+        const D = [[210, 300], [40, 260], [180, 130], [265, 170], [330, 130], [455, 150], [500, 300], [615, 250], [700, 160], [270, 60], [510, 60], [150, 60]];
+        D.forEach((d, i) => decoC += '<circle cx="' + d[0] + '" cy="' + d[1] + '" r="1.6" fill="' + (i % 2 ? '#cdd6ff' : '#ffcf8a') + '"/>');
+
         const svg =
-          '<svg class="eris-svg" viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" aria-label="ay, kalp ve güneş">' +
-          '<g fill="#cfe0ff" opacity=".5">' + stars + '</g>' +
-          '<g fill="none" stroke="#bfe0ff" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 7">' +
-          '<path d="M120 68 A62 62 0 1 0 120 192 A44 58 0 1 1 120 68 Z"/>' +
-          '<path d="M74 120 q7 7 14 0"/><path d="M96 118 q7 7 14 0"/><path d="M80 146 q9 8 18 0"/>' +
-          '</g>' +
-          '<g fill="none" stroke="#ff5c8a" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 7">' +
-          '<path d="' + HP + '" transform="translate(268,64)"/></g>' +
-          '<path d="' + HP + '" transform="translate(362,42) scale(0.16)" fill="#ff5c8a"/>' +
-          '<path d="' + HP + '" transform="translate(252,150) scale(0.13)" fill="#ff7ea8"/>' +
-          '<path d="' + HP + '" transform="translate(398,122) scale(0.11)" fill="#ff5c8a"/>' +
+          '<svg class="eris-svg" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" aria-label="ay, kalp ve güneş">' +
+          '<g opacity=".85">' + decoA + decoB + '</g><g opacity=".6">' + decoC + '</g>' +
+          // moon
+          '<g fill="#cdd6ff">' + mStars.join('') + '</g>' +
+          '<g fill="none" stroke="#c7d4ff" stroke-width="2.3" stroke-linecap="round" stroke-dasharray="0.1 6.5">' +
+          '<path d="M170 78 A92 92 0 1 0 170 262 A64 90 0 1 1 170 78 Z"/></g>' +
+          '<g fill="none" stroke="#dbe4ff" stroke-width="2.4" stroke-linecap="round">' +
+          '<path d="M138 172 q13 11 26 0"/>' +
+          '<path d="M150 192 q7 6 14 0"/></g>' + blush(104, 186, '#ff9fc4') +
+          // hearts
+          '<g fill="none" stroke="#ff6fa1" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 6.5">' +
+          '<path d="' + HP + '" transform="translate(312,108)"/></g>' +
+          '<g fill="#ff6fa1">' +
+          '<path d="' + HP + '" transform="translate(342,150) scale(0.11)"/>' +
+          '<path d="' + HP + '" transform="translate(372,150) scale(0.11)"/>' +
+          '<path d="' + HP + '" transform="translate(357,178) scale(0.11)"/></g>' +
+          '<path d="' + HP + '" transform="translate(354,92) scale(0.13)" fill="none" stroke="#ff9fc4" stroke-width="6" stroke-linecap="round"/>' +
+          '<path d="' + HP + '" transform="translate(360,236) scale(0.12)" fill="#ff6fa1"/>' +
+          '<path d="' + HP + '" transform="translate(276,170) scale(0.1)" fill="#ff9fc4"/>' +
+          // sun
           '<g stroke="#ffd24a" stroke-linecap="round">' +
-          '<circle cx="520" cy="130" r="42" fill="none" stroke-width="2.4" stroke-dasharray="0.1 7"/>' +
-          '<g stroke-width="2.2" stroke-dasharray="0.1 6">' + rays.join('') + '</g>' +
-          '<path d="M503 124 l7 -7 l7 7" fill="none" stroke-width="2.6" stroke-dasharray="0.1 6"/>' +
-          '<path d="M524 124 l7 -7 l7 7" fill="none" stroke-width="2.6" stroke-dasharray="0.1 6"/>' +
-          '<path d="M500 140 q20 18 40 0" fill="none" stroke-width="2.6" stroke-dasharray="0.1 6"/>' +
-          '</g></svg>';
+          '<g stroke-width="2.2" stroke-dasharray="5 5">' + rays.join('') + '</g>' +
+          '<circle cx="560" cy="165" r="80" fill="none" stroke-width="2.3" stroke-dasharray="0.1 6.5"/>' +
+          '<g fill="none" stroke-width="2.6" stroke-dasharray="0.1 5.5">' +
+          '<path d="M523 156 q12 11 24 0"/><path d="M573 156 q12 11 24 0"/>' +
+          '<path d="M525 182 q35 30 70 0"/></g></g>' + blush(505, 190, '#ffb36b') + blush(600, 190, '#ffb36b') +
+          '</svg>';
 
         body.classList.add('eris-mode');
         out.innerHTML = '';
+
+        const cmd = document.createElement('div');
+        cmd.className = 'eris-cmd';
+        cmd.textContent = 'moon_sun_love.exe';
+        out.appendChild(cmd);
 
         const scene = document.createElement('div');
         scene.className = 'eris-scene';
