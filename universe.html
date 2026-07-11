@@ -3917,19 +3917,12 @@
         out.appendChild(box);
         out.appendChild(back);
 
-        // If the exact artwork exists as an asset, show it verbatim instead
+        // If the artwork asset exists, swap it into the scene (keeping the message below)
         const artImg = new Image();
         artImg.className = 'eris-img';
-        artImg.alt = 'moon sun love';
-        artImg.onload = function () {
-          out.innerHTML = '';
-          const s = document.createElement('div'); s.className = 'eris-scene'; s.appendChild(artImg);
-          out.appendChild(s);
-          const b = document.createElement('div'); b.className = 'eris-back'; b.textContent = 'geri dönmek için: clear';
-          out.appendChild(b);
-          out.scrollTop = 0;
-        };
-        artImg.src = 'img/moon_sun_terminal_exact.svg';
+        artImg.alt = 'ay, kalp ve güneş';
+        artImg.onload = function () { scene.innerHTML = ''; scene.appendChild(artImg); out.scrollTop = 0; };
+        artImg.src = 'img/moon_sun_art.png';
 
         out.scrollTop = 0;
         if (window.__party) window.__party();
