@@ -1561,18 +1561,16 @@
 
     .eris-scene {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
       justify-content: center;
-      gap: 10px 34px;
-      margin: 8px 0 4px;
+      margin: 6px 0 2px;
     }
 
-    .eris-scene pre {
-      margin: 0;
-      line-height: 1.35;
-      font-size: 15px;
-      white-space: pre;
+    .eris-svg {
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(120,160,255,.08));
     }
 
     .eris-moon { color: #cfe0ff; text-shadow: 0 0 10px rgba(160,190,255,.45); }
@@ -1963,6 +1961,39 @@
     .status-ic.gh { background: rgba(255,255,255,.08); color: #fff; }
     .status-ic.code { background: rgba(88,166,255,.16); color: #58a6ff; }
     .status-ic.sp { background: rgba(29,185,84,.16); color: #1ed760; }
+
+    .spotify-card { position: relative; }
+    .spotify-card.playing { padding-bottom: 26px; }
+    .sp-progress {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 9px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .spotify-card.playing .sp-progress { opacity: 1; }
+    .sp-progress i {
+      flex: 1;
+      height: 3px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.16);
+      position: relative;
+      overflow: hidden;
+    }
+    .sp-progress i::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: var(--p, 0%);
+      background: #1ed760;
+      border-radius: 99px;
+      box-shadow: 0 0 8px rgba(30,215,96,.6);
+    }
+    .sp-cur, .sp-dur { font-size: 9px; color: var(--muted); font-variant-numeric: tabular-nums; flex-shrink: 0; }
 
     .status-txt { flex: 1; min-width: 0; }
     .status-txt b { display: block; font-size: 14px; margin-bottom: 3px; }
@@ -2825,13 +2856,14 @@
             <i class="status-dot" id="coding-dot"></i>
           </div>
 
-          <div class="status-card">
-            <div class="status-ic sp"><i class="fab fa-spotify"></i></div>
+          <div class="status-card spotify-card" id="spotify-card">
+            <div class="status-ic sp" id="spotify-ic"><i class="fab fa-spotify"></i></div>
             <div class="status-txt">
               <b id="spotify-title">Spotify</b>
               <span id="spotify-state">Yükleniyor...</span>
             </div>
             <i class="status-dot" id="spotify-dot"></i>
+            <div class="sp-progress" id="spotify-progress"><span class="sp-cur" id="spotify-cur">0:00</span><i></i><span class="sp-dur" id="spotify-dur">0:00</span></div>
           </div>
 
           <a class="status-card" href="https://steamcommunity.com/id/burakpekel/" target="_blank" rel="noreferrer">
@@ -3491,6 +3523,22 @@
 
       const codeRe = /code|visual studio|cursor|neovim|\bvim\b|intellij|pycharm|webstorm|rider|sublime|atom|\bzed\b/i;
 
+      let currentSpotify = null;
+      const fmt = ms => { const s = Math.max(0, Math.floor(ms / 1000)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+
+      function tickSpotify() {
+        const prog = document.getElementById('spotify-progress');
+        if (!currentSpotify || !currentSpotify.timestamps || !prog) return;
+        const { start, end } = currentSpotify.timestamps;
+        if (!start || !end) return;
+        const total = end - start;
+        const elapsed = Math.min(Math.max(Date.now() - start, 0), total);
+        prog.style.setProperty('--p', (elapsed / total * 100) + '%');
+        setText('spotify-cur', fmt(elapsed));
+        setText('spotify-dur', fmt(total));
+      }
+      setInterval(tickSpotify, 500);
+
       function applyStatus(data) {
         window.__presence = data;
         const acts = data.activities || [];
@@ -3511,15 +3559,24 @@
           setDot('coding-dot', 'offline');
         }
 
-        // Spotify — now playing
+        // Spotify — album art + live progress
+        const card = document.getElementById('spotify-card');
+        const ic = document.getElementById('spotify-ic');
         if (data.listening_to_spotify && data.spotify) {
+          currentSpotify = data.spotify;
           setText('spotify-title', data.spotify.song);
           setText('spotify-state', data.spotify.artist);
           setDot('spotify-dot', 'online');
+          if (ic && data.spotify.album_art_url) ic.innerHTML = '<img src="' + data.spotify.album_art_url + '" alt="">';
+          if (card) card.classList.add('playing');
+          tickSpotify();
         } else {
+          currentSpotify = null;
           setText('spotify-title', 'Spotify');
           setText('spotify-state', 'Şu an çalmıyor');
           setDot('spotify-dot', 'offline');
+          if (ic) ic.innerHTML = '<i class="fab fa-spotify"></i>';
+          if (card) card.classList.remove('playing');
         }
       }
 
@@ -3531,8 +3588,27 @@
         } catch {}
       }
 
+      // Real-time updates over Lanyard's socket, with polling as a fallback
+      function connectWS() {
+        let ws, hb;
+        try { ws = new WebSocket('wss://api.lanyard.rest/socket'); }
+        catch { fetchStatus(); setInterval(fetchStatus, 20000); return; }
+        ws.addEventListener('message', ev => {
+          let msg; try { msg = JSON.parse(ev.data); } catch { return; }
+          if (msg.op === 1) {
+            clearInterval(hb);
+            hb = setInterval(() => { if (ws.readyState === 1) ws.send(JSON.stringify({ op: 3 })); }, msg.d.heartbeat_interval);
+            ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+          } else if (msg.op === 0 && msg.d) {
+            applyStatus(msg.d);
+          }
+        });
+        ws.addEventListener('close', () => { clearInterval(hb); setTimeout(connectWS, 4000); });
+        ws.addEventListener('error', () => { try { ws.close(); } catch {} });
+      }
+
       fetchStatus();
-      setInterval(fetchStatus, 30000);
+      connectWS();
     })();
 
     // Contact modal
@@ -3738,42 +3814,41 @@
       }
 
       function moonSun() {
-        const MOON = [
-          "   ✦",
-          "    ╭───╮",
-          "   ╱     ╲",
-          "  │   ╭───",
-          "  │   │",
-          "  │   ╰───",
-          "   ╲     ╱",
-          "    ╰───╯"
-        ].join('\n');
-        const HEART = [
-          "",
-          "  ╭─╮ ╭─╮",
-          " ╭╯ ╰╯ ╰╮",
-          " │      │",
-          " ╰╮    ╭╯",
-          "  ╰╮  ╭╯",
-          "   ╰╮╭╯",
-          "    ╰╯"
-        ].join('\n');
-        const SUN = [
-          "         ✦",
-          "    ╲  │  ╱",
-          "   ╭─────╮",
-          " ──│ ◠ ◠ │──",
-          "   ╰──‿──╯",
-          "    ╱  │  ╲"
-        ].join('\n');
+        const HP = "M50 30 C50 20 40 10 25 10 C10 10 0 22 0 40 C0 65 25 80 50 95 C75 80 100 65 100 40 C100 22 90 10 75 10 C60 10 50 20 50 30 Z";
+        const cx = 520, cy = 130, rays = [];
+        for (let a = 0; a < 360; a += 30) {
+          const r = a * Math.PI / 180;
+          rays.push('<line x1="' + (cx + Math.cos(r) * 52).toFixed(1) + '" y1="' + (cy + Math.sin(r) * 52).toFixed(1) +
+            '" x2="' + (cx + Math.cos(r) * 70).toFixed(1) + '" y2="' + (cy + Math.sin(r) * 70).toFixed(1) + '"/>');
+        }
+        const spk = [[60, 52], [188, 40], [300, 28], [452, 46], [598, 60], [150, 214], [332, 222], [486, 208], [566, 188], [40, 150], [258, 62], [402, 60]];
+        const stars = spk.map(s => '<circle cx="' + s[0] + '" cy="' + s[1] + '" r="1.7"/>').join('');
+        const svg =
+          '<svg class="eris-svg" viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" aria-label="ay, kalp ve güneş">' +
+          '<g fill="#cfe0ff" opacity=".5">' + stars + '</g>' +
+          '<g fill="none" stroke="#bfe0ff" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 7">' +
+          '<path d="M120 68 A62 62 0 1 0 120 192 A44 58 0 1 1 120 68 Z"/>' +
+          '<path d="M74 120 q7 7 14 0"/><path d="M96 118 q7 7 14 0"/><path d="M80 146 q9 8 18 0"/>' +
+          '</g>' +
+          '<g fill="none" stroke="#ff5c8a" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 7">' +
+          '<path d="' + HP + '" transform="translate(268,64)"/></g>' +
+          '<path d="' + HP + '" transform="translate(362,42) scale(0.16)" fill="#ff5c8a"/>' +
+          '<path d="' + HP + '" transform="translate(252,150) scale(0.13)" fill="#ff7ea8"/>' +
+          '<path d="' + HP + '" transform="translate(398,122) scale(0.11)" fill="#ff5c8a"/>' +
+          '<g stroke="#ffd24a" stroke-linecap="round">' +
+          '<circle cx="520" cy="130" r="42" fill="none" stroke-width="2.4" stroke-dasharray="0.1 7"/>' +
+          '<g stroke-width="2.2" stroke-dasharray="0.1 6">' + rays.join('') + '</g>' +
+          '<path d="M503 124 l7 -7 l7 7" fill="none" stroke-width="2.6" stroke-dasharray="0.1 6"/>' +
+          '<path d="M524 124 l7 -7 l7 7" fill="none" stroke-width="2.6" stroke-dasharray="0.1 6"/>' +
+          '<path d="M500 140 q20 18 40 0" fill="none" stroke-width="2.6" stroke-dasharray="0.1 6"/>' +
+          '</g></svg>';
 
         body.classList.add('eris-mode');
         out.innerHTML = '';
 
         const scene = document.createElement('div');
         scene.className = 'eris-scene';
-        const mk = (cls, txt) => { const pre = document.createElement('pre'); pre.className = cls; pre.textContent = txt; return pre; };
-        scene.append(mk('eris-moon', MOON), mk('eris-hearts', HEART), mk('eris-sun', SUN));
+        scene.innerHTML = svg;
         out.appendChild(scene);
 
         const box = document.createElement('div');
