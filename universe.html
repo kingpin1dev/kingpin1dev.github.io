@@ -1541,6 +1541,14 @@
 
     @keyframes starFall { to { transform: translateY(106vh) rotate(220deg); opacity: 0; } }
 
+    .snake-view {
+      margin: 10px 0 0;
+      line-height: 1.05;
+      font-size: 13px;
+      color: #70ffb2;
+      letter-spacing: 1px;
+    }
+
     .creative-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -3448,8 +3456,37 @@
         }
       };
 
+      window.__matrix = function () {
+        if (document.getElementById('mtx')) return;
+        const c = document.createElement('canvas');
+        c.id = 'mtx';
+        c.style.cssText = 'position:fixed;inset:0;z-index:90000;pointer-events:none;transition:opacity .8s ease;';
+        document.body.appendChild(c);
+        const x = c.getContext('2d');
+        c.width = innerWidth; c.height = innerHeight;
+        const chars = 'アイウエオカキクケコサシスセソ01<>*/{}[]#$%&';
+        const fs = 16, cols = Math.floor(c.width / fs);
+        const drops = Array(cols).fill(0).map(() => Math.floor(Math.random() * -40));
+        let start = null;
+        function frame(ts) {
+          if (start === null) start = ts;
+          x.fillStyle = 'rgba(3,7,14,.10)';
+          x.fillRect(0, 0, c.width, c.height);
+          x.fillStyle = '#70ffb2';
+          x.font = fs + 'px monospace';
+          for (let i = 0; i < cols; i++) {
+            x.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs);
+            if (drops[i] * fs > c.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+          }
+          if (ts - start < 4500) requestAnimationFrame(frame);
+          else { c.style.opacity = '0'; setTimeout(() => c.remove(), 800); }
+        }
+        requestAnimationFrame(frame);
+      };
+
       const seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-      let idx = 0;
+      let idx = 0, wordBuf = '';
       window.addEventListener('keydown', e => {
         const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
         if (k === seq[idx]) {
@@ -3457,6 +3494,10 @@
           if (idx === seq.length) { idx = 0; window.__party(); window.__achv('Konami Kodu'); }
         } else {
           idx = (k === seq[0]) ? 1 : 0;
+        }
+        if (e.key && e.key.length === 1) {
+          wordBuf = (wordBuf + e.key.toLowerCase()).slice(-6);
+          if (wordBuf.includes('burak')) { wordBuf = ''; window.__party(); window.__achv('Gizli Kelime: burak'); }
         }
       });
     })();
@@ -3494,10 +3535,98 @@
         out.appendChild(div);
       }
 
+      function stream(lines, delay, done) {
+        let i = 0;
+        (function next() {
+          if (i >= lines.length) { out.scrollTop = out.scrollHeight; if (done) done(); return; }
+          const l = lines[i++];
+          Array.isArray(l) ? print(l[0], l[1]) : print(l);
+          out.scrollTop = out.scrollHeight;
+          setTimeout(next, delay);
+        })();
+      }
+
+      function cowsay(text) {
+        const t = ' ' + (text || 'mööö') + ' ';
+        return [' ' + '_'.repeat(t.length), '<' + t + '>', ' ' + '-'.repeat(t.length),
+          '        \\   ^__^',
+          '         \\  (oo)\\_______',
+          '            (__)\\       )\\/\\',
+          '                ||----w |',
+          '                ||     ||'].join('\n');
+      }
+
+      let gameActive = false;
+      function snake() {
+        if (gameActive) return;
+        gameActive = true;
+        const COLS = 22, ROWS = 12;
+        const view = document.createElement('pre');
+        view.className = 'snake-view';
+        out.appendChild(view);
+        print("Yön: ok tuşları / WASD · Çıkış: Esc");
+        out.scrollTop = out.scrollHeight;
+
+        let body = [{ x: 5, y: 6 }, { x: 4, y: 6 }, { x: 3, y: 6 }];
+        let dir = { x: 1, y: 0 }, nxt = dir, score = 0, timer;
+        const spawn = () => { let p; do { p = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) }; } while (body.some(s => s.x === p.x && s.y === p.y)); return p; };
+        let food = spawn();
+
+        function render() {
+          let s = '┌' + '─'.repeat(COLS) + '┐\n';
+          for (let y = 0; y < ROWS; y++) {
+            s += '│';
+            for (let x = 0; x < COLS; x++) {
+              if (body[0].x === x && body[0].y === y) s += '◉';
+              else if (body.some(b => b.x === x && b.y === y)) s += '█';
+              else if (food.x === x && food.y === y) s += '●';
+              else s += ' ';
+            }
+            s += '│\n';
+          }
+          s += '└' + '─'.repeat(COLS) + '┘\nSkor: ' + score;
+          view.textContent = s;
+        }
+        function over() {
+          clearInterval(timer);
+          document.removeEventListener('keydown', key, true);
+          gameActive = false;
+          view.textContent += '\n\n  OYUN BİTTİ · Skor: ' + score;
+          out.scrollTop = out.scrollHeight;
+          if (score >= 5) window.__achv('Yılan Ustası');
+        }
+        function tick() {
+          dir = nxt;
+          const h = { x: body[0].x + dir.x, y: body[0].y + dir.y };
+          if (h.x < 0 || h.x >= COLS || h.y < 0 || h.y >= ROWS || body.some(b => b.x === h.x && b.y === h.y)) return over();
+          body.unshift(h);
+          if (h.x === food.x && h.y === food.y) { score++; food = spawn(); } else body.pop();
+          render();
+        }
+        function key(e) {
+          let nd = null;
+          const k = e.key;
+          if (k === 'ArrowUp' || k === 'w') nd = { x: 0, y: -1 };
+          else if (k === 'ArrowDown' || k === 's') nd = { x: 0, y: 1 };
+          else if (k === 'ArrowLeft' || k === 'a') nd = { x: -1, y: 0 };
+          else if (k === 'ArrowRight' || k === 'd') nd = { x: 1, y: 0 };
+          else if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); return over(); }
+          else return;
+          e.preventDefault(); e.stopPropagation();
+          if (nd.x !== -dir.x || nd.y !== -dir.y) nxt = nd;
+        }
+        document.addEventListener('keydown', key, true);
+        render();
+        timer = setInterval(tick, 140);
+      }
+
+      let konsolCount = 0, devMode = false;
       let hueStep = 0;
 
       const cmds = {
-        help: () => print("Komutlar: help · whoami · neofetch · ls · sosyal · iletisim · hire · spotify · steam · theme · tarih · echo <metin> · clear"),
+        help: () => print(devMode
+          ? "Komutlar: help whoami neofetch ls sosyal iletisim hire spotify steam now stack theme tarih uptime ping cowsay credits echo clear · [dev] boot matrix snake secret"
+          : "Komutlar: help · whoami · neofetch · ls · sosyal · iletisim · hire · spotify · steam · now · theme · tarih · echo <metin> · clear"),
         whoami: () => print("Burak PEKEL — bağımsız geliştirici. Windows uygulamaları, web servisleri, sinematik video edit ve UI/UX tasarımı."),
         neofetch: () => HW.forEach(l => print(l)),
         ls: () => print(APPS_LIST.join('   ')),
@@ -3527,8 +3656,36 @@
         temizle: () => cmds.clear(),
         kingpin: () => { print("♛  Kingpindev"); print("   geliştir · tasarla · yayınla — ve biraz da eğlen."); window.__achv('Taç Sende ♛'); },
         coffee: () => print("☕  Kahve hazırlanıyor... kafeinsiz kod derlenmez."),
-        matrix: () => { print("01001011 01101001 01101110 01100111 01110000 01101001 01101110 ..."); window.__party(); },
+        matrix: () => { print("Matrix'e hoş geldin, Neo."); window.__matrix(); window.__achv('Matrix Yağmuru'); },
         konami: () => { window.__party(); window.__achv('Konami Kodu'); print("↑ ↑ ↓ ↓ ← → ← → B A"); },
+        stack: () => print("JavaScript · Python · C# / .NET · Tailwind CSS · Premiere Pro · After Effects · Figma"),
+        skills: () => cmds.stack(),
+        now: () => {
+          const p = window.__presence || {};
+          const st = { online: 'çevrimiçi', idle: 'boşta', dnd: 'rahatsız etmeyin', offline: 'çevrimdışı' }[p.discord_status] || 'çevrimdışı';
+          const code = (p.activities || []).find(a => /code|visual studio|cursor|vim|intellij|pycharm|webstorm|rider|sublime|zed/i.test(a.name || ''));
+          const sp = (p.listening_to_spotify && p.spotify) ? (p.spotify.song + ' — ' + p.spotify.artist) : null;
+          print("Discord: " + st + (code ? " · Kodluyor: " + (code.details || code.name) : "") + (sp ? " · 🎵 " + sp : ""));
+        },
+        nerede: () => cmds.now(),
+        credits: () => { print("Tasarım & geliştirme: Burak PEKEL (Kingpindev)."); print("Yıldızlar, terminal ve kahvenin katkılarıyla. ✦"); },
+        uptime: () => { const y = new Date().getFullYear() - 2021; print("Kingpindev " + y + " yıldır bu evrende kod yazıyor."); },
+        ping: () => { print("ping ..."); setTimeout(() => { print("pong 🏓  (0.42ms — ışık hızında)"); out.scrollTop = out.scrollHeight; }, 500); },
+        cowsay: () => print(cowsay('mööö')),
+        boot: () => stream([
+          "BIOS: Kingpindev Core v4.7 ...", "POST: CPU OK · RAM OK · GPU OK",
+          "Bağlanılıyor: yıldız haritası ...", "Modüller yükleniyor: uygulamalar, kreatif, aktivite",
+          "Kişilik enjekte ediliyor ...", ["Sistem hazır. Hoş geldin. ✦", "tin"]
+        ], 420),
+        reboot: () => cmds.boot(),
+        snake: () => snake(),
+        secret: () => { print("xyzzy... hiçbir şey olmadı. ya da oldu? 👀"); window.__achv('Gizli Geçit'); },
+        xyzzy: () => cmds.secret(),
+        konsol: () => {
+          konsolCount++;
+          if (konsolCount >= 3 && !devMode) { devMode = true; print("🔓 Geliştirici modu açık — 'help' ile yeni komutları gör."); window.__achv('Geliştirici Modu'); }
+          else print("konsol... (" + Math.min(konsolCount, 3) + "/3)");
+        },
       };
 
       function run(raw) {
@@ -3542,8 +3699,14 @@
         const low = line.toLowerCase();
 
         if (key === 'echo') print(parts.slice(1).join(' '));
+        else if (key === 'cowsay' && parts.length > 1) print(cowsay(parts.slice(1).join(' ')));
+        else if (low === 'sudo hire burak') { print("İzin verildi ✅ Sözleşme hazırlanıyor..."); window.__achv('İşe Alındın'); const b = document.getElementById('open-contact'); if (b) setTimeout(() => b.click(), 600); }
         else if (low === 'sudo make me a sandwich') { print("🥪  Poof! Buyur, sandviçin hazır."); window.__achv('Sudo Şefi'); }
         else if (low === 'make me a sandwich') print("Kendin yap. 🥪", 'terr');
+        else if (low.includes('--no-preserve-root')) {
+          stream([["siliniyor: / ...", 'terr'], ["siliniyor: /home ...", 'terr'], ["siliniyor: /evren ...", 'terr'], ["... %98", 'terr'], "Şaka şaka 😄 hiçbir şey silinmedi."], 460);
+          window.__achv('Cesur Ama Boşuna');
+        }
         else if (low.startsWith('rm -rf')) print("Nice try. Bu sistem senden daha inatçı. 🧱", 'terr');
         else if (key === 'whoami' && parts.slice(1).join(' ').toLowerCase() === '--secret') {
           print("psst… gece 3'te yazılan kod, sabah 9'da okunmaz. yine de yazarız. 🌙");
