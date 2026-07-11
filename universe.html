@@ -1549,6 +1549,35 @@
       letter-spacing: 1px;
     }
 
+    .eris-art {
+      margin: 14px 0 0;
+      line-height: 1.3;
+      font-size: 13px;
+      color: #ffd27a;
+      text-shadow: 0 0 12px rgba(255,210,122,.35);
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .eris-msg {
+      margin: 14px 0 6px;
+      max-width: 560px;
+      padding: 16px 20px;
+      border: 1px dashed rgba(255,110,199,.5);
+      border-radius: 14px;
+      background: rgba(255,110,199,.06);
+    }
+
+    .eris-msg p {
+      margin: 0;
+      color: #ff9ecb;
+      font-size: 13.5px;
+      line-height: 1.95;
+      text-align: center;
+      font-style: italic;
+      text-shadow: 0 0 10px rgba(255,110,199,.3);
+    }
+
     .creative-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2009,6 +2038,7 @@
     .steam-level .sl-meta span { font-size: 10px; color: var(--muted); font-family: monospace; }
 
     .steam-level .sl-num {
+      position: relative;
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -2019,6 +2049,23 @@
       font-weight: 1000;
       font-size: 14px;
       box-shadow: 0 0 12px rgba(66,248,255,.3);
+    }
+
+    .steam-level .sl-num::before,
+    .steam-level .sl-num::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 2px solid var(--cyan);
+      animation: slPing 2s ease-out infinite;
+      pointer-events: none;
+    }
+    .steam-level .sl-num::after { animation-delay: 1s; }
+
+    @keyframes slPing {
+      0% { transform: scale(1); opacity: .7; }
+      100% { transform: scale(1.75); opacity: 0; }
     }
 
     .live-panel {
@@ -2845,7 +2892,7 @@
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/e47271f28eda7f9d02214c316a8ef7b020985dc0.jpg" alt="Başarım"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/d0294a5412e445c6c974d3dec4aab6e106c26648.jpg" alt="Başarım"></div>
               <div class="steam-level">
-                <div class="sl-meta"><b>Steam Seviyesi</b><span>#1473 Vice Club</span></div>
+                <div class="sl-meta"><b>Steam Seviyesi</b><span>Eris Was Here</span></div>
                 <div class="sl-num">36</div>
               </div>
             </div>
@@ -3667,6 +3714,28 @@
           '                ||     ||'].join('\n');
       }
 
+      function moonSun() {
+        const art = document.createElement('pre');
+        art.className = 'eris-art';
+        art.textContent = [
+          "      *  .  ·  .        · ♥ ·        .  ·  .  *",
+          "    ·   ((  (   ·      ♥  ♥  ♥      ·   \\ | /   ·",
+          "   ·   (( (    ·  ·   ♥  ♥  ♥  ♥   · ·  —( ☼ )—  ·",
+          "    ·   ((  (   ·      ♥  ♥  ♥      ·   / | \\   ·",
+          "      *  .  ·  .        · ♥ ·        .  ·  .  *",
+          "          moon                     sun"
+        ].join('\n');
+        out.appendChild(art);
+        const box = document.createElement('div');
+        box.className = 'eris-msg';
+        const p = document.createElement('p');
+        p.textContent = "You've created a space in my heart thats yours alone. If you ever find yourself lost come and find me. No one could ever fill or reach your space in my heart. No matter what happens, that space will always belong to you.";
+        box.appendChild(p);
+        out.appendChild(box);
+        out.scrollTop = out.scrollHeight;
+        if (window.__party) window.__party();
+      }
+
       let gameActive = false;
       function snake() {
         if (gameActive) return;
@@ -3819,6 +3888,7 @@
           window.__achv('Cesur Ama Boşuna');
         }
         else if (low.startsWith('rm -rf')) print("Nice try. Bu sistem senden daha inatçı. 🧱", 'terr');
+        else if (['eris', 'eriswashere', 'erisishere'].includes(low.replace(/[\s_\-]/g, ''))) moonSun();
         else if (key === 'whoami' && parts.slice(1).join(' ').toLowerCase() === '--secret') {
           print("psst… gece 3'te yazılan kod, sabah 9'da okunmaz. yine de yazarız. 🌙");
           window.__achv('Gizli Satır');
