@@ -1784,7 +1784,7 @@
 
     .status-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(198px, 1fr));
       gap: 14px;
       margin-bottom: 18px;
     }
@@ -2217,10 +2217,6 @@
 
       .edit-grid {
         grid-template-columns: repeat(3, 1fr);
-      }
-
-      .status-row {
-        grid-template-columns: repeat(2, 1fr);
       }
 
       .hero-stage {
@@ -2697,6 +2693,15 @@
             </div>
             <i class="status-dot" id="spotify-dot"></i>
           </div>
+
+          <a class="status-card" href="https://steamcommunity.com/id/burakpekel/" target="_blank" rel="noreferrer">
+            <div class="status-ic st"><img src="https://avatars.fastly.steamstatic.com/6699308c9128ee16df2523235ee7d01ddbfb7b63_full.jpg" alt="Steam"></div>
+            <div class="status-txt">
+              <b>Kingpin</b>
+              <span>Steam • PC Oyuncusu</span>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square status-go"></i>
+          </a>
 
           <a class="status-card" href="https://www.xbox.com/tr-TR/play/user/Kingpin7841" target="_blank" rel="noreferrer">
             <div class="status-ic xb"><i class="fab fa-xbox"></i></div>
