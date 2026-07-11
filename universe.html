@@ -1500,6 +1500,47 @@
       padding: 0;
     }
 
+    .achv-wrap {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 100002;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .achv {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,201,109,.4);
+      background: linear-gradient(180deg, rgba(30,26,16,.94), rgba(20,17,10,.94));
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      transform: translateX(140%);
+      transition: transform .4s cubic-bezier(.2,.9,.3,1);
+    }
+
+    .achv.show { transform: none; }
+    .achv-ic { width: 38px; height: 38px; flex-shrink: 0; border-radius: 11px; display: grid; place-items: center; font-size: 17px; color: #ffd166; background: rgba(255,201,109,.16); border: 1px solid rgba(255,201,109,.4); }
+    .achv b { display: block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #ffd166; margin-bottom: 2px; }
+    .achv span { font-size: 13px; font-weight: 800; }
+
+    .starfall {
+      position: fixed;
+      top: -32px;
+      z-index: 100001;
+      pointer-events: none;
+      will-change: transform, opacity;
+      animation: starFall linear forwards;
+    }
+
+    @keyframes starFall { to { transform: translateY(106vh) rotate(220deg); opacity: 0; } }
+
     .creative-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -3262,6 +3303,7 @@
       const codeRe = /code|visual studio|cursor|neovim|\bvim\b|intellij|pycharm|webstorm|rider|sublime|atom|\bzed\b/i;
 
       function applyStatus(data) {
+        window.__presence = data;
         const acts = data.activities || [];
         const status = data.discord_status || 'offline';
 
@@ -3374,6 +3416,51 @@
       window.addEventListener('touchend', up);
     })();
 
+    // Effects: achievement toast, star burst, Konami sequence
+    (function initFx() {
+      window.__achv = function (name) {
+        let wrap = document.querySelector('.achv-wrap');
+        if (!wrap) { wrap = document.createElement('div'); wrap.className = 'achv-wrap'; document.body.appendChild(wrap); }
+        const el = document.createElement('div');
+        el.className = 'achv';
+        el.innerHTML = '<div class="achv-ic"><i class="fas fa-trophy"></i></div><div><b>Başarım Açıldı</b><span></span></div>';
+        el.querySelector('span').textContent = name;
+        wrap.appendChild(el);
+        requestAnimationFrame(() => el.classList.add('show'));
+        setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 450); }, 3600);
+      };
+
+      window.__party = function () {
+        const glyphs = ['✦', '★', '✧', '⋆', '❖'];
+        const colors = ['#58a6ff', '#42f8ff', '#9c7cff', '#ff6ec7', '#70ffb2', '#ffc96d'];
+        for (let i = 0; i < 52; i++) {
+          const s = document.createElement('span');
+          s.className = 'starfall';
+          s.textContent = glyphs[i % glyphs.length];
+          s.style.left = (Math.random() * 100) + 'vw';
+          s.style.color = colors[i % colors.length];
+          s.style.fontSize = (12 + Math.random() * 18) + 'px';
+          const dur = 2 + Math.random() * 2.6;
+          s.style.animationDuration = dur + 's';
+          s.style.animationDelay = (Math.random() * 0.7) + 's';
+          document.body.appendChild(s);
+          setTimeout(() => s.remove(), (dur + 1.2) * 1000);
+        }
+      };
+
+      const seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+      let idx = 0;
+      window.addEventListener('keydown', e => {
+        const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        if (k === seq[idx]) {
+          idx++;
+          if (idx === seq.length) { idx = 0; window.__party(); window.__achv('Konami Kodu'); }
+        } else {
+          idx = (k === seq[0]) ? 1 : 0;
+        }
+      });
+    })();
+
     // Interactive main-rig terminal
     (function initTerminal() {
       const input = document.getElementById('term-input');
@@ -3407,8 +3494,10 @@
         out.appendChild(div);
       }
 
+      let hueStep = 0;
+
       const cmds = {
-        help: () => print("Komutlar: help · whoami · neofetch · ls · sosyal · iletisim · tarih · echo <metin> · clear"),
+        help: () => print("Komutlar: help · whoami · neofetch · ls · sosyal · iletisim · hire · spotify · steam · theme · tarih · echo <metin> · clear"),
         whoami: () => print("Burak PEKEL — bağımsız geliştirici. Windows uygulamaları, web servisleri, sinematik video edit ve UI/UX tasarımı."),
         neofetch: () => HW.forEach(l => print(l)),
         ls: () => print(APPS_LIST.join('   ')),
@@ -3417,13 +3506,29 @@
         social: () => cmds.sosyal(),
         iletisim: () => { print("İletişim penceresi açılıyor..."); const b = document.getElementById('open-contact'); if (b) b.click(); },
         contact: () => cmds.iletisim(),
+        hire: () => { print("Durum: yeni projelere ve işbirliklerine açık ✅"); print("Bir fikir mi var? 'iletisim' yaz ya da admin@bokmails.com."); },
+        iseal: () => cmds.hire(),
+        spotify: () => {
+          const p = window.__presence;
+          if (p && p.listening_to_spotify && p.spotify) print("🎵  " + p.spotify.song + " — " + p.spotify.artist);
+          else print("🎧  Şu an bir şey çalmıyor.");
+        },
+        steam: () => { print("🎮  159 oyun · 40 tam bitirilmiş · 9.784 başarım · %74 tamamlama"); print("    Steam Level 36 · steamcommunity.com/id/burakpekel"); },
+        game: () => cmds.steam(),
+        theme: () => {
+          hueStep = (hueStep + 60) % 360;
+          const c = document.getElementById('stars');
+          if (c) c.style.filter = hueStep ? "hue-rotate(" + hueStep + "deg)" : "none";
+          print("🎨  Yıldız teması değişti (hue " + hueStep + "°). Sıfırlamak için tekrar döndür.");
+        },
         tarih: () => print(new Date().toLocaleString('tr-TR')),
         date: () => cmds.tarih(),
         clear: () => { out.innerHTML = ''; },
         temizle: () => cmds.clear(),
-        kingpin: () => { print("♛  Kingpindev"); print("   geliştir · tasarla · yayınla — ve biraz da eğlen."); },
+        kingpin: () => { print("♛  Kingpindev"); print("   geliştir · tasarla · yayınla — ve biraz da eğlen."); window.__achv('Taç Sende ♛'); },
         coffee: () => print("☕  Kahve hazırlanıyor... kafeinsiz kod derlenmez."),
-        matrix: () => print("01001011 01101001 01101110 01100111 01110000 01101001 01101110 ..."),
+        matrix: () => { print("01001011 01101001 01101110 01100111 01110000 01101001 01101110 ..."); window.__party(); },
+        konami: () => { window.__party(); window.__achv('Konami Kodu'); print("↑ ↑ ↓ ↓ ← → ← → B A"); },
       };
 
       function run(raw) {
@@ -3434,8 +3539,16 @@
         hIndex = history.length;
         const parts = line.split(/\s+/);
         const key = parts[0].toLowerCase();
+        const low = line.toLowerCase();
+
         if (key === 'echo') print(parts.slice(1).join(' '));
-        else if (line.toLowerCase().startsWith('rm -rf')) print("Nice try. Bu sistem senden daha inatçı. 🧱", 'terr');
+        else if (low === 'sudo make me a sandwich') { print("🥪  Poof! Buyur, sandviçin hazır."); window.__achv('Sudo Şefi'); }
+        else if (low === 'make me a sandwich') print("Kendin yap. 🥪", 'terr');
+        else if (low.startsWith('rm -rf')) print("Nice try. Bu sistem senden daha inatçı. 🧱", 'terr');
+        else if (key === 'whoami' && parts.slice(1).join(' ').toLowerCase() === '--secret') {
+          print("psst… gece 3'te yazılan kod, sabah 9'da okunmaz. yine de yazarız. 🌙");
+          window.__achv('Gizli Satır');
+        }
         else if (key === 'sudo') print("Bu terminalde sudo yok — ama denemen hoştu 😏", 'terr');
         else if (cmds[key]) cmds[key]();
         else print("komut bulunamadı: " + parts[0] + " — 'help' dene", 'terr');
