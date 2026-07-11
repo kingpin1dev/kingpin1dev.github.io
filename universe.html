@@ -1718,18 +1718,50 @@
     }
 
     .game-stat {
+      position: relative;
       padding: 17px;
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,.1);
       background: rgba(255,255,255,.055);
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
     }
+
+    .game-stat::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--c, #66c0f4), transparent);
+      opacity: .45;
+      transition: opacity .25s ease;
+    }
+
+    .game-stat:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--c, #66c0f4) 50%, transparent);
+      background: rgba(255,255,255,.08);
+    }
+    .game-stat:hover::before { opacity: 1; }
+
+    .game-stat > i {
+      display: block;
+      font-size: 15px;
+      color: var(--faint);
+      margin-bottom: 11px;
+      transition: color .25s ease, transform .25s ease;
+    }
+    .game-stat:hover > i { color: var(--c, #66c0f4); transform: scale(1.12); }
 
     .game-stat b {
       display: block;
       font-size: 30px;
       letter-spacing: -.05em;
       margin-bottom: 5px;
+      font-variant-numeric: tabular-nums;
+      transition: text-shadow .25s ease;
     }
+    .game-stat:hover b { text-shadow: 0 0 20px color-mix(in srgb, var(--c, #66c0f4) 55%, transparent); }
 
     .game-stat span {
       color: var(--muted);
@@ -1749,20 +1781,72 @@
       aspect-ratio: 3 / 4;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.11);
-      background:
-        linear-gradient(0deg, rgba(0,0,0,.62), transparent 62%),
-        radial-gradient(circle at 25% 12%, rgba(255,255,255,.2), transparent 26%),
-        linear-gradient(135deg, rgba(88,166,255,.24), rgba(156,124,255,.2));
+      background: #0d1117;
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: end;
       padding: 14px;
-      transition: transform .3s ease, border-color .3s ease;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
 
-    .game:hover { transform: translateY(-4px); border-color: rgba(102,192,244,.55); }
+    .game-img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-size: cover;
+      background-position: center;
+      transform-origin: center;
+      animation: kenburns 16s ease-in-out infinite alternate;
+      animation-delay: var(--d, 0s);
+    }
+
+    @keyframes kenburns {
+      from { transform: scale(1.03) translate(0, 0); }
+      to { transform: scale(1.16) translate(-2%, -3%); }
+    }
+
+    .game::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(0deg, rgba(0,0,0,.9), rgba(0,0,0,.15) 55%, transparent 78%);
+    }
+
+    .game:hover {
+      transform: translateY(-6px);
+      border-color: color-mix(in srgb, var(--c, #66c0f4) 60%, transparent);
+      box-shadow: 0 22px 60px rgba(0,0,0,.5), 0 0 30px color-mix(in srgb, var(--c, #66c0f4) 22%, transparent);
+    }
+    .game:hover .game-img { animation-play-state: paused; }
+
+    .game-meta {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .game-meta b { font-size: 14px; line-height: 1.15; }
+
+    .game-pct {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--c, #66c0f4);
+      background: rgba(0,0,0,.5);
+      border: 1px solid color-mix(in srgb, var(--c, #66c0f4) 45%, transparent);
+      padding: 2px 8px;
+      border-radius: 999px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .game:hover .game-pct { opacity: 1; transform: none; }
 
     .game-bar {
       position: relative;
@@ -1882,21 +1966,6 @@
     .shelf-label .bar { width: 6px; height: 16px; border-radius: 99px; background: #66c0f4; }
     .shelf-label .bar.y { background: #ffc96d; }
 
-    .game::after {
-      content: "";
-      position: absolute;
-      inset: -80%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
-      transform: rotate(22deg) translateX(-20%);
-      animation: cardSweep 6s ease-in-out infinite;
-      animation-delay: var(--d);
-    }
-
-    @keyframes cardSweep {
-      0%, 55% { transform: rotate(22deg) translateX(-60%); }
-      78%, 100% { transform: rotate(22deg) translateX(60%); }
-    }
-
     .game b {
       position: relative;
       z-index: 2;
@@ -1921,7 +1990,8 @@
     }
 
     .ach img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .ach:hover { transform: translateY(-3px) scale(1.08); border-color: rgba(255,201,109,.7); }
+    .ach:hover { transform: translateY(-3px) scale(1.12); border-color: rgba(255,201,109,.7); box-shadow: 0 6px 18px rgba(255,201,109,.28); }
+    .ach-gap { width: 12px; height: 34px; flex-shrink: 0; }
 
     .steam-level {
       margin-left: auto;
@@ -2727,18 +2797,34 @@
 
           <div class="steam-panel-body">
             <div class="game-stats">
-              <div class="game-stat"><b>159</b><span>Sahip olunan oyun</span></div>
-              <div class="game-stat"><b>40</b><span>%100 tamamlanan</span></div>
-              <div class="game-stat"><b>9.784</b><span>Kazanılan başarım</span></div>
-              <div class="game-stat"><b>%74</b><span>Bitirme oranı</span></div>
+              <div class="game-stat" style="--c:#66c0f4"><i class="fas fa-gamepad"></i><b data-count="159">0</b><span>Sahip olunan oyun</span></div>
+              <div class="game-stat" style="--c:#b57cff"><i class="fas fa-check-double"></i><b data-count="40">0</b><span>%100 tamamlanan</span></div>
+              <div class="game-stat" style="--c:#ffc96d"><i class="fas fa-trophy"></i><b data-count="9784" data-dot="1">0</b><span>Kazanılan başarım</span></div>
+              <div class="game-stat" style="--c:#70ffb2"><i class="fas fa-chart-line"></i><b data-count="74" data-prefix="%">0</b><span>Bitirme oranı</span></div>
             </div>
 
             <div class="shelf-label"><span class="bar"></span> Kütüphane Özetim</div>
             <div class="game-shelf">
-              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg') center/cover;"><b>Cyberpunk 2077</b><div class="game-bar"><i style="width:85%; --c:#00ff9f"></i></div></div>
-              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_600x900.jpg') center/cover;"><b>ARC Raiders</b><div class="game-bar"><i style="width:40%; --c:#ff9d42"></i></div></div>
-              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_600x900.jpg') center/cover;"><b>Dying Light</b><div class="game-bar"><i style="width:75%; --c:#ffc96d"></i></div></div>
-              <div class="game" style="background: linear-gradient(0deg, rgba(0,0,0,.82), transparent 60%), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg') center/cover;"><b>Split Fiction</b><div class="game-bar"><i style="width:55%; --c:#b57cff"></i></div></div>
+              <div class="game" style="--c:#00ff9f; --d:0s;">
+                <div class="game-img" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg')"></div>
+                <div class="game-meta"><b>Cyberpunk 2077</b><span class="game-pct">%85</span></div>
+                <div class="game-bar"><i style="width:85%; --c:#00ff9f"></i></div>
+              </div>
+              <div class="game" style="--c:#ff9d42; --d:.5s;">
+                <div class="game-img" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_600x900.jpg')"></div>
+                <div class="game-meta"><b>ARC Raiders</b><span class="game-pct">%40</span></div>
+                <div class="game-bar"><i style="width:40%; --c:#ff9d42"></i></div>
+              </div>
+              <div class="game" style="--c:#ffc96d; --d:1s;">
+                <div class="game-img" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_600x900.jpg')"></div>
+                <div class="game-meta"><b>Dying Light</b><span class="game-pct">%75</span></div>
+                <div class="game-bar"><i style="width:75%; --c:#ffc96d"></i></div>
+              </div>
+              <div class="game" style="--c:#b57cff; --d:1.5s;">
+                <div class="game-img" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg')"></div>
+                <div class="game-meta"><b>Split Fiction</b><span class="game-pct">%55</span></div>
+                <div class="game-bar"><i style="width:55%; --c:#b57cff"></i></div>
+              </div>
             </div>
 
             <div class="shelf-label"><span class="bar y"></span> Koleksiyon Başarımları</div>
@@ -2748,9 +2834,16 @@
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/4cf7bf4cb63dae3a678b7884c23957728f78367d.jpg" alt="Başarım"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/ae55ecb37205f05eb4a5dcdb8c03e721df5cbfb8.jpg" alt="Başarım"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/2624a2514dd83bc2412c57fea4431e678f9128be.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/0fa9f59cef98ed26a2830ba1bd303955c5ad61b1.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/4cf7bf4cb63dae3a678b7884c23957728f78367d.jpg" alt="Başarım"></div>
+              <div class="ach-gap"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/b6f9183c35c6e75641994d91f23518b714166ab9.jpg" alt="Başarım"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/6848899b96700a6dccb129191b4b03d7d4a1b217.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/274f87c76648d4a5c3f36a229d3a104947b7ec2c.jpg" alt="Başarım"></div>
               <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/f386305a0ae748d9d48e8e8c68fa90072116c46b.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/b6f9183c35c6e75641994d91f23518b714166ab9.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/e47271f28eda7f9d02214c316a8ef7b020985dc0.jpg" alt="Başarım"></div>
+              <div class="ach"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/617670/d0294a5412e445c6c974d3dec4aab6e106c26648.jpg" alt="Başarım"></div>
               <div class="steam-level">
                 <div class="sl-meta"><b>Steam Seviyesi</b><span>#1473 Vice Club</span></div>
                 <div class="sl-num">36</div>
@@ -3742,6 +3835,33 @@
         else if (e.key === 'ArrowDown') { if (hIndex < history.length - 1) { hIndex++; input.value = history[hIndex]; } else { hIndex = history.length; input.value = ''; } }
       });
       body.addEventListener('click', e => { if (e.target.tagName !== 'A') input.focus(); });
+    })();
+
+    // Count-up for Steam stats
+    (function initCounters() {
+      const wrap = document.querySelector('.game-stats');
+      const nums = document.querySelectorAll('.game-stat b[data-count]');
+      if (!wrap || !nums.length) return;
+      let done = false;
+      const fmt = (n, dot) => dot ? n.toLocaleString('tr-TR') : String(n);
+      function animate(el) {
+        const target = parseInt(el.dataset.count, 10);
+        const dot = el.dataset.dot === '1';
+        const prefix = el.dataset.prefix || '';
+        let start = null;
+        function step(ts) {
+          if (start === null) start = ts;
+          const p = Math.min((ts - start) / 1400, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + fmt(Math.round(target * eased), dot);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting && !done) { done = true; nums.forEach(animate); io.disconnect(); } });
+      }, { threshold: 0.3 });
+      io.observe(wrap);
     })();
   </script>
 </body>
