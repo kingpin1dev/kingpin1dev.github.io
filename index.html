@@ -1174,15 +1174,28 @@
     .mmeta span { display: block; font-size: 11px; color: var(--muted); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .mtime { font-size: 10px; color: var(--faint); font-family: monospace; flex-shrink: 0; }
 
-    /* Notch (Notchify) */
-    .viz-notch { align-items: center; justify-content: center; gap: 18px; }
-    .island { display: inline-flex; align-items: center; gap: 12px; padding: 9px 16px; border-radius: 999px; background: #05070d; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 8px 26px rgba(0,0,0,.5); }
-    .isl-ic { color: #9c7cff; font-size: 14px; }
-    .isl-wave { display: flex; align-items: center; gap: 3px; height: 18px; }
-    .isl-wave span { width: 3px; height: 100%; border-radius: 99px; background: #9c7cff; transform-origin: center; animation: radioWave 1s ease-in-out infinite alternate; animation-delay: var(--d); }
-    .isl-time { font-size: 12px; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
-    .notch-widgets { display: flex; gap: 10px; }
-    .notch-widgets > i { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; font-size: 15px; color: var(--soft); background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.1); }
+    /* Notch (Notchify): the live island demo from notchify.app */
+    .nfy-demo {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      background:
+        radial-gradient(60% 90% at 20% 110%, rgba(64,120,255,.55), transparent 70%),
+        radial-gradient(55% 85% at 85% 105%, rgba(184,43,246,.55), transparent 70%),
+        radial-gradient(40% 60% at 55% 75%, rgba(120,200,255,.35), transparent 70%),
+        linear-gradient(180deg, #0b1230 0%, #18245a 55%, #2a2f7a 100%);
+    }
+    .nfy-canvas { position: relative; width: 100%; }
+    .nfy-canvas canvas { display: block; width: 100%; touch-action: manipulation; cursor: none !important; }
+    .nfy-hint {
+      position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px;
+      background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.85); font-size: 12px; font-weight: 600; pointer-events: none; white-space: nowrap;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .nfy-hint::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #9c7cff; box-shadow: 0 0 8px #9c7cff; }
 
     /* Bot (Goliath) */
     .viz-bot { gap: 9px; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; }
@@ -3144,6 +3157,7 @@
 
     $$('.tilt').forEach((card) => {
       card.addEventListener('pointermove', (event) => {
+        if (event.target.closest('.nfy-demo')) { card.style.transform = ''; return; }
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
@@ -3439,14 +3453,7 @@
           `).join('')}</div>`;
         }
         case 'notch':
-          return `<div class="viz viz-notch">
-            <div class="island">
-              <span class="isl-ic"><i class="fas fa-music"></i></span>
-              <div class="isl-wave">${Array.from({ length: 8 }, (_, i) => `<span style="--d:${i * .08}s"></span>`).join('')}</div>
-              <span class="isl-time">12:47</span>
-            </div>
-            <div class="notch-widgets"><i><i class="fas fa-cloud-sun"></i></i><i><i class="fas fa-microchip"></i></i><i><i class="fas fa-bell"></i></i><i><i class="fas fa-calendar"></i></i></div>
-          </div>`;
+          return '';
         case 'bot':
           return `<div class="viz viz-bot">
             <div class="bot-head"><span class="bot-av">G</span><b>Goliath</b><span class="bot-tag">BOT</span><span class="bot-online"></span></div>
@@ -3457,6 +3464,22 @@
         default:
           return '';
       }
+    }
+
+    // One live demo instance, created the first time Notchify is featured and reused afterwards.
+    let nfyEl = null;
+    function notchifyDemo() {
+      if (!nfyEl) {
+        nfyEl = document.createElement('div');
+        nfyEl.className = 'nfy-demo';
+        nfyEl.innerHTML = '<div class="nfy-canvas"><canvas aria-label="Notchify canlı demo: ekranın üstünde şarkı sözlerini gösteren ada. Müzik oynatıcıyı açmak için üzerine gelin."></canvas></div><div class="nfy-hint">Adanın üzerine gel</div>';
+        requestAnimationFrame(() => {
+          if (window.NotchifyDemo) window.NotchifyDemo.mount(nfyEl.firstChild);
+          // The card fades in scaled down; measure again once it is full size.
+          setTimeout(() => window.dispatchEvent(new Event('resize')), 250);
+        });
+      }
+      return nfyEl;
     }
 
     function renderFeatured(app) {
@@ -3472,7 +3495,8 @@
         document.getElementById('feat-desc').textContent = app.desc;
         document.getElementById('feat-tags').innerHTML = app.tags.map(t => `<span>${t}</span>`).join('');
         const vis = document.getElementById('feat-visual');
-        if (app.visual) { vis.innerHTML = visualInner(app); vis.style.display = 'block'; }
+        if (app.visual === 'notch') { vis.innerHTML = ''; vis.appendChild(notchifyDemo()); vis.style.display = 'block'; }
+        else if (app.visual) { vis.innerHTML = visualInner(app); vis.style.display = 'block'; }
         else { vis.innerHTML = ''; vis.style.display = 'none'; }
         document.getElementById('feat-actions').innerHTML = app.links.map(l =>
           `<a class="mini-link" href="${l.url}" target="_blank" rel="noreferrer">${l.text}</a>`
@@ -4170,5 +4194,6 @@
       io.observe(wrap);
     })();
   </script>
+  <script src="/notchify-demo/island-demo.js" defer></script>
 </body>
 </html>
