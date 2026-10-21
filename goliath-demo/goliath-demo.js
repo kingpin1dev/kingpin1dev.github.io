@@ -36,7 +36,7 @@
   ];
   const WORKS = ["help", "ping", "rank", "leaderboard", "play", "nowplaying", "queue", "ban"];
   const SONGS = [["Lalune — Midnight Drive", "3:04"], ["Neon Coast — Skyline", "3:41"], ["Paper Satellites — Lumen Harbor", "2:32"], ["Aurora Lights — Late Night", "4:12"]];
-  const TOP = [["kingpin", 24, 512, 5210], ["luna", 21, 380, 4122], ["sineorbit", 19, 640, 3786], ["eris", 15, 210, 2510], ["nova", 12, 95, 1490]];
+  const TOP = [["kingpin", 24, 512, 5210], ["luna", 21, 380, 4122], ["sineorbit", 19, 640, 3786], ["malduhan", 15, 210, 2510], ["nova", 12, 95, 1490]];
 
   const T = {
     tr: { channel: "genel", topic: "Goliath'ı burada dene · / yazarak başla", ph: "#genel kanalına mesaj gönder", today: "Bugün", bot: "BOT", you: "sen",
