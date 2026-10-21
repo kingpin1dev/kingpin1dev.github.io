@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Aurora</title>
+    <script src="/frame-bridge.js"></script>
+    <meta name="robots" content="noindex" />
+    <script>
+      // kingpindev.com demo: stand in for the WPF host so the desktop title bar shows.
+      // Window buttons do nothing; "open" links go to a new tab.
+      window.chrome = window.chrome || {};
+      window.chrome.webview = {
+        postMessage(m) { try { const d = JSON.parse(m); if (d.type === 'open') window.open(d.url, '_blank', 'noopener'); } catch (e) {} },
+        addEventListener() {}, removeEventListener() {},
+      };
+      // Start on a mood so the first view has stations, like a returning user.
+      addEventListener('load', () => {
+        let n = 0;
+        const t = setInterval(() => {
+          const b = [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Chill');
+          if (b || ++n > 50) { clearInterval(t); if (b) b.click(); }
+        }, 100);
+      });
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-DffQ2PXg.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B1vui4o8.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

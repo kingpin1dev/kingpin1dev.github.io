@@ -1189,6 +1189,10 @@
     .mmeta span { display: block; font-size: 11px; color: var(--muted); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .mtime { font-size: 10px; color: var(--faint); font-family: monospace; flex-shrink: 0; }
 
+    /* vOrganizer, Aurora Radios: the real app UI in a scaled frame */
+    .frame-demo { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); background: #0b0d12; }
+    .frame-demo iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; display: block; }
+
     /* Notch (Notchify): the live island demo from notchify.app */
     .nfy-demo {
       position: relative;
@@ -3165,7 +3169,7 @@
 
     $$('.tilt').forEach((card) => {
       card.addEventListener('pointermove', (event) => {
-        if (event.target.closest('.nfy-demo, .gp-demo, .vs-demo')) { card.style.transform = ''; return; }
+        if (event.target.closest('.nfy-demo, .gp-demo, .vs-demo, .frame-demo')) { card.style.transform = ''; return; }
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
@@ -3387,43 +3391,6 @@
             <div class="win"><span></span></div>
             <div class="snap-hint"><i class="fas fa-arrows-up-down-left-right"></i> Alt + Drag</div>
           </div>`;
-        case 'files': {
-          const rows = [
-            ['#58a6ff', 'fa-image', 'Görseller', 82],
-            ['#70ffb2', 'fa-file-lines', 'Belgeler', 60],
-            ['#ff6ed8', 'fa-film', 'Videolar', 45],
-            ['#ffc96d', 'fa-music', 'Müzikler', 68],
-          ];
-          return `<div class="viz viz-files">${rows.map(([c, ic, l, w]) => `
-            <div class="frow"><span class="fic" style="--c:${c}"><i class="fas ${ic}"></i></span><b>${l}</b><span class="fbar"><i style="width:${w}%; background:${c}"></i></span></div>
-          `).join('')}</div>`;
-        }
-        case 'aurora': {
-          const tabs = [
-            ['fa-face-smile', 'Mood', false],
-            ['fa-music', 'Genre', false],
-            ['fa-globe', 'Country', false],
-            ['fa-heart', 'Favorites', true],
-            ['fa-list', 'Songs', false],
-          ];
-          const stations = [
-            ['#ff6b4a', 'BBC Radio 6 Music', 'United Kingdom', ['alternative', 'blues', 'dance']],
-            ['#3aa0ff', 'ROCK FM', 'Russian Federation', ['classic rock', 'pop rock', 'rock']],
-          ];
-          return `<div class="viz viz-aurora">
-            <div class="aur-tabs">${tabs.map(([ic, l, on]) => `<i class="${on ? 'on' : ''}"><i class="fas ${ic}"></i> ${l}</i>`).join('')}</div>
-            <div class="aur-cards">${stations.map(([c, name, loc, tags]) => `
-              <div class="aur-card">
-                <span class="aur-ic" style="--c:${c}"><i class="fas fa-broadcast-tower"></i></span>
-                <div class="aur-meta">
-                  <b>${name}<i class="fas fa-heart fav"></i></b>
-                  <span class="aur-loc"><i class="fas fa-location-dot"></i> ${loc}</span>
-                  <span class="aur-tags">${tags.map(t => `<em>${t}</em>`).join('')}</span>
-                </div>
-                <span class="aur-play" style="--c:${c}"><i class="fas fa-play"></i></span>
-              </div>`).join('')}</div>
-          </div>`;
-        }
         case 'inbox': {
           const mails = [
             ['#58a6ff', 'no-reply@service.com', 'Hesabınızı doğrulayın', 'az önce'],
@@ -3484,7 +3451,45 @@
       }
       return vsEl;
     }
-    const LIVE_DEMOS = { notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo };
+    // Apps whose UI is a web page run for real in an iframe, scaled to the card.
+    const frames = {};
+    function fitFrame(el) {
+      const f = el.firstChild, k = el.clientWidth / f.width;
+      if (!k) return;
+      f.style.transform = `scale(${k})`;
+      el.style.height = Math.round(f.height * k) + 'px';
+    }
+    function frameDemo(key, src, w, h, title) {
+      return () => {
+        if (!frames[key]) {
+          const el = frames[key] = document.createElement('div');
+          el.className = 'frame-demo';
+          el.innerHTML = `<iframe src="${src}" width="${w}" height="${h}" title="${title}" loading="lazy"></iframe>`;
+          el.firstChild.width = w; el.firstChild.height = h;
+          requestAnimationFrame(() => fitFrame(el));
+          setTimeout(() => fitFrame(el), 250);
+        }
+        return frames[key];
+      };
+    }
+    addEventListener('resize', () => Object.values(frames).forEach(fitFrame));
+    // The frames hide the system cursor and post their pointer moves; replay them here
+    // so the custom cursor keeps following.
+    addEventListener('message', (e) => {
+      if (e.origin !== location.origin || !e.data || e.data.kpd !== 'mm') return;
+      const f = [...document.querySelectorAll('.frame-demo iframe')].find((x) => x.contentWindow === e.source);
+      if (!f) return;
+      const card = f.closest('.tilt');
+      if (card) card.style.transform = ''; // keep the card flat while the pointer is in the app
+      const r = f.getBoundingClientRect(), k = r.width / f.width;
+      document.dispatchEvent(new MouseEvent('mousemove', { clientX: r.left + e.data.x * k, clientY: r.top + e.data.y * k }));
+    });
+
+    const LIVE_DEMOS = {
+      notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo,
+      files: frameDemo('files', '/vorganizer-demo/index.html', 860, 780, 'vOrganizer canlı demo'),
+      aurora: frameDemo('aurora', '/aurora-demo/index.html', 980, 680, 'Aurora Radios canlı demo'),
+    };
 
     function renderFeatured(app) {
       const card = document.getElementById('feat-card');
