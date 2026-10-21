@@ -64,9 +64,9 @@
 .vs-hdr{display:flex;align-items:center;margin-bottom:4px}
 .vs-hdr img{width:18px;height:18px;margin-right:4px;border-radius:4px}
 .vs-hdr b{font-size:14.5px;font-weight:700;color:#fff;white-space:nowrap}
-.vs-batt{display:flex;align-items:center;gap:4px;margin-left:12px;font-size:12px;font-weight:700;color:#37e57a}
+.vs-batt{display:flex;align-items:center;gap:3px;margin-left:8px;font-size:12px;font-weight:700;color:#37e57a}
 .vs-seg{display:flex;margin-left:auto}
-.vs-seg button{all:unset;height:24px;min-width:48px;padding:0 8px;text-align:center;font-size:12px;font-weight:700;color:#C9D1D9;border:1px solid rgba(255,255,255,.14);border-left-width:0;transition:background .15s,color .15s}
+.vs-seg button{all:unset;box-sizing:border-box;height:24px;min-width:44px;padding:0 7px;text-align:center;font-size:11.5px;font-weight:700;color:#C9D1D9;border:1px solid rgba(255,255,255,.14);border-left-width:0;transition:background .15s,color .15s}
 .vs-seg button:first-child{border-left-width:1px;border-radius:8px 0 0 8px}
 .vs-seg button:last-child{border-radius:0 8px 8px 0}
 .vs-seg button.on{background:${AC};border-color:${AC};color:#0d1418}
