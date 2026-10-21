@@ -271,7 +271,7 @@
   }
 
   // Demos that render their own language, and code-like areas, are left alone.
-  var SKIP = "script,style,svg,canvas,iframe,.gp-demo,.ld-demo,.vs-demo,[data-i18n-skip]";
+  var SKIP = "script,style,svg,canvas,iframe,.gp-demo,.ld-demo,.vs-demo,.bm-demo,.gs-demo,.gl-demo,[data-i18n-skip]";
   var ATTRS = ["alt", "title", "aria-label", "placeholder"];
 
   function translateText(node) {

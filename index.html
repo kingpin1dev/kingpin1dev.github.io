@@ -3208,7 +3208,7 @@
 
     $$('.tilt').forEach((card) => {
       card.addEventListener('pointermove', (event) => {
-        if (event.target.closest('.nfy-demo, .gp-demo, .vs-demo, .ld-demo, .frame-demo')) { card.style.transform = ''; return; }
+        if (event.target.closest('.nfy-demo, .gp-demo, .vs-demo, .ld-demo, .bm-demo, .gs-demo, .gl-demo, .frame-demo')) { card.style.transform = ''; return; }
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
@@ -3358,7 +3358,7 @@
       },
       {
         id: 'bokmail',
-        visual: 'inbox',
+        visual: 'bokmail',
         accent: 'rgba(255,101,216,1)',
         accentBg: 'rgba(255,101,216,.22)',
         icon: 'img/BokMail.png',
@@ -3420,7 +3420,7 @@
       },
       {
         id: 'glide-snap',
-        visual: 'snap',
+        visual: 'glidesnap',
         accent: 'rgba(112,255,178,1)',
         accentBg: 'rgba(112,255,178,.22)',
         icon: 'img/GlideSnap.png',
@@ -3464,7 +3464,7 @@
       },
       {
         id: 'goliath',
-        visual: 'bot',
+        visual: 'goliath',
         accent: 'rgba(88,101,242,1)',
         accentBg: 'rgba(88,101,242,.22)',
         icon: 'img/Goliath.png',
@@ -3481,32 +3481,8 @@
 
     function visualInner(app) {
       switch (app.visual) {
-        case 'snap':
-          return `<div class="viz viz-snap">
-            <div class="win big"><span></span></div>
-            <div class="win"><span></span></div>
-            <div class="win"><span></span></div>
-            <div class="snap-hint"><i class="fas fa-arrows-up-down-left-right"></i> Alt + Drag</div>
-          </div>`;
-        case 'inbox': {
-          const mails = [
-            ['#58a6ff', 'no-reply@service.com', 'Hesabınızı doğrulayın', 'az önce'],
-            ['#70ffb2', 'newsletter@shop.io', 'Haftanın fırsatları', '3 dk'],
-            ['#ff6ed8', 'team@app.dev', 'Giriş kodunuz: 4821', '12 dk'],
-          ];
-          return `<div class="viz viz-inbox">${mails.map(([c, s, subj, t]) => `
-            <div class="mrow"><span class="mdot" style="background:${c}"></span><div class="mmeta"><b>${s}</b><span>${subj}</span></div><span class="mtime">${t}</span></div>
-          `).join('')}</div>`;
-        }
         case 'notch':
           return '';
-        case 'bot':
-          return `<div class="viz viz-bot">
-            <div class="bot-head"><span class="bot-av">G</span><b>Goliath</b><span class="bot-tag">BOT</span><span class="bot-online"></span></div>
-            <div class="cmd"><span class="slash">/</span>moderasyon <em>ban · kick · mute</em></div>
-            <div class="cmd"><span class="slash">/</span>level <em>rank · leaderboard</em></div>
-            <div class="cmd"><span class="slash">/</span>play <em>müzik · radyo</em></div>
-          </div>`;
         default:
           return '';
       }
@@ -3593,8 +3569,22 @@
       return ldEl;
     }
 
+    // Script demos that mount into a plain element: BokMail, GlideSnap, Goliath.
+    const scriptDemos = {};
+    function scriptDemo(key, api) {
+      return () => {
+        if (!scriptDemos[key]) {
+          const el = scriptDemos[key] = document.createElement('div');
+          const mount = () => window[api] && window[api].mount(el, { img: 'img/', lang: window.KPD_LANG || 'tr' });
+          if (window[api]) requestAnimationFrame(mount); else addEventListener('load', mount, { once: true });
+        }
+        return scriptDemos[key];
+      };
+    }
+
     const LIVE_DEMOS = {
       notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo, luna: lunaDemo,
+      bokmail: scriptDemo('bokmail', 'BokMailDemo'), glidesnap: scriptDemo('glidesnap', 'GlideSnapDemo'), goliath: scriptDemo('goliath', 'GoliathDemo'),
       files: frameDemo('files', '/vorganizer-demo/index.html', 860, 780, 'vOrganizer canlı demo'),
       aurora: frameDemo('aurora', '/aurora-demo/index.html', 980, 680, 'Aurora Radios canlı demo'),
     };
@@ -4316,5 +4306,8 @@
   <script src="/groupy-demo/groupy-demo.js" defer></script>
   <script src="/sonar-demo/sonar-demo.js" defer></script>
   <script src="/luna-demo/luna-demo.js" defer></script>
+  <script src="/bokmail-demo/bokmail-demo.js" defer></script>
+  <script src="/glidesnap-demo/glidesnap-demo.js" defer></script>
+  <script src="/goliath-demo/goliath-demo.js" defer></script>
 </body>
 </html>
