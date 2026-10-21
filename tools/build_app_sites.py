@@ -458,9 +458,10 @@ def page(slug: str, app: dict, lang: str) -> str:
     others += f'<a class="other" href="https://notchify.app/"><img src="/img/notchify.png" alt="" width="40" height="40" loading="lazy"><span>Notchify</span></a>'
     privacy = f' · <a href="{app["privacy"]}">{u["privacy"]}</a>' if app.get("privacy") else ""
     return f"""<!doctype html>
-<html lang="{lang}">
+<html lang="{lang}" translate="no">
 <head>
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(c["title"])}</title>
 <meta name="description" content="{e(c["desc"])}">

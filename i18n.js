@@ -4,8 +4,9 @@
    surrounding whitespace), then in RULES for lines with numbers or names in them. A
    MutationObserver does the same for anything the page renders later (app cards,
    terminal output, live Discord/Spotify status, achievement toasts).
-   Language: ?lang=en|tr, else the last choice, else the browser language (Turkish
-   browsers get Turkish, everyone else English). The toggle is any [data-kpd-lang-toggle].
+   Language: ?lang=en|tr, else the last choice, else Turkish when Turkish is among the
+   browser languages or the time zone is Türkiye, English otherwise. Browser machine
+   translation is switched off (translate="no"): it mangles names like Groupy. The toggle is any [data-kpd-lang-toggle].
    To add text: add the Turkish string and its English version to EN. */
 (function () {
   "use strict";
@@ -16,7 +17,13 @@
   try { saved = localStorage.getItem(KEY); } catch (e) { /* storage blocked */ }
   if (lang !== "en" && lang !== "tr") {
     var bot = /bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent);
-    lang = saved || (bot || /^tr\b/i.test(navigator.language || "") ? "tr" : "en");
+    // Turkish for bots and for anyone who lists Turkish among their languages or is on
+    // Türkiye time (many Turkish users run an English browser).
+    var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""]).join(",");
+    var tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) { /* ignore */ }
+    var turkish = /(^|,)tr\b/i.test(langs) || /^(Europe|Asia)\/Istanbul$/.test(tz);
+    lang = saved || (bot || turkish ? "tr" : "en");
   } else {
     try { localStorage.setItem(KEY, lang); } catch (e) { /* ignore */ }
   }

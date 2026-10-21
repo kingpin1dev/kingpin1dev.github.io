@@ -4,12 +4,17 @@
   "use strict";
   const body = document.body;
 
-  // Language: on the first visit, a browser that prefers Turkish is sent to /tr/ once.
+  // Language: on the first visit, a visitor who lists Turkish among their languages or is
+  // on Türkiye time is sent to /tr/ once.
   // After that (or after any click on the switch) links are followed as they are.
   try {
     const saved = localStorage.getItem("kpd-lang");
     const here = body.dataset.lang;
-    if (!saved && here === "en" && /^tr\b/i.test(navigator.language || "") && !/bot|crawl|spider/i.test(navigator.userAgent)) {
+    const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""]).join(",");
+    let tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) { /* ignore */ }
+    const turkish = /(^|,)tr\b/i.test(langs) || /^(Europe|Asia)\/Istanbul$/.test(tz);
+    if (!saved && here === "en" && turkish && !/bot|crawl|spider/i.test(navigator.userAgent)) {
       localStorage.setItem("kpd-lang", "tr");
       location.replace(body.dataset.other);
       return;
