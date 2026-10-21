@@ -2708,8 +2708,8 @@
             </article>
 
             <article class="orbital-card oc1">
-              <em><img src="img/FluentMixer.png" alt="Fluent Mixer" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></em>
-              <b>Fluent Mixer</b>
+              <em><img src="img/FluentMixer.png" alt="Groupy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></em>
+              <b>Groupy</b>
               <span>Windows sesini gruplara ayıran modern kontrol merkezi.</span>
             </article>
 
@@ -2767,29 +2767,22 @@
         <div class="showcase-grid">
           <article id="feat-card" class="card tilt project-hero-card reveal" style="--accent: rgba(88,166,255,1); transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;">
             <div class="project-hero-header">
-              <div class="app-icon" id="feat-icon"><img src="img/FluentMixer.png" alt="Fluent Mixer" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
+              <div class="app-icon" id="feat-icon"><img src="img/FluentMixer.png" alt="Groupy" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
               <span class="pill" id="feat-pill">Windows Uygulaması</span>
             </div>
 
-            <h3 id="feat-title">Fluent Mixer</h3>
-            <p id="feat-desc">Fluent Mixer, Windows için geliştirilmiş, uygulamaları gruplandırarak ses seviyelerini tek bir merkezden kontrol etmeye yarayan gelişmiş ve basit bir ses mikseri programıdır. Uygulamaları tek tek aramak yerine "Oyun", "Sohbet", "Medya" ve "Aux" gibi gruplara ayırıp hepsini pratik bir şekilde yönetmenizi sağlar.</p>
+            <h3 id="feat-title">Groupy</h3>
+            <p id="feat-desc">Groupy, uygulamaları Oyun, Sohbet, Medya ve Aux gibi gruplara ayırıp her grubun sesini, sessize alma durumunu ve çıkış cihazını tek yerden yönetmenizi sağlayan bir Windows ses mikseridir. Tepsi panelinden tek tıkla açılır; ChatMix ile oyun ve sohbet sesini dengeler, kısayol tuşlarıyla oyundan çıkmadan ayarlanır.</p>
 
             <div class="feature-orbs" id="feat-tags">
-              <span>Game / Chat / Media / Aux</span>
-              <span>Ada Modu</span>
-              <span>Tepsi Paneli</span>
+              <span>Oyun / Sohbet / Medya / Aux</span>
               <span>ChatMix</span>
+              <span>Tepsi Paneli</span>
+              <span>Profiller</span>
               <span>Kısayol Tuşları</span>
             </div>
 
-            <div class="app-preview" id="feat-visual" aria-hidden="true">
-              <div class="mixer-visual">
-                <div class="slider"><span class="lvl">78</span><div class="slider-track"><i style="--h: 78%"></i></div><b>Game</b></div>
-                <div class="slider"><span class="lvl">52</span><div class="slider-track"><i style="--h: 52%"></i></div><b>Chat</b></div>
-                <div class="slider"><span class="lvl">66</span><div class="slider-track"><i style="--h: 66%"></i></div><b>Media</b></div>
-                <div class="slider"><span class="lvl">40</span><div class="slider-track"><i style="--h: 40%"></i></div><b>Aux</b></div>
-              </div>
-            </div>
+            <div class="app-preview" id="feat-visual" aria-hidden="true"></div>
 
             <div class="card-actions" id="feat-actions">
               <a class="mini-link" href="https://apps.microsoft.com/detail/9NN5W7D23VLJ?hl=neutral&gl=TR&ocid=pdpshare" target="_blank" rel="noreferrer">Microsoft Store</a>
@@ -3172,7 +3165,7 @@
 
     $$('.tilt').forEach((card) => {
       card.addEventListener('pointermove', (event) => {
-        if (event.target.closest('.nfy-demo')) { card.style.transform = ''; return; }
+        if (event.target.closest('.nfy-demo, .gp-demo')) { card.style.transform = ''; return; }
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
@@ -3270,14 +3263,14 @@
     const APPS = [
       {
         id: 'fluent-mixer',
-        visual: 'mixer',
+        visual: 'groupy',
         accent: 'rgba(88,166,255,1)',
         accentBg: 'rgba(88,166,255,.24)',
         icon: 'img/FluentMixer.png',
         pill: 'Windows Uygulaması',
-        title: 'Fluent Mixer',
-        desc: 'Fluent Mixer, Windows için geliştirilmiş, uygulamaları gruplandırarak ses seviyelerini tek bir merkezden kontrol etmeye yarayan gelişmiş ve basit bir ses mikseri programıdır. Uygulamaları tek tek aramak yerine "Oyun", "Sohbet", "Medya" ve "Aux" gibi gruplara ayırıp hepsini pratik bir şekilde yönetmenizi sağlar.',
-        tags: ['Game / Chat / Media / Aux', 'Ada Modu', 'Tepsi Paneli', 'ChatMix', 'Kısayol Tuşları'],
+        title: 'Groupy',
+        desc: 'Groupy, uygulamaları Oyun, Sohbet, Medya ve Aux gibi gruplara ayırıp her grubun sesini, sessize alma durumunu ve çıkış cihazını tek yerden yönetmenizi sağlayan bir Windows ses mikseridir. Tepsi panelinden tek tıkla açılır; ChatMix ile oyun ve sohbet sesini dengeler, kısayol tuşlarıyla oyundan çıkmadan ayarlanır.',
+        tags: ['Oyun / Sohbet / Medya / Aux', 'ChatMix', 'Tepsi Paneli', 'Profiller', 'Kısayol Tuşları'],
         links: [
           { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9NN5W7D23VLJ?hl=neutral&gl=TR&ocid=pdpshare' },
           { text: 'Tüm Uygulamalar', url: 'https://apps.microsoft.com/search/publisher?name=Kingpindev&hl=tr-TR&gl=TR' }
@@ -3387,13 +3380,6 @@
 
     function visualInner(app) {
       switch (app.visual) {
-        case 'mixer':
-          return `<div class="mixer-visual">
-            <div class="slider"><span class="lvl">78</span><div class="slider-track"><i style="--h:78%"></i></div><b>Game</b></div>
-            <div class="slider"><span class="lvl">52</span><div class="slider-track"><i style="--h:52%"></i></div><b>Chat</b></div>
-            <div class="slider"><span class="lvl">66</span><div class="slider-track"><i style="--h:66%"></i></div><b>Media</b></div>
-            <div class="slider"><span class="lvl">40</span><div class="slider-track"><i style="--h:40%"></i></div><b>Aux</b></div>
-          </div>`;
         case 'sonar': {
           const ch = [
             ['#9c7cff', 'fa-sliders', 'Master', 100],
@@ -3497,6 +3483,18 @@
       return nfyEl;
     }
 
+    // Groupy: a working copy of the app's tray panel (groupy-demo/groupy-demo.js).
+    let gpEl = null;
+    function groupyDemo() {
+      if (!gpEl) {
+        gpEl = document.createElement('div');
+        const mount = () => window.GroupyDemo && window.GroupyDemo.mount(gpEl, { logo: 'img/FluentMixer.png' });
+        if (window.GroupyDemo) requestAnimationFrame(mount); else addEventListener('load', mount, { once: true });
+      }
+      return gpEl;
+    }
+    const LIVE_DEMOS = { notch: notchifyDemo, groupy: groupyDemo };
+
     function renderFeatured(app) {
       const card = document.getElementById('feat-card');
       card.style.opacity = '0';
@@ -3510,7 +3508,7 @@
         document.getElementById('feat-desc').textContent = app.desc;
         document.getElementById('feat-tags').innerHTML = app.tags.map(t => `<span>${t}</span>`).join('');
         const vis = document.getElementById('feat-visual');
-        if (app.visual === 'notch') { vis.innerHTML = ''; vis.appendChild(notchifyDemo()); vis.style.display = 'block'; }
+        if (LIVE_DEMOS[app.visual]) { vis.innerHTML = ''; vis.appendChild(LIVE_DEMOS[app.visual]()); vis.style.display = 'block'; }
         else if (app.visual) { vis.innerHTML = visualInner(app); vis.style.display = 'block'; }
         else { vis.innerHTML = ''; vis.style.display = 'none'; }
         document.getElementById('feat-actions').innerHTML = app.links.map(l =>
@@ -3572,6 +3570,7 @@
 
     renderSide();
     renderWall();
+    document.getElementById('feat-visual').appendChild(groupyDemo());
 
     // Custom cursor
     (function initCursor() {
@@ -3868,7 +3867,7 @@
         'MOBO : ASUS Prime A620M-K',
         'COOL : Thermalright Aqua Elite 240 ARGB',
       ];
-      const APPS_LIST = ['Fluent Mixer', 'BokMail', 'Notchify', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath'];
+      const APPS_LIST = ['Groupy', 'BokMail', 'Notchify', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath'];
       const history = [];
       let hIndex = -1;
 
@@ -4210,5 +4209,6 @@
     })();
   </script>
   <script src="/notchify-demo/island-demo.js" defer></script>
+  <script src="/groupy-demo/groupy-demo.js" defer></script>
 </body>
 </html>
