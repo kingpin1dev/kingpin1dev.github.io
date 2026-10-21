@@ -58,7 +58,8 @@
 .vs-demo{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);user-select:none;-webkit-user-select:none;
   font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;color:#E0F2FE;
   background:radial-gradient(60% 80% at 12% 105%,rgba(56,189,248,.35),transparent 70%),radial-gradient(55% 80% at 92% 100%,rgba(168,85,247,.32),transparent 70%),radial-gradient(45% 55% at 60% 25%,rgba(20,184,166,.18),transparent 70%),linear-gradient(180deg,#05101d 0%,#0b1a33 60%,#14204a 100%)}
-.vs-demo *{box-sizing:border-box;cursor:none!important}
+.vs-demo *{box-sizing:border-box}
+html:has(#cur) .vs-demo *{cursor:none!important}
 .vs-stage{display:flex;justify-content:center;padding:22px 16px 62px}
 .vs-fly{width:352px;max-width:100%;padding:12px 14px 14px;border-radius:14px;background:rgba(7,14,26,.94);border:1px solid rgba(255,255,255,.09);box-shadow:0 16px 44px rgba(0,0,0,.55)}
 .vs-hdr{display:flex;align-items:center;margin-bottom:4px}

@@ -3569,7 +3569,7 @@
     function lunaDemo() {
       if (!ldEl) {
         ldEl = document.createElement('div');
-        const mount = () => window.LunaDemo && window.LunaDemo.mount(ldEl, { img: 'img/' });
+        const mount = () => window.LunaDemo && window.LunaDemo.mount(ldEl, { img: 'img/', lang: 'tr' });
         if (window.LunaDemo) requestAnimationFrame(mount); else addEventListener('load', mount, { once: true });
       }
       return ldEl;

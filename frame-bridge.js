@@ -2,6 +2,8 @@
    cursor and report pointer moves, so the page's custom cursor follows into the frame. */
 (function () {
   if (window.parent === window) return;
+  // Only kingpindev.com's home page draws its own cursor (#cur); elsewhere keep the system one.
+  try { if (!window.parent.document.getElementById('cur')) return; } catch (e) { return; }
   const st = document.createElement('style');
   st.textContent = '*{cursor:none!important}';
   (document.head || document.documentElement).appendChild(st);

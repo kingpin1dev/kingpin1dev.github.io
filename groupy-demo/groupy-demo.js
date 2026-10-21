@@ -32,16 +32,31 @@
   const ic = (name, size, color, sw = 2) =>
     `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${P[name]}"/></svg>`;
 
+  // ── Strings (the app's own Turkish and English UI text) ─────────────────
+  const T = {
+    tr: { groups: { game: "Oyun", chat: "Sohbet", media: "Medya", aux: "Aux" }, profiles: ["Günlük", "Oyun gecesi"],
+      open: "Groupy'yi aç", settings: "Ayarlar", quit: "Çıkış", hintFly: "Kaydır, sessize al, profili değiştir", hintMain: "Pencereyi kapatınca tepsi paneline dönersin",
+      muted: "Sessiz", apps: (n) => `${n} uygulama`, speakers: "Hoparlörler (Realtek Audio)", defOut: "Varsayılan çıkış", appsLbl: "UYGULAMALAR",
+      status: ["Kapalı", "Boşta", "Etkin"], gameSide: "Oyun tarafı", chatSide: "Sohbet tarafı", groupsBtn: "Gruplar", detected: "ALGILANAN UYGULAMALAR",
+      search: "Uygulama ara", assign: "Bir uygulamayı gruba sürükleyin ya da tıklayın", date: "21 Ekim 2026" },
+    en: { groups: { game: "Game", chat: "Chat", media: "Media", aux: "Aux" }, profiles: ["Everyday", "Game night"],
+      open: "Open Groupy", settings: "Settings", quit: "Quit Groupy", hintFly: "Drag, mute, switch profiles", hintMain: "Close the window to go back to the tray panel",
+      muted: "Muted", apps: (n) => `${n} app${n === 1 ? "" : "s"}`, speakers: "Speakers (Realtek Audio)", defOut: "Default output", appsLbl: "APPS",
+      status: ["Closed", "Idle", "Active"], gameSide: "Game side", chatSide: "Chat side", groupsBtn: "Groups", detected: "DETECTED APPS",
+      search: "Search apps", assign: "Click or drag to assign", date: "21 October 2026" },
+  };
+  let L = T.tr;
+
   // ── State ────────────────────────────────────────────────────────────────
   const GROUPS = [
-    { id: "game", name: "Oyun", icon: "gamepad", from: "#ff8a4c", to: "#ff3d71", glow: "rgba(255,77,113,.35)" },
-    { id: "chat", name: "Sohbet", icon: "chat", from: "#4cc4ff", to: "#5b8cff", glow: "rgba(91,140,255,.35)" },
-    { id: "media", name: "Medya", icon: "music", from: "#34e7a6", to: "#22c55e", glow: "rgba(52,231,166,.32)" },
+    { id: "game", get name() { return L.groups.game; }, icon: "gamepad", from: "#ff8a4c", to: "#ff3d71", glow: "rgba(255,77,113,.35)" },
+    { id: "chat", get name() { return L.groups.chat; }, icon: "chat", from: "#4cc4ff", to: "#5b8cff", glow: "rgba(91,140,255,.35)" },
+    { id: "media", get name() { return L.groups.media; }, icon: "music", from: "#34e7a6", to: "#22c55e", glow: "rgba(52,231,166,.32)" },
     { id: "aux", name: "Aux", icon: "sliders", from: "#b98cff", to: "#8b5cf6", glow: "rgba(139,92,246,.35)" },
   ];
   const PROFILES = [
-    { name: "Günlük", vols: { game: 0.7, chat: 1, media: 0.55, aux: 0.4 }, mix: 0 },
-    { name: "Oyun gecesi", vols: { game: 1, chat: 0.85, media: 0.25, aux: 0.12 }, mix: -0.3 },
+    { get name() { return L.profiles[0]; }, vols: { game: 0.7, chat: 1, media: 0.55, aux: 0.4 }, mix: 0 },
+    { get name() { return L.profiles[1]; }, vols: { game: 1, chat: 0.85, media: 0.25, aux: 0.12 }, mix: -0.3 },
   ];
   // status: 2 = Etkin (playing), 1 = Boşta (open, silent), 0 = Kapalı (closed)
   const APPS = {
@@ -67,7 +82,8 @@
 .gp-demo{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);user-select:none;-webkit-user-select:none;
   font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;color:#fff;
   background:radial-gradient(60% 80% at 15% 105%,rgba(255,120,80,.35),transparent 70%),radial-gradient(55% 80% at 90% 100%,rgba(91,140,255,.42),transparent 70%),radial-gradient(45% 55% at 60% 30%,rgba(139,92,246,.22),transparent 70%),linear-gradient(180deg,#0a0d1c 0%,#141a3a 60%,#1d2150 100%)}
-.gp-demo *{box-sizing:border-box;cursor:none!important}
+.gp-demo *{box-sizing:border-box}
+html:has(#cur) .gp-demo *{cursor:none!important}
 .gp-stage{position:relative;display:flex;justify-content:center;padding:22px 16px 64px}
 .gp-fly{width:350px;max-width:100%;background:#0e1117;border:1px solid rgba(255,255,255,.10);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.55);padding-bottom:4px}
 .gp-head{display:flex;align-items:center;justify-content:space-between;margin:12px 12px 8px 16px}
@@ -241,26 +257,26 @@
         <div class="gp-micrw"><div class="gp-micb" data-act="mic"></div>${slider("mic", "#ff8ad8", "#e0449e", "mic")}<span class="gp-micp" data-p="mic"></span></div>
         <div class="gp-div"></div>
         <div class="gp-acts">
-          <div class="gp-act" data-act="main"><i>${ic("max", 15, "rgba(255,255,255,.75)", 2.2)}</i>Groupy'yi aç</div>
-          <div class="gp-act" data-act="main"><i>${ic("gear", 15, "rgba(255,255,255,.75)", 2.2)}</i>Ayarlar</div>
-          <div class="gp-act danger" data-act="quit"><i>${ic("power", 15, "#fca5a5", 2.2)}</i>Çıkış</div>
+          <div class="gp-act" data-act="main"><i>${ic("max", 15, "rgba(255,255,255,.75)", 2.2)}</i>${L.open}</div>
+          <div class="gp-act" data-act="main"><i>${ic("gear", 15, "rgba(255,255,255,.75)", 2.2)}</i>${L.settings}</div>
+          <div class="gp-act danger" data-act="quit"><i>${ic("power", 15, "#fca5a5", 2.2)}</i>${L.quit}</div>
         </div></div></div>
-        <div class="gp-toast">Kaydır, sessize al, profili değiştir</div>
-        <div class="gp-task">${ic("chevD", 14, "rgba(255,255,255,.8)").replace('d="M 6 9', 'transform="rotate(180 12 12)" d="M 6 9')}<img src="${logo}" alt="">${ic("vol", 17, "rgba(255,255,255,.85)")}<div class="gp-clock">21 Ekim 2026<br>21:30</div></div>`;
+        <div class="gp-toast">${L.hintFly}</div>
+        <div class="gp-task">${ic("chevD", 14, "rgba(255,255,255,.8)").replace('d="M 6 9', 'transform="rotate(180 12 12)" d="M 6 9')}<img src="${logo}" alt="">${ic("vol", 17, "rgba(255,255,255,.85)")}<div class="gp-clock">${L.date}<br>21:30</div></div>`;
     }
 
     function mainWin() {
       const gameSide = GROUPS.filter((g) => g.id !== "chat").map((g) => g.name).join(", ");
       const cards = GROUPS.map((g) => {
         const apps = APPS[g.id];
-        const out = g.id === "media" ? "Hoparlörler (Realtek Audio)" : "Varsayılan çıkış";
+        const out = g.id === "media" ? L.speakers : L.defOut;
         return `<div class="gp-card" data-card="${g.id}" style="--gl:${g.glow}">
-          <div class="gp-ch">${tile(g, 38, 19)}<div><b>${g.name}</b><small>${apps.length} uygulama</small></div><div class="gp-mute" data-mute="${g.id}"></div></div>
+          <div class="gp-ch">${tile(g, 38, 19)}<div><b>${g.name}</b><small>${L.apps(apps.length)}</small></div><div class="gp-mute" data-mute="${g.id}"></div></div>
           <div class="gp-cv">${slider("g:" + g.id, g.from, g.to)}<span class="gp-big" data-big="${g.id}"></span></div>
           <div class="gp-meter"><i data-meter="${g.id}" style="background:linear-gradient(90deg,${g.from},${g.to})"></i></div>
           <div class="gp-out">${ic("speaker", 14, "rgba(255,255,255,.6)")}<span>${out}</span>${ic("chevD", 14, "rgba(255,255,255,.5)")}</div>
-          <div class="gp-lbl">UYGULAMALAR</div>
-          ${apps.map(([n, st, c]) => `<div class="gp-ai ${st === 0 ? "closed" : ""}">${letter(n, st === 0 ? "rgba(255,255,255,.12)" : c)}<div style="min-width:0"><b>${esc(n)}</b><span class="gp-st ${st === 2 ? "on" : ""}"><i style="${st === 2 ? "background:#34d399" : st === 1 ? "background:rgba(255,255,255,.45)" : "border:1px solid rgba(255,255,255,.35)"}"></i>${["Kapalı", "Boşta", "Etkin"][st]}</span></div></div>`).join("")}
+          <div class="gp-lbl">${L.appsLbl}</div>
+          ${apps.map(([n, st, c]) => `<div class="gp-ai ${st === 0 ? "closed" : ""}">${letter(n, st === 0 ? "rgba(255,255,255,.12)" : c)}<div style="min-width:0"><b>${esc(n)}</b><span class="gp-st ${st === 2 ? "on" : ""}"><i style="${st === 2 ? "background:#34d399" : st === 1 ? "background:rgba(255,255,255,.45)" : "border:1px solid rgba(255,255,255,.35)"}"></i>${L.status[st]}</span></div></div>`).join("")}
         </div>`;
       }).join("");
       return `<div class="gp-winwrap"><div class="gp-win">
@@ -268,18 +284,18 @@
           <div class="gp-tbb">${ic("star", 15, "#e5b72e")}</div><div class="gp-tbb">${ic("gear", 15, "rgba(255,255,255,.7)")}</div>
           <div class="gp-tbb" data-act="fly">${ic("minus", 15, "rgba(255,255,255,.7)")}</div><div class="gp-tbb">${ic("square", 13, "rgba(255,255,255,.7)")}</div><div class="gp-tbb x" data-act="fly">${ic("x", 15, "rgba(255,255,255,.8)")}</div></div>
         <div class="gp-cmx"><div class="gp-cmx-t">${ic("headphones", 15, "#0B0D12", 2.4)}</div><b>ChatMix</b>
-          <span class="gp-side" style="color:#fbbf24;font-weight:600">Oyun</span>${balance()}<span class="gp-side" style="color:#38bdf8;font-weight:600">Sohbet</span>
-          <span class="gp-side"><span style="color:#ff7a50">Oyun tarafı</span> ${gameSide}</span><span class="gp-side"><span style="color:#38bdf8">Sohbet tarafı</span> Sohbet</span>
+          <span class="gp-side" style="color:#fbbf24;font-weight:600">${L.groups.game}</span>${balance()}<span class="gp-side" style="color:#38bdf8;font-weight:600">${L.groups.chat}</span>
+          <span class="gp-side"><span style="color:#ff7a50">${L.gameSide}</span> ${gameSide}</span><span class="gp-side"><span style="color:#38bdf8">${L.chatSide}</span> ${L.groups.chat}</span>
           <div class="gp-micb" data-act="mic"></div>${slider("mic", "#ff8ad8", "#e0449e", "mic")}
           <div class="gp-pill">${ic("layers", 14, "rgba(255,255,255,.8)")}<span data-prof="next">${esc(PROFILES[s.profile].name)}</span></div>
-          <div class="gp-pill">Gruplar ${ic("chevD", 13, "rgba(255,255,255,.7)")}</div></div>
+          <div class="gp-pill">${L.groupsBtn} ${ic("chevD", 13, "rgba(255,255,255,.7)")}</div></div>
         <div class="gp-cols">${cards}
-          <div class="gp-det"><h4>ALGILANAN UYGULAMALAR <span>${DETECTED.length}</span></h4>
-            <div class="gp-srch">${ic("search", 14, "rgba(255,255,255,.45)")}Uygulama ara</div>
-            ${DETECTED.map(([n, st]) => `<div class="gp-ai">${letter(n, "rgba(255,255,255,.12)")}<div style="min-width:0"><b>${esc(n)}</b><span class="gp-st ${st === 2 ? "on" : ""}"><i style="background:${st === 2 ? "#34d399" : "rgba(255,255,255,.45)"}"></i>${st === 2 ? "Etkin" : "Boşta"}</span></div></div>`).join("")}
-            <p>Bir uygulamayı gruba sürükleyin ya da tıklayın</p></div>
+          <div class="gp-det"><h4>${L.detected} <span>${DETECTED.length}</span></h4>
+            <div class="gp-srch">${ic("search", 14, "rgba(255,255,255,.45)")}${L.search}</div>
+            ${DETECTED.map(([n, st]) => `<div class="gp-ai">${letter(n, "rgba(255,255,255,.12)")}<div style="min-width:0"><b>${esc(n)}</b><span class="gp-st ${st === 2 ? "on" : ""}"><i style="background:${st === 2 ? "#34d399" : "rgba(255,255,255,.45)"}"></i>${L.status[st]}</span></div></div>`).join("")}
+            <p>${L.assign}</p></div>
         </div></div></div>
-        <div class="gp-toast">Pencereyi kapatınca tepsi paneline dönersin</div>`;
+        <div class="gp-toast">${L.hintMain}</div>`;
     }
 
     // ── Render + live updates ─────────────────────────────────────────────
@@ -322,7 +338,7 @@
       });
       root.querySelectorAll("[data-p]").forEach((el) => {
         const k = el.dataset.p;
-        el.textContent = k === "mic" && s.mic.muted ? "Sessiz" : pct(val.get(k));
+        el.textContent = k === "mic" && s.mic.muted ? L.muted : pct(val.get(k));
         const [a, b] = k.split(":");
         el.style.color = a === "g" && s.g[b].muted ? "rgba(255,255,255,.30)" : "";
       });
@@ -432,6 +448,7 @@
       root.__mounted = true;
       injectCss();
       root.classList.add("gp-demo");
+      L = T[opts.lang] || T.tr;
       Demo(root, opts.logo || "/img/FluentMixer.png");
     },
   };

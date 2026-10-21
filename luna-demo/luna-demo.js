@@ -64,6 +64,19 @@
     }).filter((b) => b.items.length);
   }
 
+  // Stack names and controls; Turkish text from the app's Localization/tr.json.
+  const T = {
+    en: { names: {}, items: (n) => `${n} item${n === 1 ? "" : "s"}`, look: "Look", category: "Category icons", piles: "Piles", pack: "Icon pack",
+      edge: "Edge", top: "Top", bottom: "Bottom", left: "Left", right: "Right", group: "Group by", kind: "Kind", date: "Date", hint: "Click a stack to open it", clock: "21.10.2026" },
+    tr: { names: { System: "Sistem", Folders: "Klasörler", Shortcuts: "Kısayollar", Apps: "Uygulamalar", Images: "Resimler", Movies: "Videolar", Music: "Müzik",
+        Games: "Oyunlar", Other: "Diğer", "Text Documents": "Metin Belgeleri", Developer: "Kod", Today: "Bugün", Yesterday: "Dün", "Previous 7 Days": "Son 7 Gün",
+        "Previous 30 Days": "Son 30 Gün", "This Year": "Bu Yıl", Older: "Daha Eski" },
+      items: (n) => `${n} öğe`, look: "Görünüm", category: "Kategori ikonları", piles: "Yığın", pack: "İkon paketi",
+      edge: "Kenar", top: "Üst", bottom: "Alt", left: "Sol", right: "Sağ", group: "Grupla", kind: "Tür", date: "Tarih", hint: "Açmak için bir yığına tıkla", clock: "21.10.2026" },
+  };
+  let L = T.en;
+  const label = (key) => L.names[key] || key;
+
   // ── Icon packs (IconPacks.cs) ────────────────────────────────────────────
   const hex2 = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
   const mix = (a, b, t) => { const x = hex2(a), y = hex2(b); return "rgb(" + x.map((v, i) => Math.round(v + (y[i] - v) * t)).join(",") + ")"; };
@@ -100,7 +113,8 @@
   const CSS = `
 .ld-demo{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);user-select:none;-webkit-user-select:none;background:#081521;
   font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif}
-.ld-demo *{box-sizing:border-box;cursor:none!important}
+.ld-demo *{box-sizing:border-box}
+html:has(#cur) .ld-demo *{cursor:none!important}
 .ld-view{position:relative;overflow:hidden}
 .ld-desk{position:absolute;left:0;top:0;width:${W}px;height:${H}px;transform-origin:0 0;overflow:hidden;
   background:radial-gradient(55% 45% at 50% 52%,rgba(190,205,215,.22),transparent 70%),radial-gradient(70% 50% at 25% 95%,rgba(40,160,200,.45),transparent 70%),radial-gradient(60% 45% at 85% 100%,rgba(90,190,210,.35),transparent 70%),linear-gradient(180deg,#061420 0%,#0b2433 45%,#174a5e 100%)}
@@ -164,11 +178,11 @@
           ${["notchify.png", "FluentMixer.png", "vice-sonar.png", "Aurora.png", "BokMail.png"].map((f) => `<img src="${IMG}${f}" alt="">`).join("")}
           <div class="ld-clock">21:30<br>21.10.2026</div></div></div></div>
       <div class="ld-bar">
-        <div class="ld-grp">Look <div class="ld-seg" data-g="look"><button data-v="category">Category icons</button><button data-v="pile">Piles</button></div></div>
-        <div class="ld-grp">Icon pack <button class="ld-pack" data-act="pack"></button></div>
-        <div class="ld-grp">Edge <div class="ld-seg" data-g="edge"><button data-v="top">Top</button><button data-v="bottom">Bottom</button><button data-v="left">Left</button><button data-v="right">Right</button></div></div>
-        <div class="ld-grp">Group by <div class="ld-seg" data-g="mode"><button data-v="kind">Kind</button><button data-v="date">Date</button></div></div>
-        <span class="ld-hint">Click a stack to open it</span>
+        <div class="ld-grp">${L.look} <div class="ld-seg" data-g="look"><button data-v="category">${L.category}</button><button data-v="pile">${L.piles}</button></div></div>
+        <div class="ld-grp">${L.pack} <button class="ld-pack" data-act="pack"></button></div>
+        <div class="ld-grp">${L.edge} <div class="ld-seg" data-g="edge"><button data-v="top">${L.top}</button><button data-v="bottom">${L.bottom}</button><button data-v="left">${L.left}</button><button data-v="right">${L.right}</button></div></div>
+        <div class="ld-grp">${L.group} <div class="ld-seg" data-g="mode"><button data-v="kind">${L.kind}</button><button data-v="date">${L.date}</button></div></div>
+        <span class="ld-hint">${L.hint}</span>
       </div>`;
     stars(root.querySelector(".ld-stars"));
     const view = root.querySelector(".ld-view"), desk = root.querySelector(".ld-desk"), layer = root.querySelector(".ld-layer");
@@ -246,7 +260,7 @@
         const open = s.open === st.key;
         const [x, y] = pos[i];
         html += `<div class="ld-stack" data-stack="${st.key}" style="left:${x}px;top:${y}px">${s.look === "pile" ? pileIcon(st, open) : categoryIcon(st, open)}
-          <div class="ld-lb">${st.key}<small>${st.items.length} item${st.items.length === 1 ? "" : "s"}</small></div></div>`;
+          <div class="ld-lb">${label(st.key)}<small>${L.items(st.items.length)}</small></div></div>`;
         if (open) {
           // In a side column the fan starts past the outer column, like the app.
           const origin = s.edge === "left" ? [M + 3, y] : s.edge === "right" ? [W - M - CW + 3, y] : [x, y];
@@ -288,6 +302,7 @@
       root.__mounted = true;
       injectCss();
       root.classList.add("ld-demo");
+      L = T[opts.lang] || T.en;
       Demo(root, opts.img || "/img/");
     },
   };
