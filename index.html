@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script>
+    /* Lite mode: when the browser draws without the GPU (hardware acceleration off,
+       or a software WebGL renderer), full-screen blur, blend and animation layers make
+       every frame repaint the whole page on the CPU. Turn those off up front; the frame
+       check further down catches slow machines this test misses. */
+    (function () {
+      try {
+        var c = document.createElement('canvas');
+        var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+        var soft = !gl;
+        if (gl) {
+          var ext = gl.getExtension('WEBGL_debug_renderer_info');
+          var r = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '';
+          soft = /swiftshader|basic render|llvmpipe|software/i.test(r);
+          var lose = gl.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
+        }
+        if (soft || location.search.indexOf('lite=1') !== -1) document.documentElement.classList.add('lite');
+      } catch (e) {}
+    })();
+  </script>
+  <script>
     /* Telefon/tablet ziyaretçileri klasik (mobil) sürüme yönlendir. Masaüstü burada kalır.
        Masaüstü sürümünü mobilde zorla açmak için: ?d=1 */
     (function () {
@@ -115,6 +135,17 @@
       will-change: transform;
       transition: border-color .2s, width .2s, height .2s;
     }
+
+    /* Lite mode (see the script in <head>): no full-screen blur, blend or drifting layers. */
+    html.lite *, html.lite *::before, html.lite *::after { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    html.lite body.noise::after, html.lite .cursor-spotlight { display: none !important; }
+    /* Without the blur the glass panels would show the page through; give them a dark base
+       under their own gradients instead. */
+    html.lite .orbital-card, html.lite .core-card, html.lite .card, html.lite .wall-card, html.lite .rig-machine,
+    html.lite .activity-card, html.lite .final-card, html.lite .modal, html.lite .marquee, html.lite .micro { background-color: rgba(13, 17, 30, .92) !important; }
+    html.lite .nav { background-color: rgba(3, 7, 18, .93) !important; }
+    html.lite .aurora, html.lite .portal, html.lite .orbit-system, html.lite .orbital-card { animation: none !important; }
+    html.lite .aurora { filter: none !important; }
 
     body.noise::after {
       content: "";
@@ -3217,51 +3248,86 @@
       }));
     }
 
+    // Stars are drawn in a few batched paths (by brightness) instead of one path per
+    // star and per link; same picture, a fraction of the canvas calls.
+    const STAR_LEVELS = 6, LINK_LEVELS = 5;
+    const isLite = () => document.documentElement.classList.contains('lite');
+
     function drawStars(time) {
       ctx.clearRect(0, 0, width, height);
+      const starPaths = Array.from({ length: STAR_LEVELS }, () => new Path2D());
+      const moving = !isLite();
 
       for (const star of stars) {
-        star.x += star.vx * star.z;
-        star.y += star.vy * star.z;
-        star.tw += .025;
+        if (moving) {
+          star.x += star.vx * star.z;
+          star.y += star.vy * star.z;
+          star.tw += .025;
 
-        if (star.x < -20) star.x = width + 20;
-        if (star.x > width + 20) star.x = -20;
-        if (star.y < -20) star.y = height + 20;
-        if (star.y > height + 20) star.y = -20;
+          if (star.x < -20) star.x = width + 20;
+          if (star.x > width + 20) star.x = -20;
+          if (star.y < -20) star.y = height + 20;
+          if (star.y > height + 20) star.y = -20;
+        }
 
-        const alpha = .28 + Math.sin(star.tw + time * .001) * .22;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r * star.z, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(220, 240, 255, ${Math.max(.08, alpha)})`;
-        ctx.fill();
+        const alpha = Math.max(.08, .28 + Math.sin(star.tw + time * .001) * .22);
+        const level = Math.min(STAR_LEVELS - 1, Math.floor(((alpha - .06) / .44) * STAR_LEVELS));
+        const r = star.r * star.z;
+        starPaths[level].moveTo(star.x + r, star.y);
+        starPaths[level].arc(star.x, star.y, r, 0, Math.PI * 2);
       }
+      starPaths.forEach((path, level) => {
+        ctx.fillStyle = `rgba(220, 240, 255, ${(.06 + ((level + .5) / STAR_LEVELS) * .44).toFixed(3)})`;
+        ctx.fill(path);
+      });
 
+      const linkPaths = Array.from({ length: LINK_LEVELS }, () => new Path2D());
+      const max2 = 110 * 110;
       for (let i = 0; i < stars.length; i++) {
+        const a = stars[i];
         for (let j = i + 1; j < stars.length; j++) {
-          const a = stars[i];
           const b = stars[j];
           const dx = a.x - b.x;
           const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 110) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(88, 166, 255, ${(1 - dist / 110) * .10})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
+          const d2 = dx * dx + dy * dy;
+          if (d2 < max2) {
+            const level = Math.min(LINK_LEVELS - 1, Math.floor((1 - Math.sqrt(d2) / 110) * LINK_LEVELS));
+            linkPaths[level].moveTo(a.x, a.y);
+            linkPaths[level].lineTo(b.x, b.y);
           }
         }
       }
+      ctx.lineWidth = 1;
+      linkPaths.forEach((path, level) => {
+        ctx.strokeStyle = `rgba(88, 166, 255, ${(((level + .5) / LINK_LEVELS) * .10).toFixed(3)})`;
+        ctx.stroke(path);
+      });
 
-      requestAnimationFrame(drawStars);
+      // Lite mode: one still frame; the loop restarts if the page leaves lite mode.
+      if (moving) requestAnimationFrame(drawStars);
+      else starsIdle = true;
     }
+
+    let starsIdle = false;
+
+    // Frame check: if two seconds run below ~24 fps, the browser is likely
+    // drawing on the CPU (a case the WebGL test in <head> can miss), so go lite.
+    // Measured after load, so the page's own start-up work doesn't count.
+    addEventListener('load', () => setTimeout(function watchFrames() {
+      if (isLite() || document.hidden) return;
+      let frames = 0, start = 0;
+      const tick = (now) => {
+        if (!start) start = now;
+        frames++;
+        if (now - start < 2000) return requestAnimationFrame(tick);
+        if (frames / ((now - start) / 1000) < 24) document.documentElement.classList.add('lite');
+      };
+      requestAnimationFrame(tick);
+    }, 800), { once: true });
 
     resizeCanvas();
     requestAnimationFrame(drawStars);
-    addEventListener('resize', resizeCanvas, { passive: true });
+    addEventListener('resize', () => { resizeCanvas(); if (starsIdle) { starsIdle = false; requestAnimationFrame(drawStars); } }, { passive: true });
 
     // Interactive App Showcase
     const APPS = [
