@@ -3169,7 +3169,7 @@
 
     $$('.tilt').forEach((card) => {
       card.addEventListener('pointermove', (event) => {
-        if (event.target.closest('.nfy-demo, .gp-demo, .vs-demo, .frame-demo')) { card.style.transform = ''; return; }
+        if (event.target.closest('.nfy-demo, .gp-demo, .vs-demo, .ld-demo, .frame-demo')) { card.style.transform = ''; return; }
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
@@ -3309,6 +3309,19 @@
         links: [
           { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare' }
         ],
+        showMixer: false
+      },
+      {
+        id: 'lunadock',
+        visual: 'luna',
+        accent: 'rgba(56,189,248,1)',
+        accentBg: 'rgba(56,189,248,.22)',
+        icon: 'img/lunadock.png',
+        pill: 'Windows Uygulaması',
+        title: 'LunaDock',
+        desc: 'LunaDock, Windows masaüstünüzdeki dosya, klasör ve kısayolları otomatik olarak düzenli yığınlara ayırır. Bir yığına tıklayınca açılır, tekrar tıklayınca toplanır. Türe ya da tarihe göre gruplayın, 20’den fazla ikon paketinden seçin ve yığınları ekranın istediğiniz kenarına yerleştirin. Dosyalarınız yerinden oynamaz.',
+        tags: ['Otomatik Yığınlar', 'Türe / Tarihe Göre', '20+ İkon Paketi', 'Dört Kenar', 'Çoklu Monitör'],
+        links: [{ text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9NZKGTR475CG' }],
         showMixer: false
       },
       {
@@ -3485,8 +3498,19 @@
       document.dispatchEvent(new MouseEvent('mousemove', { clientX: r.left + e.data.x * k, clientY: r.top + e.data.y * k }));
     });
 
+    // LunaDock: a desktop with its stacks (luna-demo/luna-demo.js).
+    let ldEl = null;
+    function lunaDemo() {
+      if (!ldEl) {
+        ldEl = document.createElement('div');
+        const mount = () => window.LunaDemo && window.LunaDemo.mount(ldEl, { img: 'img/' });
+        if (window.LunaDemo) requestAnimationFrame(mount); else addEventListener('load', mount, { once: true });
+      }
+      return ldEl;
+    }
+
     const LIVE_DEMOS = {
-      notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo,
+      notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo, luna: lunaDemo,
       files: frameDemo('files', '/vorganizer-demo/index.html', 860, 780, 'vOrganizer canlı demo'),
       aurora: frameDemo('aurora', '/aurora-demo/index.html', 980, 680, 'Aurora Radios canlı demo'),
     };
@@ -3863,7 +3887,7 @@
         'MOBO : ASUS Prime A620M-K',
         'COOL : Thermalright Aqua Elite 240 ARGB',
       ];
-      const APPS_LIST = ['Groupy', 'BokMail', 'Notchify', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath'];
+      const APPS_LIST = ['Groupy', 'BokMail', 'Notchify', 'LunaDock', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath'];
       const history = [];
       let hIndex = -1;
 
@@ -4207,5 +4231,6 @@
   <script src="/notchify-demo/island-demo.js" defer></script>
   <script src="/groupy-demo/groupy-demo.js" defer></script>
   <script src="/sonar-demo/sonar-demo.js" defer></script>
+  <script src="/luna-demo/luna-demo.js" defer></script>
 </body>
 </html>
