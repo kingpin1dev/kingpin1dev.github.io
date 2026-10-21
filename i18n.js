@@ -178,7 +178,7 @@
     "Video kurgu, film editleri ve müzik üretimlerim.": "My video editing, film edits and music.",
     "Film sahnelerine hayat verdiğim, sinematografik video edit sayfam.": "My cinematic edit page, where film scenes come alive.",
     "Sayfayı İncele": "View page",
-    "Zaman zaman hobi olarak ürettiğim ve yayınladığım parçalar.": "Tracks I make and release now and then as a hobby.",
+    "Zaman zaman hobi olarak ürettiğim ve yayınladığım parçalar.": "Tracks I produce and release from time to time as a hobby.",
     "Spotify'da Dinle": "Listen on Spotify",
     "@sineorbit'ten Öne Çıkan Editler": "Featured edits from @sineorbit",
     "Tümünü Gör": "See all",
