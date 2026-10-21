@@ -44,11 +44,11 @@
   ];
   const DEVICES = ["Headphones (Arctis Nova 7)", "Speakers (Realtek Audio)", "Monitor (NVIDIA HD Audio)"];
   const EQ = [
-    { id: "game", name: "Game", icon: "gamepad", g: ["#12c2b6", "#37e57a"], list: ["Flat", "Footsteps", "Competitive"] },
-    { id: "chat", name: "Chat", icon: "headphones", g: ["#ff5da2", "#a24bff"], list: ["Flat", "Voice Clarity"] },
-    { id: "mic", name: "Mic", icon: "mic", g: ["#fbbf24", "#f97316"], list: ["Flat", "Broadcast", "Noise Gate"] },
-    { id: "media", name: "Media", icon: "music", g: ["#4f8bff", "#00d4ff"], list: ["Flat", "Bass Boost", "Podcast"] },
-    { id: "aux", name: "Aux", icon: "speaker", g: ["#14b8a6", "#5eead4"], list: ["Flat"] },
+    { id: "game", name: "Game", icon: "gamepad", g: ["#12c2b6", "#37e57a"], list: ["Valorant Pro Preset", "League of Legends", "Apex Legends", "ARC Raiders", "Flat"] },
+    { id: "chat", name: "Chat", icon: "headphones", g: ["#ff5da2", "#a24bff"], list: ["Less Nasal", "Clarity", "Broadcast", "Balanced", "Flat"] },
+    { id: "mic", name: "Mic", icon: "mic", g: ["#fbbf24", "#f97316"], list: ["Deep Voice", "Broadcast High Pitch", "Clarity Low Pitch", "Balanced", "Flat"] },
+    { id: "media", name: "Media", icon: "music", g: ["#4f8bff", "#00d4ff"], list: ["Music: Deep Bass", "Music: Metal", "Music: Lo-fi Chill", "Movie: Immersion", "Flat"] },
+    { id: "aux", name: "Aux", icon: "speaker", g: ["#14b8a6", "#5eead4"], list: ["Movie: Immersion", "Podcast", "Movie: Clear Dialogs", "Music: Clear Vocals", "Flat"] },
   ];
   const SWATCHES = [["Orange", "#ff6600"], ["Red", "#ff0000"], ["Blue", "#0064ff"], ["Green", "#00ff00"], ["White", "#ffffff"], ["Off", "#000000"]];
 
@@ -187,7 +187,7 @@
       view: "flyout", tab: "audio", open: null, eqOpen: null,
       vol: { master: 1, game: 1, chat: 1, media: 1, aux: 0.97 }, muted: {}, mix: 0.5,
       route: { game: 0, chat: 0, media: 1, aux: 1 },
-      eq: { game: 1, chat: 1, mic: 1, media: 0, aux: 0 },
+      eq: { game: 0, chat: 0, mic: 0, media: 0, aux: 0 },
       hsv: rgb2hsv(255, 102, 0), applied: false,
       step: 1, keys: { master: "", game: "Ctrl+F13", chat: "", media: "", aux: "", chatmix: "" }, waiting: null,
     };
