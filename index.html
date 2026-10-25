@@ -3707,13 +3707,14 @@
     renderWall();
     document.getElementById('feat-visual').appendChild(groupyDemo());
 
-    // Featured app rotates every 6 s until the visitor clicks or taps in the gallery. It also
-    // waits while the pointer is over the featured card (so a demo in use never switches
+    // Featured app rotates every 6 s. After a click, tap or key press in the gallery it rests
+    // for 10 s and then carries on. It also waits while the pointer is over the featured card (so a demo in use never switches
     // under the visitor), while the gallery is off screen and while the tab is hidden.
     (function autoRotate() {
       const section = document.getElementById('feat-card').closest('section') || document.getElementById('feat-card').parentElement;
-      let stopped = false, hovering = false, visible = false;
-      const stop = () => { stopped = true; };
+      let idleUntil = 0, hovering = false, visible = false;
+      const IDLE = 10000; // after a click or key press the rotation rests this long, then resumes
+      const stop = () => { idleUntil = performance.now() + IDLE; };
       section.addEventListener('pointerdown', stop, true);
       section.addEventListener('keydown', stop, true);
       const feat = document.getElementById('feat-card');
@@ -3731,11 +3732,13 @@
       const PERIOD = 6000;
       let elapsed = 0, last = performance.now(), shown = featuredId;
       function frame(now) {
-        const dt = Math.min(now - last, 100);
+        const dt = Math.min(now - last, 1000);
         last = now;
         if (featuredId !== shown) { shown = featuredId; elapsed = 0; }
-        bar.classList.toggle('off', stopped);
-        if (!stopped && !hovering && visible && !document.hidden) {
+        const resting = now < idleUntil;
+        if (resting) elapsed = 0;
+        bar.classList.toggle('off', resting);
+        if (!resting && !hovering && visible && !document.hidden) {
           elapsed += dt;
           if (elapsed >= PERIOD) {
             elapsed = 0;
