@@ -1264,48 +1264,6 @@
     .cmd .slash { color: #5865f2; font-weight: 900; margin-right: 2px; }
     .cmd em { color: var(--muted); font-style: normal; }
 
-    /* Download (SpotiDrop) */
-    .viz-drop { gap: 8px; justify-content: center; }
-    .drop-tabs { display: flex; gap: 6px; }
-    .drop-tabs i { font-style: normal; font-size: 9.5px; font-weight: 800; padding: 5px 9px; border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); white-space: nowrap; }
-    .drop-tabs i.on { background: linear-gradient(135deg, #1ed760, #22d3ee); color: #04140b; border-color: transparent; }
-    .drop-url { display: flex; align-items: center; gap: 8px; padding: 8px 11px; border-radius: 11px; border: 1px solid rgba(30,215,96,.36); background: rgba(30,215,96,.07); font-size: 11px; color: var(--soft); font-family: 'JetBrains Mono', ui-monospace, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .drop-url i { color: #1ed760; font-size: 11px; }
-    .drop-row { display: flex; align-items: center; gap: 10px; padding: 7px 11px; border-radius: 12px; border: 1px solid rgba(255,255,255,.09); background: rgba(255,255,255,.04); }
-    .drop-n { width: 18px; flex-shrink: 0; text-align: center; font-size: 10px; font-weight: 800; color: var(--faint); font-family: ui-monospace, monospace; }
-    .drop-meta { flex: 1; min-width: 0; display: grid; gap: 5px; }
-    .drop-meta b { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .drop-bar { height: 4px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
-    .drop-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #1ed760, #22d3ee); box-shadow: 0 0 10px rgba(30,215,96,.7); }
-    .drop-bar i.run { animation: dropPulse 1.5s ease-in-out infinite alternate; }
-    .drop-st { flex-shrink: 0; min-width: 40px; text-align: right; font-size: 10px; font-weight: 800; color: var(--muted); font-family: ui-monospace, monospace; }
-    .drop-st.ok { color: #1ed760; }
-    @keyframes dropPulse { from { opacity: .6; } to { opacity: 1; } }
-
-    /* Bot (Lolable) */
-    .viz-lol { gap: 8px; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; }
-    .lol-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .lol-av { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 13px; color: #0b1b2e; background: linear-gradient(135deg, #c8aa6e, #785a28); font-family: system-ui, sans-serif; }
-    .lol-head b { font-size: 13px; font-family: system-ui, sans-serif; }
-    .lol-tag { font-size: 8px; font-weight: 900; letter-spacing: .06em; color: #fff; background: #5865f2; padding: 2px 5px; border-radius: 4px; }
-    .lol-on { width: 8px; height: 8px; border-radius: 50%; background: #70ffb2; box-shadow: 0 0 8px rgba(112,255,178,.7); }
-    .lol-cmd { font-size: 12.5px; color: var(--soft); padding: 8px 11px; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
-    .lol-cmd .slash { color: #5865f2; font-weight: 900; margin-right: 2px; }
-    .lol-cmd em { color: var(--muted); font-style: normal; }
-    .lol-embed { display: grid; gap: 8px; padding: 10px 12px 10px 14px; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-left: 3px solid #0ac8b9; font-family: system-ui, sans-serif; }
-    .lol-top { display: flex; align-items: center; gap: 10px; }
-    .lol-rank { width: 30px; height: 30px; flex-shrink: 0; border-radius: 9px; display: grid; place-items: center; font-size: 13px; color: #2fe0a8; background: rgba(47,224,168,.14); border: 1px solid rgba(47,224,168,.4); }
-    .lol-who { flex: 1; min-width: 0; display: grid; gap: 1px; }
-    .lol-who b { font-size: 12.5px; }
-    .lol-who span { font-size: 10.5px; font-weight: 700; color: var(--muted); }
-    .lol-wr { font-size: 12px; font-weight: 900; color: #70ffb2; }
-    .lol-bar { height: 4px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
-    .lol-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0ac8b9, #70ffb2); }
-    .lol-form { display: flex; align-items: center; gap: 4px; }
-    .lol-form i { font-style: normal; width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; font-size: 10px; font-weight: 900; color: #04140b; background: #70ffb2; }
-    .lol-form i.l { background: #ff6b7a; color: #200509; }
-    .lol-form span { margin-left: auto; font-size: 10px; font-weight: 700; color: var(--muted); }
-
     .project-side {
       display: grid;
       gap: 18px;
@@ -3558,34 +3516,6 @@
       switch (app.visual) {
         case 'notch':
           return '';
-        case 'drop': {
-          const rows = [
-            [1, 'Midnight Drive', 100, '✓ MP3', 'ok', ''],
-            [2, 'Glass City', 64, '64%', '', 'run'],
-            [3, 'Afterglow', 0, 'sırada', '', ''],
-          ];
-          return `<div class="viz viz-drop">
-            <div class="drop-tabs"><i>Link</i><i>Arama</i><i class="on">Spotify</i></div>
-            <div class="drop-url"><i class="fas fa-link"></i>open.spotify.com/album/…</div>
-            ${rows.map(([n, t, w, st, cls, run]) => `
-            <div class="drop-row"><span class="drop-n">${n}</span><div class="drop-meta"><b>${t}</b><span class="drop-bar"><i class="${run}" style="width:${w}%"></i></span></div><span class="drop-st ${cls}">${st}</span></div>`).join('')}
-          </div>`;
-        }
-        case 'lol':
-          return `<div class="viz viz-lol">
-            <div class="lol-head"><span class="lol-av">L</span><b>Lolable</b><span class="lol-tag">BOT</span><span class="lol-on"></span></div>
-            <div class="lol-cmd"><span class="slash">/</span>profil <em>Gölge#TR1</em></div>
-            <div class="lol-embed">
-              <div class="lol-top">
-                <span class="lol-rank"><i class="fas fa-shield-halved"></i></span>
-                <div class="lol-who"><b>Gölge#TR1</b><span>Emerald II · 47 LP</span></div>
-                <span class="lol-wr">56%</span>
-              </div>
-              <span class="lol-bar"><i style="width:56%"></i></span>
-              <div class="lol-form"><i>✓</i><i>✓</i><i class="l">✗</i><i>✓</i><i class="l">✗</i><span>38 – 30</span></div>
-            </div>
-            <div class="lol-cmd"><span class="slash">/</span>live <em>scouting · ban önerisi</em></div>
-          </div>`;
         default:
           return '';
       }
@@ -3691,7 +3621,8 @@
 
     const LIVE_DEMOS = {
       notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo, luna: lunaDemo,
-      bokmail: scriptDemo('bokmail', 'BokMailDemo'), glidesnap: scriptDemo('glidesnap', 'GlideSnapDemo'), goliath: scriptDemo('goliath', 'GoliathDemo'),
+      bokmail: scriptDemo('bokmail', 'BokMailDemo'), glidesnap: scriptDemo('glidesnap', 'GlideSnapDemo'), goliath: scriptDemo('goliath', 'GoliathDemo'), lol: scriptDemo('lolable', 'LolableDemo'),
+      drop: frameDemo('drop', '/spotidrop-demo/index.html', 1180, 800, 'SpotiDrop canlı demo'),
       files: frameDemo('files', '/vorganizer-demo/index.html', 860, 780, 'vOrganizer canlı demo'),
       aurora: frameDemo('aurora', '/aurora-demo/index.html', 980, 680, 'Aurora Radios canlı demo'),
     };
@@ -4414,5 +4345,6 @@
   <script src="/bokmail-demo/bokmail-demo.js" defer></script>
   <script src="/glidesnap-demo/glidesnap-demo.js" defer></script>
   <script src="/goliath-demo/goliath-demo.js" defer></script>
+  <script src="/lolable-demo/lolable-demo.js" defer></script>
 </body>
 </html>

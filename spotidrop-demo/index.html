@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'"
+    />
+    <title>SpotiDrop</title>
+    <meta name="robots" content="noindex" />
+    <script src="/frame-bridge.js"></script>
+    <script src="./mock.js"></script>
+    <script>
+      // kingpindev.com demo: open on the Spotify tab with a made-up album already read, like a returning user.
+      addEventListener('load', () => {
+        const find = (sel, txt) => [...document.querySelectorAll(sel)].find((x) => x.textContent.trim().toLowerCase() === txt.toLowerCase());
+        let n = 0;
+        const t = setInterval(() => {
+          const tab = find('button', 'Spotify');
+          if (tab || ++n > 60) { clearInterval(t); if (tab) go(tab); }
+        }, 100);
+        function go(tab) {
+          tab.click();
+          setTimeout(() => {
+            const input = document.querySelector('input[placeholder*="open.spotify"]');
+            if (!input) return;
+            const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+            set.call(input, 'https://open.spotify.com/album/5kNeonCoastDemo');
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            setTimeout(() => { const r = find('button', 'Read'); if (r) r.click(); setTimeout(() => { const d = [...document.querySelectorAll('button')].filter((x) => x.textContent.trim().toLowerCase() === 'download')[1]; if (d) d.click(); }, 1800); }, 150);
+          }, 400);
+        }
+      });
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-8Wwe1fdX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BRDj-2iF.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
