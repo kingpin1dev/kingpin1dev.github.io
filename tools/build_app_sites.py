@@ -783,6 +783,111 @@ def page(slug: str, app: dict, lang: str) -> str:
 </html>
 """
 
+HUB = {
+    "en": {"title": "Kingpindev apps: Windows apps and Discord bots", "desc": "Every Windows app and Discord bot by Kingpindev in one place: desktop tools, music and radio, and bots for your server.",
+           "eyebrow": "Kingpindev", "h1": "All the apps, in one place.", "lead": "Windows apps and Discord bots built by Burak Pekel. Pick one to see what it does and try it live in your browser.",
+           "win": "Windows app", "bot": "Discord bot", "open": "Open", "home": "kingpindev.com", "lang_name": "Türkçe", "other": "tr"},
+    "tr": {"title": "Kingpindev uygulamaları: Windows uygulamaları ve Discord botları", "desc": "Kingpindev'in tüm Windows uygulamaları ve Discord botları tek yerde: masaüstü araçları, müzik ve radyo, sunucunuz için botlar.",
+           "eyebrow": "Kingpindev", "h1": "Tüm uygulamalar tek yerde.", "lead": "Burak Pekel'in geliştirdiği Windows uygulamaları ve Discord botları. Birini seçin, ne yaptığını görün ve tarayıcıda canlı deneyin.",
+           "win": "Windows uygulaması", "bot": "Discord botu", "open": "Aç", "home": "kingpindev.com", "lang_name": "English", "other": "en"},
+}
+HUB_STYLE = (".hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:8px 0 70px}"
+             ".hub a{display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);text-decoration:none;transition:transform .15s,border-color .15s}"
+             ".hub a:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 60%,transparent)}"
+             ".hub .row{display:flex;align-items:center;gap:14px}.hub img{border-radius:14px}.hub b{font-size:20px}"
+             ".hub .t{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}.hub .tag{font-size:12px;font-weight:600;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);padding:3px 9px;border-radius:99px;white-space:nowrap}"
+             ".hub p{margin:0;color:var(--muted);font-size:14.5px}")
+
+
+def hub_url(lang: str) -> str:
+    return "https://apps.kingpindev.com/" + ("tr/" if lang == "tr" else "")
+
+
+def hub_page(lang: str) -> str:
+    h = HUB[lang]
+    other = h["other"]
+    cards = []
+    for slug, app in APPS.items():
+        kind = h["bot"] if app.get("os") == "Discord" else h["win"]
+        cards.append(f'<a href="{url(slug, lang)}" style="--c:{app["accent"]}"><div class="row"><img src="{app["icon"]}" alt="" width="52" height="52" loading="lazy">'
+                     f'<div class="t"><b>{e(app["name"])}</b><span class="tag">{kind}</span></div></div><p>{e(app[lang]["desc"])}</p></a>')
+    cards.append(f'<a href="https://notchify.app/" style="--c:#c05cff"><div class="row"><img src="/img/notchify.png" alt="" width="52" height="52" loading="lazy">'
+                 f'<div class="t"><b>Notchify</b><span class="tag">{h["win"]}</span></div></div><p>{e("Notchify adds a Dynamic Island to your Windows screen." if lang == "en" else "Notchify, Windows ekranınıza Dinamik Ada ekler.")}</p></a>')
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": h["title"], "description": h["desc"], "url": hub_url(lang), "inLanguage": lang,
+          "publisher": {"@type": "Organization", "name": "Kingpindev", "url": "https://kingpindev.com/"}}
+    return f"""<!doctype html>
+<html lang="{lang}" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(h["title"])}</title>
+<meta name="description" content="{e(h["desc"])}">
+<link rel="canonical" href="{hub_url(lang)}">
+<link rel="alternate" hreflang="en" href="{hub_url('en')}">
+<link rel="alternate" hreflang="tr" href="{hub_url('tr')}">
+<link rel="alternate" hreflang="x-default" href="{hub_url('en')}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kingpindev">
+<meta property="og:url" content="{hub_url(lang)}">
+<meta property="og:title" content="{e(h["title"])}">
+<meta property="og:description" content="{e(h["desc"])}">
+<meta property="og:image" content="https://kingpindev.com/img/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#070a12">
+<link rel="icon" type="image/png" href="/img/Aurora.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/app-sites/site.css">
+<script src="/app-sites/site.js" defer></script>
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+<style>:root{{--accent:#8b5cf6;--accent2:#38bdf8}}{HUB_STYLE}</style>
+</head>
+<body data-lang="{lang}" data-other="{hub_url(other)}">
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="{hub_url(lang)}"><span>Kingpindev</span></a>
+    <a class="lang" href="{hub_url(other)}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{h["lang_name"]}</a>
+    <a class="btn btn-sm" href="https://kingpindev.com/"><span>{h["home"]}</span></a>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{h["eyebrow"]}</p>
+      <h1>{e(h["h1"])}</h1>
+      <p class="lead">{e(h["lead"])}</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap hub">{"".join(cards)}</div>
+  </section>
+</main>
+<footer class="foot">
+  <div class="wrap"><a href="https://kingpindev.com/">Kingpindev</a></div>
+</footer>
+</body>
+</html>
+"""
+
+
+def build_hub() -> None:
+    nl = chr(10)
+    d = OUT / "apps"
+    (d / "tr").mkdir(parents=True, exist_ok=True)
+    (d / "index.html").write_text(hub_page("en"), encoding="utf-8", newline=nl)
+    (d / "tr" / "index.html").write_text(hub_page("tr"), encoding="utf-8", newline=nl)
+    (d / "robots.txt").write_text(nl.join(["User-agent: *", "Allow: /", "", "Sitemap: https://apps.kingpindev.com/sitemap.xml", ""]), encoding="utf-8", newline=nl)
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+    for lang in ("en", "tr"):
+        sm.append(f"  <url><loc>{hub_url(lang)}</loc><lastmod>{LASTMOD}</lastmod>"
+                  f'<xhtml:link rel="alternate" hreflang="en" href="{hub_url("en")}"/>'
+                  f'<xhtml:link rel="alternate" hreflang="tr" href="{hub_url("tr")}"/></url>')
+    sm.append("</urlset>")
+    (d / "sitemap.xml").write_text(nl.join(sm) + nl, encoding="utf-8", newline=nl)
+    print("built apps hub")
+
 
 def main() -> None:
     for slug, app in APPS.items():
@@ -800,6 +905,7 @@ def main() -> None:
         sm.append("</urlset>")
         (d / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8", newline="\n")
         print("built", slug)
+    build_hub()
 
 
 if __name__ == "__main__":
