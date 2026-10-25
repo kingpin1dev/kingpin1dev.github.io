@@ -1264,6 +1264,48 @@
     .cmd .slash { color: #5865f2; font-weight: 900; margin-right: 2px; }
     .cmd em { color: var(--muted); font-style: normal; }
 
+    /* Download (SpotiDrop) */
+    .viz-drop { gap: 8px; justify-content: center; }
+    .drop-tabs { display: flex; gap: 6px; }
+    .drop-tabs i { font-style: normal; font-size: 9.5px; font-weight: 800; padding: 5px 9px; border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); white-space: nowrap; }
+    .drop-tabs i.on { background: linear-gradient(135deg, #1ed760, #22d3ee); color: #04140b; border-color: transparent; }
+    .drop-url { display: flex; align-items: center; gap: 8px; padding: 8px 11px; border-radius: 11px; border: 1px solid rgba(30,215,96,.36); background: rgba(30,215,96,.07); font-size: 11px; color: var(--soft); font-family: 'JetBrains Mono', ui-monospace, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drop-url i { color: #1ed760; font-size: 11px; }
+    .drop-row { display: flex; align-items: center; gap: 10px; padding: 7px 11px; border-radius: 12px; border: 1px solid rgba(255,255,255,.09); background: rgba(255,255,255,.04); }
+    .drop-n { width: 18px; flex-shrink: 0; text-align: center; font-size: 10px; font-weight: 800; color: var(--faint); font-family: ui-monospace, monospace; }
+    .drop-meta { flex: 1; min-width: 0; display: grid; gap: 5px; }
+    .drop-meta b { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drop-bar { height: 4px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
+    .drop-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #1ed760, #22d3ee); box-shadow: 0 0 10px rgba(30,215,96,.7); }
+    .drop-bar i.run { animation: dropPulse 1.5s ease-in-out infinite alternate; }
+    .drop-st { flex-shrink: 0; min-width: 40px; text-align: right; font-size: 10px; font-weight: 800; color: var(--muted); font-family: ui-monospace, monospace; }
+    .drop-st.ok { color: #1ed760; }
+    @keyframes dropPulse { from { opacity: .6; } to { opacity: 1; } }
+
+    /* Bot (Lolable) */
+    .viz-lol { gap: 8px; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .lol-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .lol-av { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 13px; color: #0b1b2e; background: linear-gradient(135deg, #c8aa6e, #785a28); font-family: system-ui, sans-serif; }
+    .lol-head b { font-size: 13px; font-family: system-ui, sans-serif; }
+    .lol-tag { font-size: 8px; font-weight: 900; letter-spacing: .06em; color: #fff; background: #5865f2; padding: 2px 5px; border-radius: 4px; }
+    .lol-on { width: 8px; height: 8px; border-radius: 50%; background: #70ffb2; box-shadow: 0 0 8px rgba(112,255,178,.7); }
+    .lol-cmd { font-size: 12.5px; color: var(--soft); padding: 8px 11px; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+    .lol-cmd .slash { color: #5865f2; font-weight: 900; margin-right: 2px; }
+    .lol-cmd em { color: var(--muted); font-style: normal; }
+    .lol-embed { display: grid; gap: 8px; padding: 10px 12px 10px 14px; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-left: 3px solid #0ac8b9; font-family: system-ui, sans-serif; }
+    .lol-top { display: flex; align-items: center; gap: 10px; }
+    .lol-rank { width: 30px; height: 30px; flex-shrink: 0; border-radius: 9px; display: grid; place-items: center; font-size: 13px; color: #2fe0a8; background: rgba(47,224,168,.14); border: 1px solid rgba(47,224,168,.4); }
+    .lol-who { flex: 1; min-width: 0; display: grid; gap: 1px; }
+    .lol-who b { font-size: 12.5px; }
+    .lol-who span { font-size: 10.5px; font-weight: 700; color: var(--muted); }
+    .lol-wr { font-size: 12px; font-weight: 900; color: #70ffb2; }
+    .lol-bar { height: 4px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
+    .lol-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0ac8b9, #70ffb2); }
+    .lol-form { display: flex; align-items: center; gap: 4px; }
+    .lol-form i { font-style: normal; width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; font-size: 10px; font-weight: 900; color: #04140b; background: #70ffb2; }
+    .lol-form i.l { background: #ff6b7a; color: #200509; }
+    .lol-form span { margin-left: auto; font-size: 10px; font-weight: 700; color: var(--muted); }
+
     .project-side {
       display: grid;
       gap: 18px;
@@ -3472,7 +3514,40 @@
         title: 'Goliath',
         desc: 'Goliath, Discord sunucuları için geliştirilmiş çok amaçlı bir bottur. Moderasyon, seviye sistemi, müzik/radyo yayını, yardım paneli ve çeşitli kullanışlı komutlarla sunucu yönetimini kolaylaştırır. Kısaca, sunucuyu daha düzenli, eğlenceli ve kullanışlı hale getirmek için çalışır.',
         tags: ['Moderasyon', 'Seviye Sistemi', 'Müzik / Radyo', 'Yardım Paneli', 'Komutlar'],
-        links: [{ text: 'Bot Sayfası', url: 'https://discordbotlist.com/bots/goliath' }],
+        links: [
+          { text: 'Botu Ekle', url: 'https://discord.com/oauth2/authorize?client_id=827320438258532372' },
+          { text: 'Bot Sayfası', url: 'https://discordbotlist.com/bots/goliath' }
+        ],
+        showMixer: false
+      },
+      {
+        id: 'spotidrop',
+        visual: 'drop',
+        accent: 'rgba(30,215,96,1)',
+        accentBg: 'rgba(30,215,96,.22)',
+        icon: 'img/SpotiDrop.png',
+        pill: 'Windows Uygulaması',
+        title: 'SpotiDrop',
+        desc: 'SpotiDrop, YouTube, SoundCloud ve Bandcamp gibi kaynaklardaki müzikleri etiketli ve kapak görselli şekilde Spotify\'ın Yerel Dosyalar klasörüne indiren bir Windows uygulamasıdır. Spotify sekmesi, bir şarkı, albüm veya çalma listesi bağlantısının herkese açık meta verilerini okuyup elinizdeki ses dosyalarını etiketler; hesap gerektirmez ve Spotify\'dan ses indirilmez. Yalnızca indirme hakkına sahip olduğunuz içerikler için kullanın.',
+        tags: ['Yerel Dosyalar', 'MP3 · 44.1 kHz', 'Kapak + Etiket', 'Hesapsız', 'yt-dlp + ffmpeg dahil'],
+        links: [{ text: 'İndir · Windows (122 MB)', url: '/spotidrop/SpotiDrop-Setup-0.6.0.exe', download: true }],
+        showMixer: false
+      },
+      {
+        id: 'lolable',
+        visual: 'lol',
+        accent: 'rgba(10,200,185,1)',
+        accentBg: 'rgba(10,200,185,.22)',
+        icon: 'img/Lolable.png',
+        pill: 'Discord Botu',
+        title: 'Lolable',
+        desc: 'Lolable, League of Legends oyuncuları için geliştirilmiş bir Discord istatistik botudur. Riot ID\'nizi Discord hesabınıza bağlayıp rank, LP, şampiyon ustalığı ve son maç performansınızı görebilir, sunucudaki arkadaşlarınızla liderlik tablosunda yarışabilir ve canlı maçlar için takım ranklarını, formları ve ban önerilerini içeren bir scouting raporu alabilirsiniz. Riot Games tarafından onaylanmış veya desteklenen bir proje değildir.',
+        tags: ['Riot ID Bağlama', 'Rank & LP', 'Canlı Maç Raporu', 'Liderlik Tablosu', 'Duo Bulucu', 'Şampiyon Havuzu'],
+        links: [
+          { text: 'Botu Ekle', url: 'https://discord.com/oauth2/authorize?client_id=973544925297799258' },
+          { text: 'Gizlilik Politikası', url: 'lolable-privacy-policy.html' },
+          { text: 'Kullanım Şartları', url: 'lolable-terms-of-service.html' }
+        ],
         showMixer: false
       }
     ];
@@ -3483,9 +3558,41 @@
       switch (app.visual) {
         case 'notch':
           return '';
+        case 'drop': {
+          const rows = [
+            [1, 'Midnight Drive', 100, '✓ MP3', 'ok', ''],
+            [2, 'Glass City', 64, '64%', '', 'run'],
+            [3, 'Afterglow', 0, 'sırada', '', ''],
+          ];
+          return `<div class="viz viz-drop">
+            <div class="drop-tabs"><i>Link</i><i>Arama</i><i class="on">Spotify</i></div>
+            <div class="drop-url"><i class="fas fa-link"></i>open.spotify.com/album/…</div>
+            ${rows.map(([n, t, w, st, cls, run]) => `
+            <div class="drop-row"><span class="drop-n">${n}</span><div class="drop-meta"><b>${t}</b><span class="drop-bar"><i class="${run}" style="width:${w}%"></i></span></div><span class="drop-st ${cls}">${st}</span></div>`).join('')}
+          </div>`;
+        }
+        case 'lol':
+          return `<div class="viz viz-lol">
+            <div class="lol-head"><span class="lol-av">L</span><b>Lolable</b><span class="lol-tag">BOT</span><span class="lol-on"></span></div>
+            <div class="lol-cmd"><span class="slash">/</span>profil <em>Gölge#TR1</em></div>
+            <div class="lol-embed">
+              <div class="lol-top">
+                <span class="lol-rank"><i class="fas fa-shield-halved"></i></span>
+                <div class="lol-who"><b>Gölge#TR1</b><span>Emerald II · 47 LP</span></div>
+                <span class="lol-wr">56%</span>
+              </div>
+              <span class="lol-bar"><i style="width:56%"></i></span>
+              <div class="lol-form"><i>✓</i><i>✓</i><i class="l">✗</i><i>✓</i><i class="l">✗</i><span>38 – 30</span></div>
+            </div>
+            <div class="lol-cmd"><span class="slash">/</span>live <em>scouting · ban önerisi</em></div>
+          </div>`;
         default:
           return '';
       }
+    }
+
+    function linkHtml(l) {
+      return `<a class="mini-link" href="${l.url}"${l.download ? ' download' : ' target="_blank" rel="noreferrer"'}>${l.text}</a>`;
     }
 
     // One live demo instance, created the first time Notchify is featured and reused afterwards.
@@ -3605,9 +3712,7 @@
         if (LIVE_DEMOS[app.visual]) { vis.innerHTML = ''; vis.appendChild(LIVE_DEMOS[app.visual]()); vis.style.display = 'block'; }
         else if (app.visual) { vis.innerHTML = visualInner(app); vis.style.display = 'block'; }
         else { vis.innerHTML = ''; vis.style.display = 'none'; }
-        document.getElementById('feat-actions').innerHTML = app.links.map(l =>
-          `<a class="mini-link" href="${l.url}" target="_blank" rel="noreferrer">${l.text}</a>`
-        ).join('');
+        document.getElementById('feat-actions').innerHTML = app.links.map(linkHtml).join('');
         card.style.opacity = '1';
         card.style.transform = '';
       }, 180);
@@ -3633,7 +3738,7 @@
           <h3>${app.title}</h3>
           <p>${app.desc}</p>
           <div class="card-actions">
-            ${app.links.map(l => `<a class="mini-link" href="${l.url}" target="_blank" rel="noreferrer">${l.text}</a>`).join('')}
+            ${app.links.map(linkHtml).join('')}
           </div>
         </article>
       `).join('');
@@ -3961,7 +4066,7 @@
         'MOBO : ASUS Prime A620M-K',
         'COOL : Thermalright Aqua Elite 240 ARGB',
       ];
-      const APPS_LIST = ['Groupy', 'BokMail', 'Notchify', 'LunaDock', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath'];
+      const APPS_LIST = ['Groupy', 'BokMail', 'Notchify', 'LunaDock', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath', 'SpotiDrop', 'Lolable'];
       const history = [];
       let hIndex = -1;
 

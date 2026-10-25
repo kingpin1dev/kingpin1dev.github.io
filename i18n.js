@@ -122,6 +122,15 @@
     "Online Radyo": "Online radio", "Şarkı": "Songs", "Favoriler": "Favorites",
     "Moderasyon": "Moderation", "Seviye Sistemi": "Level system", "Müzik / Radyo": "Music / Radio", "Yardım Paneli": "Help panel", "Komutlar": "Commands",
     "moderasyon": "moderation", "müzik · radyo": "music · radio",
+    // SpotiDrop and Lolable cards
+    "SpotiDrop, YouTube, SoundCloud ve Bandcamp gibi kaynaklardaki müzikleri etiketli ve kapak görselli şekilde Spotify'ın Yerel Dosyalar klasörüne indiren bir Windows uygulamasıdır. Spotify sekmesi, bir şarkı, albüm veya çalma listesi bağlantısının herkese açık meta verilerini okuyup elinizdeki ses dosyalarını etiketler; hesap gerektirmez ve Spotify'dan ses indirilmez. Yalnızca indirme hakkına sahip olduğunuz içerikler için kullanın.":
+      "SpotiDrop is a Windows app that downloads music from sources such as YouTube, SoundCloud and Bandcamp into Spotify's Local Files folder, tagged and with cover art. The Spotify tab reads the public metadata of a track, album or playlist link and tags the audio files you already have; it needs no account, and no audio is downloaded from Spotify. Only use it for content you have the right to download.",
+    "Lolable, League of Legends oyuncuları için geliştirilmiş bir Discord istatistik botudur. Riot ID'nizi Discord hesabınıza bağlayıp rank, LP, şampiyon ustalığı ve son maç performansınızı görebilir, sunucudaki arkadaşlarınızla liderlik tablosunda yarışabilir ve canlı maçlar için takım ranklarını, formları ve ban önerilerini içeren bir scouting raporu alabilirsiniz. Riot Games tarafından onaylanmış veya desteklenen bir proje değildir.":
+      "Lolable is a Discord stats bot for League of Legends players. Link your Riot ID to your Discord account to see your rank, LP, champion mastery and recent match performance, compete with friends on your server's leaderboard, and get a scouting report for live matches with team ranks, form and ban suggestions. It is not approved or supported by Riot Games.",
+    "Yerel Dosyalar": "Local Files", "Kapak + Etiket": "Cover + tags", "Hesapsız": "No account", "yt-dlp + ffmpeg dahil": "yt-dlp + ffmpeg included",
+    "Riot ID Bağlama": "Riot ID linking", "Canlı Maç Raporu": "Live match report", "Liderlik Tablosu": "Leaderboard", "Duo Bulucu": "Duo finder", "Şampiyon Havuzu": "Champion pool",
+    "Botu Ekle": "Add bot", "İndir · Windows (122 MB)": "Download · Windows (122 MB)", "Gizlilik Politikası": "Privacy Policy", "Kullanım Şartları": "Terms of Service",
+    "Arama": "Search", "sırada": "queued", "scouting · ban önerisi": "scouting · ban suggestions",
     // card previews
     "Hesabınızı doğrulayın": "Verify your account", "az önce": "just now", "Haftanın fırsatları": "Deals of the week",
     "Giriş kodunuz: 4821": "Your login code: 4821", "3 dk": "3 min", "12 dk": "12 min",
