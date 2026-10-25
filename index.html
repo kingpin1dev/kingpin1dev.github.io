@@ -910,6 +910,10 @@
       box-shadow: 0 24px 76px rgba(0,0,0,.24);
     }
 
+    .feat-timer { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.07); pointer-events: none; transition: opacity .3s; z-index: 5; }
+    .feat-timer.off { opacity: 0; }
+    .feat-timer i { display: block; height: 100%; transform-origin: left; background: linear-gradient(90deg, transparent, var(--accent) 35%, #fff); box-shadow: 0 0 10px var(--accent), 0 0 22px var(--accent); }
+
     .tilt {
       transform-style: preserve-3d;
       transition: transform 160ms ease, border-color 180ms ease, background 180ms ease;
@@ -3716,11 +3720,34 @@
       feat.addEventListener('pointerenter', () => { hovering = true; });
       feat.addEventListener('pointerleave', () => { hovering = false; });
       new IntersectionObserver(([en]) => { visible = en.isIntersecting; }, { threshold: 0.25 }).observe(section);
-      setInterval(() => {
-        if (stopped || hovering || !visible || document.hidden) return;
-        const i = APPS.findIndex(a => a.id === featuredId);
-        setFeatured(APPS[(i + 1) % APPS.length].id);
-      }, 6000);
+
+      // Neon bar along the bottom of the featured card: it fills over the 6 s, so the next
+      // switch is visible. It only advances while the rotation is actually running.
+      const bar = document.createElement('div');
+      bar.className = 'feat-timer';
+      bar.innerHTML = '<i></i>';
+      feat.appendChild(bar);
+      const fill = bar.firstChild;
+      const PERIOD = 6000;
+      let elapsed = 0, last = performance.now(), shown = featuredId;
+      function frame(now) {
+        const dt = Math.min(now - last, 100);
+        last = now;
+        if (featuredId !== shown) { shown = featuredId; elapsed = 0; }
+        bar.classList.toggle('off', stopped);
+        if (!stopped && !hovering && visible && !document.hidden) {
+          elapsed += dt;
+          if (elapsed >= PERIOD) {
+            elapsed = 0;
+            const i = APPS.findIndex(a => a.id === featuredId);
+            setFeatured(APPS[(i + 1) % APPS.length].id);
+            shown = featuredId;
+          }
+        }
+        fill.style.transform = 'scaleX(' + (elapsed / PERIOD).toFixed(4) + ')';
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
     })();
 
     // Custom cursor
