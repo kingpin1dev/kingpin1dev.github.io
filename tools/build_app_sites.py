@@ -394,6 +394,217 @@ APPS: dict[str, dict] = {
                     ("Pencereyi kapatınca çalmaya devam ediyor mu?", "Evet, siz durdurana kadar sistem tepsisinden çalmaya devam eder.")],
         },
     },
+    "spotidrop": {
+        "name": "SpotiDrop", "icon": "/img/SpotiDrop.png", "accent": "#1ed760", "accent2": "#22d3ee",
+        "category": "MultimediaApplication", "demo": {"kind": "frame", "src": "/spotidrop-demo/index.html", "w": 1180, "h": 800},
+        "cta": {"url": "https://kingpindev.com/spotidrop/SpotiDrop-Setup-0.6.0.exe", "download": True,
+                "en": "Download for Windows (122 MB)", "tr": "Windows için indir (122 MB)", "en_short": "Download", "tr_short": "İndir",
+                "en_text": "Download the installer and set it up in a minute. Use it only for content you have the right to download.",
+                "tr_text": "Yükleyiciyi indirin, bir dakikada kurun. Yalnızca indirme hakkına sahip olduğunuz içerikler için kullanın."},
+        "en": {
+            "title": "SpotiDrop: music into Spotify Local Files, tagged",
+            "desc": "SpotiDrop downloads music from YouTube, SoundCloud and Bandcamp, tags it with cover art and drops it into Spotify's Local Files folder.",
+            "eyebrow": "Music downloader for Windows",
+            "h1": "Any link in, tagged music out.",
+            "lead": "Paste a YouTube, SoundCloud or Bandcamp link, search for a track, or read a Spotify album or playlist. SpotiDrop downloads the audio, adds the title, artist, album and cover art, and saves it where Spotify's Local Files picks it up. yt-dlp and ffmpeg come bundled, so there is nothing else to install.",
+            "facts": ["Windows 10 and 11", "No account", "MP3 · 44.1 kHz", "yt-dlp + ffmpeg included"],
+            "demo_title": "Try it here",
+            "demo_note": "The real SpotiDrop interface running in your browser. It reads a made-up Spotify album and fakes the downloads, so nothing is saved. Press Download on a track.",
+            "features_title": "From link to Local Files",
+            "features": [
+                ("music", "Spotify tab", "Paste a track, album or playlist link. SpotiDrop reads the public track list and cover, then finds the audio on YouTube or SoundCloud."),
+                ("search", "Search and links", "Search for a song, or paste a link from YouTube, SoundCloud, Bandcamp and other supported sites, playlists included."),
+                ("check", "Tags and cover art", "Title, artist, album, track number and cover art are written into every file."),
+                ("folder", "Spotify Local Files", "Files are saved straight into your Local Files folder, ready to play in Spotify."),
+                ("list", "Queue", "Download whole albums at once. Several tracks run in parallel with live progress."),
+                ("grid", "Tag files you own", "Already have the audio? Point SpotiDrop at a folder and it matches and tags the files with Spotify's metadata."),
+                ("refresh", "Updates itself", "The yt-dlp engine can be refreshed from inside the app, and a new version shows a banner."),
+                ("shield", "No account", "Nothing to sign in to. Audio is never taken from Spotify; only its public metadata is read."),
+            ],
+            "steps_title": "How it works",
+            "steps": [("Paste a link", "A Spotify, YouTube, SoundCloud or Bandcamp link, or search by name."),
+                      ("Press Download", "SpotiDrop finds the audio, converts it and writes the tags and cover."),
+                      ("Play in Spotify", "The files appear in Local Files, and in the app's Library tab.")],
+            "details": [("Requires", "Windows 10 or Windows 11 and an internet connection"), ("Version", "0.6.0, about 122 MB"),
+                        ("Account", "Not needed"), ("Included", "yt-dlp and ffmpeg")],
+            "faq": [("Does it download audio from Spotify?", "No. Spotify is only read for track names, artists and cover art. The audio comes from YouTube or SoundCloud."),
+                    ("Is it free?", "Yes, and there is no account to create."),
+                    ("Which formats can I get?", "MP3 at 44.1 kHz by default, with FLAC and other formats in Settings."),
+                    ("What may I download?", "Only content you have the right to download. Please respect each platform's terms.")],
+        },
+        "tr": {
+            "title": "SpotiDrop: müzikler etiketli Spotify Yerel Dosyalar'a",
+            "desc": "SpotiDrop, YouTube, SoundCloud ve Bandcamp'ten müzik indirir, kapak ve etiket ekler, Spotify'ın Yerel Dosyalar klasörüne koyar.",
+            "eyebrow": "Windows için müzik indirici",
+            "h1": "Link girsin, etiketli müzik çıksın.",
+            "lead": "YouTube, SoundCloud ya da Bandcamp linkini yapıştırın, bir şarkı arayın veya bir Spotify albümünü ya da çalma listesini okutun. SpotiDrop sesi indirir, başlık, sanatçı, albüm ve kapak görselini ekler, Spotify'ın Yerel Dosyalar'ının göreceği yere kaydeder. yt-dlp ve ffmpeg içinde gelir, ayrıca bir şey kurmanız gerekmez.",
+            "facts": ["Windows 10 ve 11", "Hesap gerekmez", "MP3 · 44.1 kHz", "yt-dlp + ffmpeg dahil"],
+            "demo_title": "Burada deneyin",
+            "demo_note": "Gerçek SpotiDrop arayüzü tarayıcınızda çalışıyor. Uydurma bir Spotify albümünü okur, indirmeleri taklit eder; hiçbir şey kaydedilmez. Bir parçada İndir'e basın.",
+            "features_title": "Linkten Yerel Dosyalar'a",
+            "features": [
+                ("music", "Spotify sekmesi", "Bir şarkı, albüm ya da çalma listesi linki yapıştırın. SpotiDrop herkese açık parça listesini ve kapağı okur, sesi YouTube ya da SoundCloud'da bulur."),
+                ("search", "Arama ve linkler", "Bir şarkı arayın ya da YouTube, SoundCloud, Bandcamp ve diğer desteklenen sitelerden link yapıştırın, çalma listeleri dahil."),
+                ("check", "Etiket ve kapak", "Başlık, sanatçı, albüm, parça numarası ve kapak görseli her dosyaya yazılır."),
+                ("folder", "Spotify Yerel Dosyalar", "Dosyalar doğrudan Yerel Dosyalar klasörünüze kaydedilir, Spotify'da çalmaya hazırdır."),
+                ("list", "Kuyruk", "Albümleri toplu indirin. Birkaç parça aynı anda, canlı ilerlemeyle iner."),
+                ("grid", "Kendi dosyalarınızı etiketleyin", "Ses dosyası zaten sizde mi? Bir klasör gösterin, SpotiDrop dosyaları eşleştirip Spotify bilgileriyle etiketler."),
+                ("refresh", "Kendini günceller", "yt-dlp motoru uygulamadan yenilenebilir, yeni sürüm olunca bir bildirim çıkar."),
+                ("shield", "Hesap yok", "Giriş yapılacak bir şey yok. Ses Spotify'dan alınmaz, yalnızca herkese açık bilgileri okunur."),
+            ],
+            "steps_title": "Nasıl çalışır",
+            "steps": [("Link yapıştırın", "Spotify, YouTube, SoundCloud ya da Bandcamp linki veya adıyla arama."),
+                      ("İndir'e basın", "SpotiDrop sesi bulur, dönüştürür, etiket ve kapağı yazar."),
+                      ("Spotify'da çalın", "Dosyalar Yerel Dosyalar'da ve uygulamanın Kütüphane sekmesinde görünür.")],
+            "details": [("Gereksinim", "Windows 10 ya da Windows 11 ve internet bağlantısı"), ("Sürüm", "0.6.0, yaklaşık 122 MB"),
+                        ("Hesap", "Gerekmez"), ("Dahil", "yt-dlp ve ffmpeg")],
+            "faq": [("Spotify'dan ses indiriyor mu?", "Hayır. Spotify'dan yalnızca parça adı, sanatçı ve kapak okunur. Ses YouTube ya da SoundCloud'dan gelir."),
+                    ("Ücretsiz mi?", "Evet, hesap açmanız da gerekmez."),
+                    ("Hangi formatları alabilirim?", "Varsayılan 44.1 kHz MP3; Ayarlar'dan FLAC ve diğer formatlar seçilebilir."),
+                    ("Ne indirebilirim?", "Yalnızca indirme hakkına sahip olduğunuz içerikler. Lütfen her platformun kullanım şartlarına uyun.")],
+        },
+    },
+    "goliath": {
+        "name": "Goliath", "icon": "/img/Goliath.png", "accent": "#5865f2", "accent2": "#eb459e", "os": "Discord",
+        "category": "SocialNetworkingApplication", "demo": {"kind": "script", "src": "/goliath-demo/goliath-demo.js", "api": "GoliathDemo", "opts": {"img": "/img/"}, "lang": True},
+        "by": {"en": "A Discord bot by", "tr": "Bir Kingpindev Discord botu:"},
+        "extra_links": {"en": [("Bot page", "https://discordbotlist.com/bots/goliath")], "tr": [("Bot sayfası", "https://discordbotlist.com/bots/goliath")]},
+        "cta": {"url": "https://discord.com/oauth2/authorize?client_id=827320438258532372", "nologo": True,
+                "en": "Add to Discord", "tr": "Discord'a ekle", "en_short": "Add bot", "tr_short": "Botu ekle",
+                "en_text": "Add Goliath to your server and type / to see every command.", "tr_text": "Goliath'ı sunucunuza ekleyin, tüm komutları görmek için / yazın."},
+        "en": {
+            "title": "Goliath: all-in-one Discord bot",
+            "desc": "Goliath is a multi-purpose Discord bot: moderation, levels, music and radio, a help panel and handy tools for your server, all as slash commands.",
+            "eyebrow": "Multi-purpose Discord bot",
+            "h1": "One bot to keep your server in order.",
+            "lead": "Goliath brings moderation, a level system, music and live radio, a browsable help panel and a set of everyday tools to your Discord server. Everything is a slash command, so there is nothing to memorise: type / and pick.",
+            "facts": ["Slash commands", "Moderation", "Levels", "Music and radio"],
+            "demo_title": "Try it here",
+            "demo_note": "A live Discord channel with Goliath in it. Click a command or type / and run it: /help, /rank, /leaderboard, /play, /queue and /ban work. Members and songs are made up, and the bot replies in Turkish.",
+            "features_title": "What Goliath does",
+            "features": [
+                ("shield", "Moderation", "Kick, ban, timeout, warn, clear messages, slow mode, lock and unlock channels, with a log channel you choose."),
+                ("progress", "Levels and XP", "Members earn XP by chatting. /rank shows progress and /leaderboard ranks the server."),
+                ("music", "Music", "Play from YouTube or Spotify with a queue, pause, skip, loop, shuffle, seek and volume."),
+                ("radio", "Live radio", "Open a radio panel to tune into live stations in a voice channel."),
+                ("list", "Help panel", "/help is a dropdown that walks through every category and command."),
+                ("grid", "Roles and logs", "Give and take roles, look up role details and set where logs go."),
+                ("bulb", "Handy tools", "Translate, calculate, search Wikipedia, shorten links, set reminders and go AFK."),
+                ("discord", "Server info", "User, server, avatar, invite and member statistics in one command each."),
+            ],
+            "steps_title": "How it works",
+            "steps": [("Add it", "Invite Goliath to your server with the button above."),
+                      ("Type /", "Every command shows up with a description as you type."),
+                      ("Set it up", "Choose a log channel and let levels, music and moderation do the rest.")],
+            "details": [("Platform", "Discord, as slash commands"), ("Cost", "Free"), ("Language", "Replies in Turkish"), ("Permissions", "Asked when you invite it")],
+            "faq": [("Is Goliath free?", "Yes."),
+                    ("Do I need to learn commands?", "No. Type / in any channel and Discord lists them, or open /help."),
+                    ("Can it play music?", "Yes, from YouTube or Spotify links and searches in a voice channel."),
+                    ("Which language does it use?", "Goliath replies in Turkish.")],
+        },
+        "tr": {
+            "title": "Goliath: hepsi bir arada Discord botu",
+            "desc": "Goliath çok amaçlı bir Discord botudur: moderasyon, seviye sistemi, müzik ve radyo, yardım paneli ve işe yarar araçlar, hepsi slash komutlarıyla.",
+            "eyebrow": "Çok amaçlı Discord botu",
+            "h1": "Sunucunuzu düzende tutan tek bot.",
+            "lead": "Goliath, Discord sunucunuza moderasyon, seviye sistemi, müzik ve canlı radyo, gezilebilir bir yardım paneli ve günlük araçlar getirir. Her şey slash komutu, ezberlenecek bir şey yok: / yazın ve seçin.",
+            "facts": ["Slash komutları", "Moderasyon", "Seviye sistemi", "Müzik ve radyo"],
+            "demo_title": "Burada deneyin",
+            "demo_note": "İçinde Goliath olan canlı bir Discord kanalı. Bir komuta tıklayın ya da / yazıp çalıştırın: /help, /rank, /leaderboard, /play, /queue ve /ban çalışır. Üyeler ve şarkılar uydurmadır.",
+            "features_title": "Goliath neler yapar",
+            "features": [
+                ("shield", "Moderasyon", "Atma, yasaklama, timeout, uyarı, mesaj silme, yavaş mod, kanal kilitleme ve açma; seçtiğiniz log kanalıyla."),
+                ("progress", "Seviye ve XP", "Üyeler sohbet ederek XP kazanır. /rank ilerlemeyi gösterir, /leaderboard sunucuyu sıralar."),
+                ("music", "Müzik", "YouTube ya da Spotify'dan kuyruk, duraklat, atla, tekrar, karıştır, sarma ve ses ayarıyla çalın."),
+                ("radio", "Canlı radyo", "Ses kanalında canlı istasyonları dinlemek için radyo panelini açın."),
+                ("list", "Yardım paneli", "/help, her kategoriyi ve komutu gezdiren bir açılır menüdür."),
+                ("grid", "Roller ve loglar", "Rol verin ve alın, rol bilgisine bakın, logların nereye gideceğini seçin."),
+                ("bulb", "Kullanışlı araçlar", "Çeviri, hesap makinesi, Wikipedia araması, link kısaltma, hatırlatıcı ve AFK modu."),
+                ("discord", "Sunucu bilgisi", "Kullanıcı, sunucu, avatar, davet ve üye istatistikleri, her biri tek komutla."),
+            ],
+            "steps_title": "Nasıl çalışır",
+            "steps": [("Ekleyin", "Yukarıdaki düğmeyle Goliath'ı sunucunuza davet edin."),
+                      ("/ yazın", "Yazarken her komut açıklamasıyla listelenir."),
+                      ("Ayarlayın", "Bir log kanalı seçin; seviye, müzik ve moderasyon gerisini halleder.")],
+            "details": [("Platform", "Discord, slash komutlarıyla"), ("Ücret", "Ücretsiz"), ("Dil", "Türkçe yanıt verir"), ("İzinler", "Davet ederken sorulur")],
+            "faq": [("Goliath ücretsiz mi?", "Evet."),
+                    ("Komut öğrenmem gerekiyor mu?", "Hayır. Herhangi bir kanalda / yazın, Discord listeler; ya da /help açın."),
+                    ("Müzik çalabilir mi?", "Evet, ses kanalında YouTube ya da Spotify linkleri ve aramalarından."),
+                    ("Hangi dili kullanıyor?", "Goliath Türkçe yanıt verir.")],
+        },
+    },
+    "lolable": {
+        "name": "Lolable", "icon": "/img/Lolable.png", "accent": "#0ac8b9", "accent2": "#c8aa6e", "os": "Discord",
+        "category": "SocialNetworkingApplication", "demo": {"kind": "script", "src": "/lolable-demo/lolable-demo.js", "api": "LolableDemo", "opts": {"img": "/img/"}, "lang": True},
+        "by": {"en": "A Discord bot by", "tr": "Bir Kingpindev Discord botu:"},
+        "privacy": "https://kingpindev.com/lolable-privacy-policy",
+        "extra_links": {"en": [("Terms of service", "https://kingpindev.com/lolable-terms-of-service")], "tr": [("Kullanım şartları", "https://kingpindev.com/lolable-terms-of-service")]},
+        "cta": {"url": "https://discord.com/oauth2/authorize?client_id=973544925297799258", "nologo": True,
+                "en": "Add to Discord", "tr": "Discord'a ekle", "en_short": "Add bot", "tr_short": "Botu ekle",
+                "en_text": "Add Lolable to your server, link your Riot ID and run /profil.", "tr_text": "Lolable'ı sunucunuza ekleyin, Riot ID'nizi bağlayın ve /profil yazın."},
+        "en": {
+            "title": "Lolable: League of Legends bot for Discord",
+            "desc": "Lolable shows League of Legends ranks, last-match breakdowns, live match scouting and server leaderboards for your Discord community.",
+            "eyebrow": "League of Legends bot for Discord",
+            "h1": "Your server's League stats, in Discord.",
+            "lead": "Link a Riot ID and Lolable turns it into rank and LP cards, form and KDA, champion mastery and a coaching note. Check your last match page by page, scout a live game with ban suggestions, compare two players and see who leads your server.",
+            "facts": ["Slash commands", "Rank and LP", "Live match report", "Server leaderboard"],
+            "demo_title": "Try it here",
+            "demo_note": "A live Discord channel with Lolable in it. Run /profil, /sonmac, /live, /compare, /gunluk, /championpool, /leaderboard or /duo. The players and numbers are made up, and the bot replies in Turkish.",
+            "features_title": "What Lolable does",
+            "features": [
+                ("discord", "Riot ID linking", "/bagla links your Riot ID to your Discord account, with optional rank roles."),
+                ("shield", "Rank and form", "/profil is a paged card: league, form, performance, champions and a coach note."),
+                ("progress", "Last match", "/sonmac breaks your latest ranked game into summary, build, damage, economy and coach pages."),
+                ("eye", "Live scouting", "/live shows both teams, risk tags, streaks and ban suggestions while a game is running."),
+                ("sort", "Compare", "/compare puts rank, win rate, KDA, CS and gold side by side for two players."),
+                ("calendar", "Daily summary", "/gunluk sums up the last 24 hours of ranked games with your best match."),
+                ("heart", "Server leaderboard", "/leaderboard ranks linked players by SoloQ, and /duo finds partners in a similar league."),
+                ("bubble", "Match feed", "/feed posts match results, rank changes and streaks to a channel you pick."),
+            ],
+            "steps_title": "How it works",
+            "steps": [("Add it", "Invite Lolable to your server with the button above."),
+                      ("Link your Riot ID", "Run /bagla with your Riot ID and tag."),
+                      ("Check in", "Use /profil, /sonmac or /live whenever you want a read on a game.")],
+            "details": [("Platform", "Discord, as slash commands"), ("Data", "Riot Games public API"), ("Language", "Replies in Turkish"),
+                        ("Affiliation", "Not endorsed by Riot Games")],
+            "faq": [("Do I need to link my account?", "Linking is needed for /me and the leaderboard. You can also look up any Riot ID with /profil."),
+                    ("Where does the data come from?", "From Riot Games' public API."),
+                    ("Is it affiliated with Riot Games?", "No. Lolable is not endorsed or supported by Riot Games."),
+                    ("Which language does it use?", "Lolable replies in Turkish.")],
+        },
+        "tr": {
+            "title": "Lolable: Discord için League of Legends botu",
+            "desc": "Lolable, Discord topluluğunuz için League of Legends rank'ı, son maç analizi, canlı maç raporu ve sunucu liderlik tablosu sunar.",
+            "eyebrow": "Discord için League of Legends botu",
+            "h1": "Sunucunuzun League istatistikleri Discord'da.",
+            "lead": "Bir Riot ID bağlayın, Lolable onu rank ve LP kartına, forma ve KDA'ya, şampiyon ustalıklarına ve bir koç notuna çevirsin. Son maçınızı sayfa sayfa inceleyin, canlı bir oyunu ban önerileriyle keşfedin, iki oyuncuyu karşılaştırın ve sunucunuzda kimin önde olduğunu görün.",
+            "facts": ["Slash komutları", "Rank ve LP", "Canlı maç raporu", "Sunucu liderlik tablosu"],
+            "demo_title": "Burada deneyin",
+            "demo_note": "İçinde Lolable olan canlı bir Discord kanalı. /profil, /sonmac, /live, /compare, /gunluk, /championpool, /leaderboard ya da /duo çalıştırın. Oyuncular ve sayılar uydurmadır.",
+            "features_title": "Lolable neler yapar",
+            "features": [
+                ("discord", "Riot ID bağlama", "/bagla, Riot ID'nizi Discord hesabınıza bağlar; isteğe bağlı rank rolleriyle."),
+                ("shield", "Rank ve form", "/profil sayfalı bir karttır: lig, form, performans, şampiyonlar ve koç notu."),
+                ("progress", "Son maç", "/sonmac son ranked oyununuzu özet, build, hasar, ekonomi ve koç sayfalarına ayırır."),
+                ("eye", "Canlı scouting", "/live, oyun sürerken iki takımı, risk etiketlerini, serileri ve ban önerilerini gösterir."),
+                ("sort", "Karşılaştırma", "/compare iki oyuncunun rank, win rate, KDA, CS ve altınını yan yana koyar."),
+                ("calendar", "Günlük özet", "/gunluk son 24 saatteki ranked maçları en iyi maçınızla birlikte özetler."),
+                ("heart", "Sunucu liderlik tablosu", "/leaderboard bağlı oyuncuları SoloQ'ya göre sıralar, /duo benzer ligde partner bulur."),
+                ("bubble", "Maç akışı", "/feed maç sonuçlarını, rank değişimlerini ve serileri seçtiğiniz kanala gönderir."),
+            ],
+            "steps_title": "Nasıl çalışır",
+            "steps": [("Ekleyin", "Yukarıdaki düğmeyle Lolable'ı sunucunuza davet edin."),
+                      ("Riot ID'nizi bağlayın", "Riot ID ve tag'inizle /bagla çalıştırın."),
+                      ("Bakın", "Bir oyunu görmek istediğinizde /profil, /sonmac ya da /live kullanın.")],
+            "details": [("Platform", "Discord, slash komutlarıyla"), ("Veri", "Riot Games herkese açık API'si"), ("Dil", "Türkçe yanıt verir"),
+                        ("Bağlantı", "Riot Games tarafından onaylanmamıştır")],
+            "faq": [("Hesabımı bağlamam gerekiyor mu?", "/me ve liderlik tablosu için bağlamak gerekir. /profil ile herhangi bir Riot ID'ye de bakabilirsiniz."),
+                    ("Veriler nereden geliyor?", "Riot Games'in herkese açık API'sinden."),
+                    ("Riot Games ile bağlantılı mı?", "Hayır. Lolable, Riot Games tarafından onaylanmış veya desteklenen bir proje değildir."),
+                    ("Hangi dili kullanıyor?", "Lolable Türkçe yanıt verir.")],
+        },
+    },
 }
 
 UI = {
@@ -408,7 +619,8 @@ UI = {
 }
 
 OTHER_APPS = [("lunadock", "LunaDock", "/img/lunadock.png"), ("groupy", "Groupy", "/img/FluentMixer.png"), ("vicesonar", "VICE Sonar", "/img/vice-sonar.png"),
-              ("vorganizer", "vOrganizer", "/img/Vorganizer.png"), ("aurora", "Aurora Radios", "/img/Aurora.png")]
+              ("vorganizer", "vOrganizer", "/img/Vorganizer.png"), ("aurora", "Aurora Radios", "/img/Aurora.png"),
+              ("spotidrop", "SpotiDrop", "/img/SpotiDrop.png"), ("goliath", "Goliath", "/img/Goliath.png"), ("lolable", "Lolable", "/img/Lolable.png")]
 
 WIN_LOGO = '<svg viewBox="0 0 88 88" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M0 12.4l35.7-4.9v34.4H0zM40 6.8L87.3 0v41.5H40zM0 45.7h35.7v34.5L0 75.3zM40 45.7h47.3V88L40 81.4z"/></svg>'
 
@@ -428,7 +640,14 @@ def url(slug: str, lang: str) -> str:
 
 def page(slug: str, app: dict, lang: str) -> str:
     c, u = app[lang], UI[lang]
-    store = STORE.format(app["store"])
+    cta = app.get("cta")
+    store = cta["url"] if cta else STORE.format(app["store"])
+    btn_label = cta[lang] if cta else u["store"]
+    btn_short = cta[lang + "_short"] if cta else u["store_short"]
+    btn_logo = "" if cta and cta.get("nologo") else WIN_LOGO
+    dl = " download" if cta and cta.get("download") else ""
+    by = app.get("by", {}).get(lang, u["by"])
+    cta_text = cta[lang + "_text"] if cta else u["cta_text"]
     other = u["other"]
     assert 25 <= len(c["desc"]) <= 160, (slug, lang, len(c["desc"]))
     demo = app["demo"]
@@ -442,7 +661,7 @@ def page(slug: str, app: dict, lang: str) -> str:
         demo_html = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}">'
                      f'<iframe src="{demo["src"]}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
     ld = {
-        "@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": "Windows 10, Windows 11",
+        "@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": app.get("os", "Windows 10, Windows 11"),
         "applicationCategory": app["category"], "description": c["desc"], "url": url(slug, lang), "image": f"https://{slug}.kingpindev.com/img/og-{slug}.jpg",
         "installUrl": store, "inLanguage": lang, "author": {"@type": "Person", "name": "Burak Pekel", "url": "https://kingpindev.com/"},
         "publisher": {"@type": "Organization", "name": "Kingpindev", "url": "https://kingpindev.com/"},
@@ -457,6 +676,8 @@ def page(slug: str, app: dict, lang: str) -> str:
         for s, n, ic in OTHER_APPS if s != slug)
     others += f'<a class="other" href="https://notchify.app/"><img src="/img/notchify.png" alt="" width="40" height="40" loading="lazy"><span>Notchify</span></a>'
     privacy = f' · <a href="{app["privacy"]}">{u["privacy"]}</a>' if app.get("privacy") else ""
+    for label, href in app.get("extra_links", {}).get(lang, []):
+        privacy += f' · <a href="{href}">{e(label)}</a>'
     return f"""<!doctype html>
 <html lang="{lang}" translate="no">
 <head>
@@ -495,7 +716,7 @@ def page(slug: str, app: dict, lang: str) -> str:
     <a class="brand" href="{url(slug, lang)}"><img src="{app["icon"]}" alt="" width="32" height="32"><span>{e(app["name"])}</span></a>
     <nav class="links"><a href="#demo">{u["demo"]}</a><a href="#features">{u["features"]}</a><a href="#faq">{u["faq"]}</a></nav>
     <a class="lang" href="{url(slug, other)}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{u["other_label"]}</a>
-    <a class="btn btn-sm" href="{store}">{WIN_LOGO}<span>{u["store_short"]}</span></a>
+    <a class="btn btn-sm" href="{store}"{dl}>{btn_logo}<span>{btn_short}</span></a>
   </div>
 </header>
 <main>
@@ -505,7 +726,7 @@ def page(slug: str, app: dict, lang: str) -> str:
       <p class="eyebrow">{e(c["eyebrow"])}</p>
       <h1>{e(c["h1"])}</h1>
       <p class="lead">{e(c["lead"])}</p>
-      <div class="cta"><a class="btn" href="{store}">{WIN_LOGO}<span>{u["store"]}</span></a><a class="btn btn-ghost" href="#demo">{u["try"]}</a></div>
+      <div class="cta"><a class="btn" href="{store}"{dl}>{btn_logo}<span>{btn_label}</span></a><a class="btn btn-ghost" href="#demo">{u["try"]}</a></div>
       <ul class="facts">{facts}</ul>
     </div>
   </section>
@@ -544,8 +765,8 @@ def page(slug: str, app: dict, lang: str) -> str:
     <div class="wrap">
       <img src="{app["icon"]}" alt="" width="72" height="72" loading="lazy">
       <h2>{e(u["cta_title"].format(app["name"]))}</h2>
-      <p>{u["cta_text"]}</p>
-      <a class="btn" href="{store}">{WIN_LOGO}<span>{u["store"]}</span></a>
+      <p>{cta_text}</p>
+      <a class="btn" href="{store}"{dl}>{btn_logo}<span>{btn_label}</span></a>
     </div>
   </section>
   <section class="more">
@@ -556,7 +777,7 @@ def page(slug: str, app: dict, lang: str) -> str:
   </section>
 </main>
 <footer class="foot">
-  <div class="wrap">{u["by"]} <a href="https://kingpindev.com/">Kingpindev</a> · <a href="https://kingpindev.com/#projects">{u["home"]}</a>{privacy}</div>
+  <div class="wrap">{by} <a href="https://kingpindev.com/">Kingpindev</a> · <a href="https://kingpindev.com/#projects">{u["home"]}</a>{privacy}</div>
 </footer>
 </body>
 </html>
