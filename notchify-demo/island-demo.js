@@ -490,7 +490,10 @@
       if (barSeek) barSeek.v = barValue(pointer);
       lyricsView.dragTo(pointer);
     });
-    document.documentElement.addEventListener("pointerleave", () => {   // cursor left the browser window
+    // Touch fires pointerleave when the finger lifts; that must not close a tapped-open island.
+    document.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse" && !canvas.contains(e.target)) pinned = false; });
+    document.documentElement.addEventListener("pointerleave", (e) => {   // cursor left the browser window
+      if (e.pointerType && e.pointerType !== "mouse") return;
       pointer = null; hover = false; latched = false; pressed = null; pinned = false;
       home.inLeave(); home.inCancel(); barSeek = null; lyricsView.cancelPress();
     });

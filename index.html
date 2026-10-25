@@ -3546,7 +3546,7 @@
       if (!nfyEl) {
         nfyEl = document.createElement('div');
         nfyEl.className = 'nfy-demo';
-        nfyEl.innerHTML = '<div class="nfy-canvas"><canvas aria-label="Notchify canlı demo: ekranın üstünde şarkı sözlerini gösteren ada. Müzik oynatıcıyı açmak için üzerine gelin."></canvas></div><div class="nfy-hint">Adanın üzerine gel</div>';
+        nfyEl.innerHTML = '<div class="nfy-canvas"><canvas aria-label="Notchify canlı demo: ekranın üstünde şarkı sözlerini gösteren ada. Müzik oynatıcıyı açmak için üzerine gelin ya da dokunun."></canvas></div><div class="nfy-hint">' + (matchMedia('(hover: none)').matches ? 'Adaya dokun' : 'Adanın üzerine gel') + '</div>';
         requestAnimationFrame(() => {
           if (window.NotchifyDemo) window.NotchifyDemo.mount(nfyEl.firstChild);
           // The card fades in scaled down; measure again once it is full size.

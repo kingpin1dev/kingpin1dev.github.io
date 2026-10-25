@@ -135,6 +135,7 @@
     "Hesabınızı doğrulayın": "Verify your account", "az önce": "just now", "Haftanın fırsatları": "Deals of the week",
     "Giriş kodunuz: 4821": "Your login code: 4821", "3 dk": "3 min", "12 dk": "12 min",
     "Adanın üzerine gel": "Hover the island",
+    "Adaya dokun": "Tap the island",
     "Notchify canlı demo: ekranın üstünde şarkı sözlerini gösteren ada. Müzik oynatıcıyı açmak için üzerine gelin.": "Notchify live demo: an island at the top of the screen showing lyrics. Hover it to open the music player.",
     "vOrganizer canlı demo": "vOrganizer live demo", "Aurora Radios canlı demo": "Aurora Radios live demo",
 
