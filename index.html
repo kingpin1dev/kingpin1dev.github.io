@@ -3703,6 +3703,26 @@
     renderWall();
     document.getElementById('feat-visual').appendChild(groupyDemo());
 
+    // Featured app rotates every 6 s until the visitor clicks or taps in the gallery. It also
+    // waits while the pointer is over the featured card (so a demo in use never switches
+    // under the visitor), while the gallery is off screen and while the tab is hidden.
+    (function autoRotate() {
+      const section = document.getElementById('feat-card').closest('section') || document.getElementById('feat-card').parentElement;
+      let stopped = false, hovering = false, visible = false;
+      const stop = () => { stopped = true; };
+      section.addEventListener('pointerdown', stop, true);
+      section.addEventListener('keydown', stop, true);
+      const feat = document.getElementById('feat-card');
+      feat.addEventListener('pointerenter', () => { hovering = true; });
+      feat.addEventListener('pointerleave', () => { hovering = false; });
+      new IntersectionObserver(([en]) => { visible = en.isIntersecting; }, { threshold: 0.25 }).observe(section);
+      setInterval(() => {
+        if (stopped || hovering || !visible || document.hidden) return;
+        const i = APPS.findIndex(a => a.id === featuredId);
+        setFeatured(APPS[(i + 1) % APPS.length].id);
+      }, 6000);
+    })();
+
     // Custom cursor
     (function initCursor() {
       const cur = document.getElementById('cur');
