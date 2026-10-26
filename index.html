@@ -4054,6 +4054,95 @@
       });
     })();
 
+    // Easter egg: ↑ ↓ ↑ ↓ then "nazlı" (or "nazli") shows a poem while hearts fall.
+    (function initNazli() {
+      const POEM = [
+        "I LOVED YOU YESTERDAY.", "I LOVE YOU STILL:", "I'LL LOVE YOU TOMORROW.", "I ALWAYS WILL.",
+        "I NEVER HAD ANYONE.", "TO CALL MY OWN:", "THEY ALL SOMEHOW LEFT ME.", "AND MADE ME THIS STONE.",
+        "THEN CAME YOU, AND SHOWED ME LOVE:", "BECAME MY ONLY ANGEL, BECAME MY KINDEST DOVE.",
+        "I'M INCOMPLETE WITHOUT YOU.", "I DON'T WANNA LOSE YOU: GIVE ME A MILLION CHOICES.", "AND I'LL STILL ALWAYS CHOOSE YOU.",
+      ];
+      const ARROWS = { ArrowUp: 'U', ArrowDown: 'D' };
+      let buf = '';
+      let open = null;
+
+      const style = document.createElement('style');
+      style.textContent = `
+        .nz-veil{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:24px;background:rgba(6,4,14,.78);opacity:0;transition:opacity .6s ease}
+        .nz-veil.show{opacity:1}
+        .nz-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+        .nz-heart{position:absolute;top:-8vh;line-height:1;will-change:transform;animation:nzFall linear forwards}
+        @keyframes nzFall{to{transform:translate3d(var(--sway),112vh,0) rotate(var(--spin))}}
+        .nz-card{position:relative;z-index:1;max-width:640px;width:100%;text-align:center;padding:34px 28px 26px;border-radius:26px;
+          background:linear-gradient(180deg,rgba(40,14,34,.92),rgba(18,8,24,.92));border:1px solid rgba(255,140,190,.28);box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 60px rgba(255,92,138,.18)}
+        .nz-card .nz-big{font-size:34px;margin-bottom:10px}
+        .nz-line{margin:0;font-weight:800;letter-spacing:.06em;font-size:clamp(14px,2.1vw,19px);line-height:1.7;color:#ffe3ee;opacity:0;transform:translateY(6px);transition:opacity .7s ease,transform .7s ease}
+        .nz-line.in{opacity:1;transform:none}
+        .nz-line.gap{margin-top:12px}
+        .nz-close{margin-top:22px;font-size:12px;letter-spacing:.08em;color:rgba(255,200,222,.6)}
+      `;
+      document.head.appendChild(style);
+
+      function close() {
+        if (!open) return;
+        const o = open; open = null;
+        clearInterval(o.rain);
+        o.veil.classList.remove('show');
+        setTimeout(() => o.veil.remove(), 700);
+        document.removeEventListener('keydown', o.onKey, true);
+      }
+
+      function show() {
+        if (open) return;
+        const veil = document.createElement('div');
+        veil.className = 'nz-veil';
+        veil.setAttribute('role', 'dialog');
+        veil.setAttribute('aria-label', 'Nazlı');
+        veil.setAttribute('data-i18n-skip', '');
+        veil.innerHTML = '<div class="nz-card"><div class="nz-big">♥</div>' +
+          POEM.map((l, i) => `<p class="nz-line${i === 4 || i === 8 ? ' gap' : ''}">${l.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</p>`).join('') +
+          '<div class="nz-close">♥</div></div>';
+        const hearts = document.createElement('div');
+        hearts.className = 'nz-hearts';
+        veil.insertBefore(hearts, veil.firstChild);   // behind the card
+        document.body.appendChild(veil);
+        requestAnimationFrame(() => veil.classList.add('show'));
+        veil.querySelectorAll('.nz-line').forEach((el, i) => setTimeout(() => el.classList.add('in'), 500 + i * 420));
+
+        // Hearts keep falling while the poem is open; fewer on lite (no-GPU) machines.
+        const lite = document.documentElement.classList.contains('lite');
+        const colors = ['#ff5c8a', '#ff8fb3', '#ff3d71', '#ffb3c9', '#e0449e', '#ff6c9d'];
+        function drop() {
+          if (hearts.childElementCount > (lite ? 30 : 90)) return;
+          const h = document.createElement('span');
+          h.className = 'nz-heart';
+          h.textContent = Math.random() < 0.82 ? '♥' : '❤';
+          const size = 12 + Math.random() * 26;
+          const dur = 5 + Math.random() * 6;
+          h.style.cssText = `left:${Math.random() * 100}vw;font-size:${size}px;color:${colors[(Math.random() * colors.length) | 0]};` +
+            `opacity:${0.55 + Math.random() * 0.45};animation-duration:${dur}s;--sway:${(Math.random() - .5) * 160}px;--spin:${(Math.random() - .5) * 120}deg`;
+          h.addEventListener('animationend', () => h.remove());
+          hearts.appendChild(h);
+        }
+        for (let i = 0; i < (lite ? 8 : 24); i++) setTimeout(drop, i * 90);
+        const rain = setInterval(drop, lite ? 380 : 140);
+
+        const onKey = (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(); } };
+        document.addEventListener('keydown', onKey, true);
+        veil.addEventListener('click', close);
+        open = { veil, hearts, rain, onKey };
+        if (window.__achv) window.__achv('Nazlı ♥');
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (open) return;
+        const k = ARROWS[e.key] || (e.key && e.key.length === 1 ? e.key.toLocaleLowerCase('tr') : '');
+        if (!k) return;
+        buf = (buf + k).slice(-12);
+        if (/UDUDnazl[ıi]$/.test(buf)) { buf = ''; show(); }
+      });
+    })();
+
     // Interactive main-rig terminal
     (function initTerminal() {
       const input = document.getElementById('term-input');
