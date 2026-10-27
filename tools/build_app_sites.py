@@ -605,6 +605,70 @@ APPS: dict[str, dict] = {
                     ("Hangi dili kullanıyor?", "Lolable Türkçe yanıt verir.")],
         },
     },
+    "glidesnap": {
+        "name": "GlideSnap", "icon": "/img/GlideSnap.png", "store": "9PND7TH314ZD", "accent": "#70ffb2", "accent2": "#3b82f6",
+        "category": "UtilitiesApplication", "demo": {"kind": "script", "src": "/glidesnap-demo/glidesnap-demo.js", "api": "GlideSnapDemo", "opts": {"img": "/img/"}, "lang": True},
+        "en": {
+            "title": "GlideSnap: move and resize any Windows window with Alt",
+            "desc": "GlideSnap moves and resizes Windows windows from anywhere: hold Alt, drag, and snap them to edges and grids. Light, no account, from Microsoft Store.",
+            "eyebrow": "Window manager for Windows",
+            "h1": "Grab any window from anywhere.",
+            "lead": "GlideSnap brings the window handling of Linux desktops to Windows. Hold Alt and drag a window by any part of it to move it, drag with the right button to resize from the nearest corner or edge, and drop it on an edge to snap it. No more aiming for the title bar.",
+            "facts": ["Windows 10 and 11", "Alt + drag", "Snap and grid", "Lives in the tray"],
+            "demo_title": "Try it here",
+            "demo_note": "A small desktop running in your browser. Hold Alt, or tap the on-screen Alt key, then drag a window by its body. Right drag resizes, the wheel changes opacity, and dropping on an edge snaps it.",
+            "features_title": "What GlideSnap does",
+            "features": [
+                ("move", "Move from anywhere", "Alt + left drag moves a window by any part of it, not just the title bar."),
+                ("maximize", "Resize from any corner", "Alt + right drag resizes from the nearest corner or edge, so you always grab the right one."),
+                ("grid", "Snap and grid", "Drop a window on an edge to maximize or tile it. Turn on 2x1, 3x1, 2x2 or 3x2 grids when you want them."),
+                ("eye", "Opacity", "Alt + wheel makes a window see-through, handy for keeping an eye on what is behind it."),
+                ("check", "Always on top", "Alt + middle click pins a window above the rest and unpins it again."),
+                ("undo", "Back to its size", "Dragging a snapped window out gives it back its previous size."),
+                ("keyboard", "Your own keys", "Choose Alt, Ctrl or Shift and what each mouse button does."),
+                ("tray", "Stays out of the way", "Lives in the tray, can start with Windows and skips apps you exclude by title, class or .exe."),
+            ],
+            "steps_title": "How it works",
+            "steps": [("Install it", "Get GlideSnap from Microsoft Store. It starts in the system tray."),
+                      ("Hold Alt", "Drag any window by any part of it. Right drag resizes."),
+                      ("Tune it", "Open the settings to change keys, snapping, grids and exclusions.")],
+            "details": [("Platform", "Windows 10 and 11"), ("Account", "None"), ("Language", "English"), ("Where", "Microsoft Store")],
+            "faq": [("Does it work on every window?", "On almost all of them. Windows does not let a normal app control elevated or protected windows."),
+                    ("Can I change the Alt key?", "Yes. Pick Alt, Ctrl or Shift and set what each mouse button does."),
+                    ("Can I exclude an app?", "Yes. Exclude by window title, window class or .exe name, or pause GlideSnap from the tray."),
+                    ("Does it run at startup?", "Only if you turn that option on.")],
+        },
+        "tr": {
+            "title": "GlideSnap: Alt ile her Windows penceresini taşıyın ve boyutlandırın",
+            "desc": "GlideSnap, Alt'a basıp sürükleyerek pencereleri her yerinden taşır ve boyutlandırır, kenarlara ve ızgaraya oturtur. Hafif, hesapsız, Microsoft Store'dan.",
+            "eyebrow": "Windows için pencere yöneticisi",
+            "h1": "Pencereyi her yerinden tutun.",
+            "lead": "GlideSnap, Linux masaüstlerindeki pencere yönetimini Windows'a getirir. Alt'ı basılı tutup pencerenin herhangi bir yerinden sürükleyerek taşıyın, sağ tuşla sürükleyerek en yakın köşeden ya da kenardan boyutlandırın, kenara bırakarak oturtun. Başlık çubuğunu aramak yok.",
+            "facts": ["Windows 10 ve 11", "Alt + sürükle", "Snap ve ızgara", "Tepsiden çalışır"],
+            "demo_title": "Burada deneyin",
+            "demo_note": "Tarayıcınızda çalışan küçük bir masaüstü. Alt'ı basılı tutun ya da ekrandaki Alt tuşuna dokunun, sonra pencereyi gövdesinden sürükleyin. Sağ tuşla sürükleme boyutlandırır, tekerlek şeffaflığı değiştirir, kenara bırakmak oturtur.",
+            "features_title": "GlideSnap neler yapar",
+            "features": [
+                ("move", "Her yerinden taşıyın", "Alt + sol tuşla sürükleyerek pencereyi sadece başlık çubuğundan değil, herhangi bir yerinden taşıyın."),
+                ("maximize", "Her köşeden boyutlandırın", "Alt + sağ tuşla sürükleyince en yakın köşe ya da kenar boyutlanır, doğru yeri tutmak zorunda kalmazsınız."),
+                ("grid", "Snap ve ızgara", "Pencereyi kenara bırakarak büyütün ya da yarıya oturtun. İsterseniz 2x1, 3x1, 2x2 veya 3x2 ızgaraları açın."),
+                ("eye", "Şeffaflık", "Alt + tekerlek pencereyi saydamlaştırır; arkasında olanı takip etmek için kullanışlıdır."),
+                ("check", "Her zaman üstte", "Alt + orta tık pencereyi diğerlerinin üstüne sabitler, tekrar basınca bırakır."),
+                ("undo", "Eski boyutuna dönsün", "Oturtulmuş bir pencereyi sürükleyip çıkarınca önceki boyutunu geri alır."),
+                ("keyboard", "Kendi tuşlarınız", "Alt, Ctrl ya da Shift seçin; her fare tuşunun ne yapacağını belirleyin."),
+                ("tray", "Yolunuza çıkmaz", "Tepsiden çalışır, Windows ile başlayabilir; başlık, sınıf ya da .exe adıyla dışarıda bırakılan uygulamalara dokunmaz."),
+            ],
+            "steps_title": "Nasıl çalışır",
+            "steps": [("Kurun", "GlideSnap'i Microsoft Store'dan edinin. Sistem tepsisinde başlar."),
+                      ("Alt'a basın", "Pencereyi herhangi bir yerinden sürükleyin. Sağ tuşla sürüklemek boyutlandırır."),
+                      ("Ayarlayın", "Tuşları, oturtmayı, ızgaraları ve hariç tutulanları ayarlardan değiştirin.")],
+            "details": [("Platform", "Windows 10 ve 11"), ("Hesap", "Gerekmez"), ("Dil", "İngilizce"), ("Nereden", "Microsoft Store")],
+            "faq": [("Her pencerede çalışır mı?", "Hemen hepsinde. Windows, normal bir uygulamanın yükseltilmiş ya da korumalı pencereleri yönetmesine izin vermez."),
+                    ("Alt tuşunu değiştirebilir miyim?", "Evet. Alt, Ctrl ya da Shift seçin, her fare tuşunun işlevini belirleyin."),
+                    ("Bir uygulamayı hariç tutabilir miyim?", "Evet. Pencere başlığı, sınıfı ya da .exe adıyla hariç tutun; ya da tepsiden GlideSnap'i duraklatın."),
+                    ("Windows ile açılıyor mu?", "Sadece o seçeneği açarsanız.")],
+        },
+    },
 }
 
 UI = {
@@ -620,7 +684,8 @@ UI = {
 
 OTHER_APPS = [("lunadock", "LunaDock", "/img/lunadock.png"), ("groupy", "Groupy", "/img/FluentMixer.png"), ("vicesonar", "VICE Sonar", "/img/vice-sonar.png"),
               ("vorganizer", "vOrganizer", "/img/Vorganizer.png"), ("aurora", "Aurora Radios", "/img/Aurora.png"),
-              ("spotidrop", "SpotiDrop", "/img/SpotiDrop.png"), ("goliath", "Goliath", "/img/Goliath.png"), ("lolable", "Lolable", "/img/Lolable.png")]
+              ("spotidrop", "SpotiDrop", "/img/SpotiDrop.png"), ("goliath", "Goliath", "/img/Goliath.png"), ("lolable", "Lolable", "/img/Lolable.png"),
+              ("glidesnap", "GlideSnap", "/img/GlideSnap.png")]
 
 WIN_LOGO = '<svg viewBox="0 0 88 88" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M0 12.4l35.7-4.9v34.4H0zM40 6.8L87.3 0v41.5H40zM0 45.7h35.7v34.5L0 75.3zM40 45.7h47.3V88L40 81.4z"/></svg>'
 
