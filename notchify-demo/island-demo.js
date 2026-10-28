@@ -398,7 +398,7 @@
     const canvas = root.querySelector("canvas");
     const ctx = canvas.getContext("2d");
     let W = 1000;                            // logical stage width (narrower on phones, see resize)
-    const H = 540;                           // canvas height: room for the tallest home menu view (480)
+    const H = 640;                           // canvas height: room for the tallest home menu view (phone, 590)
     const H_MIN = 300;                       // visible stage height while the pill / player show
     let hView = H_MIN;                       // visible height, eased: the stage grows with the island
     const PILL = [170, 35], PLAYER = [610, 200];
@@ -828,6 +828,13 @@
     download: "M12 3v12 M7 10l5 5 5-5 M3 16v4a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-4",
     dlPause: "M8 5v14 M16 5v14", dlPlay: "M8 5l11 7-11 7z", dlCancel: "M6 6l12 12 M18 6L6 18",
   };
+  // Discord / phone / downloads strings, from the app's own feature catalog (same order as DEMO_KEYS).
+  const DEMO_KEYS = ["Desktop connected", "Waiting for a call", "Join a voice channel in Discord", "Mic muted", "Mic on", "Audio off", "Audio on", "Leave", "Share screen", "Toggle camera", "VOICE MEMBERS", "Members will appear here when you join", "Transfer to phone", "Same Wi-Fi · Phone ↔ Computer", "Start transfer", "Stop", "Start", "Network: ", "Choose files", "Received files", "Copy link", "Clear list", "SEND TO PHONE · ", "Scan the QR to receive files from your phone.", "Local network · 1 GB/file · 4 GB/session", "Scan QR · Valid for 15 minutes", "Preparing QR…", "Transfer stopped.", "Received: {0}", "{0} received · {1} downloaded", "Downloads", "Browser paired", "Completed · Show in folder", "Download interrupted", "Paused", "{0}% · {1}/s · ~{2} left", "{0} s", "{0} min", "Percentage and time appear when provided by the browser."];
+  const DEMO_TEXT = {"tr": ["Masaüstü bağlı", "Görüşme bekleniyor", "Discord’dan bir ses kanalına katıl", "Mikrofon kapalı", "Mikrofon açık", "Ses kapalı", "Ses açık", "Ayrıl", "Ekran paylaş", "Kamera aç / kapat", "SESTEKİ ÜYELER", "Katıldığında üyeler burada görünecek", "Telefonla aktar", "Aynı Wi-Fi · Telefon ↔ Bilgisayar", "Aktarımı başlat", "Durdur", "Başlat", "Ağ: ", "Dosya seç", "Gelen dosyalar", "Bağlantıyı kopyala", "Listeyi temizle", "TELEFONA GÖNDER · ", "Telefondan dosya almak için QR’ı tara.", "Yerel ağ · 1 GB / dosya · 4 GB / oturum", "QR’ı tara · 15 dakika geçerli", "QR hazırlanıyor…", "Aktarım durduruldu.", "Alındı: {0}", "{0} alınan · {1} indirilen", "İndirmeler", "Tarayıcı eşleştirildi", "Tamamlandı · Klasörde göster", "İndirme kesildi", "Duraklatıldı", "%{0} · {1}/sn · ~{2} kaldı", "{0} sn", "{0} dk", "Yüzde ve süre, tarayıcı bildirdiğinde gösterilir."], "fr": ["Application connectée", "En attente d’un appel", "Rejoignez un salon vocal Discord", "Micro coupé", "Micro activé", "Son coupé", "Son activé", "Quitter", "Partager l’écran", "Activer / couper la caméra", "MEMBRES DU SALON VOCAL", "Les membres apparaîtront ici après votre arrivée", "Transférer vers le téléphone", "Même Wi-Fi · Téléphone ↔ Ordinateur", "Démarrer le transfert", "Arrêter", "Démarrer", "Réseau : ", "Choisir des fichiers", "Fichiers reçus", "Copier le lien", "Vider la liste", "ENVOYER AU TÉLÉPHONE · ", "Scannez le QR pour recevoir des fichiers du téléphone.", "Réseau local · 1 Go/fichier · 4 Go/session", "Scanner le QR · Valable 15 minutes", "Préparation du QR…", "Transfert arrêté.", "Reçu : {0}", "{0} reçus · {1} téléchargés", "Téléchargements", "Navigateur associé", "Terminé · Afficher dans le dossier", "Téléchargement interrompu", "En pause", "{0} % · {1}/s · ~{2} restantes", "{0} s", "{0} min", "Pourcentage et durée selon le navigateur."], "ru": ["Клиент подключён", "Ожидание разговора", "Присоединитесь к голосовому каналу Discord", "Микрофон выключен", "Микрофон включён", "Звук выключен", "Звук включён", "Выйти", "Демонстрация экрана", "Включить / выключить камеру", "УЧАСТНИКИ КАНАЛА", "Участники появятся после подключения", "Передача на телефон", "Одна сеть Wi-Fi · Телефон ↔ Компьютер", "Начать передачу", "Остановить", "Начать", "Сеть: ", "Выбрать файлы", "Полученные файлы", "Копировать ссылку", "Очистить список", "НА ТЕЛЕФОН · ", "Сканируйте QR, чтобы получить файлы с телефона.", "Локальная сеть · 1 ГБ/файл · 4 ГБ/сеанс", "Сканируйте QR · Действует 15 минут", "Подготовка QR…", "Передача остановлена.", "Получено: {0}", "Получено: {0} · Скачано: {1}", "Загрузки", "Браузер сопряжён", "Готово · Показать в папке", "Загрузка прервана", "Приостановлено", "{0}% · {1}/с · осталось ~{2}", "{0} с", "{0} мин", "Процент и время по данным браузера."], "es": ["Aplicación conectada", "Esperando una llamada", "Únete a un canal de voz de Discord", "Micrófono silenciado", "Micrófono activo", "Audio desactivado", "Audio activado", "Salir", "Compartir pantalla", "Activar / desactivar cámara", "MIEMBROS DEL CANAL DE VOZ", "Los miembros aparecerán aquí cuando te unas", "Transferir al teléfono", "Misma Wi-Fi · Teléfono ↔ Ordenador", "Iniciar transferencia", "Detener", "Iniciar", "Red: ", "Elegir archivos", "Archivos recibidos", "Copiar enlace", "Vaciar lista", "ENVIAR AL TELÉFONO · ", "Escanea el QR para recibir archivos del teléfono.", "Red local · 1 GB/archivo · 4 GB/sesión", "Escanea el QR · Válido durante 15 minutos", "Preparando QR…", "Transferencia detenida.", "Recibido: {0}", "{0} recibidos · {1} descargados", "Descargas", "Navegador vinculado", "Completado · Mostrar en carpeta", "Descarga interrumpida", "En pausa", "{0}% · {1}/s · quedan ~{2}", "{0} s", "{0} min", "Porcentaje y tiempo según el navegador."], "de": ["Desktop verbunden", "Warte auf Gespräch", "Einem Discord-Sprachkanal beitreten", "Mikrofon stumm", "Mikrofon an", "Ton aus", "Ton an", "Verlassen", "Bildschirm teilen", "Kamera an / aus", "MITGLIEDER IM SPRACHKANAL", "Mitglieder erscheinen hier nach dem Beitritt", "Ans Telefon übertragen", "Gleiches WLAN · Handy ↔ Computer", "Übertragung starten", "Stoppen", "Starten", "Netzwerk: ", "Dateien auswählen", "Empfangene Dateien", "Link kopieren", "Liste leeren", "ANS HANDY SENDEN · ", "QR-Code scannen, um Dateien vom Handy zu empfangen.", "Lokales Netz · 1 GB/Datei · 4 GB/Sitzung", "QR scannen · 15 Minuten gültig", "QR-Code wird vorbereitet…", "Übertragung gestoppt.", "Empfangen: {0}", "{0} empfangen · {1} heruntergeladen", "Downloads", "Browser gekoppelt", "Fertig · Im Ordner anzeigen", "Download unterbrochen", "Pausiert", "{0}% · {1}/s · noch ~{2}", "{0} s", "{0} Min.", "Prozent und Zeit nach Browserdaten."], "ja": ["デスクトップに接続済み", "通話を待機中", "Discord のボイスチャンネルに参加", "マイクオフ", "マイクオン", "音声オフ", "音声オン", "退出", "画面共有", "カメラのオン／オフ", "ボイスチャンネルのメンバー", "参加するとメンバーがここに表示されます", "スマートフォンに転送", "同じ Wi-Fi · スマホ ↔ PC", "転送を開始", "停止", "開始", "ネットワーク: ", "ファイルを選択", "受信したファイル", "リンクをコピー", "リストを消去", "スマートフォンへ送信 · ", "QR をスキャンしてスマホからファイルを受信。", "ローカルネットワーク · 1 GB/ファイル · 4 GB/セッション", "QR をスキャン · 15 分間有効", "QR を準備中…", "転送を停止しました。", "受信: {0}", "{0} 件受信 · {1} 件ダウンロード", "ダウンロード", "ブラウザをペアリング済み", "完了 · フォルダーに表示", "ダウンロードが中断されました", "一時停止", "{0}% · {1}/秒 · 残り約{2}", "{0} 秒", "{0} 分", "取得できる場合に進捗率と時間を表示。"], "zh": ["桌面客户端已连接", "等待通话", "加入 Discord 语音频道", "麦克风已静音", "麦克风已开启", "声音已关闭", "声音已开启", "离开", "共享屏幕", "开启／关闭摄像头", "语音频道成员", "加入后将在此显示成员", "传输到手机", "同一 Wi-Fi · 手机 ↔ 电脑", "开始传输", "停止", "开始", "网络：", "选择文件", "收到的文件", "复制链接", "清空列表", "发送到手机 · ", "扫描二维码以接收手机文件。", "局域网 · 每文件 1 GB · 每会话 4 GB", "扫描二维码 · 15 分钟内有效", "正在准备二维码…", "传输已停止。", "已接收：{0}", "已接收 {0} · 已下载 {1}", "下载", "浏览器已配对", "已完成 · 在文件夹中显示", "下载已中断", "已暂停", "{0}% · {1}/秒 · 约剩 {2}", "{0} 秒", "{0} 分钟", "浏览器提供数据时显示进度和时间。"], "ar": ["تطبيق سطح المكتب متصل", "بانتظار مكالمة", "انضم إلى قناة صوتية في Discord", "الميكروفون مكتوم", "الميكروفون مفعّل", "الصوت متوقف", "الصوت مفعّل", "مغادرة", "مشاركة الشاشة", "تشغيل / إيقاف الكاميرا", "أعضاء القناة الصوتية", "سيظهر الأعضاء هنا عند انضمامك", "النقل إلى الهاتف", "نفس Wi-Fi · الهاتف ↔ الكمبيوتر", "بدء النقل", "إيقاف", "بدء", "الشبكة: ", "اختيار ملفات", "الملفات المستلمة", "نسخ الرابط", "مسح القائمة", "إرسال إلى الهاتف · ", "امسح QR لاستلام الملفات من هاتفك.", "شبكة محلية · 1 GB/ملف · 4 GB/جلسة", "امسح QR · صالح لمدة 15 دقيقة", "جارٍ إعداد QR…", "توقف النقل.", "تم الاستلام: {0}", "{0} مستلم · {1} منزّل", "التنزيلات", "تم اقتران المتصفح", "اكتمل · إظهار في المجلد", "انقطع التنزيل", "متوقف مؤقتًا", "{0}٪ · {1}/ث · متبقٍ ~{2}", "{0} ث", "{0} د", "تظهر النسبة والمدة عندما يوفرهما المتصفح."], "az": ["Masaüstü qoşulub", "Zəng gözlənilir", "Discord-da səs kanalına qoşul", "Mikrofon bağlıdır", "Mikrofon açıqdır", "Səs bağlıdır", "Səs açıqdır", "Ayrıl", "Ekranı paylaş", "Kameranı aç / bağla", "SƏS KANALINDAKI ÜZVLƏR", "Qoşulduqda üzvlər burada görünəcək", "Telefona ötür", "Eyni Wi-Fi · Telefon ↔ Kompüter", "Ötürməni başlat", "Dayandır", "Başlat", "Şəbəkə: ", "Fayl seç", "Gələn fayllar", "Keçidi kopyala", "Siyahını təmizlə", "TELEFONA GÖNDƏR · ", "Telefondan fayl almaq üçün QR-ı skan et.", "Yerli şəbəkə · 1 GB/fayl · 4 GB/sessiya", "QR-ı skan et · 15 dəqiqə etibarlıdır", "QR hazırlanır…", "Ötürmə dayandırıldı.", "Alındı: {0}", "{0} alınıb · {1} endirilib", "Endirmələr", "Brauzer qoşuldu", "Tamamlandı · Qovluqda göstər", "Endirmə kəsildi", "Dayandırılıb", "{0}% · {1}/san · ~{2} qalıb", "{0} san", "{0} dəq", "Brauzer bildirdikdə faiz və vaxt göstərilir."]};
+  const demoLang = (document.documentElement.lang || "en").split("-")[0];
+  /** Localized app string (the page language), falling back to English. */
+  function L(s) { const t = DEMO_TEXT[demoLang], i = DEMO_KEYS.indexOf(s); return t && i >= 0 ? t[i] : s; }
+  const fmt = (s, ...a) => s.replace(/\{(\d)\}/g, (_, i) => a[i]);
   /** DiscordIcons.Draw("discord"): the filled 64x48 logo, `size` wide. */
   function discordLogo(ctx, cx, cy, size, color) {
     let p = pathCache.get(DI.discord); if (!p) { p = new Path2D(DI.discord); pathCache.set(DI.discord, p); }
@@ -1190,19 +1197,19 @@
       if (t === "phone" && !ph.active) phStart();                        // HomeMenu.ShowPhonePanel
       tab = t;
     }
-    function phStart() { ph.active = true; ph.prep = 0.7; ph.t = 0; ph.got = 0; ph.status = "Preparing QR…"; ph.netOpen = false; }
-    function phStop() { ph.active = false; ph.prep = 0; ph.status = "Transfer stopped."; ph.netOpen = false; }
+    function phStart() { ph.active = true; ph.prep = 0.7; ph.t = 0; ph.got = 0; ph.status = L("Preparing QR…"); ph.netOpen = false; }
+    function phStop() { ph.active = false; ph.prep = 0; ph.status = L("Transfer stopped."); ph.netOpen = false; }
     function stepDemoFeatures(dt) {
       // Discord: speaking indicator moves around the call, Leave rejoins after a moment.
       dc.speak += dt; dc.flash = dc.flash.map((f) => Math.max(0, f - dt));
       if (!dc.inCall && (dc.rejoin -= dt) <= 0) { dc.inCall = true; dc.muted = dc.deaf = false; }
       // Phone: QR becomes ready, then the phone "sends" a photo.
       if (ph.active) {
-        if (ph.prep > 0) { ph.prep -= dt; if (ph.prep <= 0) ph.status = "Scan QR · Valid for 15 minutes"; }
+        if (ph.prep > 0) { ph.prep -= dt; if (ph.prep <= 0) ph.status = L("Scan QR · Valid for 15 minutes"); }
         else {
           ph.t += dt;
-          if (ph.got === 0 && ph.t > 6) { ph.got = 1; ph.status = "Received: IMG_2041.jpg"; }
-          else if (ph.got === 1 && ph.t > 9.5) { ph.got = 2; ph.status = "1 received · 0 downloaded"; }
+          if (ph.got === 0 && ph.t > 6) { ph.got = 1; ph.status = fmt(L("Received: {0}"), "IMG_2041.jpg"); }
+          else if (ph.got === 1 && ph.t > 9.5) { ph.got = 2; ph.status = fmt(L("{0} received · {1} downloaded"), 1, 0); }
         }
       }
       // Downloads progress; the list refills once nothing is running.
@@ -2054,7 +2061,7 @@
       discordLogo(ctx, x + 18, y + 28, 25, "#fff");
       txt(ctx, "Discord", x + 46, y + 27, 17, true, "#fff");
       circ(x + 49, y + 41, 2.5, DC_GREEN);
-      txt(ctx, "Desktop connected", x + 57, y + 45, 10, false, T.text2);
+      txt(ctx, L("Desktop connected"), x + 57, y + 45, 10, false, T.text2);
       zone("dc-set", X + W - 48, Y + 12, 32, 32, () => {});
       pressed("dc-set", X + W - 48, Y + 12, 32, 32, () => {
         rrect(X + W - 48, Y + 12, 32, 32, 9, W_(hovA("dc-set", 0.055, 0.11)));
@@ -2066,8 +2073,8 @@
       ctx.fillStyle = g; roundRect(ctx, x, y + 61, cw, 73, 14); ctx.fill();
       rrect(x + 13, y + 79, 34, 34, 10, DC_PURPLE);
       lucide(ctx, DI.headphones, x + 30, y + 96, 18, "#fff", 2);
-      txt(ctx, dc.inCall ? "Design lounge" : "Waiting for a call", x + 59, y + 89, 14, true, "#fff");
-      txt(ctx, dc.inCall ? "Kingpin Lounge" : "Join a voice channel in Discord", x + 59, y + 109, 10, false, T.text2);
+      txt(ctx, dc.inCall ? "Design lounge" : L("Waiting for a call"), x + 59, y + 89, 14, true, "#fff");
+      txt(ctx, dc.inCall ? "Kingpin Lounge" : L("Join a voice channel in Discord"), x + 59, y + 109, 10, false, T.text2);
       if (!dc.inCall) zone("dc-card", x, y + 61, cw, 73, () => { dc.rejoin = 0; });
       // mute / deafen / leave
       const bw = (W - 32) / 3;
@@ -2085,7 +2092,7 @@
           const tint = i === 2 ? "rgb(250,123,140)" : active ? DC_PURPLE : "#fff";
           const glyph = i === 0 ? (dc.muted ? LU.micOff : LU.micOn) : i === 1 ? (dc.deaf ? DI.headphoneOff : DI.headphones) : DI.phoneOff;
           lucide(ctx, glyph, bx + bw / 2, by + 19, 20, tint, 2);
-          const label = i === 0 ? (dc.muted ? "Mic muted" : "Mic on") : i === 1 ? (dc.deaf ? "Audio off" : "Audio on") : "Leave";
+          const label = i === 0 ? (dc.muted ? L("Mic muted") : L("Mic on")) : i === 1 ? (dc.deaf ? L("Audio off") : L("Audio on")) : L("Leave");
           txt(ctx, label, bx + 10, by + 46, 10, false, tint);
         });
       }
@@ -2097,14 +2104,14 @@
           const a = Math.max(hovA(id, 30, 55), 30 + 55 * Math.min(1, dc.flash[k] * 3)) / 255;
           rrect(bx, by, bw2, 36, 10, `rgba(88,101,242,${a})`);
           lucide(ctx, k ? DI.video : DI.screenShare, bx + 20, by + 18, 19, DC_PURPLE, 2);
-          txt(ctx, k ? "Toggle camera" : "Share screen", bx + 38, by + 23, 10, false, "#fff");
+          txt(ctx, k ? L("Toggle camera") : L("Share screen"), bx + 38, by + 23, 10, false, "#fff");
         });
       }
       // voice members
       const members = dcMembers();
-      txt(ctx, "VOICE MEMBERS", x + 2, y + 269, 9, true, MUTE);
+      txt(ctx, L("VOICE MEMBERS"), x + 2, y + 269, 9, true, MUTE);
       txt(ctx, String(members.length), x + cw - 18, y + 269, 10, false, T.text2);
-      if (!members.length) txt(ctx, "Members will appear here when you join", x + 14, y + 299, 10, false, T.text2);
+      if (!members.length) txt(ctx, L("Members will appear here when you join"), x + 14, y + 299, 10, false, T.text2);
       const turn = ["Lalune", "Lalune", "Kingpin", "Seksenbir", null][Math.floor(dc.speak / 1.6) % 5];
       members.forEach((m, i) => {
         const row = y + 282 + i * 40, muted = m.muted || (m.self && (dc.muted || dc.deaf));
@@ -2155,9 +2162,9 @@
       // header
       rrect(x, y + 9, 35, 35, 10, "rgba(88,101,242,0.216)");
       lucide(ctx, DI.smartphone, x + 17.5, y + 26.5, 23, "rgb(150,158,255)", 2);
-      txt(ctx, "Transfer to phone", x + 45, y + 26, 17, true, "#fff");
-      txt(ctx, "Same Wi-Fi · Phone ↔ Computer", x + 45, y + 43, 10, false, T.text2);
-      btn("ph-toggle", x + cw - 80, y + 10, 80, 28, ph.active ? "Stop" : "Start", 19, () => (ph.active ? phStop() : phStart()),
+      txt(ctx, L("Transfer to phone"), x + 45, y + 26, 17, true, "#fff");
+      txt(ctx, L("Same Wi-Fi · Phone ↔ Computer"), x + 45, y + 43, 10, false, T.text2);
+      btn("ph-toggle", x + cw - 80, y + 10, 80, 28, ph.active ? L("Stop") : L("Start"), 19, () => (ph.active ? phStop() : phStart()),
         ph.active ? `rgba(235,95,115,${hovA("ph-toggle", 0.118, 0.2)})` : null);
       // QR
       if (ph.active && ph.prep <= 0) {
@@ -2168,22 +2175,22 @@
         lucide(ctx, DI.smartphone, cx, y + 115, 40, "rgba(255,255,255,0.35)", 1.6);
         if (!ph.active) {
           zone("ph-qr", cx - 76, y + 61, 152, 152, phStart);
-          txt(ctx, "Start transfer", cx, y + 161, 12, false, hovA("ph-qr", 0, 1) > 0.5 ? "#fff" : T.text2, "center");
+          txt(ctx, L("Start transfer"), cx, y + 161, 12, false, hovA("ph-qr", 0, 1) > 0.5 ? "#fff" : T.text2, "center");
         }
       }
       if (ph.status) txt(ctx, fitText(ctx, ph.status, 11, false, cw), x, y + 231, 11, false, ph.active ? "rgb(130,220,171)" : T.text2);
       // actions
       const net = PH_NETS[ph.net];
-      btn("ph-net", x, y + 241, cw, 30, "Network: " + net[1] + "  ⌄", 20, () => { ph.netOpen = !ph.netOpen; });
-      btn("ph-choose", x, y + 282, cw / 2 - 4, 36, "Choose files", 23, () => {
+      btn("ph-net", x, y + 241, cw, 30, L("Network: ") + net[1] + "  ⌄", 20, () => { ph.netOpen = !ph.netOpen; });
+      btn("ph-choose", x, y + 282, cw / 2 - 4, 36, L("Choose files"), 23, () => {
         if (ph.files.length < 3) ph.files.push(PH_FILES[ph.next++ % PH_FILES.length]);
       });
-      btn("ph-recv", x + cw / 2 + 4, y + 282, cw / 2 - 4, 36, "Received files", 23, () => {});
-      btn("ph-copy", x, y + 326, cw / 2 - 4, 30, "Copy link", 20, () => {});
-      btn("ph-clear", x + cw / 2 + 4, y + 326, cw / 2 - 4, 30, "Clear list", 20, () => { ph.files = []; });
+      btn("ph-recv", x + cw / 2 + 4, y + 282, cw / 2 - 4, 36, L("Received files"), 23, () => {});
+      btn("ph-copy", x, y + 326, cw / 2 - 4, 30, L("Copy link"), 20, () => {});
+      btn("ph-clear", x + cw / 2 + 4, y + 326, cw / 2 - 4, 30, L("Clear list"), 20, () => { ph.files = []; });
       // files queued for the phone
-      txt(ctx, "SEND TO PHONE · " + ph.files.length, x, y + 380, 9, true, MUTE);
-      if (!ph.files.length) txt(ctx, "Scan the QR to receive files from your phone.", x + 2, y + 400, 10, false, T.text2);
+      txt(ctx, L("SEND TO PHONE · ") + ph.files.length, x, y + 380, 9, true, MUTE);
+      if (!ph.files.length) txt(ctx, L("Scan the QR to receive files from your phone."), x + 2, y + 400, 10, false, T.text2);
       ph.files.forEach((f, row) => {
         const ry = y + 387 + row * 30, id = "ph-rm" + row;
         rrect(x, ry, cw, 28, 7, W_(0.039));
@@ -2194,7 +2201,7 @@
           lucide(ctx, LU.x, X + W - 28, ry + 14, 15, "#fff", 2);
         });
       });
-      txt(ctx, "Local network · 1 GB/file · 4 GB/session", x, y + H - 8, 9, false, MUTE);
+      txt(ctx, L("Local network · 1 GB/file · 4 GB/session"), x, y + H - 8, 9, false, MUTE);
       // network picker
       if (ph.netOpen) {
         zone("ph-net-off", X, Y, W, H, () => { ph.netOpen = false; });
@@ -2212,12 +2219,12 @@
 
     // ── Downloads tab (DownloadView.Draw; x = Pos.X + 22, w = Size.X - 44) ──
     function dlDetail(d) {
-      if (d.state === "done") return "Completed · Show in folder";
-      if (d.state === "cancel") return "Download interrupted";
-      if (d.state === "pause") return "Paused";
+      if (d.state === "done") return L("Completed · Show in folder");
+      if (d.state === "cancel") return L("Download interrupted");
+      if (d.state === "pause") return L("Paused");
       const left = (d.total - d.got) / d.speed;
-      const eta = left < 60 ? Math.ceil(left) + " s" : Math.ceil(left / 60) + " min";
-      return `${Math.floor((d.got / d.total) * 100)}% · ${d.speed.toFixed(1)} MB/s · ~${eta} left`;
+      const eta = left < 60 ? fmt(L("{0} s"), Math.ceil(left)) : fmt(L("{0} min"), Math.ceil(left / 60));
+      return fmt(L("{0}% · {1}/s · ~{2} left"), Math.floor((d.got / d.total) * 100), d.speed.toFixed(1) + " MB", eta);
     }
     function drawDownloads(w, h) {
       const W = w - 30, H = h - bCD - TOPSP - 25, X = -W / 2, Y = TOP + 45;
@@ -2227,8 +2234,8 @@
       ctx.save(); ctx.beginPath(); ctx.rect(X - 4, Y, W + 8, H + 8); ctx.clip();
       rrect(x, y + 14, 40, 40, 12, accA(0.11));
       lucide(ctx, DI.download, x + 20, y + 34, 23, acc, 2);
-      txt(ctx, "Downloads", x + 54, y + 31, 17, true, "#fff");
-      txt(ctx, "Browser paired", x + 54, y + 49, 10, false, T.text2);
+      txt(ctx, L("Downloads"), x + 54, y + 31, 17, true, "#fff");
+      txt(ctx, L("Browser paired"), x + 54, y + 49, 10, false, T.text2);
       zone("dl-folder", X + W - 58, Y + 16, 36, 36, () => {});
       pressed("dl-folder", X + W - 58, Y + 16, 36, 36, () => {
         rrect(X + W - 58, Y + 16, 36, 36, 10, W_(hovA("dl-folder", 0.07, 0.12)));
@@ -2255,7 +2262,7 @@
           });
         }
       });
-      txt(ctx, "Percentage and time appear when provided by the browser.", x, y + H - 17, 9, false, MUTE);
+      txt(ctx, L("Percentage and time appear when provided by the browser."), x, y + H - 17, 9, false, MUTE);
       ctx.restore();
     }
 
