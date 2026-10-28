@@ -814,6 +814,30 @@
     ctx.stroke(p);
     ctx.restore();
   }
+  // Assets/DiscordIcons (Lucide, ISC) + DownloadView.DownloadIcon.
+  const DI = {
+    discord: "M40.575 0C39.9562 1.09866 39.4006 2.2352 38.8954 3.397C34.0967 2.67719 29.2096 2.67719 24.3982 3.397C23.9057 2.2352 23.3374 1.09866 22.7186 0C18.2104 0.770324 13.8157 2.12155 9.64839 4.02841C1.38951 16.2652 -0.845688 28.1863 0.265599 39.9432C5.10222 43.517 10.5197 46.2447 16.2909 47.9874C17.5916 46.2447 18.7407 44.3883 19.7257 42.4562C17.8568 41.7616 16.0509 40.8903 14.3208 39.88C14.7755 39.5517 15.2175 39.2107 15.6468 38.8824C25.7873 43.6559 37.5316 43.6559 47.6847 38.8824C48.1141 39.236 48.5561 39.577 49.0107 39.88C47.2806 40.9029 45.4748 41.7616 43.5931 42.4688C44.5781 44.4009 45.7273 46.2573 47.028 48C52.7991 46.2573 58.2167 43.5422 63.0533 39.9684C64.3666 26.3299 60.8055 14.5099 53.6452 4.04104C49.4905 2.13418 45.0959 0.782952 40.5876 0.0252565L40.575 0ZM21.1401 32.7072C18.0209 32.7072 15.4321 29.8785 15.4321 26.3804C15.4321 22.8824 17.9199 20.041 21.1275 20.041C24.3351 20.041 26.886 22.895 26.8354 26.3804C26.7849 29.8658 24.3224 32.7072 21.1401 32.7072ZM42.1788 32.7072C39.047 32.7072 36.4834 29.8785 36.4834 26.3804C36.4834 22.8824 38.9712 20.041 42.1788 20.041C45.3864 20.041 47.9246 22.895 47.8741 26.3804C47.8236 29.8658 45.3611 32.7072 42.1788 32.7072Z",
+    smartphone: "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z M12 18h.01",
+    headphones: "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3",
+    headphoneOff: "M21 14h-1.343 M9.128 3.47A9 9 0 0 1 21 12v3.343 M2 2l20 20 M20.414 20.414A2 2 0 0 1 19 21h-1a2 2 0 0 1-2-2v-3 M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 2.636-6.364",
+    phoneOff: "M10.1 13.9a14 14 0 0 0 3.732 2.668 1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2 18 18 0 0 1-12.728-5.272 M22 2 2 22 M4.76 13.582A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 .244.473",
+    screenShare: "M13 3H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3 M8 21h8 M12 17v4 M17 8l5-5 M17 3h5v5",
+    video: "M16 13l5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5 M4 6h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z",
+    userRound: "M17 8a5 5 0 1 1-10 0 5 5 0 0 1 10 0z M20 21a8 8 0 0 0-16 0",
+    settings: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915 M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+    download: "M12 3v12 M7 10l5 5 5-5 M3 16v4a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-4",
+    dlPause: "M8 5v14 M16 5v14", dlPlay: "M8 5l11 7-11 7z", dlCancel: "M6 6l12 12 M18 6L6 18",
+  };
+  /** DiscordIcons.Draw("discord"): the filled 64x48 logo, `size` wide. */
+  function discordLogo(ctx, cx, cy, size, color) {
+    let p = pathCache.get(DI.discord); if (!p) { p = new Path2D(DI.discord); pathCache.set(DI.discord, p); }
+    const s = size / 64;
+    ctx.save(); ctx.translate(cx - 32 * s, cy - 24 * s); ctx.scale(s, s); ctx.fillStyle = color; ctx.fill(p); ctx.restore();
+  }
+  // HomeMenu.GetDiscordIcon / GetPhoneIcon / GetDownloadIcon (64px bitmaps).
+  const DISCORD = glyphCanvas((g) => discordLogo(g, 32, 32, 56, "#fff"));
+  const PHONE = glyphCanvas((g) => lucide(g, DI.smartphone, 32, 32, 52, "#fff", 2));
+  const DOWNLOAD = glyphCanvas((g) => lucide(g, DI.download, 32, 32, 48, "#fff", 2));
   // TextRender.Draw: x/y is the baseline origin, like fillText.
   function txt(ctx, s, x, y, px, bold, col, align) {
     ctx.font = font(px, bold); ctx.textAlign = align || "left"; ctx.fillStyle = col;
@@ -995,8 +1019,9 @@
 
     const fades = { widgets: new Fade(tab === "widgets" && !pinned), clipboard: new Fade(tab === "clipboard"),
       notifications: new Fade(tab === "notifications"), toolbar: new Fade(!pinned), pinned: new Fade(pinned),
-      tray: new Fade(false), record: new Fade(false), bt: new Fade(false), recPill: new Fade(false) };
-    const lit = { widgets: 0, tray: 0, clipboard: 0, notifications: 0, record: 0, bt: 0 };
+      tray: new Fade(false), record: new Fade(false), bt: new Fade(false), recPill: new Fade(false),
+      discord: new Fade(tab === "discord"), phone: new Fade(tab === "phone"), download: new Fade(tab === "download") };
+    const lit = { widgets: 0, tray: 0, clipboard: 0, notifications: 0, record: 0, bt: 0, discord: 0, phone: 0, download: 0 };
     lit[tab] = 0.075;
     const lyricsGrid = new LyricsView(14), lyricsPin = new LyricsView(14);
     const wash = new Wash();
@@ -1020,6 +1045,22 @@
         { name: "Notchify 2026-10-07 11.37.27", meta: "00:00:07 • 3 MB • 1080p 60fps", img: SIMG.rec2 },
         { name: "Notchify 2026-10-07 11.24.27", meta: "00:00:09 • 4 MB • 1080p 60fps", img: SIMG.rec3 },
       ] };
+    // DiscordVoiceService (mocked): one voice channel, "Kingpin" is you.
+    const dc = { inCall: true, muted: false, deaf: false, rejoin: 0, speak: 0, flash: [0, 0] };
+    const DC_MEMBERS = [{ name: "Lalune", col: 0 }, { name: "Els", col: 1, muted: true }, { name: "Kingpin", col: 2, self: true }, { name: "Seksenbir", col: 3 }];
+    const dcMembers = () => (dc.inCall ? DC_MEMBERS : []);
+    // PhoneShareService (mocked)
+    const ph = { active: false, prep: 0, t: 0, status: "", got: 0, net: 0, netOpen: false, files: [], next: 0 };
+    const PH_FILES = ["Presentation.pdf", "Holiday photos.zip", "Invoice 0412.pdf", "Notes.txt", "Cover art.png"];
+    const PH_NETS = [["Wi-Fi", "192.168.1.102"], ["Ethernet", "10.0.0.24"]];
+    // DownloadStore (mocked): sizes in MB, speeds in MB/s.
+    const dlSeed = () => [
+      { name: "Design assets.zip", total: 842, got: 312, speed: 6.4, state: "run" },
+      { name: "Project archive.zip", total: 214, got: 158, speed: 2.2, state: "run" },
+      { name: "Meeting notes.pdf", total: 2.4, got: 2.4, speed: 0, state: "done" },
+    ];
+    let dls = dlSeed(), dlIdle = 0;
+    if (tab === "phone") phStart();
 
     const clipCardH = (e) => (e.kind === "image" ? 172 : 60);
     function clipContentH() { let h = 8; for (const e of entries) h += clipCardH(e) + 8; return h; }
@@ -1031,6 +1072,9 @@
       if (tab === "bt") return [360, 78];
       if (tab === "record") return recPill && rec.live ? [470, 62] : [880, 480];
       if (tab === "tray") return [565, 250];
+      if (tab === "discord") return [420, 404 + Math.min(4, dcMembers().length) * 40];
+      if (tab === "phone") return [440, 590];
+      if (tab === "download") return [440, 250 + Math.min(4, dls.length) * 78];
       if (tab === "widgets") return [565, 2 * 146 + bCD + 15 + TOPSP + 25];
       if (tab === "clipboard") {
         if (clipExpanded && entries.length) return [860, 480];
@@ -1143,7 +1187,31 @@
     function setTab(t) {
       if (t === "bt" && tab !== "bt") btReturn = tab;
       if (t === "notifications") groups.forEach((g) => (g.unread = 0));   // NotificationStore.MarkAllRead
+      if (t === "phone" && !ph.active) phStart();                        // HomeMenu.ShowPhonePanel
       tab = t;
+    }
+    function phStart() { ph.active = true; ph.prep = 0.7; ph.t = 0; ph.got = 0; ph.status = "Preparing QR…"; ph.netOpen = false; }
+    function phStop() { ph.active = false; ph.prep = 0; ph.status = "Transfer stopped."; ph.netOpen = false; }
+    function stepDemoFeatures(dt) {
+      // Discord: speaking indicator moves around the call, Leave rejoins after a moment.
+      dc.speak += dt; dc.flash = dc.flash.map((f) => Math.max(0, f - dt));
+      if (!dc.inCall && (dc.rejoin -= dt) <= 0) { dc.inCall = true; dc.muted = dc.deaf = false; }
+      // Phone: QR becomes ready, then the phone "sends" a photo.
+      if (ph.active) {
+        if (ph.prep > 0) { ph.prep -= dt; if (ph.prep <= 0) ph.status = "Scan QR · Valid for 15 minutes"; }
+        else {
+          ph.t += dt;
+          if (ph.got === 0 && ph.t > 6) { ph.got = 1; ph.status = "Received: IMG_2041.jpg"; }
+          else if (ph.got === 1 && ph.t > 9.5) { ph.got = 2; ph.status = "1 received · 0 downloaded"; }
+        }
+      }
+      // Downloads progress; the list refills once nothing is running.
+      for (const d of dls) if (d.state === "run") {
+        d.got = Math.min(d.total, d.got + d.speed * dt * (0.85 + 0.3 * Math.sin(clock * 1.7 + d.total)));
+        if (d.got >= d.total) d.state = "done";
+      }
+      if (!dls.some((d) => d.state === "run" || d.state === "pause")) { dlIdle += dt; if (dlIdle > 4) { dls = dlSeed(); dlIdle = 0; } }
+      else dlIdle = 0;
     }
 
     function step(dt) {
@@ -1156,6 +1224,7 @@
       rec.scroll += (rec.scrollT - rec.scroll) * Math.min(1, 18 * dt);
       if (rec.flash > 0) rec.flash -= dt;
       stepTray(dt, 565);
+      stepDemoFeatures(dt);
       target = targetSize();
       if (embedded) size = host.size().slice();
       else {
@@ -1170,6 +1239,8 @@
       fades.toolbar.set(!pinned && tab !== "bt" && !pill);
       fades.tray.set(tab === "tray" && !pinned); fades.record.set(tab === "record" && !pinned && !pill);
       fades.recPill.set(pill && !pinned); fades.bt.set(tab === "bt" && !pinned);
+      fades.discord.set(tab === "discord" && !pinned); fades.phone.set(tab === "phone" && !pinned);
+      fades.download.set(tab === "download" && !pinned);
       for (const k in fades) fades[k].step(dt);
       for (const k in lit) lit[k] = approach(lit[k], k === tab ? 0.075 : 0, 15, dt);
       clipY = approach(clipY, clipScroll, 20, dt); notifY = approach(notifY, notifScroll, 20, dt);
@@ -1235,6 +1306,9 @@
       withF(fades.record, () => drawRecord(w, h));
       withF(fades.recPill, () => drawRecPill(w, h));
       withF(fades.bt, () => drawBt(w, h));
+      withF(fades.discord, () => drawDiscord(w, h));
+      withF(fades.phone, () => drawPhone(w, h));
+      withF(fades.download, () => drawDownloads(w, h));
       withF(fades.pinned, () => {
         const x = -130, y = icy - 73;
         drawWidgetFrame("lyricsPin", x, y, 260, 146, dt, () => drawLyricsWidget(x, y, lyricsPin, dt, fades.pinned.alpha));
@@ -1245,7 +1319,8 @@
     // ── toolbar (HomeMenu.InitializeMenu: 32x24 icon-only tabs at 20 + 34k, gear 23px at -20) ──
     function drawToolbar(L, w) {
       const left = L + 15, cy = TOP + 30;
-      const tabs = [["widgets", SIMG.widgets], ["tray", SIMG.tray], ["clipboard", SIMG.file], ["notifications", BELL], ["record", REC], ["bt", SIMG.bt]];
+      const tabs = [["widgets", SIMG.widgets], ["tray", SIMG.tray], ["clipboard", SIMG.file], ["notifications", BELL], ["record", REC], ["bt", SIMG.bt],
+        ["discord", DISCORD], ["phone", PHONE], ["download", DOWNLOAD]];
       tabs.forEach(([id, im], k) => {
         const x = left + 20 + 34 * k;
         const enabled = true;
@@ -1966,6 +2041,224 @@
       ctx.beginPath(); ctx.moveTo(-wv, z * 0.28); ctx.lineTo(-wv, -z * 0.05); ctx.lineTo(0, -z * 0.38); ctx.lineTo(wv, -z * 0.05); ctx.lineTo(wv, z * 0.28); ctx.closePath(); ctx.stroke();
       ctx.restore();
     }
+    // ── Discord tab (DiscordPanel.Draw; x = Pos.X + 12, w = Size.X - 24) ──
+    const DC_PURPLE = "rgb(115,125,255)", DC_GREEN = "rgb(87,215,150)", MUTE = "rgba(255,255,255,0.4)";
+    const DC_AVATAR = [[119, 133, 230], [200, 123, 200], [86, 172, 181], [213, 157, 86]];
+    function drawDiscord(w, h) {
+      const W = w - 30, H = h - bCD - TOPSP - 25, X = -W / 2, Y = TOP + 45;
+      if (W < 50 || H < 50) return;
+      const x = X + 12, y = Y, cw = W - 24;
+      ctx.save(); ctx.beginPath(); ctx.rect(X - 4, Y, W + 8, H + 8); ctx.clip();
+      // header
+      rrect(x, y + 10, 36, 36, 11, "#5865F2");
+      discordLogo(ctx, x + 18, y + 28, 25, "#fff");
+      txt(ctx, "Discord", x + 46, y + 27, 17, true, "#fff");
+      circ(x + 49, y + 41, 2.5, DC_GREEN);
+      txt(ctx, "Desktop connected", x + 57, y + 45, 10, false, T.text2);
+      zone("dc-set", X + W - 48, Y + 12, 32, 32, () => {});
+      pressed("dc-set", X + W - 48, Y + 12, 32, 32, () => {
+        rrect(X + W - 48, Y + 12, 32, 32, 9, W_(hovA("dc-set", 0.055, 0.11)));
+        lucide(ctx, DI.settings, X + W - 32, Y + 28, 16, "#fff", 2);
+      });
+      // channel card
+      const g = ctx.createLinearGradient(x, y + 61, x + cw, y + 134);
+      g.addColorStop(0, "rgb(35,38,64)"); g.addColorStop(1, "rgb(22,23,32)");
+      ctx.fillStyle = g; roundRect(ctx, x, y + 61, cw, 73, 14); ctx.fill();
+      rrect(x + 13, y + 79, 34, 34, 10, DC_PURPLE);
+      lucide(ctx, DI.headphones, x + 30, y + 96, 18, "#fff", 2);
+      txt(ctx, dc.inCall ? "Design lounge" : "Waiting for a call", x + 59, y + 89, 14, true, "#fff");
+      txt(ctx, dc.inCall ? "Kingpin Lounge" : "Join a voice channel in Discord", x + 59, y + 109, 10, false, T.text2);
+      if (!dc.inCall) zone("dc-card", x, y + 61, cw, 73, () => { dc.rejoin = 0; });
+      // mute / deafen / leave
+      const bw = (W - 32) / 3;
+      for (let i = 0; i < 3; i++) {
+        const id = "dc-b" + i, bx = X + 12 + i * (bw + 4), by = Y + 145;
+        const active = (i === 0 && dc.muted) || (i === 1 && dc.deaf);
+        zone(id, bx, by, bw, 57, () => {
+          if (!dc.inCall) return;
+          if (i === 0) { dc.muted = !dc.muted; if (!dc.muted) dc.deaf = false; }
+          else if (i === 1) { dc.deaf = !dc.deaf; dc.muted = dc.deaf; }
+          else { dc.inCall = false; dc.rejoin = 3.5; }
+        });
+        pressed(id, bx, by, bw, 57, () => {
+          rrect(bx, by, bw, 57, 11, i === 2 ? `rgba(238,91,111,${hovA(id, 0.094, 0.176)})` : active ? "rgba(88,101,242,0.333)" : W_(hovA(id, 0.063, 0.11)));
+          const tint = i === 2 ? "rgb(250,123,140)" : active ? DC_PURPLE : "#fff";
+          const glyph = i === 0 ? (dc.muted ? LU.micOff : LU.micOn) : i === 1 ? (dc.deaf ? DI.headphoneOff : DI.headphones) : DI.phoneOff;
+          lucide(ctx, glyph, bx + bw / 2, by + 19, 20, tint, 2);
+          const label = i === 0 ? (dc.muted ? "Mic muted" : "Mic on") : i === 1 ? (dc.deaf ? "Audio off" : "Audio on") : "Leave";
+          txt(ctx, label, bx + 10, by + 46, 10, false, tint);
+        });
+      }
+      // screen share / camera (send the saved Discord shortcut)
+      for (let i = 4; i < 6; i++) {
+        const id = "dc-b" + i, k = i - 4, bx = X + 12 + k * (W - 20) / 2, by = Y + 210, bw2 = (W - 28) / 2;
+        zone(id, bx, by, bw2, 36, () => { dc.flash[k] = 0.5; });
+        pressed(id, bx, by, bw2, 36, () => {
+          const a = Math.max(hovA(id, 30, 55), 30 + 55 * Math.min(1, dc.flash[k] * 3)) / 255;
+          rrect(bx, by, bw2, 36, 10, `rgba(88,101,242,${a})`);
+          lucide(ctx, k ? DI.video : DI.screenShare, bx + 20, by + 18, 19, DC_PURPLE, 2);
+          txt(ctx, k ? "Toggle camera" : "Share screen", bx + 38, by + 23, 10, false, "#fff");
+        });
+      }
+      // voice members
+      const members = dcMembers();
+      txt(ctx, "VOICE MEMBERS", x + 2, y + 269, 9, true, MUTE);
+      txt(ctx, String(members.length), x + cw - 18, y + 269, 10, false, T.text2);
+      if (!members.length) txt(ctx, "Members will appear here when you join", x + 14, y + 299, 10, false, T.text2);
+      const turn = ["Lalune", "Lalune", "Kingpin", "Seksenbir", null][Math.floor(dc.speak / 1.6) % 5];
+      members.forEach((m, i) => {
+        const row = y + 282 + i * 40, muted = m.muted || (m.self && (dc.muted || dc.deaf));
+        const speaking = !muted && m.name === turn, c = DC_AVATAR[m.col];
+        rrect(x, row, cw, 35, 10, speaking ? "rgba(87,215,150,0.067)" : W_(0.039));
+        circ(x + 19, row + 17.5, 12, `rgba(${c},0.216)`);
+        lucide(ctx, DI.userRound, x + 19, row + 17.5, 17, `rgb(${c})`, 2);
+        if (speaking) { ctx.strokeStyle = DC_GREEN; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x + 19, row + 17.5, 13, 0, 7); ctx.stroke(); }
+        txt(ctx, m.name, x + 39, row + 22, 12, false, "#fff");
+        if (muted) lucide(ctx, LU.micOff, x + cw - 19, row + 17, 14, MUTE, 2);
+        else if (speaking) for (let n = 0; n < 3; n++) rrect(x + cw - 27 + n * 5, row + 12 - (n % 2) * 3, 3, 9 + (n % 2) * 6, 1.5, DC_GREEN);
+      });
+      ctx.restore();
+    }
+
+    // ── Phone tab (PhoneSharePanel.Draw; x = Pos.X + 12, w = Size.X - 24) ──
+    let qrCanvas = null;
+    /** A QR-looking module grid (finders + timing + seeded data); the real panel encodes the session link. */
+    function qrImage() {
+      if (qrCanvas) return qrCanvas;
+      const n = 25, m = 8, c = document.createElement("canvas"); c.width = c.height = n * m;
+      const g = c.getContext("2d"); g.fillStyle = "#111";
+      let s = 20261028; const rnd = () => ((s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
+      const inFinder = (r, q) => (r < 8 && q < 8) || (r < 8 && q >= n - 8) || (r >= n - 8 && q < 8);
+      for (let r = 0; r < n; r++) for (let q = 0; q < n; q++) {
+        if (inFinder(r, q)) continue;
+        const on = r === 6 || q === 6 ? (r + q) % 2 === 0 : rnd() < 0.5;
+        if (on) g.fillRect(q * m, r * m, m, m);
+      }
+      for (const [r, q] of [[0, 0], [0, n - 7], [n - 7, 0]]) {
+        g.fillRect(q * m, r * m, 7 * m, 7 * m); g.clearRect((q + 1) * m, (r + 1) * m, 5 * m, 5 * m);
+        g.fillRect((q + 2) * m, (r + 2) * m, 3 * m, 3 * m);
+      }
+      return (qrCanvas = c);
+    }
+    function drawPhone(w, h) {
+      const W = w - 30, H = h - bCD - TOPSP - 25, X = -W / 2, Y = TOP + 45;
+      if (W < 50 || H < 50) return;
+      const x = X + 12, y = Y, cw = W - 24, cx = X + W / 2;
+      ctx.save(); ctx.beginPath(); ctx.rect(X - 4, Y, W + 8, H + 8); ctx.clip();
+      const btn = (id, bx, by, bw, bh, label, ly, click, fill) => {
+        if (!ph.netOpen || id === "ph-net") zone(id, bx, by, bw, bh, click);
+        pressed(id, bx, by, bw, bh, () => {
+          rrect(bx, by, bw, bh, 8, fill || W_(hovA(id, 0.055, 0.102)));
+          txt(ctx, fitText(ctx, label, 11, false, bw - 20), bx + 10, by + ly, 11, false, "#fff");
+        });
+      };
+      // header
+      rrect(x, y + 9, 35, 35, 10, "rgba(88,101,242,0.216)");
+      lucide(ctx, DI.smartphone, x + 17.5, y + 26.5, 23, "rgb(150,158,255)", 2);
+      txt(ctx, "Transfer to phone", x + 45, y + 26, 17, true, "#fff");
+      txt(ctx, "Same Wi-Fi · Phone ↔ Computer", x + 45, y + 43, 10, false, T.text2);
+      btn("ph-toggle", x + cw - 80, y + 10, 80, 28, ph.active ? "Stop" : "Start", 19, () => (ph.active ? phStop() : phStart()),
+        ph.active ? `rgba(235,95,115,${hovA("ph-toggle", 0.118, 0.2)})` : null);
+      // QR
+      if (ph.active && ph.prep <= 0) {
+        rrect(cx - 76, y + 61, 152, 152, 16, "#fff");
+        ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(qrImage(), cx - 68, y + 69, 136, 136); ctx.restore();
+      } else {
+        rrect(cx - 76, y + 61, 152, 152, 16, W_(0.039));
+        lucide(ctx, DI.smartphone, cx, y + 115, 40, "rgba(255,255,255,0.35)", 1.6);
+        if (!ph.active) {
+          zone("ph-qr", cx - 76, y + 61, 152, 152, phStart);
+          txt(ctx, "Start transfer", cx, y + 161, 12, false, hovA("ph-qr", 0, 1) > 0.5 ? "#fff" : T.text2, "center");
+        }
+      }
+      if (ph.status) txt(ctx, fitText(ctx, ph.status, 11, false, cw), x, y + 231, 11, false, ph.active ? "rgb(130,220,171)" : T.text2);
+      // actions
+      const net = PH_NETS[ph.net];
+      btn("ph-net", x, y + 241, cw, 30, "Network: " + net[1] + "  ⌄", 20, () => { ph.netOpen = !ph.netOpen; });
+      btn("ph-choose", x, y + 282, cw / 2 - 4, 36, "Choose files", 23, () => {
+        if (ph.files.length < 3) ph.files.push(PH_FILES[ph.next++ % PH_FILES.length]);
+      });
+      btn("ph-recv", x + cw / 2 + 4, y + 282, cw / 2 - 4, 36, "Received files", 23, () => {});
+      btn("ph-copy", x, y + 326, cw / 2 - 4, 30, "Copy link", 20, () => {});
+      btn("ph-clear", x + cw / 2 + 4, y + 326, cw / 2 - 4, 30, "Clear list", 20, () => { ph.files = []; });
+      // files queued for the phone
+      txt(ctx, "SEND TO PHONE · " + ph.files.length, x, y + 380, 9, true, MUTE);
+      if (!ph.files.length) txt(ctx, "Scan the QR to receive files from your phone.", x + 2, y + 400, 10, false, T.text2);
+      ph.files.forEach((f, row) => {
+        const ry = y + 387 + row * 30, id = "ph-rm" + row;
+        rrect(x, ry, cw, 28, 7, W_(0.039));
+        txt(ctx, fitText(ctx, f, 11, false, cw - 50), x + 8, y + 405 + row * 30, 11, false, "#fff");
+        if (!ph.netOpen) zone(id, X + W - 42, ry, 28, 28, () => ph.files.splice(row, 1));
+        pressed(id, X + W - 42, ry, 28, 28, () => {
+          rrect(X + W - 42, ry, 28, 28, 7, W_(hovA(id, 0.059, 0.12)));
+          lucide(ctx, LU.x, X + W - 28, ry + 14, 15, "#fff", 2);
+        });
+      });
+      txt(ctx, "Local network · 1 GB/file · 4 GB/session", x, y + H - 8, 9, false, MUTE);
+      // network picker
+      if (ph.netOpen) {
+        zone("ph-net-off", X, Y, W, H, () => { ph.netOpen = false; });
+        const by = y + 275;
+        rrect(x, by, cw, PH_NETS.length * 42 + 8, 10, "rgb(24,24,28)");
+        PH_NETS.forEach(([kind, ip], i) => {
+          const ry = by + 4 + i * 42, id = "ph-net" + i, sel = i === ph.net;
+          zone(id, x + 4, ry, cw - 8, 38, () => { ph.net = i; ph.netOpen = false; });
+          rrect(x + 4, ry, cw - 8, 38, 8, sel ? "rgba(88,101,242,0.188)" : W_(hovA(id, 0, 0.06)));
+          txt(ctx, kind + " · " + ip, x + 16, ry + 23, 11, false, sel ? "rgb(165,173,255)" : "#fff");
+        });
+      }
+      ctx.restore();
+    }
+
+    // ── Downloads tab (DownloadView.Draw; x = Pos.X + 22, w = Size.X - 44) ──
+    function dlDetail(d) {
+      if (d.state === "done") return "Completed · Show in folder";
+      if (d.state === "cancel") return "Download interrupted";
+      if (d.state === "pause") return "Paused";
+      const left = (d.total - d.got) / d.speed;
+      const eta = left < 60 ? Math.ceil(left) + " s" : Math.ceil(left / 60) + " min";
+      return `${Math.floor((d.got / d.total) * 100)}% · ${d.speed.toFixed(1)} MB/s · ~${eta} left`;
+    }
+    function drawDownloads(w, h) {
+      const W = w - 30, H = h - bCD - TOPSP - 25, X = -W / 2, Y = TOP + 45;
+      if (W < 50 || H < 50) return;
+      const x = X + 22, y = Y, cw = W - 44, acc = `rgb(${T.primary})`, accA = (a) => `rgba(${T.primary},${a})`;
+      const GREEN = "rgb(115,215,157)";
+      ctx.save(); ctx.beginPath(); ctx.rect(X - 4, Y, W + 8, H + 8); ctx.clip();
+      rrect(x, y + 14, 40, 40, 12, accA(0.11));
+      lucide(ctx, DI.download, x + 20, y + 34, 23, acc, 2);
+      txt(ctx, "Downloads", x + 54, y + 31, 17, true, "#fff");
+      txt(ctx, "Browser paired", x + 54, y + 49, 10, false, T.text2);
+      zone("dl-folder", X + W - 58, Y + 16, 36, 36, () => {});
+      pressed("dl-folder", X + W - 58, Y + 16, 36, 36, () => {
+        rrect(X + W - 58, Y + 16, 36, 36, 10, W_(hovA("dl-folder", 0.07, 0.12)));
+        lucide(ctx, LU.folder, X + W - 40, Y + 34, 18, T.text2, 2);
+      });
+      dls.slice(0, 4).forEach((d, row) => {
+        const top = y + 84 + row * 78, done = d.state === "done", ctl = d.state === "run" || d.state === "pause";
+        rrect(x, top, cw, 68, 12, W_(0.051));
+        lucide(ctx, done ? LU.folder : DI.download, x + 24, top + 33, 20, done ? GREEN : d.state === "cancel" ? T.text3 : acc, 2);
+        txt(ctx, fitText(ctx, d.name, 12, true, cw - (ctl ? 150 : 64)), x + 48, top + 27, 12, true, "#fff");
+        txt(ctx, dlDetail(d), x + 48, top + 48, 10, false, T.text2);
+        ctx.fillStyle = accA(0.118); ctx.fillRect(x + 48, top + 57, cw - 64, 3);
+        if (d.state !== "cancel") { ctx.fillStyle = done ? GREEN : acc; ctx.fillRect(x + 48, top + 57, (cw - 64) * (d.got / d.total), 3); }
+        if (!ctl) return;
+        for (const cancel of [false, true]) {
+          const id = "dl-" + (cancel ? "x" : "p") + row, bx = X + W - (cancel ? 56 : 90), by = Y + 96 + row * 78;
+          zone(id, bx, by, 28, 28, () => {
+            if (cancel) { d.state = "cancel"; return; }
+            d.state = d.state === "run" ? "pause" : "run";
+          });
+          pressed(id, bx, by, 28, 28, () => {
+            rrect(bx, by, 28, 28, 7, accA(hovA(id, 0.094, 0.18)));
+            lucide(ctx, cancel ? DI.dlCancel : d.state === "run" ? DI.dlPause : DI.dlPlay, bx + 14, by + 14, 14, acc, 2);
+          });
+        }
+      });
+      txt(ctx, "Percentage and time appear when provided by the browser.", x, y + H - 17, 9, false, MUTE);
+      ctx.restore();
+    }
+
     function lucideFill(d, cx, cy, size, color) {
       let p = pathCache.get(d); if (!p) { p = new Path2D(d); pathCache.set(d, p); }
       ctx.save(); ctx.translate(cx - size / 2, cy - size / 2); ctx.scale(size / 24, size / 24);
