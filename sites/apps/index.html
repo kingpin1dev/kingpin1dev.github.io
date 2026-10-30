@@ -17,7 +17,7 @@
 <meta property="og:description" content="Every Windows app and Discord bot by Kingpindev in one place: desktop tools, music and radio, and bots for your server.">
 <meta property="og:image" content="https://kingpindev.com/img/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#070a12">
+<meta name="theme-color" content="#05070d">
 <link rel="icon" type="image/png" href="/img/Aurora.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,30 +25,125 @@
 <link rel="stylesheet" href="/app-sites/site.css">
 <script src="/app-sites/site.js" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Kingpindev apps: Windows apps and Discord bots", "description": "Every Windows app and Discord bot by Kingpindev in one place: desktop tools, music and radio, and bots for your server.", "url": "https://apps.kingpindev.com/", "inLanguage": "en", "publisher": {"@type": "Organization", "name": "Kingpindev", "url": "https://kingpindev.com/"}}</script>
-<style>:root{--accent:#8b5cf6;--accent2:#38bdf8}.hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:8px 0 70px}.hub a{display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);text-decoration:none;transition:transform .15s,border-color .15s}.hub a:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 60%,transparent)}.hub .row{display:flex;align-items:center;gap:14px}.hub img{border-radius:14px}.hub b{font-size:20px}.hub .t{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}.hub .tag{font-size:12px;font-weight:600;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);padding:3px 9px;border-radius:99px;white-space:nowrap}.hub p{margin:0;color:var(--muted);font-size:14.5px}</style>
+<style>:root{--accent:#8b5cf6;--accent2:#38bdf8}
+body{background:#05070d;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.28;animation:drift 26s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:#8b5cf6;left:-12vmax;top:-18vmax}
+.bg i:nth-child(2){background:#38bdf8;right:-14vmax;top:-6vmax;animation-delay:-8s}
+.bg i:nth-child(3){background:#ec4899;left:30vw;top:38vh;opacity:.14;animation-delay:-16s}
+.bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 80%);mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 80%)}
+@keyframes drift{to{transform:translate(6vmax,5vmax) scale(1.12)}}
+.hub-hero{text-align:center;padding:84px 0 36px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04);
+  font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.pill i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e}
+.hub-hero h1{font-size:clamp(38px,6.6vw,74px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin:22px auto 0;max-width:20ch}
+.hub-hero h1 span{display:block;background:linear-gradient(100deg,#c4b5fd 0%,#7dd3fc 45%,#f0abfc 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hub-hero .lead{max-width:600px;margin:22px auto 0;color:var(--muted);font-size:18px}
+.orbit{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:40px auto 0;max-width:840px}
+.orbit a{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line);
+  box-shadow:0 10px 30px color-mix(in srgb,var(--c) 22%,transparent);animation:bob 5s ease-in-out infinite;animation-delay:calc(var(--i) * -.55s);transition:transform .2s,border-color .2s}
+.orbit a:hover{transform:translateY(-6px) scale(1.08);border-color:color-mix(in srgb,var(--c) 70%,transparent)}
+.orbit img{width:44px;height:44px;border-radius:12px}
+@keyframes bob{50%{translate:0 -7px}}
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;margin:38px 0 0;padding:0;list-style:none;color:var(--muted);font-size:14.5px}
+.stats b{color:var(--text);font-size:17px;margin-right:6px}
+.filters{display:flex;justify-content:center;margin:46px 0 26px}
+.seg{display:inline-flex;gap:4px;padding:5px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+.seg button{all:unset;cursor:pointer;padding:9px 16px;border-radius:10px;font-size:14.5px;font-weight:600;color:var(--muted);white-space:nowrap;transition:background .2s,color .2s}
+.seg button span{opacity:.55;margin-left:6px;font-weight:500}
+.seg button:hover{color:var(--text)}
+.seg button[aria-pressed=true]{background:rgba(255,255,255,.1);color:var(--text)}
+.seg button:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding-bottom:90px}
+.card{--mx:50%;--my:0%;position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:22px;text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid var(--line);overflow:hidden;isolation:isolate;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.55;transition:opacity .3s;
+  background:radial-gradient(70% 55% at 0% 0%,color-mix(in srgb,var(--c) 26%,transparent),transparent 70%)}
+.card::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;
+  background:radial-gradient(360px circle at var(--mx) var(--my),color-mix(in srgb,var(--c) 20%,transparent),transparent 60%)}
+.card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 24px 60px -20px color-mix(in srgb,var(--c) 45%,transparent)}
+.card:hover::before{opacity:.9}.card:hover::after{opacity:1}
+.card:focus-visible{outline:2px solid var(--c);outline-offset:3px}
+.card .head{display:flex;align-items:center;gap:14px}
+.card .ic{width:58px;height:58px;border-radius:16px;flex:none;box-shadow:0 8px 26px color-mix(in srgb,var(--c) 40%,transparent)}
+.card .nm{display:flex;flex-direction:column;gap:3px;min-width:0}
+.card .nm b{font-size:19px;letter-spacing:-.01em}
+.card .nm small{font-size:13px;color:var(--faint);line-height:1.35}
+.card .tag{margin-left:auto;align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--c);padding:4px 9px;border-radius:99px;
+  border:1px solid color-mix(in srgb,var(--c) 38%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);white-space:nowrap}
+.card h3{font-size:21px;line-height:1.22;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted);font-size:14.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .go{margin-top:auto;padding-top:6px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--c)}
+.card .go svg{transition:transform .25s}
+.card:hover .go svg{transform:translateX(4px)}
+.card.feat{grid-column:span 2;flex-direction:row;align-items:center;gap:30px;padding:30px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c) 18%,transparent),rgba(255,255,255,.02) 60%)}
+.card.feat .body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card.feat h3{font-size:clamp(24px,2.6vw,32px)}
+.card.feat p{-webkit-line-clamp:4;font-size:15.5px}
+.card.feat .big{width:132px;height:132px;border-radius:30px;flex:none;box-shadow:0 20px 60px color-mix(in srgb,var(--c) 55%,transparent)}
+.card[hidden]{display:none}
+.card.more{justify-content:center;border-style:dashed;background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(56,189,248,.08))}
+.hub-foot{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--faint);font-size:14px}
+.hub-foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hub-foot a{color:var(--muted);text-decoration:none}.hub-foot a:hover{color:var(--text)}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .grid{grid-template-columns:minmax(0,1fr)}.card.feat{grid-column:auto;flex-direction:column;align-items:flex-start;padding:24px}
+  .card.feat .big{width:84px;height:84px;border-radius:22px}.hub-hero{padding:56px 0 24px}
+  .orbit a{width:52px;height:52px;border-radius:15px}.orbit img{width:36px;height:36px}
+  .filters{margin:34px 0 20px}.seg{display:grid;grid-template-columns:auto 1fr 1fr;width:100%}
+  .seg button{white-space:normal;text-align:center;line-height:1.25;padding:9px 8px;font-size:13.5px}.seg button span{margin-left:4px}
+  .top .btn-sm{display:none}
+}
+@media (prefers-reduced-motion:reduce){.bg i,.orbit a{animation:none}.card,.card .go svg{transition:none}}
+</style>
 </head>
 <body data-lang="en" data-other="https://apps.kingpindev.com/tr/">
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
 <header class="top">
   <div class="wrap top-in">
-    <a class="brand" href="https://apps.kingpindev.com/"><span>Kingpindev</span></a>
+    <a class="brand" href="https://kingpindev.com/"><span>Kingpindev</span></a>
     <a class="lang" href="https://apps.kingpindev.com/tr/" hreflang="tr" lang="tr" data-lang-switch="tr">Türkçe</a>
     <a class="btn btn-sm" href="https://kingpindev.com/"><span>kingpindev.com</span></a>
   </div>
 </header>
 <main>
-  <section class="hero">
+  <section class="hub-hero">
     <div class="wrap">
-      <p class="eyebrow">Kingpindev</p>
-      <h1>All the apps, in one place.</h1>
+      <span class="pill"><i></i>Kingpindev apps</span>
+      <h1>Small apps that make <span>Windows feel better.</span></h1>
       <p class="lead">Windows apps and Discord bots built by Burak Pekel. Pick one to see what it does and try it live in your browser.</p>
+      <nav class="orbit" aria-label="Kingpindev apps"><a href="https://notchify.app/" style="--c:#c05cff;--i:0" title="Notchify" aria-label="Notchify"><img src="/img/notchify.png" alt="" width="44" height="44"></a><a href="https://lunadock.kingpindev.com/" style="--c:#7dd3fc;--i:1" title="LunaDock" aria-label="LunaDock"><img src="/img/lunadock.png" alt="" width="44" height="44"></a><a href="https://groupy.kingpindev.com/" style="--c:#a78bfa;--i:2" title="Groupy" aria-label="Groupy"><img src="/img/FluentMixer.png" alt="" width="44" height="44"></a><a href="https://vicesonar.kingpindev.com/" style="--c:#38bdf8;--i:3" title="VICE Sonar" aria-label="VICE Sonar"><img src="/img/vice-sonar.png" alt="" width="44" height="44"></a><a href="https://vorganizer.kingpindev.com/" style="--c:#3b9dff;--i:4" title="vOrganizer" aria-label="vOrganizer"><img src="/img/Vorganizer.png" alt="" width="44" height="44"></a><a href="https://aurora.kingpindev.com/" style="--c:#f472b6;--i:5" title="Aurora Radios" aria-label="Aurora Radios"><img src="/img/Aurora.png" alt="" width="44" height="44"></a><a href="https://spotidrop.kingpindev.com/" style="--c:#1ed760;--i:6" title="SpotiDrop" aria-label="SpotiDrop"><img src="/img/SpotiDrop.png" alt="" width="44" height="44"></a><a href="https://goliath.kingpindev.com/" style="--c:#5865f2;--i:7" title="Goliath" aria-label="Goliath"><img src="/img/Goliath.png" alt="" width="44" height="44"></a><a href="https://lolable.kingpindev.com/" style="--c:#0ac8b9;--i:8" title="Lolable" aria-label="Lolable"><img src="/img/Lolable.png" alt="" width="44" height="44"></a><a href="https://glidesnap.kingpindev.com/" style="--c:#70ffb2;--i:9" title="GlideSnap" aria-label="GlideSnap"><img src="/img/GlideSnap.png" alt="" width="44" height="44"></a></nav>
+      <ul class="stats"><li><b>10</b>apps and bots</li><li><b>9</b>live demos in your browser</li><li><b>7</b>on the Microsoft Store</li></ul>
     </div>
   </section>
   <section>
-    <div class="wrap hub"><a href="https://lunadock.kingpindev.com/" style="--c:#7dd3fc"><div class="row"><img src="/img/lunadock.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>LunaDock</b><span class="tag">Windows app</span></div></div><p>LunaDock sorts the files, folders and shortcuts on your Windows desktop into tidy stacks. Click a stack to fan it open; your files never move.</p></a><a href="https://groupy.kingpindev.com/" style="--c:#a78bfa"><div class="row"><img src="/img/FluentMixer.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>Groupy</b><span class="tag">Windows app</span></div></div><p>Groupy puts your Windows apps into Game, Chat, Media and Aux groups so you can set each group&#x27;s volume, mute and output device from one place.</p></a><a href="https://vicesonar.kingpindev.com/" style="--c:#38bdf8"><div class="row"><img src="/img/vice-sonar.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>VICE Sonar</b><span class="tag">Windows app</span></div></div><p>VICE Sonar puts SteelSeries GG Sonar controls one click away: channel volumes, output routing, ChatMix, EQ profiles and RGB, from a widget or tray popup.</p></a><a href="https://vorganizer.kingpindev.com/" style="--c:#3b9dff"><div class="row"><img src="/img/Vorganizer.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>vOrganizer</b><span class="tag">Windows app</span></div></div><p>vOrganizer sorts the files in your Downloads, Desktop or any folder into Images, Documents, Videos, Audio and more. Preview first, undo any time.</p></a><a href="https://aurora.kingpindev.com/" style="--c:#f472b6"><div class="row"><img src="/img/Aurora.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>Aurora Radios</b><span class="tag">Windows app</span></div></div><p>Aurora Radios is an internet radio player for Windows. Find live stations by mood, genre or country, see the song that&#x27;s playing and keep favourites.</p></a><a href="https://spotidrop.kingpindev.com/" style="--c:#1ed760"><div class="row"><img src="/img/SpotiDrop.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>SpotiDrop</b><span class="tag">Windows app</span></div></div><p>SpotiDrop downloads music from YouTube, SoundCloud and Bandcamp, tags it with cover art and drops it into Spotify&#x27;s Local Files folder.</p></a><a href="https://goliath.kingpindev.com/" style="--c:#5865f2"><div class="row"><img src="/img/Goliath.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>Goliath</b><span class="tag">Discord bot</span></div></div><p>Goliath is a multi-purpose Discord bot: moderation, levels, music and radio, a help panel and handy tools for your server, all as slash commands.</p></a><a href="https://lolable.kingpindev.com/" style="--c:#0ac8b9"><div class="row"><img src="/img/Lolable.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>Lolable</b><span class="tag">Discord bot</span></div></div><p>Lolable shows League of Legends ranks, last-match breakdowns, live match scouting and server leaderboards for your Discord community.</p></a><a href="https://glidesnap.kingpindev.com/" style="--c:#70ffb2"><div class="row"><img src="/img/GlideSnap.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>GlideSnap</b><span class="tag">Windows app</span></div></div><p>GlideSnap moves and resizes Windows windows from anywhere: hold Alt, drag, and snap them to edges and grids. Light, no account, from Microsoft Store.</p></a><a href="https://notchify.app/" style="--c:#c05cff"><div class="row"><img src="/img/notchify.png" alt="" width="52" height="52" loading="lazy"><div class="t"><b>Notchify</b><span class="tag">Windows app</span></div></div><p>Notchify adds a Dynamic Island to your Windows screen.</p></a></div>
+    <div class="wrap">
+      <div class="filters"><div class="seg" role="group" aria-label="Filter apps"><button type="button" data-k="all" aria-pressed="true">All<span>10</span></button><button type="button" data-k="win" aria-pressed="false">Windows apps<span>8</span></button><button type="button" data-k="bot" aria-pressed="false">Discord bots<span>2</span></button></div></div>
+      <div class="grid"><a class="card feat" data-k="win" href="https://notchify.app/" style="--c:#c05cff"><img class="big" src="/img/notchify.png" alt="" width="132" height="132"><div class="body"><div class="head"><div class="nm"><b>Notchify</b><small>Windows app</small></div><span class="tag">Flagship</span></div><h3>The Dynamic Island for Windows.</h3><p>Music with synced lyrics, notifications, clipboard history, widgets, screen recording, Discord controls and more, in one island at the top of your screen.</p><span class="go">Visit notchify.app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="card" data-k="win" href="https://lunadock.kingpindev.com/" style="--c:#7dd3fc"><div class="head"><img class="ic" src="/img/lunadock.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>LunaDock</b><small>Desktop organizer for Windows</small></div></div><h3>Your desktop, sorted into tidy stacks.</h3><p>LunaDock sorts the files, folders and shortcuts on your Windows desktop into tidy stacks. Click a stack to fan it open; your files never move.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="win" href="https://groupy.kingpindev.com/" style="--c:#a78bfa"><div class="head"><img class="ic" src="/img/FluentMixer.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>Groupy</b><small>Volume mixer for Windows</small></div></div><h3>Control app audio by groups.</h3><p>Groupy puts your Windows apps into Game, Chat, Media and Aux groups so you can set each group&#x27;s volume, mute and output device from one place.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="win" href="https://vicesonar.kingpindev.com/" style="--c:#38bdf8"><div class="head"><img class="ic" src="/img/vice-sonar.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>VICE Sonar</b><small>Companion app for SteelSeries GG Sonar</small></div></div><h3>Your Sonar controls, one click away.</h3><p>VICE Sonar puts SteelSeries GG Sonar controls one click away: channel volumes, output routing, ChatMix, EQ profiles and RGB, from a widget or tray popup.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="win" href="https://vorganizer.kingpindev.com/" style="--c:#3b9dff"><div class="head"><img class="ic" src="/img/Vorganizer.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>vOrganizer</b><small>File organizer for Windows</small></div></div><h3>Messy folders, sorted in seconds.</h3><p>vOrganizer sorts the files in your Downloads, Desktop or any folder into Images, Documents, Videos, Audio and more. Preview first, undo any time.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="win" href="https://aurora.kingpindev.com/" style="--c:#f472b6"><div class="head"><img class="ic" src="/img/Aurora.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>Aurora Radios</b><small>Internet radio for Windows</small></div></div><h3>Live radio from around the world, by mood.</h3><p>Aurora Radios is an internet radio player for Windows. Find live stations by mood, genre or country, see the song that&#x27;s playing and keep favourites.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="win" href="https://spotidrop.kingpindev.com/" style="--c:#1ed760"><div class="head"><img class="ic" src="/img/SpotiDrop.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>SpotiDrop</b><small>Music downloader for Windows</small></div></div><h3>Any link in, tagged music out.</h3><p>SpotiDrop downloads music from YouTube, SoundCloud and Bandcamp, tags it with cover art and drops it into Spotify&#x27;s Local Files folder.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="win" href="https://glidesnap.kingpindev.com/" style="--c:#70ffb2"><div class="head"><img class="ic" src="/img/GlideSnap.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>GlideSnap</b><small>Window manager for Windows</small></div></div><h3>Grab any window from anywhere.</h3><p>GlideSnap moves and resizes Windows windows from anywhere: hold Alt, drag, and snap them to edges and grids. Light, no account, from Microsoft Store.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="bot" href="https://goliath.kingpindev.com/" style="--c:#5865f2"><div class="head"><img class="ic" src="/img/Goliath.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>Goliath</b><small>Multi-purpose Discord bot</small></div></div><h3>One bot to keep your server in order.</h3><p>Goliath is a multi-purpose Discord bot: moderation, levels, music and radio, a help panel and handy tools for your server, all as slash commands.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card" data-k="bot" href="https://lolable.kingpindev.com/" style="--c:#0ac8b9"><div class="head"><img class="ic" src="/img/Lolable.png" alt="" width="58" height="58" loading="lazy"><div class="nm"><b>Lolable</b><small>League of Legends bot for Discord</small></div></div><h3>Your server&#x27;s League stats, in Discord.</h3><p>Lolable shows League of Legends ranks, last-match breakdowns, live match scouting and server leaderboards for your Discord community.</p><span class="go">See the app <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="card more" data-k="more" href="https://kingpindev.com/" style="--c:#8b5cf6"><h3>More on kingpindev.com</h3><p>Every project I have built, my music and more.</p><span class="go">Visit kingpindev.com <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+    </div>
   </section>
 </main>
-<footer class="foot">
-  <div class="wrap"><a href="https://kingpindev.com/">Kingpindev</a></div>
+<footer class="hub-foot">
+  <div class="wrap"><span>Made by Burak Pekel in Türkiye.</span><span><a href="https://kingpindev.com/">kingpindev.com</a> · <a href="https://notchify.app/">notchify.app</a></span></div>
 </footer>
+<script>
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  var btns=[].slice.call(document.querySelectorAll('.seg button'));
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    var k=b.dataset.k;cards.forEach(function(c){c.hidden=!(k==='all'||c.dataset.k===k)});
+  })});
+  cards.forEach(function(c){c.addEventListener('pointermove',function(ev){
+    var r=c.getBoundingClientRect();c.style.setProperty('--mx',(ev.clientX-r.left)+'px');c.style.setProperty('--my',(ev.clientY-r.top)+'px');
+  })});
+})();
+</script>
 </body>
 </html>

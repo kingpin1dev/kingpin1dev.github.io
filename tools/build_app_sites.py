@@ -850,18 +850,119 @@ def page(slug: str, app: dict, lang: str) -> str:
 
 HUB = {
     "en": {"title": "Kingpindev apps: Windows apps and Discord bots", "desc": "Every Windows app and Discord bot by Kingpindev in one place: desktop tools, music and radio, and bots for your server.",
-           "eyebrow": "Kingpindev", "h1": "All the apps, in one place.", "lead": "Windows apps and Discord bots built by Burak Pekel. Pick one to see what it does and try it live in your browser.",
-           "win": "Windows app", "bot": "Discord bot", "open": "Open", "home": "kingpindev.com", "lang_name": "Türkçe", "other": "tr"},
+           "eyebrow": "Kingpindev apps", "h1a": "Small apps that make", "h1b": "Windows feel better.",
+           "lead": "Windows apps and Discord bots built by Burak Pekel. Pick one to see what it does and try it live in your browser.",
+           "win": "Windows app", "bot": "Discord bot", "all": "All", "wins": "Windows apps", "bots": "Discord bots",
+           "view": "See the app", "home": "kingpindev.com", "lang_name": "Türkçe", "other": "tr",
+           "flag": "Flagship", "n_h1": "The Dynamic Island for Windows.",
+           "n_desc": "Music with synced lyrics, notifications, clipboard history, widgets, screen recording, Discord controls and more, in one island at the top of your screen.",
+           "n_cta": "Visit notchify.app", "s_apps": "apps and bots", "s_demo": "live demos in your browser", "s_store": "on the Microsoft Store",
+           "made": "Made by Burak Pekel in Türkiye.", "filter": "Filter apps",
+           "m_t": "More on kingpindev.com", "m_d": "Every project I have built, my music and more.", "m_cta": "Visit kingpindev.com"},
     "tr": {"title": "Kingpindev uygulamaları: Windows uygulamaları ve Discord botları", "desc": "Kingpindev'in tüm Windows uygulamaları ve Discord botları tek yerde: masaüstü araçları, müzik ve radyo, sunucunuz için botlar.",
-           "eyebrow": "Kingpindev", "h1": "Tüm uygulamalar tek yerde.", "lead": "Burak Pekel'in geliştirdiği Windows uygulamaları ve Discord botları. Birini seçin, ne yaptığını görün ve tarayıcıda canlı deneyin.",
-           "win": "Windows uygulaması", "bot": "Discord botu", "open": "Aç", "home": "kingpindev.com", "lang_name": "English", "other": "en"},
+           "eyebrow": "Kingpindev uygulamaları", "h1a": "Windows'u daha iyi yapan", "h1b": "küçük uygulamalar.",
+           "lead": "Burak Pekel'in geliştirdiği Windows uygulamaları ve Discord botları. Birini seçin, ne yaptığını görün ve tarayıcıda canlı deneyin.",
+           "win": "Windows uygulaması", "bot": "Discord botu", "all": "Tümü", "wins": "Windows uygulamaları", "bots": "Discord botları",
+           "view": "Uygulamayı gör", "home": "kingpindev.com", "lang_name": "English", "other": "en",
+           "flag": "Öne çıkan", "n_h1": "Windows için Dinamik Ada.",
+           "n_desc": "Senkron sözlerle müzik, bildirimler, pano geçmişi, widget'lar, ekran kaydı, Discord kontrolleri ve daha fazlası, ekranınızın üstündeki tek bir adada.",
+           "n_cta": "notchify.app'e git", "s_apps": "uygulama ve bot", "s_demo": "tarayıcıda canlı demo", "s_store": "Microsoft Store'da",
+           "made": "Burak Pekel tarafından Türkiye'de geliştirildi.", "filter": "Uygulamaları filtrele",
+           "m_t": "Daha fazlası kingpindev.com'da", "m_d": "Geliştirdiğim tüm projeler, müziklerim ve daha fazlası.", "m_cta": "kingpindev.com'a git"},
 }
-HUB_STYLE = (".hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:8px 0 70px}"
-             ".hub a{display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);text-decoration:none;transition:transform .15s,border-color .15s}"
-             ".hub a:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 60%,transparent)}"
-             ".hub .row{display:flex;align-items:center;gap:14px}.hub img{border-radius:14px}.hub b{font-size:20px}"
-             ".hub .t{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}.hub .tag{font-size:12px;font-weight:600;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);padding:3px 9px;border-radius:99px;white-space:nowrap}"
-             ".hub p{margin:0;color:var(--muted);font-size:14.5px}")
+HUB_STYLE = """
+body{background:#05070d;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.28;animation:drift 26s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:#8b5cf6;left:-12vmax;top:-18vmax}
+.bg i:nth-child(2){background:#38bdf8;right:-14vmax;top:-6vmax;animation-delay:-8s}
+.bg i:nth-child(3){background:#ec4899;left:30vw;top:38vh;opacity:.14;animation-delay:-16s}
+.bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 80%);mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 80%)}
+@keyframes drift{to{transform:translate(6vmax,5vmax) scale(1.12)}}
+.hub-hero{text-align:center;padding:84px 0 36px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04);
+  font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.pill i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e}
+.hub-hero h1{font-size:clamp(38px,6.6vw,74px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin:22px auto 0;max-width:20ch}
+.hub-hero h1 span{display:block;background:linear-gradient(100deg,#c4b5fd 0%,#7dd3fc 45%,#f0abfc 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hub-hero .lead{max-width:600px;margin:22px auto 0;color:var(--muted);font-size:18px}
+.orbit{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:40px auto 0;max-width:840px}
+.orbit a{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line);
+  box-shadow:0 10px 30px color-mix(in srgb,var(--c) 22%,transparent);animation:bob 5s ease-in-out infinite;animation-delay:calc(var(--i) * -.55s);transition:transform .2s,border-color .2s}
+.orbit a:hover{transform:translateY(-6px) scale(1.08);border-color:color-mix(in srgb,var(--c) 70%,transparent)}
+.orbit img{width:44px;height:44px;border-radius:12px}
+@keyframes bob{50%{translate:0 -7px}}
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;margin:38px 0 0;padding:0;list-style:none;color:var(--muted);font-size:14.5px}
+.stats b{color:var(--text);font-size:17px;margin-right:6px}
+.filters{display:flex;justify-content:center;margin:46px 0 26px}
+.seg{display:inline-flex;gap:4px;padding:5px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+.seg button{all:unset;cursor:pointer;padding:9px 16px;border-radius:10px;font-size:14.5px;font-weight:600;color:var(--muted);white-space:nowrap;transition:background .2s,color .2s}
+.seg button span{opacity:.55;margin-left:6px;font-weight:500}
+.seg button:hover{color:var(--text)}
+.seg button[aria-pressed=true]{background:rgba(255,255,255,.1);color:var(--text)}
+.seg button:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding-bottom:90px}
+.card{--mx:50%;--my:0%;position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:22px;text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid var(--line);overflow:hidden;isolation:isolate;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.55;transition:opacity .3s;
+  background:radial-gradient(70% 55% at 0% 0%,color-mix(in srgb,var(--c) 26%,transparent),transparent 70%)}
+.card::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;
+  background:radial-gradient(360px circle at var(--mx) var(--my),color-mix(in srgb,var(--c) 20%,transparent),transparent 60%)}
+.card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 24px 60px -20px color-mix(in srgb,var(--c) 45%,transparent)}
+.card:hover::before{opacity:.9}.card:hover::after{opacity:1}
+.card:focus-visible{outline:2px solid var(--c);outline-offset:3px}
+.card .head{display:flex;align-items:center;gap:14px}
+.card .ic{width:58px;height:58px;border-radius:16px;flex:none;box-shadow:0 8px 26px color-mix(in srgb,var(--c) 40%,transparent)}
+.card .nm{display:flex;flex-direction:column;gap:3px;min-width:0}
+.card .nm b{font-size:19px;letter-spacing:-.01em}
+.card .nm small{font-size:13px;color:var(--faint);line-height:1.35}
+.card .tag{margin-left:auto;align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--c);padding:4px 9px;border-radius:99px;
+  border:1px solid color-mix(in srgb,var(--c) 38%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent);white-space:nowrap}
+.card h3{font-size:21px;line-height:1.22;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted);font-size:14.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .go{margin-top:auto;padding-top:6px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--c)}
+.card .go svg{transition:transform .25s}
+.card:hover .go svg{transform:translateX(4px)}
+.card.feat{grid-column:span 2;flex-direction:row;align-items:center;gap:30px;padding:30px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c) 18%,transparent),rgba(255,255,255,.02) 60%)}
+.card.feat .body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card.feat h3{font-size:clamp(24px,2.6vw,32px)}
+.card.feat p{-webkit-line-clamp:4;font-size:15.5px}
+.card.feat .big{width:132px;height:132px;border-radius:30px;flex:none;box-shadow:0 20px 60px color-mix(in srgb,var(--c) 55%,transparent)}
+.card[hidden]{display:none}
+.card.more{justify-content:center;border-style:dashed;background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(56,189,248,.08))}
+.hub-foot{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--faint);font-size:14px}
+.hub-foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hub-foot a{color:var(--muted);text-decoration:none}.hub-foot a:hover{color:var(--text)}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .grid{grid-template-columns:minmax(0,1fr)}.card.feat{grid-column:auto;flex-direction:column;align-items:flex-start;padding:24px}
+  .card.feat .big{width:84px;height:84px;border-radius:22px}.hub-hero{padding:56px 0 24px}
+  .orbit a{width:52px;height:52px;border-radius:15px}.orbit img{width:36px;height:36px}
+  .filters{margin:34px 0 20px}.seg{display:grid;grid-template-columns:auto 1fr 1fr;width:100%}
+  .seg button{white-space:normal;text-align:center;line-height:1.25;padding:9px 8px;font-size:13.5px}.seg button span{margin-left:4px}
+  .top .btn-sm{display:none}
+}
+@media (prefers-reduced-motion:reduce){.bg i,.orbit a{animation:none}.card,.card .go svg{transition:none}}
+"""
+
+ARROW = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+
+HUB_SCRIPT = """
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  var btns=[].slice.call(document.querySelectorAll('.seg button'));
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    var k=b.dataset.k;cards.forEach(function(c){c.hidden=!(k==='all'||c.dataset.k===k)});
+  })});
+  cards.forEach(function(c){c.addEventListener('pointermove',function(ev){
+    var r=c.getBoundingClientRect();c.style.setProperty('--mx',(ev.clientX-r.left)+'px');c.style.setProperty('--my',(ev.clientY-r.top)+'px');
+  })});
+})();
+"""
 
 
 def hub_url(lang: str) -> str:
@@ -871,13 +972,31 @@ def hub_url(lang: str) -> str:
 def hub_page(lang: str) -> str:
     h = HUB[lang]
     other = h["other"]
-    cards = []
-    for slug, app in APPS.items():
-        kind = h["bot"] if app.get("os") == "Discord" else h["win"]
-        cards.append(f'<a href="{url(slug, lang)}" style="--c:{app["accent"]}"><div class="row"><img src="{app["icon"]}" alt="" width="52" height="52" loading="lazy">'
-                     f'<div class="t"><b>{e(app["name"])}</b><span class="tag">{kind}</span></div></div><p>{e(app[lang]["desc"])}</p></a>')
-    cards.append(f'<a href="https://notchify.app/" style="--c:#c05cff"><div class="row"><img src="/img/notchify.png" alt="" width="52" height="52" loading="lazy">'
-                 f'<div class="t"><b>Notchify</b><span class="tag">{h["win"]}</span></div></div><p>{e("Notchify adds a Dynamic Island to your Windows screen." if lang == "en" else "Notchify, Windows ekranınıza Dinamik Ada ekler.")}</p></a>')
+    wins = [(s, a) for s, a in APPS.items() if a.get("os") != "Discord"]
+    bots = [(s, a) for s, a in APPS.items() if a.get("os") == "Discord"]
+    store_count = sum(1 for _, a in APPS.items() if a.get("store")) + 1   # + Notchify
+    total = len(APPS) + 1
+
+    def card(slug, app, kind_key):
+        c = app[lang]
+        return (f'<a class="card" data-k="{kind_key}" href="{url(slug, lang)}" style="--c:{app["accent"]}">'
+                f'<div class="head"><img class="ic" src="{app["icon"]}" alt="" width="58" height="58" loading="lazy">'
+                f'<div class="nm"><b>{e(app["name"])}</b><small>{e(c["eyebrow"])}</small></div></div>'
+                f'<h3>{e(c["h1"])}</h3><p>{e(c["desc"])}</p><span class="go">{h["view"]} {ARROW}</span></a>')
+
+    feat = (f'<a class="card feat" data-k="win" href="https://notchify.app/" style="--c:#c05cff">'
+            f'<img class="big" src="/img/notchify.png" alt="" width="132" height="132">'
+            f'<div class="body"><div class="head"><div class="nm"><b>Notchify</b><small>{h["win"]}</small></div><span class="tag">{h["flag"]}</span></div>'
+            f'<h3>{e(h["n_h1"])}</h3><p>{e(h["n_desc"])}</p><span class="go">{e(h["n_cta"])} {ARROW}</span></div></a>')
+    more = (f'<a class="card more" data-k="more" href="https://kingpindev.com/" style="--c:#8b5cf6">'
+            f'<h3>{e(h["m_t"])}</h3><p>{e(h["m_d"])}</p><span class="go">{e(h["m_cta"])} {ARROW}</span></a>')
+    cards = feat + "".join(card(s, a, "win") for s, a in wins) + "".join(card(s, a, "bot") for s, a in bots) + more
+    orbit_apps = [("https://notchify.app/", "/img/notchify.png", "#c05cff", "Notchify")] + [(url(s, lang), a["icon"], a["accent"], a["name"]) for s, a in APPS.items()]
+    orbit = "".join(f'<a href="{u}" style="--c:{col};--i:{i}" title="{e(n)}" aria-label="{e(n)}"><img src="{ic}" alt="" width="44" height="44"></a>'
+                    for i, (u, ic, col, n) in enumerate(orbit_apps))
+    seg = (f'<button type="button" data-k="all" aria-pressed="true">{h["all"]}<span>{total}</span></button>'
+           f'<button type="button" data-k="win" aria-pressed="false">{h["wins"]}<span>{len(wins) + 1}</span></button>'
+           f'<button type="button" data-k="bot" aria-pressed="false">{h["bots"]}<span>{len(bots)}</span></button>')
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": h["title"], "description": h["desc"], "url": hub_url(lang), "inLanguage": lang,
           "publisher": {"@type": "Organization", "name": "Kingpindev", "url": "https://kingpindev.com/"}}
     return f"""<!doctype html>
@@ -899,7 +1018,7 @@ def hub_page(lang: str) -> str:
 <meta property="og:description" content="{e(h["desc"])}">
 <meta property="og:image" content="https://kingpindev.com/img/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#070a12">
+<meta name="theme-color" content="#05070d">
 <link rel="icon" type="image/png" href="/img/Aurora.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -910,28 +1029,35 @@ def hub_page(lang: str) -> str:
 <style>:root{{--accent:#8b5cf6;--accent2:#38bdf8}}{HUB_STYLE}</style>
 </head>
 <body data-lang="{lang}" data-other="{hub_url(other)}">
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
 <header class="top">
   <div class="wrap top-in">
-    <a class="brand" href="{hub_url(lang)}"><span>Kingpindev</span></a>
+    <a class="brand" href="https://kingpindev.com/"><span>Kingpindev</span></a>
     <a class="lang" href="{hub_url(other)}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{h["lang_name"]}</a>
     <a class="btn btn-sm" href="https://kingpindev.com/"><span>{h["home"]}</span></a>
   </div>
 </header>
 <main>
-  <section class="hero">
+  <section class="hub-hero">
     <div class="wrap">
-      <p class="eyebrow">{h["eyebrow"]}</p>
-      <h1>{e(h["h1"])}</h1>
+      <span class="pill"><i></i>{e(h["eyebrow"])}</span>
+      <h1>{e(h["h1a"])} <span>{e(h["h1b"])}</span></h1>
       <p class="lead">{e(h["lead"])}</p>
+      <nav class="orbit" aria-label="{e(h["eyebrow"])}">{orbit}</nav>
+      <ul class="stats"><li><b>{total}</b>{h["s_apps"]}</li><li><b>{len(APPS)}</b>{h["s_demo"]}</li><li><b>{store_count}</b>{h["s_store"]}</li></ul>
     </div>
   </section>
   <section>
-    <div class="wrap hub">{"".join(cards)}</div>
+    <div class="wrap">
+      <div class="filters"><div class="seg" role="group" aria-label="{e(h["filter"])}">{seg}</div></div>
+      <div class="grid">{cards}</div>
+    </div>
   </section>
 </main>
-<footer class="foot">
-  <div class="wrap"><a href="https://kingpindev.com/">Kingpindev</a></div>
+<footer class="hub-foot">
+  <div class="wrap"><span>{e(h["made"])}</span><span><a href="https://kingpindev.com/">kingpindev.com</a> · <a href="https://notchify.app/">notchify.app</a></span></div>
 </footer>
+<script>{HUB_SCRIPT}</script>
 </body>
 </html>
 """
