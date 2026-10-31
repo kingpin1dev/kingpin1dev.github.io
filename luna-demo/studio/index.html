@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>LunaDock live demo</title>
+  <link rel="icon" href="/img/lunadock.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=20261031">
+</head>
+<body class="embed">
+  <!-- LunaDock live demo for lunadock.kingpindev.com. The stage comes from the LunaDock demo studio
+       (Stacks/demo); this page keeps only the stage and a compact control bar. -->
+  <div class="stage-shell"><div id="stage" class="stage" data-pack="Fluent" data-style="category" data-wallpaper="blue" data-edge="top">
+    <div class="wallpaper"><div class="bloom b1"></div><div class="bloom b2"></div><div class="bloom b3"></div><div class="bloom b4"></div><div class="bloom b5"></div><div class="bloom b6"></div><div class="wallpaper-grain"></div></div>
+    <div class="story-copy" id="story-copy"><span class="story-kicker"></span><h2></h2><p></p></div>
+    <div id="files"></div><div id="stacks"></div>
+    <section id="panel" class="file-panel" hidden><header><span id="panel-title"></span><span id="panel-count"></span><button id="close-panel" data-i18n-label="close">×</button></header><div id="panel-files"></div><footer><span id="deck-hint" data-i18n="deckHint"></span><span id="deck-counter"></span></footer></section>
+    <div id="quicklook" class="quicklook" hidden><button id="close-preview" data-i18n-label="close">×</button><div id="preview-art"></div><strong id="preview-name"></strong><span data-i18n="quick"></span></div>
+    <div id="fake-cursor" aria-hidden="true"><svg viewBox="0 0 24 30"><path d="M2 2 3 25 9 19 14 29 19 26 14 17 23 16Z" fill="white" stroke="#182139" stroke-width="1.5"/></svg><i></i></div>
+    <div class="stage-signature"><img src="/img/lunadock.png" alt=""><span>LunaDock</span></div>
+    <div class="taskbar"><div class="taskbar-weather">☀ <span>21°<small data-i18n="sunny"></small></span></div><div class="taskbar-apps"><span class="windows-logo"><i></i><i></i><i></i><i></i></span><span class="search-glyph">⌕</span><span class="explorer-icon"></span><span class="edge-icon">e</span><img src="/img/lunadock.png" alt="LunaDock"></div><div class="taskbar-time"><span>⌃　 ◉　 ♬</span><span>10:08<small data-i18n="date"></small></span></div></div>
+  </div></div>
+
+  <div class="ebar">
+    <button class="eplay" id="play"></button>
+    <div class="segmented"><button data-action="organize" class="selected" data-i18n="organized"></button><button data-action="scatter" data-i18n="scattered"></button></div>
+    <div class="segmented"><button data-style="category" class="selected" data-i18n="category"></button><button data-style="pile" data-i18n="piles"></button></div>
+    <label class="efield"><span data-i18n="pack"></span><select id="pack"></select></label>
+    <div class="edges" role="group"><button data-edge="top" class="selected" data-i18n-label="top">↑</button><button data-edge="right" data-i18n-label="right">→</button><button data-edge="bottom" data-i18n-label="bottom">↓</button><button data-edge="left" data-i18n-label="left">←</button></div>
+    <label class="efield"><span data-i18n="group"></span><select id="group"><option value="kind" data-i18n="kind"></option><option value="date" data-i18n="dateGroup"></option></select></label>
+    <label class="efield"><span data-i18n="openAs"></span><select id="overflow"><option value="deck" data-i18n="deck"></option><option value="wrap" data-i18n="wrap"></option><option value="scroll" data-i18n="scroll"></option></select></label>
+    <div class="wallpapers"><button data-wallpaper="blue" class="selected" data-i18n-label="wpBlue"></button><button data-wallpaper="dusk" data-i18n-label="wpDusk"></button><button data-wallpaper="light" data-i18n-label="wpLight"></button></div>
+  </div>
+
+  <!-- Story controls used by app.js; the embed drives them from the play button. -->
+  <div hidden>
+    <div id="pack-preview"></div><button id="capture"></button><button id="reset"></button>
+    <button id="toggle-play"></button><button id="restart"></button><span id="time"></span>
+    <input type="range" id="timeline" min="0" max="42" step="0.01" value="0"><button id="loop"></button>
+  </div>
+  <script src="app.js?v=20261031"></script>
+</body>
+</html>

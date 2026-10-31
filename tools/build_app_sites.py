@@ -63,7 +63,7 @@ STORE = "https://apps.microsoft.com/detail/{}"
 APPS: dict[str, dict] = {
     "lunadock": {
         "name": "LunaDock", "icon": "/img/lunadock.png", "store": "9NZKGTR475CG", "accent": "#7dd3fc", "accent2": "#a78bfa",
-        "category": "UtilitiesApplication", "demo": {"kind": "script", "src": "/luna-demo/luna-demo.js", "api": "LunaDemo", "opts": {"img": "/img/"}, "lang": True},
+        "category": "UtilitiesApplication", "demo": {"kind": "frame", "src": "/luna-demo/studio/index.html?v=20261031", "w": 1100, "h": 734, "lang": True},
         "privacy": "https://kingpindev.com/lunadock-privacy-policy",
         "en": {
             "title": "LunaDock: tidy desktop stacks for Windows",
@@ -73,7 +73,7 @@ APPS: dict[str, dict] = {
             "lead": "LunaDock gathers the files, folders and shortcuts on your Windows desktop into neat stacks: images, movies, music, documents, games, apps and more. Click a stack to fan it open, grab what you need, and click again to tuck it away. Your files stay exactly where they are.",
             "facts": ["Windows 10 and 11", "16 languages", "No account", "Files never move"],
             "demo_title": "Try it here",
-            "demo_note": "A live demo of the stacks running in your browser. Click a stack, switch icon packs, move the stacks to another edge or group them by date. The files are examples.",
+            "demo_note": "A live demo running in your browser. Watch the short story, or take over: click a stack, scroll through the deck, switch icon packs, move the stacks to another edge or group them by date. The files are examples.",
             "features_title": "Everything on your desktop, in the right place",
             "features": [
                 ("layers", "Automatic stacks", "Images, movies, music, documents, games, apps and more each get their own stack. Anything new you save to the desktop lands in the right one by itself."),
@@ -105,7 +105,7 @@ APPS: dict[str, dict] = {
             "lead": "LunaDock, Windows masaüstünüzdeki dosya, klasör ve kısayolları düzenli yığınlarda toplar: resimler, videolar, müzik, belgeler, oyunlar, uygulamalar ve daha fazlası. Bir yığına tıklayınca açılır, işinizi görüp tekrar tıklayınca toplanır. Dosyalarınız olduğu yerde kalır.",
             "facts": ["Windows 10 ve 11", "16 dil", "Hesap gerekmez", "Dosyalar yerinden oynamaz"],
             "demo_title": "Burada deneyin",
-            "demo_note": "Yığınların tarayıcınızda çalışan canlı demosu. Bir yığına tıklayın, ikon paketini değiştirin, yığınları başka bir kenara taşıyın ya da tarihe göre gruplayın. Dosyalar örnektir.",
+            "demo_note": "Tarayıcınızda çalışan canlı demo. Kısa hikâyeyi izleyin ya da kontrolü alın: bir yığına tıklayın, destede kaydırın, ikon paketini değiştirin, yığınları başka bir kenara taşıyın ya da tarihe göre gruplayın. Dosyalar örnektir.",
             "features_title": "Masaüstündeki her şey doğru yerde",
             "features": [
                 ("layers", "Otomatik yığınlar", "Resimler, videolar, müzik, belgeler, oyunlar, uygulamalar ve daha fazlası kendi yığınına girer. Masaüstüne kaydettiğiniz her yeni dosya kendiliğinden doğru yığına yerleşir."),
@@ -723,8 +723,9 @@ def page(slug: str, app: dict, lang: str) -> str:
         demo_html = (f'<div class="demo-box demo-script" data-api="{demo["api"]}" data-opts="{e(json.dumps(opts))}"></div>'
                      f'<script src="{demo["src"]}" defer></script>')
     else:
+        src = demo["src"] + (("&" if "?" in demo["src"] else "?") + "lang=" + lang if demo.get("lang") else "")
         demo_html = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}">'
-                     f'<iframe src="{demo["src"]}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
+                     f'<iframe src="{e(src)}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
     ld = {
         "@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": app.get("os", "Windows 10, Windows 11"),
         "applicationCategory": app["category"], "description": c["desc"], "url": url(slug, lang), "image": f"https://{slug}.kingpindev.com/img/og-{slug}.jpg",
