@@ -73,7 +73,7 @@
     "Kingpindev evreni var.": "The Kingpindev universe.",
     "Kingpindev, Türkiye merkezli bağımsız geliştirici Burak PEKEL'in dijital kimliğidir. Windows uygulamaları, web servisleri, sinematik video editleri ve UI/UX tasarımı alanlarında çalışmalar üretmektedir.":
       "Kingpindev is the digital identity of Burak PEKEL, an independent developer based in Türkiye, building Windows apps, web services, cinematic video edits and UI/UX design.",
-    "Evrene Gir": "Enter the universe",
+    "Evrene Gir": "Enter the universe", "Tüm uygulamalar": "All apps",
     "Geliştir. Tasarla. Yayınla.": "Build. Design. Ship.",
     "Her proje bir fikrin gerçeğe dönüşmüş hali.": "Every project is an idea made real.",
     "Oyun": "Gaming",

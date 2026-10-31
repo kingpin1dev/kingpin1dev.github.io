@@ -862,6 +862,10 @@
       letter-spacing: -.06em;
     }
 
+    .section-side { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+    .all-apps-btn i { font-size: 13px; transition: transform .2s; }
+    .all-apps-btn:hover i { transform: translateX(3px); }
+
     .section-copy {
       margin: 0;
       color: var(--muted);
@@ -2815,9 +2819,12 @@
             <div class="kicker">Uygulama Galaksisi</div>
             <h2 class="section-title">Her uygulama ayrı bir gezegen.</h2>
           </div>
-          <p class="section-copy">
-            Her proje, günlük yazılım deneyimini daha akıcı ve kullanışlı hale getirmek için geliştirildi. Windows araçlarından web servislerine kadar uzanan ekosistem burada.
-          </p>
+          <div class="section-side">
+            <p class="section-copy">
+              Her proje, günlük yazılım deneyimini daha akıcı ve kullanışlı hale getirmek için geliştirildi. Windows araçlarından web servislerine kadar uzanan ekosistem burada.
+            </p>
+            <a class="btn primary all-apps-btn" href="https://apps.kingpindev.com/">Tüm uygulamalar <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
         </div>
 
         <div class="showcase-grid">
