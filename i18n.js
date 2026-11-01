@@ -153,7 +153,7 @@
     "Durum: yeni projelere ve işbirliklerine açık ✅": "Status: open to new projects and collaborations ✅",
     "Bir fikir mi var? 'iletisim' yaz ya da admin@kingpindev.com.": "Got an idea? Type 'contact' or write to admin@kingpindev.com.",
     "🎧  Şu an bir şey çalmıyor.": "🎧  Nothing playing right now.",
-    "🎮  170 oyun · 39 tam bitirilmiş · 9.815 başarım · %71 tamamlama": "🎮  170 games · 39 fully completed · 9,815 achievements · 71% completion",
+    "🎮  172 oyun · 39 tam bitirilmiş · 9.937 başarım · %68 tamamlama": "🎮  172 games · 39 fully completed · 9,937 achievements · 68% completion",
     "   geliştir · tasarla · yayınla — ve biraz da eğlen.": "   build · design · ship — and have some fun.",
     "☕  Kahve hazırlanıyor... kafeinsiz kod derlenmez.": "☕  Brewing coffee... code won't compile without caffeine.",
     "Matrix'e hoş geldin, Neo.": "Welcome to the Matrix, Neo.",
