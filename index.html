@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="google" content="notranslate" />
-  <script src="/i18n.js?v=20261101b"></script>
+  <script src="/i18n.js?v=20261101c"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script>
@@ -2353,7 +2353,7 @@
     .sv-step.done i { width: 100%; opacity: .4; box-shadow: none; }
     .sv-step.on i { animation: svFill var(--dur, 7s) linear forwards; }
     .sv-step.pinned i { width: 100%; animation: svPulse 1.6s ease-in-out infinite; }
-    .sv-shelf:hover .sv-step.on i { animation-play-state: paused; }
+    .sv-shelf:hover .sv-step.on i, .sv-shelf.sv-paused .sv-step.on i { animation-play-state: paused; }
     @keyframes svFill { from { width: 0; } to { width: 100%; } }
     ::view-transition-group(*) { animation-duration: .55s; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
 
@@ -2806,6 +2806,15 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Burak PEKEL","alternateName":"Kingpindev",
+   "url":"https://kingpindev.com/","image":"https://kingpindev.com/img/og-image.jpg",
+   "jobTitle":"Software Developer, Video Editor","address":{"@type":"PostalAddress","addressCountry":"TR"},
+   "sameAs":["https://github.com/kingpin1dev","https://www.instagram.com/burakpekeel/",
+     "https://steamcommunity.com/id/burakpekel/","https://www.xbox.com/tr-TR/play/user/Kingpin7841",
+     "https://open.spotify.com/artist/7tqKllQw5Qmb8W2rxxBykt","https://discord.com/users/349640233651798027",
+     "https://apps.microsoft.com/search/publisher?name=Kingpindev","https://notchify.app/"]}
+  </script>
 </head>
 
 <body class="noise">
@@ -3188,10 +3197,10 @@
                 <div class="sv-name"><b>Kingpin</b><span>steamcommunity.com/id/burakpekel</span></div>
               </div>
               <div class="game-stats sv-strip">
-                <div class="game-stat" style="--c:#66c0f4"><b data-count="172">0</b><span>Sahip olunan oyun</span></div>
-                <div class="game-stat" style="--c:#b57cff"><b data-count="39">0</b><span>%100 tamamlanan</span></div>
-                <div class="game-stat" style="--c:#ffc96d"><b data-count="9937" data-dot="1">0</b><span>Kazanılan başarım</span></div>
-                <div class="game-stat" style="--c:#70ffb2"><b data-count="68" data-prefix="%">0</b><span>Bitirme oranı</span></div>
+                <div class="game-stat" style="--c:#66c0f4"><b data-k="games" data-count="172">0</b><span>Sahip olunan oyun</span></div>
+                <div class="game-stat" style="--c:#b57cff"><b data-k="perfect" data-count="39">0</b><span>%100 tamamlanan</span></div>
+                <div class="game-stat" style="--c:#ffc96d"><b data-k="achievements" data-count="9937" data-dot="1">0</b><span>Kazanılan başarım</span></div>
+                <div class="game-stat" style="--c:#70ffb2"><b data-k="completion" data-count="68" data-prefix="%">0</b><span>Bitirme oranı</span></div>
               </div>
               <div class="steam-level">
                 <div class="sl-meta"><b>Steam Seviyesi</b><span>Awaken</span></div>
@@ -3202,7 +3211,7 @@
             <div class="shelf-label"><span class="bar"></span> Kütüphane Özetim</div>
             <div class="sv-shelf">
               <div class="sv-steps" id="sv-steps" aria-hidden="true"></div>
-              <article class="sv-game sv-feature" data-game="helldivers 2" style="--c:#ffe14d; --p:32">
+              <article class="sv-game sv-feature" data-game="helldivers 2" data-appid="553850" style="--c:#ffe14d; --p:32">
                 <div class="sv-art" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/library_hero.jpg')"></div>
                 <img class="sv-logo" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/logo.png" alt="HELLDIVERS 2" loading="lazy">
                 <span class="sv-live"><i></i> Şu an oynuyor</span>
@@ -3217,7 +3226,7 @@
                   <i class="sv-bar"><i></i></i>
                 </div>
               </article>
-              <article class="sv-game" data-game="arc raiders" style="--c:#ff9d42; --p:32">
+              <article class="sv-game" data-game="arc raiders" data-appid="1808500" style="--c:#ff9d42; --p:32">
                 <div class="sv-art" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/library_hero.jpg')"></div>
                 <img class="sv-logo" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1808500/logo.png" alt="ARC Raiders" loading="lazy">
                 <span class="sv-live"><i></i> Şu an oynuyor</span>
@@ -3232,7 +3241,7 @@
                   <i class="sv-bar"><i></i></i>
                 </div>
               </article>
-              <article class="sv-game" data-game="days gone" style="--c:#ff5a4f; --p:3">
+              <article class="sv-game" data-game="days gone" data-appid="1259420" style="--c:#ff5a4f; --p:3">
                 <div class="sv-art" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1259420/library_hero.jpg')"></div>
                 <img class="sv-logo" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1259420/logo.png" alt="Days Gone" loading="lazy">
                 <span class="sv-live"><i></i> Şu an oynuyor</span>
@@ -3247,7 +3256,7 @@
                   <i class="sv-bar"><i></i></i>
                 </div>
               </article>
-              <article class="sv-game is-perfect" data-game="dying light" style="--c:#ffc96d; --p:100">
+              <article class="sv-game is-perfect" data-game="dying light" data-appid="239140" style="--c:#ffc96d; --p:100">
                 <div class="sv-art" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/library_hero.jpg')"></div>
                 <img class="sv-logo" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/logo.png" alt="Dying Light" loading="lazy">
                 <span class="sv-live"><i></i> Şu an oynuyor</span>
@@ -3590,7 +3599,7 @@
         icon: 'img/notchify.png',
         pill: 'Windows Uygulaması',
         title: 'Notchify',
-        desc: 'Notchify, ekranınızın üst kısmına Dinamik Ada ekleyen şık bir kişiselleştirme uygulamasıdır. Arka planda çalan müzikleri, işlemci performansını ve anlık bildirimleri ekranı kaplamadan tek bir panelden takip etmenizi sağlar. Dosya sürükleyip saklayabileceğiniz pratik bir çekmece ve hava durumu gibi araçları tek bir modern arayüzde birleştirir.',
+        desc: 'Notchify, Windows 10 ve 11\'in üst kenarına bir Dinamik Ada ekler. Çalan müziği senkronize şarkı sözleriyle gösterir; bildirimleri, pano geçmişini, dosya çekmecesini ve 20\'den fazla widget\'ı ekranı kaplamadan tek bir yerde toplar. Discord görüşmelerini yönetebilir, telefonla QR kod üzerinden dosya alışverişi yapabilir ve tarayıcı indirmelerini doğrudan adadan takip edebilirsiniz.',
         tags: ['Akıcı Animasyonlar', 'Bildirimler', 'Medya Kontrolü', 'Kısayollar', 'Takvim', 'Hava Durumu', 'Tepsi'],
         links: [
           { text: 'Microsoft Store', url: 'https://apps.microsoft.com/detail/9P0JFN5L96VH?hl=tr-tr&gl=TR&ocid=pdpshare' },
@@ -4132,6 +4141,51 @@
       connectWS();
     })();
 
+    // Steam showcase numbers from /data/steam.json (refreshed on the server every 6 h from the public profile).
+    // The totals in the HTML act as a floor: the public profile leaves out private games, so only higher numbers win.
+    (function initSteamLive() {
+      const MONTHS = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+      fetch('/data/steam.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(d => {
+        if (!d) return;
+        const total = (k, v) => {
+          const b = document.querySelector('.sv-strip b[data-k="' + k + '"]');
+          if (!b || typeof v !== 'number' || v <= parseInt(b.dataset.count, 10)) return;
+          b.dataset.count = v;
+          if (b.textContent.trim() !== '0') b.textContent = (b.dataset.prefix || '') + (b.dataset.dot === '1' ? v.toLocaleString('tr-TR') : v);
+        };
+        total('games', d.games); total('perfect', d.perfect); total('achievements', d.achievements); total('completion', d.completion);
+        const lvl = document.querySelector('.sv-profile .sl-num');
+        if (lvl && d.level > parseInt(lvl.textContent, 10)) lvl.textContent = d.level;
+
+        document.querySelectorAll('.sv-game[data-appid]').forEach(card => {
+          const g = (d.shelf || {})[card.dataset.appid];
+          if (!g) return;
+          const info = card.querySelector('.sv-info'), row = card.querySelector('.sv-row');
+          if (g.total) {
+            const pct = Math.round(g.got * 100 / g.total);
+            card.style.setProperty('--p', pct);
+            card.querySelector('.sv-ach b').textContent = g.got + '/' + g.total;
+            card.querySelector('.sv-pct').textContent = '%' + pct;
+            card.classList.toggle('is-perfect', pct === 100);
+            const badge = card.querySelector('.sv-perfect');
+            if (pct === 100 && !badge) info.insertAdjacentHTML('beforebegin', '<span class="sv-perfect"><i class="fas fa-crown"></i> Mükemmel</span>');
+            if (pct !== 100 && badge) badge.remove();
+          }
+          if (g.hours) {
+            let h = card.querySelector('.sv-hours');
+            if (!h) { row.insertAdjacentHTML('afterbegin', '<span class="sv-hours"><b></b> saat</span>'); h = card.querySelector('.sv-hours'); }
+            h.querySelector('b').textContent = String(g.hours).replace('.', ',');
+          }
+          if (g.lastPlayed) {
+            const [, m, day] = g.lastPlayed.split('-').map(Number);
+            let t = card.querySelector('.sv-tag');
+            if (!t) { info.insertAdjacentHTML('afterbegin', '<span class="sv-tag"></span>'); t = card.querySelector('.sv-tag'); }
+            t.textContent = 'Son oynanan · ' + day + ' ' + MONTHS[m - 1];
+          }
+        });
+      }).catch(() => {});
+    })();
+
     // Steam showcase: the featured game rotates every 7 s; a step bar shows the timer.
     // Hover pauses, clicking a tile features it, and a game being played stays featured.
     (function initSteamRotation() {
@@ -4142,6 +4196,11 @@
       if (cards.length < 2) return;
       let idx = Math.max(0, cards.findIndex(c => c.classList.contains('sv-feature')));
       let pinned = null;
+      let onScreen = true;
+      // Only count down while the shelf is on screen and the tab is visible
+      const setPaused = () => shelf.classList.toggle('sv-paused', !onScreen || document.hidden);
+      new IntersectionObserver(es => { onScreen = es[0].isIntersecting; setPaused(); }).observe(shelf);
+      document.addEventListener('visibilitychange', setPaused);
 
       cards.forEach((c, i) => {
         c.style.viewTransitionName = 'sv-game-' + i;
@@ -4176,8 +4235,14 @@
       function show(i) {
         if (i === idx) { paint(); return; }
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (document.startViewTransition && !reduce && !document.hidden) document.startViewTransition(() => swap(i));
-        else swap(i);
+        if (!document.startViewTransition || reduce || document.hidden || !onScreen) { swap(i); return; }
+        // A transition can be aborted (tab hidden, nothing painted); make sure the swap still happens.
+        let done = false;
+        const t = document.startViewTransition(() => { done = true; swap(i); });
+        const fallback = () => { if (!done) { done = true; swap(i); } };
+        t.updateCallbackDone.catch(fallback);
+        t.ready.catch(() => {});
+        t.finished.catch(() => {});
       }
 
       // Called by the Discord presence code

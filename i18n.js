@@ -1,4 +1,4 @@
-/* English for kingpindev.com (index.html and legacy.html).
+/* English for kingpindev.com (index.html).
    The pages are written in Turkish. In English mode every text node and the alt, title,
    aria-label and placeholder attributes are looked up in EN below (exact match, ignoring
    surrounding whitespace), then in RULES for lines with numbers or names in them. A
@@ -96,8 +96,8 @@
       "Groupy is a Windows volume mixer that puts your apps into groups like Game, Chat, Media and Aux, so you can control each group's volume, mute and output device from one place. It opens with one click from the tray, balances game and chat with ChatMix, and adjusts with hotkeys without leaving your game.",
     "BokMail, kişisel e-posta adresinizi paylaşmadan, çevrimiçi platformlara kayıt olmanızı sağlayan ücretsiz bir geçici (temp) e-posta servisidir. Bu hizmet sayesinde spam maillerden, istenmeyen bültenlerden ve kişisel verilerinizi riske atmaktan kolayca kurtulabilirsiniz.":
       "BokMail is a free temporary email service that lets you sign up for online platforms without sharing your personal address. It keeps spam, unwanted newsletters and risks to your personal data away from your real inbox.",
-    "Notchify, ekranınızın üst kısmına Dinamik Ada ekleyen şık bir kişiselleştirme uygulamasıdır. Arka planda çalan müzikleri, işlemci performansını ve anlık bildirimleri ekranı kaplamadan tek bir panelden takip etmenizi sağlar. Dosya sürükleyip saklayabileceğiniz pratik bir çekmece ve hava durumu gibi araçları tek bir modern arayüzde birleştirir.":
-      "Notchify adds a Dynamic Island to the top of your screen. Follow the music playing in the background, your CPU and live notifications from one panel without covering the screen, with a handy shelf for dragging files and tools like weather, all in one modern interface.",
+    "Notchify, Windows 10 ve 11'in üst kenarına bir Dinamik Ada ekler. Çalan müziği senkronize şarkı sözleriyle gösterir; bildirimleri, pano geçmişini, dosya çekmecesini ve 20'den fazla widget'ı ekranı kaplamadan tek bir yerde toplar. Discord görüşmelerini yönetebilir, telefonla QR kod üzerinden dosya alışverişi yapabilir ve tarayıcı indirmelerini doğrudan adadan takip edebilirsiniz.":
+      "Notchify adds a Dynamic Island to the top of Windows 10 and 11. It shows the music playing with synced lyrics and gathers notifications, clipboard history, a file tray and 20+ widgets in one place without covering your screen. You can manage Discord calls, swap files with your phone by QR code and follow browser downloads right from the island.",
     "LunaDock, Windows masaüstünüzdeki dosya, klasör ve kısayolları otomatik olarak düzenli yığınlara ayırır. Bir yığına tıklayınca açılır, tekrar tıklayınca toplanır. Türe ya da tarihe göre gruplayın, 20’den fazla ikon paketinden seçin ve yığınları ekranın istediğiniz kenarına yerleştirin. Dosyalarınız yerinden oynamaz.":
       "LunaDock automatically sorts the files, folders and shortcuts on your Windows desktop into tidy stacks. Click a stack to open it, click again to tuck it away. Group by type or date, pick from more than 20 icon packs and place the stacks on any edge of the screen. Your files never move.",
     "VICE Sonar, SteelSeries GG Sonar ses yazılımını daha hızlı yönetmek için geliştirilmiş hafif bir masaüstü kontrol aracıdır. Büyük ana uygulamayı açmaya gerek kalmadan; oyun, sohbet, medya kanallarının ses seviyelerini ve ekolayzır profillerini ekran üzerindeki küçük bir widget vasıtasıyla anında değiştirmenizi sağlar.":
@@ -249,6 +249,8 @@
 
   // Lines that carry a number or a name.
   var STATUS = { "çevrimiçi": "online", "boşta": "idle", "rahatsız etmeyin": "do not disturb", "çevrimdışı": "offline" };
+  var TR_MONTHS = { Ocak: "Jan", "Şubat": "Feb", Mart: "Mar", Nisan: "Apr", "Mayıs": "May", Haziran: "Jun",
+    Temmuz: "Jul", "Ağustos": "Aug", "Eylül": "Sep", Ekim: "Oct", "Kasım": "Nov", "Aralık": "Dec" };
   var RULES = [
     [/^komut bulunamadı: (.+) — 'help' dene$/, "command not found: $1 — try 'help'"],
     [/^Kingpindev (\d+) yıldır bu evrende kod yazıyor\.$/, "Kingpindev has been coding in this universe for $1 years."],
@@ -256,6 +258,7 @@
     [/^Discord: (çevrimiçi|boşta|rahatsız etmeyin|çevrimdışı)/, function (m, s) { return "Discord: " + STATUS[s]; }],
     [/ · Kodluyor: /, " · Coding: "],
     [/^Şu an: (.+)$/, "Now: $1"],
+    [/^Son oynanan · (\d+) (\S+)$/, function (m, d, mo) { return "Last played · " + (TR_MONTHS[mo] || mo) + " " + d; }],
     [/^(\d+),(\d)$/, "$1.$2"],                       // 6,1 hours -> 6.1
     [/^Oynuyor: (.+)$/, function (m, g) { return "Playing: " + g.replace(/ · (\d+) sa (\d+) dk$/, " · $1 h $2 min").replace(/ · (\d+) dk$/, " · $1 min"); }],
     [/OYUN BİTTİ · Skor: (\d+)/, "GAME OVER · Score: $1"],
