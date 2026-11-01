@@ -2342,6 +2342,21 @@
     .sv-game.is-live .sv-perfect { display: none; }
     .sv-game.is-live { border-color: rgba(112,255,178,.6); }
 
+    /* Rotation: grid order puts the featured card first, then the step bar, then the tiles */
+    .sv-game { order: 2; cursor: pointer; }
+    .sv-game.sv-feature { order: 0; cursor: default; }
+    .sv-steps { order: 1; grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: -2px 0 0; }
+    .sv-steps:empty { display: none; }
+    .sv-step { position: relative; height: 14px; padding: 5px 0; border: 0; background: none; cursor: pointer; }
+    .sv-step::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 4px; border-radius: 99px; background: rgba(255,255,255,.12); }
+    .sv-step i { position: absolute; left: 0; top: 5px; height: 4px; width: 0; border-radius: 99px; background: var(--c); box-shadow: 0 0 10px color-mix(in srgb, var(--c) 70%, transparent); }
+    .sv-step.done i { width: 100%; opacity: .4; box-shadow: none; }
+    .sv-step.on i { animation: svFill var(--dur, 7s) linear forwards; }
+    .sv-step.pinned i { width: 100%; animation: svPulse 1.6s ease-in-out infinite; }
+    .sv-shelf:hover .sv-step.on i { animation-play-state: paused; }
+    @keyframes svFill { from { width: 0; } to { width: 100%; } }
+    ::view-transition-group(*) { animation-duration: .55s; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+
     @media (max-width: 900px) {
       .sv-profile { flex-wrap: wrap; gap: 14px; }
       .steam-panel .sv-strip { order: 3; flex-basis: 100%; border-left: 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 12px; display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 12px; }
@@ -3186,6 +3201,7 @@
 
             <div class="shelf-label"><span class="bar"></span> Kütüphane Özetim</div>
             <div class="sv-shelf">
+              <div class="sv-steps" id="sv-steps" aria-hidden="true"></div>
               <article class="sv-game sv-feature" data-game="helldivers 2" style="--c:#ffe14d; --p:32">
                 <div class="sv-art" style="background-image:url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/library_hero.jpg')"></div>
                 <img class="sv-logo" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/logo.png" alt="HELLDIVERS 2" loading="lazy">
@@ -4046,6 +4062,7 @@
           el.classList.toggle('is-live', hit);
           if (hit) onShelf = true;
         });
+        if (window.svShowcase) window.svShowcase.pin(onShelf ? gkey : '');
         const nowChip = document.getElementById('sv-now');
         if (nowChip) {
           nowChip.hidden = !game || onShelf;
@@ -4113,6 +4130,68 @@
 
       fetchStatus();
       connectWS();
+    })();
+
+    // Steam showcase: the featured game rotates every 7 s; a step bar shows the timer.
+    // Hover pauses, clicking a tile features it, and a game being played stays featured.
+    (function initSteamRotation() {
+      const shelf = document.querySelector('.sv-shelf');
+      const steps = document.getElementById('sv-steps');
+      if (!shelf || !steps) return;
+      const cards = [...shelf.querySelectorAll('.sv-game')];
+      if (cards.length < 2) return;
+      let idx = Math.max(0, cards.findIndex(c => c.classList.contains('sv-feature')));
+      let pinned = null;
+
+      cards.forEach((c, i) => {
+        c.style.viewTransitionName = 'sv-game-' + i;
+        const b = document.createElement('button');
+        b.className = 'sv-step';
+        b.type = 'button';
+        b.style.setProperty('--c', getComputedStyle(c).getPropertyValue('--c'));
+        b.title = c.querySelector('.sv-logo')?.alt || '';
+        b.appendChild(document.createElement('i'));
+        b.addEventListener('click', () => { if (!pinned) show(i); });
+        b.querySelector('i').addEventListener('animationend', e => { if (e.animationName === 'svFill') show((idx + 1) % cards.length); });
+        steps.appendChild(b);
+        c.addEventListener('click', () => { if (!pinned && i !== idx) show(i); });
+      });
+      const bars = [...steps.children];
+
+      function paint() {
+        bars.forEach((b, i) => {
+          b.classList.remove('on', 'done', 'pinned');
+          void b.offsetWidth; // restart the fill animation
+          if (pinned !== null) b.classList.toggle('pinned', i === idx);
+          else if (i < idx) b.classList.add('done');
+          else if (i === idx) b.classList.add('on');
+        });
+      }
+      function swap(i) {
+        cards[idx].classList.remove('sv-feature');
+        idx = i;
+        cards[idx].classList.add('sv-feature');
+        paint();
+      }
+      function show(i) {
+        if (i === idx) { paint(); return; }
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (document.startViewTransition && !reduce && !document.hidden) document.startViewTransition(() => swap(i));
+        else swap(i);
+      }
+
+      // Called by the Discord presence code
+      window.svShowcase = {
+        pin(key) {
+          const i = key ? cards.findIndex(c => c.dataset.game === key) : -1;
+          if (i < 0) { if (pinned !== null) { pinned = null; paint(); } return; }
+          if (pinned === i) return;
+          pinned = i;
+          show(i);
+          paint();
+        }
+      };
+      paint();
     })();
 
     // Contact modal
