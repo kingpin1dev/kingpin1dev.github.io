@@ -1,4 +1,4 @@
-/* Groupy live demo for kingpindev.com.
+/* Mixora live demo for kingpindev.com.
    A working copy of the app's tray flyout (FlyoutView.cs) and a scaled main window
    (MainWindow / CategoryCardView), sharing one state. Colours, sizes and icons follow
    the app's Theme.cs, Controls.cs and Icons.cs (lucide). Mount with GroupyDemo.mount(el). */
@@ -35,12 +35,12 @@
   // ── Strings (the app's own Turkish and English UI text) ─────────────────
   const T = {
     tr: { groups: { game: "Oyun", chat: "Sohbet", media: "Medya", aux: "Aux" }, profiles: ["Günlük", "Oyun gecesi"],
-      open: "Groupy'yi aç", settings: "Ayarlar", quit: "Çıkış", hintFly: "Kaydır, sessize al, profili değiştir", hintMain: "Pencereyi kapatınca tepsi paneline dönersin",
+      open: "Mixora'yı aç", settings: "Ayarlar", quit: "Çıkış", hintFly: "Kaydır, sessize al, profili değiştir", hintMain: "Pencereyi kapatınca tepsi paneline dönersin",
       muted: "Sessiz", apps: (n) => `${n} uygulama`, speakers: "Hoparlörler (Realtek Audio)", defOut: "Varsayılan çıkış", appsLbl: "UYGULAMALAR",
       status: ["Kapalı", "Boşta", "Etkin"], gameSide: "Oyun tarafı", chatSide: "Sohbet tarafı", groupsBtn: "Gruplar", detected: "ALGILANAN UYGULAMALAR",
       search: "Uygulama ara", assign: "Bir uygulamayı gruba sürükleyin ya da tıklayın", date: "21 Ekim 2026" },
     en: { groups: { game: "Game", chat: "Chat", media: "Media", aux: "Aux" }, profiles: ["Everyday", "Game night"],
-      open: "Open Groupy", settings: "Settings", quit: "Quit Groupy", hintFly: "Drag, mute, switch profiles", hintMain: "Close the window to go back to the tray panel",
+      open: "Open Mixora", settings: "Settings", quit: "Quit Mixora", hintFly: "Drag, mute, switch profiles", hintMain: "Close the window to go back to the tray panel",
       muted: "Muted", apps: (n) => `${n} app${n === 1 ? "" : "s"}`, speakers: "Speakers (Realtek Audio)", defOut: "Default output", appsLbl: "APPS",
       status: ["Closed", "Idle", "Active"], gameSide: "Game side", chatSide: "Chat side", groupsBtn: "Groups", detected: "DETECTED APPS",
       search: "Search apps", assign: "Click or drag to assign", date: "21 October 2026" },
@@ -251,7 +251,7 @@ html:has(#cur) .gp-demo *{cursor:none!important}
           <span class="gp-pct" data-p="g:${g.id}"></span><div class="gp-mute" data-mute="${g.id}"></div></div>${apps}</div>`;
       }).join("");
       return `<div class="gp-stage"><div class="gp-fly">
-        <div class="gp-head"><div class="gp-brand"><img src="${logo}" alt="">GROUPY</div><div class="gp-hbtn" data-act="main">${ic("max", 14, "rgba(255,255,255,.5)")}</div></div>
+        <div class="gp-head"><div class="gp-brand"><img src="${logo}" alt="">MIXORA</div><div class="gp-hbtn" data-act="main">${ic("max", 14, "rgba(255,255,255,.5)")}</div></div>
         ${chips()}<div class="gp-div"></div><div class="gp-rows">${rows}</div><div class="gp-div"></div>
         <div class="gp-mix">${ic("gamepad", 17, "rgba(255,138,76,.9)")}${balance()}${ic("chat", 17, "rgba(94,200,255,.9)")}</div>
         <div class="gp-micrw"><div class="gp-micb" data-act="mic"></div>${slider("mic", "#ff8ad8", "#e0449e", "mic")}<span class="gp-micp" data-p="mic"></span></div>
@@ -280,7 +280,7 @@ html:has(#cur) .gp-demo *{cursor:none!important}
         </div>`;
       }).join("");
       return `<div class="gp-winwrap"><div class="gp-win">
-        <div class="gp-tb"><div class="gp-brand"><img src="${logo}" alt="">GROUPY</div>
+        <div class="gp-tb"><div class="gp-brand"><img src="${logo}" alt="">MIXORA</div>
           <div class="gp-tbb">${ic("star", 15, "#e5b72e")}</div><div class="gp-tbb">${ic("gear", 15, "rgba(255,255,255,.7)")}</div>
           <div class="gp-tbb" data-act="fly">${ic("minus", 15, "rgba(255,255,255,.7)")}</div><div class="gp-tbb">${ic("square", 13, "rgba(255,255,255,.7)")}</div><div class="gp-tbb x" data-act="fly">${ic("x", 15, "rgba(255,255,255,.8)")}</div></div>
         <div class="gp-cmx"><div class="gp-cmx-t">${ic("headphones", 15, "#0B0D12", 2.4)}</div><b>ChatMix</b>

@@ -36,7 +36,7 @@
     { key: "System", glyph: "monitor", color: "#0EA5E9", items: [["This PC", "sys:monitor", 30], ["Recycle Bin", "sys:trash", 30], ["Network", "sys:globe", 30], ["Control Panel", "sys:gear", 30]] },
     { key: "Folders", glyph: "folder", color: "#3B82F6", items: [["Projects", "folder", 1], ["Screenshots", "folder", 0], ["Work", "folder", 12], ["Old Stuff", "folder", 300]] },
     { key: "Shortcuts", glyph: "link", color: "#14B8A6", items: [["Notchify", "app:notchify.png", 2], ["Aurora Radios", "app:Aurora.png", 9]] },
-    { key: "Apps", glyph: "list", color: "#6366F1", items: [["GroupySetup.exe", "app:FluentMixer.png", 0]] },
+    { key: "Apps", glyph: "list", color: "#6366F1", items: [["MixoraSetup.exe", "app:FluentMixer.png", 0]] },
     { key: "Images", glyph: "image", color: "#22C55E", items: [["sunset.jpg", "img:#f97316,#7c3aed", 0], ["wallpaper-4k.png", "img:#0ea5e9,#1e3a8a", 1], ["logo-final.png", "img:#ec4899,#f59e0b", 3], ["avatar.png", "img:#22c55e,#0f766e", 6], ["mockup.psd", "img:#6366f1,#a855f7", 15], ["trip-01.jpg", "img:#eab308,#b45309", 40], ["scan.png", "img:#94a3b8,#334155", 120]] },
     { key: "Movies", glyph: "video", color: "#A855F7", items: [["trailer.mp4", "file:MP4:#a855f7", 0], ["clip-0412.mkv", "file:MKV:#a855f7", 4], ["edit-final.mp4", "file:MP4:#a855f7", 20], ["recording.mov", "file:MOV:#a855f7", 70]] },
     { key: "Music", glyph: "music", color: "#EC4899", items: [["Midnight Drive.mp3", "file:MP3:#ec4899", 1], ["demo-beat.wav", "file:WAV:#ec4899", 5], ["podcast-12.mp3", "file:MP3:#ec4899", 9], ["voice-memo.m4a", "file:M4A:#ec4899", 33], ["lofi-mix.flac", "file:FLAC:#ec4899", 200]] },

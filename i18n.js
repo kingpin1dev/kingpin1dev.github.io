@@ -6,7 +6,7 @@
    terminal output, live Discord/Spotify status, achievement toasts).
    Language: ?lang=en|tr, else the last choice, else Turkish when Turkish is among the
    browser languages or the time zone is Türkiye, English otherwise. Browser machine
-   translation is switched off (translate="no"): it mangles names like Groupy. The toggle is any [data-kpd-lang-toggle].
+   translation is switched off (translate="no"): it mangles names like Mixora. The toggle is any [data-kpd-lang-toggle].
    To add text: add the Turkish string and its English version to EN. */
 (function () {
   "use strict";
@@ -92,8 +92,8 @@
     "Windows Uygulaması": "Windows App", "E-posta Servisi": "Email Service", "Discord Botu": "Discord Bot",
     "Microsoft Store": "Microsoft Store", "Tanıtım Sayfası": "Product page", "Tüm Uygulamalar": "All apps", "Siteyi Aç": "Open site", "Bot Sayfası": "Bot page",
     "Ürünü İncele": "View app",
-    "Groupy, uygulamaları Oyun, Sohbet, Medya ve Aux gibi gruplara ayırıp her grubun sesini, sessize alma durumunu ve çıkış cihazını tek yerden yönetmenizi sağlayan bir Windows ses mikseridir. Tepsi panelinden tek tıkla açılır; ChatMix ile oyun ve sohbet sesini dengeler, kısayol tuşlarıyla oyundan çıkmadan ayarlanır.":
-      "Groupy is a Windows volume mixer that puts your apps into groups like Game, Chat, Media and Aux, so you can control each group's volume, mute and output device from one place. It opens with one click from the tray, balances game and chat with ChatMix, and adjusts with hotkeys without leaving your game.",
+    "Mixora, uygulamaları Oyun, Sohbet, Medya ve Aux gibi gruplara ayırıp her grubun sesini, sessize alma durumunu ve çıkış cihazını tek yerden yönetmenizi sağlayan bir Windows ses mikseridir. Tepsi panelinden tek tıkla açılır; ChatMix ile oyun ve sohbet sesini dengeler, kısayol tuşlarıyla oyundan çıkmadan ayarlanır.":
+      "Mixora is a Windows volume mixer that puts your apps into groups like Game, Chat, Media and Aux, so you can control each group's volume, mute and output device from one place. It opens with one click from the tray, balances game and chat with ChatMix, and adjusts with hotkeys without leaving your game.",
     "BokMail, kişisel e-posta adresinizi paylaşmadan, çevrimiçi platformlara kayıt olmanızı sağlayan ücretsiz bir geçici (temp) e-posta servisidir. Bu hizmet sayesinde spam maillerden, istenmeyen bültenlerden ve kişisel verilerinizi riske atmaktan kolayca kurtulabilirsiniz.":
       "BokMail is a free temporary email service that lets you sign up for online platforms without sharing your personal address. It keeps spam, unwanted newsletters and risks to your personal data away from your real inbox.",
     "Notchify, Windows 10 ve 11'in üst kenarına bir Dinamik Ada ekler. Çalan müziği senkronize şarkı sözleriyle gösterir; bildirimleri, pano geçmişini, dosya çekmecesini ve 20'den fazla widget'ı ekranı kaplamadan tek bir yerde toplar. Discord görüşmelerini yönetebilir, telefonla QR kod üzerinden dosya alışverişi yapabilir ve tarayıcı indirmelerini doğrudan adadan takip edebilirsiniz.":
@@ -217,8 +217,8 @@
 
     // ── mobile page (legacy.html)
     "Software Developer & Video Editor": "Software Developer & Video Editor",
-    "Yaratıcı uygulamaları geliştirmeyi ve fikirleri gerçeğe dönüştürmeyi seviyorum. Aynı zamanda video kurgu ve UI/UX tasarımı tutkunu bir geliştirici ve video editörüyüm. Güncel olarak Groupy, Aurora Radios ve Spotidrop projeleri üzerinde çalışmaktayım.":
-      "I love building creative apps and turning ideas into reality. I'm also a developer and video editor with a passion for video editing and UI/UX design. Right now I'm working on Groupy, Aurora Radios and Spotidrop.",
+    "Yaratıcı uygulamaları geliştirmeyi ve fikirleri gerçeğe dönüştürmeyi seviyorum. Aynı zamanda video kurgu ve UI/UX tasarımı tutkunu bir geliştirici ve video editörüyüm. Güncel olarak Mixora, Aurora Radios ve Spotidrop projeleri üzerinde çalışmaktayım.":
+      "I love building creative apps and turning ideas into reality. I'm also a developer and video editor with a passion for video editing and UI/UX design. Right now I'm working on Mixora, Aurora Radios and Spotidrop.",
     "Projeleri İncele": "View projects", "Öne Çıkan Projeler": "Featured Projects", "Güncel projelerim.": "My current projects.",
     "Microsoft Store Profilim": "My Microsoft Store profile", "Siteyi Ziyaret Et": "Visit site", "Tanıtım": "Details",
     "Gerçek e-posta adresinizi koruyun. Şifresiz, anında aktif, kalıcı saklama destekli anonim geçici e-posta servisi. Kayıt gerektirmez, doğrulama yok.":
