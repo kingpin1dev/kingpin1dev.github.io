@@ -132,7 +132,7 @@ APPS: dict[str, dict] = {
     },
     "mixora": {
         "name": "Mixora", "icon": "/img/FluentMixer.png", "store": "9NN5W7D23VLJ", "accent": "#a78bfa", "accent2": "#ff8a4c",
-        "category": "UtilitiesApplication", "demo": {"kind": "script", "src": "/groupy-demo/groupy-demo.js", "api": "GroupyDemo", "opts": {"logo": "/img/FluentMixer.png"}, "lang": True},
+        "category": "UtilitiesApplication", "demo": {"kind": "script", "src": "/groupy-demo/groupy-demo.js?v=mixora1", "api": "GroupyDemo", "opts": {"logo": "/img/FluentMixer.png"}, "lang": True},
         "en": {
             "title": "Mixora: control app audio by groups on Windows",
             "desc": "Mixora puts your Windows apps into Game, Chat, Media and Aux groups so you can set each group's volume, mute and output device from one place.",
