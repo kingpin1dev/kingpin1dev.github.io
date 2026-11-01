@@ -203,6 +203,8 @@
     "Kişisel Oyun Vitrini": "Personal Game Showcase", "ID: KINGPIN • OYUNCU PROFİLİ": "ID: KINGPIN • PLAYER PROFILE",
     "Profile Git": "Go to profile", "Sahip olunan oyun": "Games owned", "%100 tamamlanan": "100% completed",
     "Kazanılan başarım": "Achievements earned", "Bitirme oranı": "Completion rate",
+    "Son oynanan · 30 Ekim": "Last played · Oct 30", "saat": "hours", "başarım": "achievements",
+    "Mükemmel": "Perfect", "Şu an oynuyor": "Playing now",
     "Kütüphane Özetim": "Library Highlights", "Koleksiyon Başarımları": "Collection Achievements", "Steam Seviyesi": "Steam Level",
     "Başarım": "Achievement",
 
@@ -253,6 +255,8 @@
     [/^🎨  Yıldız teması değişti \(hue (\d+)°\)\. Sıfırlamak için tekrar döndür\.$/, "🎨  Star theme changed (hue $1°). Keep rotating to reset."],
     [/^Discord: (çevrimiçi|boşta|rahatsız etmeyin|çevrimdışı)/, function (m, s) { return "Discord: " + STATUS[s]; }],
     [/ · Kodluyor: /, " · Coding: "],
+    [/^Şu an: (.+)$/, "Now: $1"],
+    [/^(\d+),(\d)$/, "$1.$2"],                       // 6,1 hours -> 6.1
     [/^Oynuyor: (.+)$/, function (m, g) { return "Playing: " + g.replace(/ · (\d+) sa (\d+) dk$/, " · $1 h $2 min").replace(/ · (\d+) dk$/, " · $1 min"); }],
     [/OYUN BİTTİ · Skor: (\d+)/, "GAME OVER · Score: $1"],
     [/^konsol\.\.\. \((\d)\/3\)$/, "console... ($1/3)"],
