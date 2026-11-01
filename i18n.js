@@ -253,6 +253,7 @@
     [/^🎨  Yıldız teması değişti \(hue (\d+)°\)\. Sıfırlamak için tekrar döndür\.$/, "🎨  Star theme changed (hue $1°). Keep rotating to reset."],
     [/^Discord: (çevrimiçi|boşta|rahatsız etmeyin|çevrimdışı)/, function (m, s) { return "Discord: " + STATUS[s]; }],
     [/ · Kodluyor: /, " · Coding: "],
+    [/^Oynuyor: (.+)$/, function (m, g) { return "Playing: " + g.replace(/ · (\d+) sa (\d+) dk$/, " · $1 h $2 min").replace(/ · (\d+) dk$/, " · $1 min"); }],
     [/OYUN BİTTİ · Skor: (\d+)/, "GAME OVER · Score: $1"],
     [/^konsol\.\.\. \((\d)\/3\)$/, "console... ($1/3)"],
     [/^(\d+),(\d)B$/, "$1.$2K"],                       // Instagram counts: 91,8B -> 91.8K
