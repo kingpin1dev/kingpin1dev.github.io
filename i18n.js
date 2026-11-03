@@ -65,6 +65,8 @@
     // ── navigation
     "Burak PEKEL'in dijital evreni": "Burak PEKEL's digital universe",
     "Uygulamalar": "Apps", "Sistem": "Setup", "Kreatif": "Creative", "Aktivite": "Activity", "İletişim": "Contact",
+    "Çekiliş": "Giveaway", "aktif çekiliş var": "giveaways live now", "Katıl": "Enter",
+    "Uygulamalarımın Microsoft Store kodlarını kazan, katılım ücretsiz.": "Win Microsoft Store codes for my apps, free to enter.",
     "Keşfet": "Explore", "Ana menü": "Main menu", "Ana Sayfa": "Home", "Projeler": "Projects",
 
     // ── hero

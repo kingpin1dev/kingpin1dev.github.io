@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="google" content="notranslate" />
-  <script src="/i18n.js?v=20261101d"></script>
+  <script src="/i18n.js?v=20261103a"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script>
@@ -367,6 +367,36 @@
     .nav-links a.active {
       color: var(--ink);
       background: rgba(255,255,255,.09);
+    }
+
+    /* Giveaway: nav link with a live dot + banner in the apps section (shown only while a giveaway is running) */
+    .nav-links a.nav-gw { gap: 7px; }
+    .nav-gw .gw-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 10px var(--amber); animation: gwPulse 1.6s ease-in-out infinite; }
+    .nav-gw .gw-dot[hidden] { display: none; }
+    @keyframes gwPulse { 50% { opacity: .35; transform: scale(.7); } }
+    .gw-banner {
+      display: flex; align-items: center; gap: 18px; margin: 0 0 22px; padding: 16px 18px 16px 20px; border-radius: 22px;
+      color: var(--ink); text-decoration: none; position: relative; overflow: hidden;
+      border: 1px solid rgba(255,201,109,.32);
+      background: linear-gradient(100deg, rgba(255,201,109,.13), rgba(156,124,255,.10) 55%, rgba(66,248,255,.06));
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .gw-banner[hidden] { display: none; }
+    .gw-banner:hover { transform: translateY(-2px); border-color: rgba(255,201,109,.6); box-shadow: 0 18px 50px rgba(0,0,0,.35), 0 0 30px rgba(255,201,109,.12); }
+    .gw-banner .gw-gift { width: 46px; height: 46px; flex-shrink: 0; border-radius: 15px; display: grid; place-items: center; font-size: 22px; background: rgba(255,201,109,.14); border: 1px solid rgba(255,201,109,.35); }
+    .gw-banner .gw-txt { flex: 1; min-width: 0; }
+    .gw-banner .gw-txt b { display: block; font-size: 16px; }
+    .gw-banner .gw-txt b em { font-style: normal; color: var(--amber); }
+    .gw-banner .gw-txt span { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+    .gw-banner .gw-icons { display: flex; flex-shrink: 0; }
+    .gw-banner .gw-icons img { width: 34px; height: 34px; border-radius: 10px; border: 2px solid #0b1020; margin-left: -9px; background: #0b1020; }
+    .gw-banner .gw-icons img:first-child { margin-left: 0; }
+    .gw-banner .gw-go { flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; font-weight: 850; font-size: 14px; color: #1a1206; background: linear-gradient(135deg, #ffe8a3, #ffb347); }
+    @media (max-width: 720px) {
+      .gw-banner { flex-wrap: wrap; gap: 12px; }
+      .gw-banner .gw-txt { flex-basis: calc(100% - 64px); }
+      .gw-banner .gw-icons { order: 3; }
+      .gw-banner .gw-go { order: 4; margin-left: auto; }
     }
 
     .nav-actions .lang-btn { min-width: 0; padding-left: 14px; padding-right: 14px; font-weight: 800; letter-spacing: .04em; }
@@ -2841,6 +2871,7 @@
         <a href="#rig">Sistem</a>
         <a href="#creative">Kreatif</a>
         <a href="#activity">Aktivite</a>
+        <a class="nav-gw" href="/giveaway">Çekiliş<i class="gw-dot" hidden></i></a>
         <a href="#contact">İletişim</a>
       </div>
 
@@ -2975,6 +3006,13 @@
             <a class="btn primary all-apps-btn" href="https://apps.kingpindev.com/">Tüm uygulamalar <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
           </div>
         </div>
+
+        <a class="gw-banner" id="gw-banner" href="/giveaway" hidden>
+          <span class="gw-gift" aria-hidden="true">🎁</span>
+          <span class="gw-txt"><b><em id="gw-n"></em> <span style="display:inline;color:inherit;font-size:inherit;margin:0">aktif çekiliş var</span></b><span>Uygulamalarımın Microsoft Store kodlarını kazan, katılım ücretsiz.</span></span>
+          <span class="gw-icons"></span>
+          <span class="gw-go">Katıl <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </a>
 
         <div class="showcase-grid">
           <article id="feat-card" class="card tilt project-hero-card reveal" style="--accent: rgba(88,166,255,1); transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;">
@@ -3343,6 +3381,7 @@
         <a href="#rig">Sistem</a>
         <a href="#creative">Kreatif</a>
         <a href="#activity">Aktivite</a>
+        <a href="/giveaway">Çekiliş</a>
         <a href="#contact">İletişim</a>
       </div>
     </div>
@@ -4257,6 +4296,22 @@
         }
       };
       paint();
+    })();
+
+    // Giveaway: show the nav dot and the apps-section banner while a giveaway is running (kingpindev-admin /api/giveaway)
+    (function initGiveawayTeaser() {
+      fetch('/api/giveaway', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => {
+        const act = d && d.active ? d.active.filter(g => g.state === 'active') : [];
+        if (!act.length) return;
+        const dot = document.querySelector('.nav-gw .gw-dot');
+        if (dot) dot.hidden = false;
+        const b = document.getElementById('gw-banner');
+        if (!b) return;
+        document.getElementById('gw-n').textContent = act.length;
+        if (window.KPD_LANG === 'en' && act.length === 1) document.getElementById('gw-n').nextElementSibling.textContent = 'giveaway live now';
+        b.querySelector('.gw-icons').innerHTML = act.slice(0, 6).map(g => '<img src="' + (g.app.icon || '/img/websitesfavicon.png') + '" alt="">').join('');
+        b.hidden = false;
+      }).catch(() => {});
     })();
 
     // Contact modal
