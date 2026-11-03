@@ -5,7 +5,7 @@
   <meta name="google" content="notranslate" />
   <script src="/i18n.js?v=20261101d"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Giveaway · Kingpindev</title>
+  <title>Çekiliş · Kingpindev</title>
   <meta name="description" content="Kingpindev uygulamaları için çekilişler: e-postanla katıl, kazanırsan Microsoft Store kodun mailine gelsin." />
   <link rel="canonical" href="https://kingpindev.com/giveaway" />
   <meta property="og:type" content="website" />
@@ -179,7 +179,7 @@
     </header>
 
     <section class="hero">
-      <span class="kicker"><i></i>Giveaway</span>
+      <span class="kicker"><i></i><span data-t="kicker"></span></span>
       <h1 data-t-html="title"></h1>
       <p class="lead" data-t="lead"></p>
       <div id="banner"></div>
@@ -208,7 +208,7 @@
     const lang = window.KPD_LANG === 'en' ? 'en' : 'tr';
     const T = {
       tr: {
-        brandSub: 'Çekilişler', home: 'Ana sayfa',
+        brandSub: 'Çekilişler', home: 'Ana sayfa', kicker: 'Çekiliş', pageTitle: 'Çekiliş · Kingpindev',
         title: 'Uygulamalarımı <em>kazan</em>.', lead: 'Kingpindev uygulamaları için düzenli çekilişler. E-postanla katıl, kazanırsan Microsoft Store kodun doğrudan mailine gelsin.',
         live: 'Devam ediyor', soon: 'Yakında başlıyor', winners: n => n + ' kazanan', entries: n => '<b>' + n + '</b> katılımcı',
         endsAt: d => 'Bitiş: <b>' + d + '</b>', startsAt: d => 'Başlangıç: <b>' + d + '</b>',
@@ -221,7 +221,7 @@
         invalid: 'Bu e-posta adresi geçerli görünmüyor.', closed: 'Bu çekiliş artık katılıma kapalı.',
         slow: 'Biraz hızlı oldu, birkaç saniye sonra tekrar dene.', limit: 'Çok fazla deneme yapıldı, biraz sonra tekrar dene.', fail: 'Bir sorun oldu, biraz sonra tekrar dene.',
         store: 'Store’da gör', site: 'Uygulama sayfası',
-        emptyT: 'Şu anda aktif giveaway yok', emptyP: 'Yeni çekilişleri ilk duyanlardan olmak için Discord’a katıl ya da Instagram’dan takip et.',
+        emptyT: 'Şu anda aktif çekiliş yok', emptyP: 'Yeni bir çekiliş başladığında burada görünecek.',
         upcomingT: 'Yaklaşan çekiliş', recentT: 'Son çekilişler', recentLine: (n, d) => n + ' kazanan belirlendi · ' + d + ' · kodlar e-postayla gönderildi',
         drawing: 'Çekiliş yapılıyor…',
         confirmed: '<b>Katılımın onaylandı!</b> Çekilişe girdin. Kazanırsan kodun mailine gelecek, bol şans!',
@@ -242,7 +242,7 @@
         months: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
       },
       en: {
-        brandSub: 'Giveaways', home: 'Home',
+        brandSub: 'Giveaways', home: 'Home', kicker: 'Giveaway', pageTitle: 'Giveaway · Kingpindev',
         title: 'Win my <em>apps</em>.', lead: 'Regular giveaways for Kingpindev apps. Enter with your email, and if you win, your Microsoft Store code lands straight in your inbox.',
         live: 'Live now', soon: 'Starting soon', winners: n => n + (n === 1 ? ' winner' : ' winners'), entries: n => '<b>' + n + '</b> ' + (n === 1 ? 'entry' : 'entries'),
         endsAt: d => 'Ends: <b>' + d + '</b>', startsAt: d => 'Starts: <b>' + d + '</b>',
@@ -255,7 +255,7 @@
         invalid: 'That email address doesn’t look right.', closed: 'This giveaway is closed.',
         slow: 'That was a bit quick, try again in a few seconds.', limit: 'Too many attempts, please try again later.', fail: 'Something went wrong, please try again later.',
         store: 'View on Store', site: 'App page',
-        emptyT: 'There’s no active giveaway right now', emptyP: 'Join the Discord or follow on Instagram to hear about the next one first.',
+        emptyT: 'There’s no active giveaway right now', emptyP: 'When a new giveaway starts, it will show up here.',
         upcomingT: 'Coming up', recentT: 'Recent giveaways', recentLine: (n, d) => (n === 1 ? '1 winner' : n + ' winners') + ' drawn · ' + d + ' · codes sent by email',
         drawing: 'Drawing winners…',
         confirmed: '<b>Your entry is confirmed!</b> You’re in. If you win, your code will arrive by email. Good luck!',
@@ -279,9 +279,9 @@
 
     document.querySelectorAll('[data-t]').forEach(el => { el.textContent = T[el.dataset.t]; });
     document.querySelectorAll('[data-t-html]').forEach(el => { el.innerHTML = T[el.dataset.tHtml]; });
+    document.title = T.pageTitle;
     document.getElementById('rules').innerHTML = T.rules.map(r => '<li>' + esc(r) + '</li>').join('');
     if (lang === 'en') {
-      document.title = 'Giveaway · Kingpindev';
       document.querySelector('meta[name="description"]').content = 'Giveaways for Kingpindev apps: enter with your email, and if you win, your Microsoft Store code is emailed to you.';
     }
 
@@ -385,9 +385,7 @@
       d.active.forEach(g => list.appendChild(card(g, false)));
       if (d.active.some(g => g.state === 'ended')) timers.push(setTimeout(load, 15000));   // the server draws within ~20 s
       if (!d.active.length) {
-        list.insertAdjacentHTML('beforeend', '<div class="empty"><div class="ico">🎁</div><h2>' + T.emptyT + '</h2><p>' + T.emptyP + '</p>' +
-          '<div class="links"><a class="chip" href="https://discord.com/users/349640233651798027" target="_blank" rel="noopener">Discord ↗</a>' +
-          '<a class="chip" href="https://www.instagram.com/burakpekeel/" target="_blank" rel="noopener">Instagram ↗</a></div></div>');
+        list.insertAdjacentHTML('beforeend', '<div class="empty"><div class="ico">🎁</div><h2>' + T.emptyT + '</h2><p>' + T.emptyP + '</p></div>');
       }
       if (d.upcoming.length) {
         list.insertAdjacentHTML('beforeend', '<div class="section-title">' + T.upcomingT + '</div>');
