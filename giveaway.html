@@ -119,6 +119,11 @@
     .btn[disabled] { opacity: .6; cursor: progress; }
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .fine { color: var(--faint); font-size: 13px; margin: 12px 0 0; }
+    .spam-note {
+      display: flex; gap: 10px; align-items: flex-start; margin-top: 12px; padding: 11px 13px; border-radius: 12px; font-size: 13.5px;
+      color: #ffeccc; border: 1px solid rgba(255,201,109,.35); background: rgba(255,201,109,.08);
+    }
+    .spam-note b { color: var(--amber); }
     .result { margin-top: 14px; padding: 13px 15px; border-radius: 14px; font-size: 14.5px; display: none; }
     .result.ok { display: block; border: 1px solid rgba(112,255,178,.35); background: rgba(112,255,178,.08); color: #d6ffe9; }
     .result.err { display: block; border: 1px solid rgba(255,107,143,.4); background: rgba(255,107,143,.08); color: #ffd6e0; }
@@ -210,7 +215,8 @@
         countEnd: 'Bitmesine kalan', countStart: 'Başlamasına kalan', d: 'gün', h: 'saat', m: 'dakika', s: 'saniye',
         email: 'E-posta adresin', join: 'Katıl', sending: 'Gönderiliyor…',
         fine: 'Katılım ücretsiz, kişi başı bir hak. E-postan yalnızca bu çekiliş için kullanılır ve çekilişten 30 gün sonra silinir.',
-        sent: e => '<b>Neredeyse tamam!</b> ' + e + ' adresine bir onay maili gönderdik. Linke tıklayınca çekilişe girmiş olursun. Gelmezse spam klasörüne de bak.',
+        sent: e => '<b>Neredeyse tamam!</b> ' + e + ' adresine bir onay maili gönderdik. Linke tıklayınca çekilişe girmiş olursun.<br><b>Gelen kutunda yoksa Spam klasörüne bak</b> ve maili “Spam değil” olarak işaretle.',
+        spamNote: '<b>Önemli:</b> Onay maili bazen Spam / Gereksiz klasörüne düşebilir. Birkaç dakika içinde gelen kutuna gelmezse oraya bak.',
         already: '<b>Zaten katıldın.</b> Bu e-posta adresi çekilişte, sonucu mailine göndereceğiz.',
         invalid: 'Bu e-posta adresi geçerli görünmüyor.', closed: 'Bu çekiliş artık katılıma kapalı.',
         slow: 'Biraz hızlı oldu, birkaç saniye sonra tekrar dene.', limit: 'Çok fazla deneme yapıldı, biraz sonra tekrar dene.', fail: 'Bir sorun oldu, biraz sonra tekrar dene.',
@@ -224,7 +230,7 @@
         closedLink: '<b>Çekiliş sona erdi.</b> Onay bağlantısı çekiliş bitmeden kullanılmalıydı.',
         howTitle: 'Nasıl çalışır?',
         s1h: 'E-postanı yaz', s1p: 'Aktif çekilişe e-posta adresinle katıl. Kayıt ya da hesap gerekmez.',
-        s2h: 'Onayla', s2p: 'Gelen maildeki bağlantıya tıkla. Onaylanmayan katılımlar çekilişe girmez.',
+        s2h: 'Onayla', s2p: 'Gelen maildeki bağlantıya tıkla (mail Spam klasörüne düşmüş olabilir). Onaylanmayan katılımlar çekilişe girmez.',
         s3h: 'Kazan', s3p: 'Süre bitince kazananlar rastgele seçilir ve kodları otomatik olarak mailine gönderilir.',
         rulesTitle: 'Kurallar ve gizlilik',
         rules: ['Her kişi bir çekilişe bir kez katılabilir. Aynı kişinin birden çok adresle katıldığı anlaşılırsa katılımları geçersiz sayılır.',
@@ -243,7 +249,8 @@
         countEnd: 'Ends in', countStart: 'Starts in', d: 'days', h: 'hours', m: 'minutes', s: 'seconds',
         email: 'Your email address', join: 'Enter', sending: 'Sending…',
         fine: 'Free to enter, one entry per person. Your email is only used for this giveaway and is deleted 30 days after the draw.',
-        sent: e => '<b>Almost done!</b> We sent a confirmation email to ' + e + '. Click the link in it to enter. If you don’t see it, check your spam folder.',
+        sent: e => '<b>Almost done!</b> We sent a confirmation email to ' + e + '. Click the link in it to enter.<br><b>Not in your inbox? Check your spam folder</b> and mark the email as “Not spam”.',
+        spamNote: '<b>Note:</b> the confirmation email sometimes lands in Spam / Junk. If it isn’t in your inbox within a few minutes, look there.',
         already: '<b>You’re already in.</b> This email is entered, and we’ll email you the result.',
         invalid: 'That email address doesn’t look right.', closed: 'This giveaway is closed.',
         slow: 'That was a bit quick, try again in a few seconds.', limit: 'Too many attempts, please try again later.', fail: 'Something went wrong, please try again later.',
@@ -257,7 +264,7 @@
         closedLink: '<b>The giveaway has ended.</b> The confirmation link had to be used before the end.',
         howTitle: 'How it works',
         s1h: 'Enter your email', s1p: 'Join the active giveaway with your email address. No account or sign-up needed.',
-        s2h: 'Confirm it', s2p: 'Click the link in the email we send. Unconfirmed entries are not included in the draw.',
+        s2h: 'Confirm it', s2p: 'Click the link in the email we send (it may be in your spam folder). Unconfirmed entries are not included in the draw.',
         s3h: 'Win', s3p: 'When time runs out, winners are picked at random and their codes are emailed automatically.',
         rulesTitle: 'Rules and privacy',
         rules: ['One entry per person per giveaway. Entries from the same person using several addresses are disqualified.',
@@ -333,6 +340,7 @@
           '<div class="field"><input id="em' + g.id + '" type="email" name="email" autocomplete="email" inputmode="email" required placeholder="ornek@mail.com">' +
           '<button class="btn" type="submit">' + T.join + '</button></div>' +
           '<div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>' +
+          '<div class="spam-note">⚠️<span>' + T.spamNote + '</span></div>' +
           '<p class="fine">' + T.fine + '</p><div class="result" role="status"></div></form>') + '</div>';
       countdown(el.querySelector('.cd'), upcoming ? g.starts_at : g.ends_at, () => setTimeout(load, 2500));
       const form = el.querySelector('form');
