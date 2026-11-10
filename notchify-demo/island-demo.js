@@ -429,7 +429,9 @@
       return true;
     }
 
-    const pillFade = new Fade(true), playerFade = new Fade(false), homeFade = new Fade(false), idleFade = new Fade(false);
+    const pillFade = new Fade(true), playerFade = new Fade(false), homeFade = new Fade(false), idleFade = new Fade(false), dlFade = new Fade(false);
+    const DLPILL = [300, 35];
+    let dlShown = { pct: 0, speed: 0, done: false }, loadT = 0;
     // Player home button: HomeMenu.OnMusicHomeClicked suppresses the music view while the island stays
     // hovered, so the regular home menu shows; leaving the island resets it.
     let homeMode = false, zoom = 1;
@@ -549,9 +551,13 @@
       if (pos >= SONG.duration) pos -= SONG.duration;
       // Island spring (IslandObject.Update)
       const exp = expandedState();
+      loadT += dt;
+      if (!homeFade.visible) home.dlTick(dt);
+      const dlP = loadT > 9 ? home.dlPill() : null; if (dlP) dlShown = dlP;
       if (!exp) homeMode = false;
+      else if (!wasExpanded && dlP && !homeMode) { homeMode = true; home.setTab("download"); }
       if (exp) spring.set(2.5, 0.6, 0.1); else spring.set(3, 0.9, 0.1);
-      const tgt = exp ? (homeMode ? home.target() : PLAYER) : (playing ? PILL : IDLE);
+      const tgt = exp ? (homeMode ? home.target() : PLAYER) : (dlP ? DLPILL : playing ? PILL : IDLE);
       // Target shrank while the user is on the island: latch the hover (judged again once settled).
       if (exp && hover && prevTarget && (tgt[0] < prevTarget[0] - 0.5 || tgt[1] < prevTarget[1] - 0.5)) { latched = true; latchMin = Infinity; }
       prevTarget = exp ? tgt : null;
@@ -570,8 +576,8 @@
         wasExpanded = exp;
         root.parentElement.classList.toggle("demo-open", exp);   // hides the "hover/tap" hint
       }
-      pillFade.set(!exp && playing); idleFade.set(!exp && !playing); playerFade.set(exp && !homeMode); homeFade.set(exp && homeMode);
-      pillFade.step(dt); idleFade.step(dt); playerFade.step(dt); homeFade.step(dt);
+      pillFade.set(!exp && playing && !dlP); idleFade.set(!exp && !playing && !dlP); dlFade.set(!exp && !!dlP); playerFade.set(exp && !homeMode); homeFade.set(exp && homeMode);
+      pillFade.step(dt); idleFade.step(dt); dlFade.step(dt); playerFade.step(dt); homeFade.step(dt);
       media.pos = pos; media.playing = playing; media.shuffle = shuffleOn; media.repeat = repeatOn;
       if (homeFade.visible) home.step(dt, performance.now());
       pos = media.pos; playing = media.playing; shuffleOn = media.shuffle; repeatOn = media.repeat;
@@ -614,6 +620,17 @@
         const le = 1 - (1 - rollT) * (1 - rollT), slide = 9;
         if (shown) textCenter(ctx, shown, icx + 20, icy + (1 - le) * slide, 12, true, rgba(C.text, le));
         if (rollT < 1 && outgoing) textCenter(ctx, outgoing, icx + 20, icy - le * slide, 12, true, rgba(C.text, 1 - le));
+      });
+
+      // Download pill (DownloadPillBar): icon | speed | progress | percent. It outranks the music pill.
+      withFade(dlFade, () => {
+        const p = dlShown, left = icx - w / 2 + 18, y = icy, rc = p.done ? T.success : `rgb(${T.primary})`;
+        lucide(ctx, p.done ? "M20 6 9 17l-5-5" : DI.download, left + 7, y, 15, rc, 2.2);
+        txt(ctx, p.done ? "Completed" : p.speed.toFixed(1) + " MB/s", left + 22, y + 4, 11, false, p.done ? T.success : T.text2);
+        const bx = left + 92, bw = Math.max(0, icx + w / 2 - 54 - bx);
+        ctx.fillStyle = "rgba(255,255,255,0.12)"; roundRect(ctx, bx, y - 2, bw, 4, 2); ctx.fill();
+        ctx.fillStyle = rc; roundRect(ctx, bx, y - 2, Math.max(0, bw * p.pct / 100), 4, 2); ctx.fill();
+        txt(ctx, Math.floor(p.pct) + "%", icx + w / 2 - 18, y + 4, 11, false, T.text2, "right");
       });
 
       // Idle pill: smallWidgetsContainer = IslandSize - sCD(35) wide; battery MiddleLeft (20 wide, 26 px image),
@@ -1011,6 +1028,50 @@
    * host (optional): embed the home menu inside another island (the hero demo). The host owns the canvas,
    * events, island shape, size spring and the frame loop; it calls the returned API instead.
    */
+  const SI = {
+    audio: "M2 10v3 M6 6v11 M10 3v18 M14 8v7 M18 5v13 M22 10v3",
+    scan: "M3 7V5a2 2 0 0 1 2-2h2 M17 3h2a2 2 0 0 1 2 2v2 M21 17v2a2 2 0 0 1-2 2h-2 M7 21H5a2 2 0 0 1-2-2v-2 M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M14.2 14.2 16 16",
+    copy: "M10 8h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",
+    back: "M15 18l-6-6 6-6",
+    save: "M12 15V3 M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5",
+    languages: "M5 8l6 6 M4 14l6-6 2-3 M2 5h12 M7 2h1 M22 22l-5-10-5 10 M14 18h6",
+    text: "M3 7V5a2 2 0 0 1 2-2h2 M17 3h2a2 2 0 0 1 2 2v2 M21 17v2a2 2 0 0 1-2 2h-2 M7 21H5a2 2 0 0 1-2-2v-2 M7 8h8 M7 12h10 M7 16h6",
+  };
+  function glyphBrand(c, kind, cx, cy, s) {
+    c.save(); c.translate(cx, cy);
+    if (kind === "spotify") {
+      c.fillStyle = "#1ed760"; c.beginPath(); c.arc(0, 0, s / 2, 0, 7); c.fill();
+      c.strokeStyle = "#08130c"; c.lineCap = "round";
+      [[0.34, 0.1, -0.2], [0.26, 0.085, 0.02], [0.18, 0.075, 0.22]].forEach(([r, lw, y]) => { c.lineWidth = s * lw; c.beginPath(); c.arc(0, s * (y + 0.34), s * r * 1.45, Math.PI * 1.2, Math.PI * 1.8); c.stroke(); });
+    } else if (kind === "youtube") {
+      c.fillStyle = "#ff0033"; c.beginPath(); roundRect(c, -s * 0.62, -s * 0.44, s * 1.24, s * 0.88, s * 0.24); c.fill();
+      c.fillStyle = "#fff"; c.beginPath(); c.moveTo(-s * 0.14, -s * 0.2); c.lineTo(s * 0.26, 0); c.lineTo(-s * 0.14, s * 0.2); c.closePath(); c.fill();
+    } else {
+      const g = c.createLinearGradient(0, -s / 2, 0, s / 2); g.addColorStop(0, "#fb5c74"); g.addColorStop(1, "#fa233b");
+      c.fillStyle = g; c.beginPath(); roundRect(c, -s / 2, -s / 2, s, s, s * 0.26); c.fill();
+      lucide(c, LU.audio, 0, 0, s * 0.58, "#fff", 2.4);
+    }
+    c.restore();
+  }
+  function sunsetArt(c, x, y, w, h, k) {
+    const P = [["#2a1f55", "#c0506a", "#ffb36b"], ["#1b2c5c", "#8a4aa0", "#ff946e"], ["#3a1e45", "#d9605a", "#ffd27a"], ["#14304f", "#5a6fbf", "#ffb0a0"], ["#40204a", "#e0707f", "#ffc98a"], ["#1d1b4f", "#a0489a", "#ff9a8a"]][k % 6];
+    c.save(); c.beginPath(); c.rect(x, y, w, h); c.clip();
+    const g = c.createLinearGradient(0, y, 0, y + h * 0.75); g.addColorStop(0, P[0]); g.addColorStop(0.65, P[1]); g.addColorStop(1, P[2]);
+    c.fillStyle = g; c.fillRect(x, y, w, h);
+    const sx = x + w * (0.45 + (k % 3) * 0.1), sy = y + h * 0.58;
+    const sg = c.createRadialGradient(sx, sy, 0, sx, sy, h * 0.4); sg.addColorStop(0, "rgba(255,240,200,.9)"); sg.addColorStop(1, "rgba(255,240,200,0)");
+    c.fillStyle = sg; c.fillRect(x, y, w, h);
+    c.fillStyle = "#ffe9b0"; c.beginPath(); c.arc(sx, sy, h * 0.1, 0, 7); c.fill();
+    [[0.62, "rgba(60,30,90,.85)", 1.3], [0.78, "rgba(30,16,60,.95)", 2.1]].forEach(([base, col, f], i) => {
+      c.fillStyle = col; c.beginPath(); c.moveTo(x, y + h);
+      for (let px = 0; px <= w; px += 4) c.lineTo(x + px, y + h * base + Math.sin(px / w * 6 * f + k + i * 2) * h * 0.06 + Math.sin(px / w * 17 + k) * h * 0.012);
+      c.lineTo(x + w, y + h); c.closePath(); c.fill();
+    });
+    c.restore();
+  }
+
+  const SONG_G = glyphCanvas((g) => lucide(g, SI.audio, 32, 32, 50, "#fff", 2));
+  const SCAN_G = glyphCanvas((g) => lucide(g, SI.scan, 32, 32, 50, "#fff", 2));
   function HomeScene(root, kind, host) {
     const embedded = !!host;
     const canvas = embedded ? host.canvas : root.querySelector("canvas");
@@ -1027,8 +1088,9 @@
     const fades = { widgets: new Fade(tab === "widgets" && !pinned), clipboard: new Fade(tab === "clipboard"),
       notifications: new Fade(tab === "notifications"), toolbar: new Fade(!pinned), pinned: new Fade(pinned),
       tray: new Fade(false), record: new Fade(false), bt: new Fade(false), recPill: new Fade(false),
-      discord: new Fade(tab === "discord"), phone: new Fade(tab === "phone"), download: new Fade(tab === "download") };
-    const lit = { widgets: 0, tray: 0, clipboard: 0, notifications: 0, record: 0, bt: 0, discord: 0, phone: 0, download: 0 };
+      discord: new Fade(tab === "discord"), phone: new Fade(tab === "phone"), download: new Fade(tab === "download"),
+      song: new Fade(tab === "song"), search: new Fade(tab === "search") };
+    const lit = { widgets: 0, tray: 0, clipboard: 0, notifications: 0, record: 0, bt: 0, discord: 0, phone: 0, download: 0, song: 0, search: 0 };
     lit[tab] = 0.075;
     const lyricsGrid = new LyricsView(14), lyricsPin = new LyricsView(14);
     const wash = new Wash();
@@ -1039,7 +1101,7 @@
     const hp = {};                       // widget hover progress
     let calOffset = 0, barHover = 0, seeking = null, pinHover = 0;
     let clipScroll = 0, clipY = 0, notifScroll = 0, notifY = 0;
-    let previewId = null, copiedId = null, copiedT = 0, refillT = 0;
+    let previewId = null, copiedId = null, copiedT = 0, refillT = 0, ocrId = null, ocrT = 0;
     const expand = {}; groups.forEach((g) => (expand[g.key] = g.open ? 1 : 0));
     let swipe = null;                    // { key, msg, x, vel, prev, removing, release }
     let clock = 0;                       // scene time (s), drives the eased tweens
@@ -1066,7 +1128,7 @@
       { name: "Project archive.zip", total: 214, got: 158, speed: 2.2, state: "run" },
       { name: "Meeting notes.pdf", total: 2.4, got: 2.4, speed: 0, state: "done" },
     ];
-    let dls = dlSeed(), dlIdle = 0;
+    let dls = dlSeed(), dlIdle = 0, dlDoneT = 0;
     if (tab === "phone") phStart();
 
     const clipCardH = (e) => (e.kind === "image" ? 172 : 60);
@@ -1079,16 +1141,18 @@
       if (tab === "bt") return [360, 78];
       if (tab === "record") return recPill && rec.live ? [470, 62] : [880, 480];
       if (tab === "tray") return [565, 250];
-      if (tab === "discord") return [420, 404 + Math.min(4, dcMembers().length) * 40];
+      if (tab === "discord") return [440, 404 + Math.min(4, dcMembers().length) * 40];
       if (tab === "phone") return [440, 590];
       if (tab === "download") return [440, 250 + Math.min(4, dls.length) * 78];
+      if (tab === "song") return [480, 372];
+      if (tab === "search") return [565, 332];
       if (tab === "widgets") return [565, 2 * 146 + bCD + 15 + TOPSP + 25];
       if (tab === "clipboard") {
         if (clipExpanded && entries.length) return [860, 480];
-        return [420, clamp(44 + clipContentH() + bCD + TOPSP + 25, 250, 480)];
+        return [440, clamp(44 + clipContentH() + bCD + TOPSP + 25, 250, 480)];
       }
       let h = 8; for (const g of groups) h += 76 + (g.open ? notifExtra(g.msgs.length) : 0) + 8;
-      return [420, clamp(h + bCD + TOPSP + 25, 250, 480)];
+      return [440, clamp(h + bCD + TOPSP + 25, 250, 480)];
     }
     let target = targetSize();
     const spring = new SecondOrder(target, 2.5, 0.6, 0.1);
@@ -1192,6 +1256,7 @@
     }
 
     function setTab(t) {
+      if (t === "search") sch.mode = 0;
       if (t === "bt" && tab !== "bt") btReturn = tab;
       if (t === "notifications") groups.forEach((g) => (g.unread = 0));   // NotificationStore.MarkAllRead
       if (t === "phone" && !ph.active) phStart();                        // HomeMenu.ShowPhonePanel
@@ -1212,13 +1277,26 @@
           else if (ph.got === 1 && ph.t > 9.5) { ph.got = 2; ph.status = fmt(L("{0} received · {1} downloaded"), 1, 0); }
         }
       }
-      // Downloads progress; the list refills once nothing is running.
+      stepDls(dt);
+      if (song.mode === 1) { song.t += dt; if (song.t >= 3.2) { song.mode = 2; song.flash = 0; if (!song.hist.length || song.hist[0].title !== SONG.title) song.hist.unshift({ title: SONG.title, artist: SONG.artist }); } }
+      if (song.flash > 0) song.flash -= dt;
+      if (sch.flash > 0) sch.flash -= dt;
+      if (ocrT > 0) ocrT -= dt;
+    }
+    // Downloads progress; the list refills once nothing is running. Also runs while the island is collapsed (download pill).
+    function stepDls(dt) {
       for (const d of dls) if (d.state === "run") {
         d.got = Math.min(d.total, d.got + d.speed * dt * (0.85 + 0.3 * Math.sin(clock * 1.7 + d.total)));
-        if (d.got >= d.total) d.state = "done";
+        if (d.got >= d.total) { d.state = "done"; dlDoneT = 3; }
       }
+      if (dlDoneT > 0) dlDoneT -= dt;
       if (!dls.some((d) => d.state === "run" || d.state === "pause")) { dlIdle += dt; if (dlIdle > 4) { dls = dlSeed(); dlIdle = 0; } }
       else dlIdle = 0;
+    }
+    function dlPillInfo() {
+      const d = dls.find((q) => q.state === "run");
+      if (d) return { pct: Math.min(100, d.got / d.total * 100), speed: d.speed, done: false };
+      return dlDoneT > 0 ? { pct: 100, speed: 0, done: true } : null;
     }
 
     function step(dt) {
@@ -1248,6 +1326,7 @@
       fades.recPill.set(pill && !pinned); fades.bt.set(tab === "bt" && !pinned);
       fades.discord.set(tab === "discord" && !pinned); fades.phone.set(tab === "phone" && !pinned);
       fades.download.set(tab === "download" && !pinned);
+      fades.song.set(tab === "song" && !pinned); fades.search.set(tab === "search" && !pinned);
       for (const k in fades) fades[k].step(dt);
       for (const k in lit) lit[k] = approach(lit[k], k === tab ? 0.075 : 0, 15, dt);
       clipY = approach(clipY, clipScroll, 20, dt); notifY = approach(notifY, notifScroll, 20, dt);
@@ -1316,6 +1395,8 @@
       withF(fades.discord, () => drawDiscord(w, h));
       withF(fades.phone, () => drawPhone(w, h));
       withF(fades.download, () => drawDownloads(w, h));
+      withF(fades.song, () => drawSong(w, h));
+      withF(fades.search, () => drawSearch(w, h));
       withF(fades.pinned, () => {
         const x = -130, y = icy - 73;
         drawWidgetFrame("lyricsPin", x, y, 260, 146, dt, () => drawLyricsWidget(x, y, lyricsPin, dt, fades.pinned.alpha));
@@ -1327,7 +1408,7 @@
     function drawToolbar(L, w) {
       const left = L + 15, cy = TOP + 30;
       const tabs = [["widgets", SIMG.widgets], ["tray", SIMG.tray], ["clipboard", SIMG.file], ["notifications", BELL], ["record", REC], ["bt", SIMG.bt],
-        ["discord", DISCORD], ["phone", PHONE], ["download", DOWNLOAD]];
+        ["discord", DISCORD], ["phone", PHONE], ["download", DOWNLOAD], ["song", SONG_G], ["search", SCAN_G]];
       tabs.forEach(([id, im], k) => {
         const x = left + 20 + 34 * k;
         const enabled = true;
@@ -1562,7 +1643,7 @@
       ctx.save(); ctx.setLineDash([10, 10]); ctx.lineWidth = 2; ctx.lineCap = "round";
       ctx.strokeStyle = "rgba(89,89,89,0.35)"; roundRect(ctx, x, y, w, h, 12); ctx.stroke(); ctx.restore();
     }
-    const metaOf = (e) => (copiedId === e.id ? ["Copied", T.success] : [e.meta, T.text3]);
+    const metaOf = (e) => (copiedId === e.id ? ["Copied", T.success] : ocrId === e.id && ocrT > 0 ? ["Text copied", T.success] : [e.meta, T.text3]);
     function copy(e) { copiedId = e.id; copiedT = 1.1; }
     function drawClipCard(e, x, y, w, h, hovered, clipT, clipB) {
       const id = "card-" + e.id;
@@ -1589,6 +1670,12 @@
         }
         lucide(ctx, LU.pin, pin[0], pin[1], 13, e.pinned ? `rgb(${T.primary})` : "#fff", 1.9);
         lucide(ctx, LU.x, del[0], del[1], 12, "#fff", 1.9);
+        if (e.kind === "image") {
+          const ocr = [x + w - 59, y + 15];
+          live.push({ id: "ocr-" + e.id, test: (p) => inC(p, ocr[0], ocr[1], 12), click: () => { ocrId = e.id; ocrT = 1.8; } });
+          ctx.fillStyle = isHot("ocr-" + e.id) ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.4)"; ctx.beginPath(); ctx.arc(ocr[0], ocr[1], 11, 0, 7); ctx.fill();
+          lucide(ctx, SI.text, ocr[0], ocr[1], 13, "#fff", 1.9);
+        }
       } else if (e.pinned) lucide(ctx, LU.pin, del[0], del[1], 12, `rgb(${T.primary})`, 1.9);
     }
     function drawContain(im, a, r) {
@@ -2266,6 +2353,132 @@
       ctx.restore();
     }
 
+    // ── 5.9 panels: Discord, phone transfer, downloads, identify song, search screen ──
+    const song = { mode: 0, t: 0, hist: [], flash: 0 };
+    const sch = { mode: 0, flash: 0, msg: "", translate: false, k: 0 };
+    const luIcon = (d, sw) => (cx, cy, s, col) => lucide(ctx, d, cx, cy, s, col, sw || 2);
+    const rgbP = () => `rgb(${T.primary})`;
+
+    /** Rounded capsule or key: o = { fill, color, icon, px, r, click, stroke } */
+    function pill(id, x, y, w, h, label, o) {
+      o = o || {};
+      live.push({ id, test: (p) => inR(p, x, y, w, h), click: o.click });
+      const hot = isHot(id), dn = isDown(id), px = o.px || 12, col = o.color || "#fff";
+      ctx.save(); ctx.translate(x + w / 2, y + h / 2); if (dn) ctx.scale(0.96, 0.96);
+      ctx.fillStyle = o.fill ? (hot && o.hotFill ? o.hotFill : o.fill) : hot ? W_(0.17) : W_(0.09);
+      roundRect(ctx, -w / 2, -h / 2, w, h, o.r == null ? h / 2 : o.r); ctx.fill();
+      if (o.stroke) { ctx.strokeStyle = o.stroke; ctx.lineWidth = 1; roundRect(ctx, -w / 2 + 0.5, -h / 2 + 0.5, w - 1, h - 1, o.r == null ? h / 2 : o.r); ctx.stroke(); }
+      const isz = o.isz || 14, iw = o.icon ? isz + 6 : 0, tw = label ? measure(ctx, label, px, true) : 0;
+      let cx0 = -(tw + iw) / 2;
+      if (o.icon) { o.icon(cx0 + isz / 2, 0, isz, col); cx0 += iw; }
+      if (label) txt(ctx, label, cx0, px * 0.36, px, true, col);
+      ctx.restore();
+    }
+    function iconBtn(id, cx, cy, r, d, click, col) {
+      live.push({ id, test: (p) => inC(p, cx, cy, r), click });
+      ctx.fillStyle = isHot(id) ? W_(0.2) : W_(0.08); ctx.beginPath(); ctx.arc(cx, cy, r, 0, 7); ctx.fill();
+      lucide(ctx, d, cx, cy, r * 1.05, col || "#fff", 1.9);
+    }
+    function zoneHead(x0, y0, cw, title, sub, glyph, tint) {
+      ctx.fillStyle = tint || W_(0.08); roundRect(ctx, x0, y0, 52, 52, 14); ctx.fill(); glyph(x0 + 26, y0 + 26);
+      txt(ctx, title, x0 + 66, y0 + 22, 18, true, "#fff");
+      return sub;
+    }
+    const wrapFlash = (v) => (v > 0 ? clamp(v * 3, 0, 1) : 0);
+
+    // Identify song (SongPanel)
+    function songListen() { if (song.mode === 1) { song.mode = 0; } else { song.mode = 1; song.t = 0; } }
+    function drawSong(w, h) {
+      const cw = w - 44, x0 = -cw / 2, y0 = TOP + 52;
+      zoneHead(x0, y0, cw, "Identify song", "", (cx, cy) => lucide(ctx, SI.audio, cx, cy, 26, "#fff", 2));
+      txt(ctx, fitText(ctx, song.mode === 1 ? "Listening to this PC..." : "Listens to what's playing on this PC", 11, false, cw - 66 - 112), x0 + 66, y0 + 42, 11, false, T.text2);
+      pill("song-listen", x0 + cw - 104, y0 + 8, 104, 36, song.mode === 1 ? "Stop" : "Listen", { fill: song.mode === 1 ? W_(0.14) : "#eaeaee", hotFill: song.mode === 1 ? W_(0.22) : "#fff", color: song.mode === 1 ? "#fff" : "#111", px: 13, icon: luIcon(SI.audio, 2.2), click: songListen });
+      const cy0 = y0 + 64, ch = 168;
+      ctx.fillStyle = W_(0.05); roundRect(ctx, x0, cy0, cw, ch, 16); ctx.fill();
+      if (song.mode === 0) {
+        lucide(ctx, SI.audio, 0, cy0 + ch / 2 - 12, 30, W_(0.25), 1.8);
+        txt(ctx, "Play something, then press Listen", 0, cy0 + ch / 2 + 28, 12, false, T.text3, "center");
+      } else if (song.mode === 1) {
+        const n = 26, bw = 6, gap = 5, tot = n * (bw + gap) - gap;
+        for (let i = 0; i < n; i++) {
+          const v = 0.25 + 0.75 * Math.abs(Math.sin(clock * 5.2 + i * 0.55) * Math.cos(clock * 2.3 + i * 0.31));
+          const bh = 12 + 62 * v * (0.55 + 0.45 * Math.sin(i / n * Math.PI));
+          ctx.fillStyle = `rgba(${T.primary},${0.55 + 0.45 * v})`; roundRect(ctx, -tot / 2 + i * (bw + gap), cy0 + 66 - bh / 2, bw, bh, 3); ctx.fill();
+        }
+        txt(ctx, "Listening...", 0, cy0 + 134, 13, true, "#fff", "center");
+        ctx.fillStyle = W_(0.1); roundRect(ctx, x0 + 40, cy0 + 150, cw - 80, 4, 2); ctx.fill();
+        ctx.fillStyle = rgbP(); roundRect(ctx, x0 + 40, cy0 + 150, (cw - 80) * clamp(song.t / 3.2, 0, 1), 4, 2); ctx.fill();
+      } else {
+        const cx = x0 + 16, cyy = cy0 + 16, cs = 100;
+        ctx.save(); roundRect(ctx, cx, cyy, cs, cs, 12); ctx.clip();
+        if (IMG.cover.complete && IMG.cover.naturalWidth) ctx.drawImage(IMG.cover, cx, cyy, cs, cs); else { ctx.fillStyle = W_(0.1); ctx.fillRect(cx, cyy, cs, cs); }
+        ctx.restore();
+        txt(ctx, fitText(ctx, SONG.title, 17, true, cw - 190), cx + cs + 16, cyy + 26, 17, true, "#fff");
+        txt(ctx, fitText(ctx, SONG.artist, 13, false, cw - 190), cx + cs + 16, cyy + 48, 13, false, T.text2);
+        txt(ctx, "Neon Coast", cx + cs + 16, cyy + 67, 11, false, T.text3);
+        const copyB = [x0 + cw - 34, cy0 + 28];
+        iconBtn("song-copy", copyB[0], copyB[1], 15, SI.copy, () => (song.flash = 1.2));
+        if (song.flash > 0) txt(ctx, "Copied", copyB[0] - 22, copyB[1] + 4, 11, true, T.success, "right");
+        const bw = (cw - 32 - 16) / 3, by = cy0 + ch - 50;
+        [["Spotify", "spotify"], ["YouTube", "youtube"], ["Apple Music", "apple"]].forEach(([n, k], i) => {
+          pill("song-" + k, x0 + 16 + i * (bw + 8), by, bw, 36, n, { px: 12, fill: W_(0.09), icon: (cx2, cy2, s) => glyphBrand(ctx, k, cx2, cy2, s + 2), isz: 15 });
+        });
+      }
+      let ry = cy0 + ch + 22;
+      txt(ctx, "Recent", x0, ry, 12, true, "#fff"); ry += 14;
+      if (!song.hist.length) txt(ctx, "Songs you identify will appear here.", x0, ry + 24, 11.5, false, T.text3);
+      song.hist.slice(0, 2).forEach((s2, i) => {
+        const yy = ry + i * 42, id = "song-h" + i;
+        live.push({ id, test: (p) => inR(p, x0, yy, cw, 38) });
+        if (isHot(id)) { ctx.fillStyle = W_(0.06); roundRect(ctx, x0 - 6, yy, cw + 12, 38, 10); ctx.fill(); }
+        ctx.save(); roundRect(ctx, x0, yy + 4, 30, 30, 7); ctx.clip();
+        if (IMG.cover.complete && IMG.cover.naturalWidth) ctx.drawImage(IMG.cover, x0, yy + 4, 30, 30);
+        ctx.restore();
+        txt(ctx, s2.title, x0 + 42, yy + 17, 12.5, true, "#fff");
+        txt(ctx, s2.artist, x0 + 42, yy + 32, 10.5, false, T.text2);
+        if (isHot(id)) { iconBtn("song-hx" + i, x0 + cw - 12, yy + 19, 10, LU.x, () => song.hist.splice(i, 1)); }
+      });
+    }
+
+    // Search screen (ScreenSearchWindow + LensWindow, shown inside the island here)
+    function flashSch(m) { sch.msg = m; sch.flash = 1.4; }
+    function drawSearch(w, h) {
+      const cw = w - 44, x0 = -cw / 2, y0 = TOP + 52;
+      if (sch.mode === 1) {
+        iconBtn("sc-back", x0 + 15, y0 + 15, 15, SI.back, () => (sch.mode = 0));
+        txt(ctx, "Visual matches", x0 + 40, y0 + 20, 15, true, "#fff");
+        if (sch.translate) pill("sc-tag", x0 + cw - 150, y0 + 3, 150, 24, "Translated to English", { px: 10.5, fill: "rgba(88,101,242,0.25)", color: "#c4caff", icon: luIcon(SI.languages, 1.9), isz: 12 });
+        const cols = 3, gw = (cw - 16) / cols, ih = 82;
+        const items = [["Magnific", "High altitude sunset vectors"], ["Hovia", "Red illustrated landscape mural"], ["RecompStore", "Dusklight, a homebrew game"], ["Adobe Stock", "Purple mountain stock photo"], ["Magnific", "Serene mountain view sunset"], ["Pinterest", "Beautiful mountain chain at sundown"]];
+        items.forEach(([src, ttl], i) => {
+          const gx = x0 + (i % cols) * (gw + 8), gy = y0 + 42 + Math.floor(i / cols) * (ih + 52);
+          ctx.save(); roundRect(ctx, gx, gy, gw, ih, 10); ctx.clip(); sunsetArt(ctx, gx, gy, gw, ih, i + 1); ctx.restore();
+          txt(ctx, src, gx, gy + ih + 15, 10, false, T.text3);
+          wrapText(ctx, ttl, 11, gw, 2).forEach((l, j) => txt(ctx, l, gx, gy + ih + 29 + j * 13, 11, true, "#e8e8ee"));
+        });
+        return;
+      }
+      const ih = 232;
+      ctx.save(); roundRect(ctx, x0, y0, cw, ih, 14); ctx.clip();
+      sunsetArt(ctx, x0, y0, cw, ih, 0);
+      ctx.fillStyle = "rgba(6,8,20,0.55)"; ctx.fillRect(x0, y0, cw, ih);
+      const sx = x0 + cw * 0.2, sy = y0 + 30, sw = cw * 0.6, sh = 128;
+      ctx.save(); roundRect(ctx, sx, sy, sw, sh, 10); ctx.clip(); ctx.clearRect(sx, sy, sw, sh); ctx.restore();
+      ctx.restore();
+      ctx.save(); roundRect(ctx, sx, sy, sw, sh, 10); ctx.clip(); sunsetArt(ctx, x0 + cw * 0.05, y0 + 4, cw * 0.9, ih - 8, 0); ctx.restore();
+      ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 1.6; roundRect(ctx, sx, sy, sw, sh, 10); ctx.stroke();
+      txt(ctx, "See an image on screen. Find similar images.", x0 + 14, y0 + 20, 11, false, W_(0.55));
+      const items = [["sc-g", "Search with Google", SI.search, 134, () => { sch.mode = 1; sch.translate = false; }], ["sc-tr", "Translate", SI.languages, 82, () => { sch.mode = 1; sch.translate = true; }],
+        ["sc-txt", "Copy text", SI.text, 82, () => flashSch("Text copied")], ["sc-cp", "Copy", SI.copy, 58, () => flashSch("Copied")], ["sc-sv", "Save", SI.save, 56, () => flashSch("Saved")]];
+      const gap = 6, tot = items.reduce((a, b) => a + b[3], 0) + gap * items.length + 30;
+      let bx = -tot / 2; const by = sy + sh + 12;
+      ctx.fillStyle = "rgba(20,22,34,0.94)"; roundRect(ctx, bx - 8, by - 6, tot + 12, 40, 20); ctx.fill();
+      items.forEach(([id, label, d, bw, fn], i) => { pill(id, bx, by, bw, 28, label, { px: 10.5, fill: i === 0 ? W_(0.14) : "rgba(255,255,255,0)", hotFill: W_(0.16), icon: luIcon(d, 1.9), isz: 12, click: fn }); bx += bw + gap; });
+      iconBtn("sc-x", bx + 8, by + 14, 11, LU.x, () => setTab("widgets"));
+      if (sch.flash > 0) { const m = sch.msg, mw = measure(ctx, m, 11, true) + 24; ctx.fillStyle = "rgba(52,199,89,0.9)"; roundRect(ctx, -mw / 2, sy + 10, mw, 24, 12); ctx.fill(); txt(ctx, m, 0, sy + 26, 11, true, "#04210f", "center"); }
+      txt(ctx, "Opens your screen frozen, pick an area, search it, copy its text or QR code.", x0, y0 + ih + 20, 10, false, T.text3);
+    }
+
     function lucideFill(d, cx, cy, size, color) {
       let p = pathCache.get(d); if (!p) { p = new Path2D(d); pathCache.set(d, p); }
       ctx.save(); ctx.translate(cx - size / 2, cy - size / 2); ctx.scale(size / 24, size / 24);
@@ -2292,6 +2505,9 @@
         inUp(p, mouse) { pull(); inUp(p, mouse); push(); },
         inWheel,
         cursorHot,
+        setTab,
+        dlPill: dlPillInfo,
+        dlTick(dt) { stepDls(dt); },
       };
     }
     resize();
