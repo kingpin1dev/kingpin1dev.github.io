@@ -50,3 +50,19 @@
   }
   if (frames.length) { fit(); addEventListener("resize", fit); }
 })();
+
+// Press kit: copy buttons
+(function () {
+  "use strict";
+  document.querySelectorAll("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
+    const el = document.getElementById(btn.dataset.copy);
+    if (!el) return;
+    const label = btn.textContent;
+    try { await navigator.clipboard.writeText(el.textContent.trim()); } catch (e) {
+      const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      try { document.execCommand("copy"); } catch (x) { /* ignore */ }
+    }
+    btn.textContent = document.body.dataset.copied || "Copied";
+    setTimeout(() => { btn.textContent = label; }, 1600);
+  }));
+})();

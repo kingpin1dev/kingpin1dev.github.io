@@ -13,6 +13,8 @@ import html
 import json
 from pathlib import Path
 
+import app_pages as _ap  # side pages (FAQ, changelog, press kit, privacy, compare) for the apps listed in _ap.SLUGS
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites"
 LASTMOD = "2026-10-21"
@@ -746,6 +748,10 @@ def page(slug: str, app: dict, lang: str) -> str:
     privacy = f' · <a href="{app["privacy"]}">{u["privacy"]}</a>' if app.get("privacy") else ""
     for label, href in app.get("extra_links", {}).get(lang, []):
         privacy += f' · <a href="{href}">{e(label)}</a>'
+    sub = _ap.hooks(slug, lang)
+    if sub:
+        sui = _ap.SUBUI[lang]
+        privacy = "".join(f' · <a href="{_ap.sub_path(lang, k)}">{sui[k]}</a>' for k in _ap.KINDS)
     return f"""<!doctype html>
 <html lang="{lang}" translate="no">
 <head>
@@ -782,12 +788,12 @@ def page(slug: str, app: dict, lang: str) -> str:
 <header class="top">
   <div class="wrap top-in">
     <a class="brand" href="{url(slug, lang)}"><img src="{app["icon"]}" alt="" width="32" height="32"><span>{e(app["name"])}</span></a>
-    <nav class="links"><a href="#demo">{u["demo"]}</a><a href="#features">{u["features"]}</a><a href="#faq">{u["faq"]}</a></nav>
+    <nav class="links">{sub["links"] if sub else f'<a href="#demo">{u["demo"]}</a><a href="#features">{u["features"]}</a><a href="#faq">{u["faq"]}</a>'}</nav>
     <a class="lang" href="{url(slug, other)}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{u["other_label"]}</a>
     <a class="btn btn-sm" href="{store}"{dl}>{btn_logo}<span>{btn_short}</span></a>
   </div>
 </header>
-<main>
+{(sub["strip"] + chr(10)) if sub else ""}<main>
   <section class="hero">
     <div class="wrap">
       <img class="hero-icon" src="{app["icon"]}" alt="{e(app["name"])}" width="96" height="96">
@@ -826,7 +832,7 @@ def page(slug: str, app: dict, lang: str) -> str:
   <section id="faq" class="faq">
     <div class="wrap">
       <h2>{u["faq_title"]}</h2>
-      {faq}
+      {faq}{sub["faq_more"] if sub else ""}
     </div>
   </section>
   <section class="final">
@@ -1096,6 +1102,13 @@ def main() -> None:
             sm.append(f"  <url><loc>{url(slug, lang)}</loc><lastmod>{LASTMOD}</lastmod>"
                       f'<xhtml:link rel="alternate" hreflang="en" href="{url(slug, "en")}"/>'
                       f'<xhtml:link rel="alternate" hreflang="tr" href="{url(slug, "tr")}"/></url>')
+        if slug in _ap.SLUGS:
+            _ap.build_sub_pages(slug, app)
+            for kind in _ap.KINDS:
+                for lang in ("en", "tr"):
+                    sm.append(f"  <url><loc>{_ap.sub_url(slug, lang, kind)}</loc><lastmod>{_ap.LASTMOD}</lastmod>"
+                              f'<xhtml:link rel="alternate" hreflang="en" href="{_ap.sub_url(slug, "en", kind)}"/>'
+                              f'<xhtml:link rel="alternate" hreflang="tr" href="{_ap.sub_url(slug, "tr", kind)}"/></url>')
         sm.append("</urlset>")
         (d / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8", newline="\n")
         print("built", slug)
