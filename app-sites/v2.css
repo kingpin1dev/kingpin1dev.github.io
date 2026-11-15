@@ -427,3 +427,21 @@ tr.only td.f{box-shadow:inset 3px 0 0 var(--a1)}
 .cmp-bars h3{text-align:center;font-size:18px;color:var(--muted);font-weight:600;margin-bottom:18px}
 .cmp-bars .bars{margin-top:0}
 @media(max-width:680px){.bar-row{grid-template-columns:96px 1fr 30px}}
+
+/* ── how it works: scroll story with a pinned live demo ── */
+.story2{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:56px;margin-top:56px;align-items:start}
+.story-steps{position:relative}
+.sstep2{min-height:62vh;display:flex;flex-direction:column;justify-content:center;opacity:.38;transition:opacity .35s;cursor:pointer}
+.sstep2.on{opacity:1}
+.sstep2 .num{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);font-size:18px;font-weight:800;color:var(--eb);margin-bottom:16px;transition:background .3s,color .3s,border-color .3s}
+.sstep2.on .num{background:var(--grad);color:var(--on);border-color:transparent}
+.sstep2 h3{font-size:clamp(24px,2.6vw,32px)}
+.sstep2 p{margin:12px 0 0;color:var(--muted);font-size:18px;line-height:1.55;max-width:34ch}
+.story-stage{position:sticky;top:110px}
+@media(max-width:1020px){
+  .story2{grid-template-columns:minmax(0,1fr);gap:0;margin-top:36px}
+  .story-stage{top:64px;z-index:5;order:-1;background:var(--bg);padding:8px 0 12px}
+  .sstep2{min-height:34vh}
+  .sstep2 p{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){.sstep2{opacity:1}}

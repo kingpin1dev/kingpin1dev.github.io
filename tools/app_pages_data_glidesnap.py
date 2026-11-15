@@ -206,4 +206,7 @@ SCENES = [
     [[0, {"reset": 1, "alt": False}]],
 ]
 
+# "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
+STORY = [0, 1, 2]
+
 DATA = {"en": EN, "tr": TR}

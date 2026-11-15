@@ -199,4 +199,7 @@ SCENES = [
     [[0, {"clear": 1}], [500, {"send": "/leaderboard"}]],
 ]
 
+# "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
+STORY = [4, 1, 0]
+
 DATA = {"en": EN, "tr": TR}

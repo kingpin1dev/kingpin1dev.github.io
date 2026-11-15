@@ -210,4 +210,7 @@ SCENES = [
     [[0, {"clickText": "Library", "starts": True}]],
 ]
 
+# "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
+STORY = [0, 4, 3]
+
 DATA = {"en": EN, "tr": TR}

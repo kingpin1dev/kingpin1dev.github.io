@@ -113,11 +113,14 @@
     show(0); arm();
   }
 
-  // Live demos: script demos mount into the box, framed demos are laid out at their own size and scaled to the column
+  // Live demos: script demos mount into the box (those marked lazy only when they come near the screen), framed demos are laid out at their own size and scaled to the column
   document.querySelectorAll(".demo-script").forEach(function (box) {
     var opts = JSON.parse(box.dataset.opts || "{}");
     var mount = function () { var api = window[box.dataset.api]; if (!api) return false; var el = document.createElement("div"); box.appendChild(el); box.__api = api.mount(el, opts); return true; };
-    if (!mount()) addEventListener("load", mount, { once: true });
+    var go = function () { if (!mount()) addEventListener("load", mount, { once: true }); };
+    if (box.hasAttribute("data-lazy") && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { o.disconnect(); go(); } }, { rootMargin: "500px 0px" }).observe(box);
+    } else go();
   });
   var frames = [].slice.call(document.querySelectorAll(".demo-frame"));
   var fit = function () { frames.forEach(function (box) { var f = box.querySelector("iframe"), w = +box.dataset.w, h = +box.dataset.h, k = Math.min(1, box.clientWidth / w); f.style.transform = "scale(" + k + ")"; box.style.height = Math.round(h * k) + "px"; }); };
@@ -145,26 +148,35 @@
       }
     }
   }
-  // Feature explorer: each tab drives the live demo into its scene (a list of [delay, state] steps)
+  // Scene player: a scene is a list of [delay ms, state] steps applied to a live demo (script demo with apply(), the LunaDock studio, or a real-UI frame)
+  function player(box, kind, scenes) {
+    var timers = [];
+    function apply(d) {
+      try {
+        if (kind === "script") { if (box.__api && box.__api.apply) box.__api.apply(d); }
+        else { var w = box.querySelector("iframe").contentWindow; if (w && w.LunaDockDemo) w.LunaDockDemo.set(d); else if (w) frameDo(w, d); }
+      } catch (e) { /* demo not ready yet */ }
+    }
+    function isReady() {
+      if (kind === "script") return !!(box.__api && box.__api.apply);
+      var f = box.querySelector("iframe"), w = f && f.contentWindow;
+      try { return !!(w && (w.LunaDockDemo || (w.document && w.document.readyState === "complete"))); } catch (e) { return false; }
+    }
+    return {
+      run: function (i) { timers.forEach(clearTimeout); timers = []; (scenes[i] || []).forEach(function (st) { timers.push(setTimeout(function () { apply(st[1]); }, st[0])); }); },
+      ready: function (cb, tries) { var self = this; tries = tries || 0; if (isReady()) cb(); else if (tries < 80) setTimeout(function () { self.ready(cb, tries + 1); }, 250); }
+    };
+  }
+
+  // Feature explorer: each tab drives the live demo into its scene
   var ex = document.getElementById("explorer");
   if (ex) {
-    var etabs = [].slice.call(ex.querySelectorAll(".tab")), scenes = JSON.parse(ex.dataset.scenes || "[]"), kind = ex.dataset.kind, timers = [], ecur = 0, started = false;
-    var demoBox = ex.querySelector(".demo-box");
-    var applyState = function (d) {
-      try {
-        if (kind === "script") { if (demoBox.__api && demoBox.__api.apply) demoBox.__api.apply(d); }
-        else { var w = demoBox.querySelector("iframe").contentWindow; if (w && w.LunaDockDemo) w.LunaDockDemo.set(d); else if (w) frameDo(w, d); }
-      } catch (e) { /* demo not ready yet */ }
-    };
-    var run = function (i) {
-      timers.forEach(clearTimeout); timers = [];
-      (scenes[i] || []).forEach(function (st) { timers.push(setTimeout(function () { applyState(st[1]); }, st[0])); });
-    };
+    var etabs = [].slice.call(ex.querySelectorAll(".tab")), ep = player(ex.querySelector(".demo-box"), ex.dataset.kind, JSON.parse(ex.dataset.scenes || "[]")), ecur = 0, started = false;
     var pick = function (i, focus) {
       ecur = i;
       etabs.forEach(function (t, k) { var on = k === i; t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; });
       if (focus) etabs[i].focus();
-      run(i);
+      ep.run(i);
     };
     etabs.forEach(function (t, i) {
       t.addEventListener("click", function () { pick(i, false); });
@@ -174,14 +186,25 @@
         if (j >= 0) { e.preventDefault(); pick(j, true); }
       });
     });
-    // start the first scene once the stage is on screen and the demo is ready
-    var ready = function (cb, tries) {
-      tries = tries || 0;
-      var ok = kind === "script" ? !!(demoBox.__api && demoBox.__api.apply) : !!(demoBox.querySelector("iframe") && demoBox.querySelector("iframe").contentWindow && demoBox.querySelector("iframe").contentWindow.LunaDockDemo);
-      if (ok) cb(); else if (tries < 60) setTimeout(function () { ready(cb, tries + 1); }, 250);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es, o) { if (es[0].isIntersecting && !started) { started = true; o.disconnect(); ep.ready(function () { ep.run(ecur); }); } }, { threshold: .25 }).observe(ex);
+    else ep.ready(function () { ep.run(0); });
+  }
+
+  // How it works: a scroll story. The demo stays pinned while the steps scroll past, and each step puts it into its scene.
+  var story = document.getElementById("story");
+  if (story) {
+    var sp = player(story.querySelector(".demo-box"), story.dataset.kind, JSON.parse(story.dataset.scenes || "[]")), map = JSON.parse(story.dataset.map || "[]");
+    var steps = [].slice.call(story.querySelectorAll(".sstep2")), scur = -1;
+    var setStep = function (i) {
+      if (i === scur) return; scur = i;
+      steps.forEach(function (s, k) { s.classList.toggle("on", k === i); });
+      sp.ready(function () { sp.run(map[i]); });
     };
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (es, o) { if (es[0].isIntersecting && !started) { started = true; o.disconnect(); ready(function () { run(ecur); }); } }, { threshold: .25 }).observe(ex);
-    else ready(function () { run(0); });
+    if ("IntersectionObserver" in window) {
+      var sio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) setStep(steps.indexOf(e.target)); }); }, { rootMargin: "-42% 0px -42% 0px" });
+      steps.forEach(function (s) { sio.observe(s); });
+    } else setStep(0);
+    steps.forEach(function (s, i) { s.addEventListener("click", function () { scur = -1; setStep(i); }); });
   }
 
   // Press kit: copy buttons

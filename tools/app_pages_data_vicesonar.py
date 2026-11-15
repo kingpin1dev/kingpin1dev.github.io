@@ -209,4 +209,7 @@ SCENES = [
     None,
 ]
 
+# "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
+STORY = [0, 2, 3]
+
 DATA = {"en": EN, "tr": TR}

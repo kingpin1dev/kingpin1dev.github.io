@@ -289,8 +289,21 @@ def home_page(slug: str, app: dict, lang: str) -> str:
             f'<div class="stage" id="demo"><div class="stage-frame">{demo_html}</div><p class="stage-note">{e(c["demo_note"])}</p></div></div></header>')
     stats = "".join(f'<div><b data-count="{n}" data-suffix="{suf}">{n}{suf}</b><span>{e(lbl)}</span></div>' for n, suf, lbl in hd["stats"])
     stats_sec = f'<section><div class="wrap"><div class="stats rv">{stats}</div></div></section>'
-    steps = "".join(f'<div class="step3"><div class="num">{n}</div><h3>{e(t)}</h3><p>{e(d)}</p></div>' for n, (t, d) in enumerate(c["steps"], 1))
-    how = f'<section id="how"><div class="wrap">{sec_head(app["name"], c["steps_title"])}<div class="steps3">{steps}</div></div></section>'
+    # how it works: a scroll story. Each step puts a live demo (its own instance, mounted when it comes near the screen) into the scene of the step.
+    mod = importlib.import_module(f"app_pages_data_{slug}")
+    story_map = getattr(mod, "STORY", [0, 1, 2])
+    story_steps = "".join(f'<div class="sstep2" tabindex="0"><div class="num">{n}</div><h3>{e(t_)}</h3><p>{e(d_)}</p></div>' for n, (t_, d_) in enumerate(c["steps"], 1))
+    if demo["kind"] == "script":
+        o3 = dict(demo["opts"])
+        if demo.get("lang"):
+            o3["lang"] = lang
+        demo3 = f'<div class="demo-box demo-script" data-lazy data-api="{demo["api"]}" data-opts="{e(json.dumps(o3))}"></div>'
+    else:
+        s3 = demo["src"] + (("&" if "?" in demo["src"] else "?") + "lang=" + lang if demo.get("lang") else "")
+        demo3 = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}"><iframe src="{e(s3)}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
+    story_scenes = importlib.import_module(f"app_pages_data_{slug}").SCENES
+    how = (f'<section id="how"><div class="wrap">{sec_head(app["name"], c["steps_title"])}<div class="story2" id="story" data-kind="{demo["kind"]}" data-map="{e(json.dumps(story_map))}" data-scenes="{e(json.dumps(story_scenes))}">'
+           f'<div class="story-steps">{story_steps}</div><div class="story-stage"><div class="stage-frame">{demo3}</div></div></div></div></section>')
     # feature explorer: each tab drives the live demo into the matching scene (same idea as the Notchify feature switcher)
     scenes = importlib.import_module(f"app_pages_data_{slug}").SCENES
     assert len(scenes) == len(c["features"]), (slug, len(scenes), len(c["features"]))
@@ -303,7 +316,7 @@ def home_page(slug: str, app: dict, lang: str) -> str:
         opts2 = dict(demo["opts"])
         if demo.get("lang"):
             opts2["lang"] = lang
-        demo2 = f'<div class="demo-box demo-script" data-api="{demo["api"]}" data-opts="{e(json.dumps(opts2))}"></div>'
+        demo2 = f'<div class="demo-box demo-script" data-lazy data-api="{demo["api"]}" data-opts="{e(json.dumps(opts2))}"></div>'
     else:
         src2 = demo["src"] + (("&" if "?" in demo["src"] else "?") + "lang=" + lang if demo.get("lang") else "")
         demo2 = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}"><iframe src="{e(src2)}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
