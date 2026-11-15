@@ -387,3 +387,43 @@ footer a:hover{color:var(--text)}
 
 @media(max-width:1020px){.fs{grid-template-columns:minmax(0,1fr);gap:24px}.fs-stage{position:relative;top:0;order:-1}}
 @media(max-width:680px){.tab{padding:12px}}
+
+/* ── comparison matrix + bars ── */
+
+.cmp-wrap{margin-top:52px;border:1px solid var(--line);border-radius:var(--r1);overflow:auto;background:var(--s1)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:620px;font-size:15px}
+th,td{padding:15px 18px;text-align:center;border-bottom:1px solid var(--line);vertical-align:middle}
+thead th{position:sticky;top:0;z-index:2;background:var(--s2);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+thead th small{display:block;font-weight:400;color:var(--soft);margin-top:2px}
+th.f,td.f{text-align:left;position:sticky;left:0;z-index:1;background:var(--s1);font-weight:500;color:var(--text);min-width:170px}
+@media(min-width:1100px){th.f,td.f{position:static}}
+thead th.f{background:var(--s2);z-index:3}
+td.us,th.us{background:rgba(var(--rgb2),.1)}
+thead th.us{color:#fff;border-top:2px solid var(--a1)}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.y,.n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%}
+.y{background:var(--grad);color:var(--on)}
+.n{border:1px solid var(--line2);color:var(--soft)}
+.y svg,.n svg{width:14px;height:14px}
+.pro{display:inline-block;padding:4px 10px;white-space:nowrap;border-radius:999px;border:1px solid var(--line2);font-size:12px;color:var(--muted)}
+tr.only td.f{box-shadow:inset 3px 0 0 var(--a1)}
+.foot-note{margin:18px 0 0;font-size:13.5px;color:var(--soft)}
+.foot-note a{color:var(--ebl);text-decoration:underline;text-underline-offset:3px}
+
+
+
+.bars{display:grid;gap:12px;margin-top:26px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 36px;align-items:center;gap:14px;font-size:14.5px;color:var(--muted)}
+.bar-row.us{color:var(--text);font-weight:600}
+.meter{height:10px;border-radius:999px;background:var(--s3);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:inherit;background:#3a3a46;width:0;transition:width 1s var(--ease)}
+.bar-row.us .meter i{background:var(--grad)}
+.in .meter i{width:var(--w)}
+.bar-row b{text-align:right;font-weight:600;color:var(--text)}
+
+.legend{margin:14px 0 0;color:var(--soft);font-size:13.5px}
+.n.dash{border:0;color:var(--soft);font-size:18px;line-height:1}
+.cmp-bars{max-width:760px;margin:44px auto 0}
+.cmp-bars h3{text-align:center;font-size:18px;color:var(--muted);font-weight:600;margin-bottom:18px}
+.cmp-bars .bars{margin-top:0}
+@media(max-width:680px){.bar-row{grid-template-columns:96px 1fr 30px}}

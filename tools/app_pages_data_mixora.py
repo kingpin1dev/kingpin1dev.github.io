@@ -257,4 +257,40 @@ SCENES = [
     [[0, {"reset": 1, "view": "settings", "page": "shortcuts"}], [700, {"osd": "game", "osdMs": 3500}]],
 ]
 
+# Feature matrix for the comparison table: a tick means confirmed from the tool's own documentation (checked 2026-11-16), a dash means not found there or it works differently.
+MATRIX = {
+    "en": {
+        "cols": [("Mixora", "This app"), ("Windows mixer", "Built in"), ("EarTrumpet", "Free, open source"), ("Voicemeeter", "VB-Audio")],
+        "rows": [
+            ("Volume for each app", [1, 1, 1, 0]),
+            ("One slider for a whole group of apps", [1, 0, 0, 0]),
+            ("Output device for each app or group", [1, 1, 1, 1]),
+            ("Equalizer for each group", [1, 0, 0, 0]),
+            ("Lowers other sounds automatically", [1, 1, 0, 0]),
+            ("ChatMix: game and chat balance", [1, 0, 0, 0]),
+            ("Works without virtual devices or drivers", [1, 1, 1, 0]),
+            ("Global hotkeys for group volume and mute", [1, 0, 0, 0]),
+        ],
+        "legend": "A tick means we confirmed it in the tool's own documentation. A dash means we did not find it there, or it works differently: for example Voicemeeter routes sound through its own virtual devices, and Windows lowers other sounds only for calls.",
+        "bars": "Confirmed features",
+        "checked": "Checked on 16 November 2026.",
+    },
+    "tr": {
+        "cols": [("Mixora", "Bu uygulama"), ("Windows mikseri", "Yerleşik"), ("EarTrumpet", "Ücretsiz, açık kaynak"), ("Voicemeeter", "VB-Audio")],
+        "rows": [
+            ("Her uygulama için ses", [1, 1, 1, 0]),
+            ("Bir uygulama grubu için tek kaydırıcı", [1, 0, 0, 0]),
+            ("Her uygulama ya da grup için çıkış cihazı", [1, 1, 1, 1]),
+            ("Her grup için ekolayzır", [1, 0, 0, 0]),
+            ("Diğer sesleri kendiliğinden kısma", [1, 1, 0, 0]),
+            ("ChatMix: oyun ve sohbet dengesi", [1, 0, 0, 0]),
+            ("Sanal cihaz ya da sürücü olmadan çalışma", [1, 1, 1, 0]),
+            ("Grup sesi ve sessize alma için genel kısayollar", [1, 0, 0, 0]),
+        ],
+        "legend": "Onay işareti, aracın kendi belgelerinde doğruladığımız anlamına gelir. Çizgi, orada bulamadığımız ya da farklı çalıştığı anlamına gelir: örneğin Voicemeeter sesi kendi sanal cihazlarından geçirir, Windows diğer sesleri yalnızca çağrılar için kısar.",
+        "bars": "Doğrulanan özellikler",
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
+
 DATA = {"en": EN, "tr": TR}

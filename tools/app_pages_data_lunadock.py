@@ -250,4 +250,42 @@ SCENES = [
     [[0, _BASE], [800, {"wallpaper": "dusk"}], [2800, {"wallpaper": "blue"}]],
 ]
 
+# Feature matrix for the comparison table: a tick means confirmed from the tool's own pages or press coverage (checked 2026-11-16), a dash means not found there.
+MATRIX = {
+    "en": {
+        "cols": [("LunaDock", "This app"), ("Windows desktop", "Built in"), ("Stardock Fences", "Paid utility")],
+        "rows": [
+            ("Groups the desktop automatically by file type", [1, 0, 1]),
+            ("Groups by date: Today, Yesterday, older", [1, 0, 0]),
+            ("New files find their group by themselves", [1, 0, 1]),
+            ("Sorts icons by name, date, size or type", [1, 1, 0]),
+            ("Tabs for groups", [0, 0, 1]),
+            ("Icon looks: packs or tint", [1, 0, 1]),
+            ("Collapses groups out of the way", [1, 0, 1]),
+            ("Docks the groups on any screen edge", [1, 0, 0]),
+            ("Quick preview with Space", [1, 0, 0]),
+        ],
+        "legend": "A tick means we confirmed it on the tool's own pages or in press coverage. A dash means we did not find it there. Fences also offers rules you write yourself and business deployment tools, which LunaDock does not.",
+        "bars": "Confirmed features",
+        "checked": "Checked on 16 November 2026.",
+    },
+    "tr": {
+        "cols": [("LunaDock", "Bu uygulama"), ("Windows masaüstü", "Yerleşik"), ("Stardock Fences", "Ücretli araç")],
+        "rows": [
+            ("Masaüstünü dosya türüne göre kendiliğinden gruplama", [1, 0, 1]),
+            ("Tarihe göre gruplama: Bugün, Dün, daha eski", [1, 0, 0]),
+            ("Yeni dosyalar grubunu kendiliğinden bulur", [1, 0, 1]),
+            ("İkonları ada, tarihe, boyuta ya da türe göre sıralama", [1, 1, 0]),
+            ("Gruplar için sekmeler", [0, 0, 1]),
+            ("İkon görünümleri: paketler ya da renk tonu", [1, 0, 1]),
+            ("Grupları yoldan çekip daraltma", [1, 0, 1]),
+            ("Grupları herhangi bir ekran kenarına yerleştirme", [1, 0, 0]),
+            ("Space ile hızlı önizleme", [1, 0, 0]),
+        ],
+        "legend": "Onay işareti, aracın kendi sayfalarında ya da basın yazılarında doğruladığımız anlamına gelir. Çizgi, orada bulamadığımız anlamına gelir. Fences ayrıca kendi yazdığınız kurallar ve kurumsal dağıtım araçları sunar; LunaDock sunmaz.",
+        "bars": "Doğrulanan özellikler",
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
+
 DATA = {"en": EN, "tr": TR}

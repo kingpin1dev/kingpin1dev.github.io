@@ -38,7 +38,7 @@ SUBUI = {
                  "compare": "How {} compares with the tools people ask about, with where each one is the better pick.",
                  "press": "Download the {} logo and screenshots, copy ready-made descriptions and find the facts and contact for press and reviewers.",
                  "privacy": "The {} privacy policy: no account, no analytics, no tracking. Everything stays on your device."},
-        "get": "Get it from Microsoft Store", "questions_none": "Still have a question?", "write_us": "Write to us at",
+        "yes": "Yes", "no": "Not confirmed", "get": "Get it from Microsoft Store", "questions_none": "Still have a question?", "write_us": "Write to us at",
         "shines": "Where it shines", "differs": "Where {} differs", "pick": "Pick it if", "how": "How it works", "feat": "Features", "details": "Details",
         "faq_title": "Questions", "onel": "One line", "shortd": "Short description", "longd": "Full description", "copy": "Copy", "copied": "Copied", "facts": "Key facts",
         "assets": "Downloads", "logo": "Logo", "logo_note": "PNG with transparent background", "icon": "App icon", "shots": "Screenshots", "zip": "Download everything (ZIP)",
@@ -62,7 +62,7 @@ SUBUI = {
                  "compare": "{} uygulamasının sorulan araçlarla karşılaştırması ve her birinin daha iyi bir seçim olduğu durumlar.",
                  "press": "{} logosunu ve ekran görüntülerini indirin, hazır açıklamaları kopyalayın; basın ve inceleyiciler için bilgi ve iletişim.",
                  "privacy": "{} gizlilik politikası: hesap, analiz ya da takip yok. Her şey cihazınızda kalır."},
-        "get": "Microsoft Store'dan edinin", "questions_none": "Başka bir sorunuz mu var?", "write_us": "Bize yazın:",
+        "yes": "Evet", "no": "Doğrulanmadı", "get": "Microsoft Store'dan edinin", "questions_none": "Başka bir sorunuz mu var?", "write_us": "Bize yazın:",
         "shines": "Güçlü olduğu yer", "differs": "{} nerede farklı", "pick": "Şu durumda seçin", "how": "Nasıl çalışır", "feat": "Özellikler", "details": "Ayrıntılar",
         "faq_title": "Sık sorulanlar", "onel": "Tek cümle", "shortd": "Kısa açıklama", "longd": "Tam açıklama", "copy": "Kopyala", "copied": "Kopyalandı", "facts": "Önemli bilgiler",
         "assets": "İndirmeler", "logo": "Logo", "logo_note": "Saydam arka planlı PNG", "icon": "Uygulama ikonu", "shots": "Ekran görüntüleri", "zip": "Hepsini indirin (ZIP)",
@@ -210,6 +210,32 @@ def footer(slug, app, lang, footer_links) -> str:
             f'<nav><a href="{home}">{e(s["home"])}</a>{footer_links}<a href="https://kingpindev.com/#projects">{e(s["all_apps"])}</a></nav></div></footer>')
 
 
+def matrix_html(slug: str, lang: str) -> str:
+    """Notchify-style comparison: a feature table (tick = confirmed in the tool's own documentation, dash = not found) and a bar per tool."""
+    mod = importlib.import_module(f"app_pages_data_{slug}")
+    M = getattr(mod, "MATRIX", None)
+    if not M:
+        return ""
+    m = M[lang]
+    s = SUBUI[lang]
+    cols, rows = m["cols"], m["rows"]
+    head = '<th class="f"></th>' + "".join(f'<th class="{"us" if i == 0 else ""}">{e(n)}<small>{e(sub)}</small></th>' for i, (n, sub) in enumerate(cols))
+    body = ""
+    for label, vals in rows:
+        cells = ""
+        for i, v in enumerate(vals):
+            inner = (f'<span class="y">{CHECK}<span class="sr">{e(s["yes"])}</span></span>' if v
+                     else f'<span class="n dash" aria-hidden="true">&mdash;</span><span class="sr">{e(s["no"])}</span>')
+            cells += f'<td class="{"us" if i == 0 else ""}">{inner}</td>'
+        body += f'<tr><td class="f">{e(label)}</td>{cells}</tr>'
+    counts = [sum(r[1][i] for r in rows) for i in range(len(cols))]
+    bars = "".join('<div class="bar-row%s"><span>%s</span><div class="meter"><i style="--w:%d%%"></i></div><b>%d</b></div>'
+                   % (" us" if i == 0 else "", e(n), round(100 * counts[i] / len(rows)), counts[i]) for i, (n, _) in enumerate(cols))
+    return (f'<div class="cmp-wrap rv"><table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+            f'<p class="legend">{e(m["legend"])} {e(m["checked"])}</p>'
+            f'<div class="cmp-bars rv"><h3>{e(m["bars"])} ({len(rows)})</h3><div class="bars">{bars}</div></div>')
+
+
 def sec_head(eyebrow: str, h2: str, sub: str = "") -> str:
     return (f'<div class="center rv"><div class="eyebrow">{e(eyebrow)}</div><h2>{e(h2)}</h2>' + (f'<p class="sub">{e(sub)}</p>' if sub else "") + "</div>")
 
@@ -287,7 +313,8 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     specs = "".join(f'<div class="spec"><small>{e(k)}</small><p>{e(v)}</p></div>' for k, v in c["details"])
     specs_sec = f'<section><div class="wrap"><div class="specs rv">{specs}</div></div></section>'
     cmp_cards = "".join(f'<article class="cmp rv"><h3 class="t">{e(n)}</h3><span class="tag">{e(tag)}</span><h3 class="k">{e(s["pick"])}</h3><p>{e(pick)}</p></article>' for n, tag, _sh, _df, pick in D["compare"]["items"])
-    compare = (f'<section id="compare"><div class="wrap">{sec_head(s["compare"], hd["compare_title"], hd["compare_sub"])}<div class="cmp-grid">{cmp_cards}</div>'
+    mx = matrix_html(slug, lang)
+    compare = (f'<section id="compare"><div class="wrap">{sec_head(s["compare"], hd["compare_title"], hd["compare_sub"])}{mx if mx else f'<div class="cmp-grid">{cmp_cards}</div>'}'
                f'<div class="center"><a class="more-link" href="{sub_path(lang, "compare")}">{e(s["all_compare"])} {ARROW}</a></div></div></section>')
     faq = "".join(f'<details class="rv"><summary>{e(q)}{PLUS}</summary><p>{e(a)}</p></details>' for q, a in c["faq"])
     faq_sec = (f'<section id="faq"><div class="wrap">{sec_head(s["faq"], s["faq_title"])}<div class="faq">{faq}</div>'
@@ -359,7 +386,7 @@ def compare_page(slug, app, lang):
                     f'<h3 class="k">{e(s["differs"].format(app["name"]))}</h3><p>{e(df)}</p><div class="pick"><h3 class="k">{e(s["pick"])}</h3><p>{e(pk)}</p></div></article>'
                     for n, tag, sh, df, pk in D["items"])
     body = (sub_hero(app, lang, "compare") + f'<section><div class="wrap"><p class="sub center" style="margin-inline:auto;text-align:center;max-width:760px">{e(D["intro"])}</p>'
-            f'<div class="cmp-grid">{cards}</div><p class="foot-note center" style="text-align:center">{e(D["foot"])}</p></div></section>' + final_cta(slug, app, lang))
+            f'{matrix_html(slug, lang)}<div class="cmp-grid">{cards}</div><p class="foot-note center" style="text-align:center">{e(D["foot"])}</p></div></section>' + final_cta(slug, app, lang))
     return body, []
 
 
