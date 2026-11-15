@@ -116,12 +116,56 @@
   // Live demos: script demos mount into the box, framed demos are laid out at their own size and scaled to the column
   document.querySelectorAll(".demo-script").forEach(function (box) {
     var opts = JSON.parse(box.dataset.opts || "{}");
-    var mount = function () { var api = window[box.dataset.api]; if (!api) return false; var el = document.createElement("div"); box.appendChild(el); api.mount(el, opts); return true; };
+    var mount = function () { var api = window[box.dataset.api]; if (!api) return false; var el = document.createElement("div"); box.appendChild(el); box.__api = api.mount(el, opts); return true; };
     if (!mount()) addEventListener("load", mount, { once: true });
   });
   var frames = [].slice.call(document.querySelectorAll(".demo-frame"));
   var fit = function () { frames.forEach(function (box) { var f = box.querySelector("iframe"), w = +box.dataset.w, h = +box.dataset.h, k = Math.min(1, box.clientWidth / w); f.style.transform = "scale(" + k + ")"; box.style.height = Math.round(h * k) + "px"; }); };
-  if (frames.length) { fit(); addEventListener("resize", fit); }
+  if (frames.length) {
+    fit(); addEventListener("resize", fit);
+    if ("ResizeObserver" in window) frames.forEach(function (box) { new ResizeObserver(function () { if (box.clientWidth !== box.__w) { box.__w = box.clientWidth; fit(); } }).observe(box); });
+    frames.forEach(function (box) { var f = box.querySelector("iframe"); if (f) f.addEventListener("load", fit); });
+  }
+
+
+  // Feature explorer: each tab drives the live demo into its scene (a list of [delay, state] steps)
+  var ex = document.getElementById("explorer");
+  if (ex) {
+    var etabs = [].slice.call(ex.querySelectorAll(".tab")), scenes = JSON.parse(ex.dataset.scenes || "[]"), kind = ex.dataset.kind, timers = [], ecur = 0, started = false;
+    var demoBox = ex.querySelector(".demo-box");
+    var applyState = function (d) {
+      try {
+        if (kind === "script") { if (demoBox.__api && demoBox.__api.apply) demoBox.__api.apply(d); }
+        else { var w = demoBox.querySelector("iframe").contentWindow; if (w && w.LunaDockDemo) w.LunaDockDemo.set(d); }
+      } catch (e) { /* demo not ready yet */ }
+    };
+    var run = function (i) {
+      timers.forEach(clearTimeout); timers = [];
+      (scenes[i] || []).forEach(function (st) { timers.push(setTimeout(function () { applyState(st[1]); }, st[0])); });
+    };
+    var pick = function (i, focus) {
+      ecur = i;
+      etabs.forEach(function (t, k) { var on = k === i; t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; });
+      if (focus) etabs[i].focus();
+      run(i);
+    };
+    etabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { pick(i, false); });
+      t.addEventListener("keydown", function (e) {
+        var k = e.key, j = -1, n = etabs.length;
+        if (k === "ArrowDown" || k === "ArrowRight") j = (i + 1) % n; else if (k === "ArrowUp" || k === "ArrowLeft") j = (i - 1 + n) % n; else if (k === "Home") j = 0; else if (k === "End") j = n - 1;
+        if (j >= 0) { e.preventDefault(); pick(j, true); }
+      });
+    });
+    // start the first scene once the stage is on screen and the demo is ready
+    var ready = function (cb, tries) {
+      tries = tries || 0;
+      var ok = kind === "script" ? !!(demoBox.__api && demoBox.__api.apply) : !!(demoBox.querySelector("iframe") && demoBox.querySelector("iframe").contentWindow && demoBox.querySelector("iframe").contentWindow.LunaDockDemo);
+      if (ok) cb(); else if (tries < 60) setTimeout(function () { ready(cb, tries + 1); }, 250);
+    };
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es, o) { if (es[0].isIntersecting && !started) { started = true; o.disconnect(); ready(function () { run(ecur); }); } }, { threshold: .25 }).observe(ex);
+    else ready(function () { run(0); });
+  }
 
   // Press kit: copy buttons
   document.querySelectorAll("[data-copy]").forEach(function (btn) {

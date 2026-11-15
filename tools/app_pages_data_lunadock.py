@@ -223,15 +223,31 @@ HOME = {
     "en": {
         "emph": "tidy stacks", "chip": ("Windows 10 & 11", "A desktop organizer that never moves your files"),
         "stats": [(20, "+", "icon packs"), (16, "", "languages"), (4, "", "screen edges to dock on"), (0, "", "files moved")],
+        "explorer_note": "Pick a feature and the live LunaDock shows it. It is the real app model: click the stacks yourself.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the Microsoft Store listing.",
         "compare_title": "How LunaDock compares", "compare_sub": "Plain Windows and Stardock Fences both tidy a desktop. Here is where each one fits.",
     },
     "tr": {
         "emph": "düzenli yığınlar", "chip": ("Windows 10 ve 11", "Dosyalarınızı asla taşımayan bir masaüstü düzenleyicisi"),
         "stats": [(20, "+", "ikon paketi"), (16, "", "dil"), (4, "", "yerleştirilebilir ekran kenarı"), (0, "", "taşınan dosya")],
+        "explorer_note": "Bir özellik seçin, canlı LunaDock onu gösterir. Gerçek uygulama modeli bu: yığınlara kendiniz tıklayın.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Microsoft Store sayfasından ekranlar.",
         "compare_title": "LunaDock nasıl bir yerde duruyor", "compare_sub": "Düz Windows ve Stardock Fences masaüstünü düzene sokar. İşte her birinin uygun olduğu yer.",
     },
 }
+
+# Scenes for the feature explorer on the home page: one per feature tab, in the order of APPS[slug]["en"]["features"].
+# Each scene is a list of [delay ms, state] steps applied to the live demo (LunaDockDemo.set).
+_BASE = {"organized": True, "style": "category", "pack": "Fluent", "edge": "top", "group": "kind", "overflow": "deck", "wallpaper": "blue", "open": None, "deck": 0, "selected": None}
+SCENES = [
+    [[0, {**_BASE, "organized": False, "style": "pile"}], [900, {"organized": True, "style": "pile"}], [2300, {"style": "category"}]],
+    [[0, _BASE], [900, {"group": "date"}], [3400, {"group": "kind"}]],
+    [[0, _BASE], [800, {"open": "images"}], [2800, {"deck": 5}]],
+    [[0, _BASE], [800, {"pack": "Glass"}], [2500, {"pack": "Pastel"}], [4200, {"pack": "Aurora"}]],
+    [[0, _BASE], [800, {"edge": "right"}], [2700, {"edge": "bottom"}], [4500, {"edge": "top"}]],
+    [[0, _BASE], [800, {"open": "images", "deck": 0}], [2500, {"deck": 5}]],
+    [[0, {**_BASE, "style": "pile"}], [900, {"open": "documents"}]],
+    [[0, _BASE], [800, {"wallpaper": "dusk"}], [2800, {"wallpaper": "blue"}]],
+]
 
 DATA = {"en": EN, "tr": TR}

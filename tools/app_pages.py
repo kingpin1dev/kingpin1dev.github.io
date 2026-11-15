@@ -256,17 +256,25 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     stats_sec = f'<section><div class="wrap"><div class="stats rv">{stats}</div></div></section>'
     steps = "".join(f'<div class="step3"><div class="num">{n}</div><h3>{e(t)}</h3><p>{e(d)}</p></div>' for n, (t, d) in enumerate(c["steps"], 1))
     how = f'<section id="how"><div class="wrap">{sec_head(app["name"], c["steps_title"])}<div class="steps3">{steps}</div></div></section>'
-    # gallery (the real screenshots of the Store listing)
-    folder = f"/img/press/{slug}/"
-    prefix = "tr-" if (slug == "mixora" and lang == "tr") else ""
-    shots = D["press"]["shots"]
-    gtabs = "".join(f'<button class="gtab" role="tab" type="button" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}"><i></i>{e(cap)}</button>' for i, (f, cap) in enumerate(shots))
-    gimgs = "".join(f'<img src="{folder}{prefix}{f}.jpg" alt="{e(cap)}" width="1600" height="900" loading="{"eager" if i == 0 else "lazy"}"{" class=on" if i == 0 else ""}>' for i, (f, cap) in enumerate(shots))
-    gallery = (f'<section id="gallery"><div class="wrap">{sec_head(s["gallery_h"], hd["gallery_title"], hd["gallery_note"])}<div class="gal rv"><div class="gtabs" role="tablist" aria-label="{e(s["gallery_h"])}">{gtabs}</div>'
-               f'<div class="gstage"><div class="gshot">{gimgs}</div><button class="gpause" type="button" aria-pressed="false" data-pause="{e(s["pause"])}" data-play="{e(s["play"])}">{PAUSE_IC}<span>{e(s["pause"])}</span></button></div></div></div></section>')
-    spans = [2, 1, 1, 1, 2, 1, 2, 2]
-    tiles = "".join(f'<article class="tile rv{" s2" if spans[i % 8] == 2 else ""}"><div class="ic">{B.icon(ic)}</div><h3>{e(t)}</h3><p>{e(d)}</p></article>' for i, (ic, t, d) in enumerate(c["features"]))
-    features = f'<section id="features"><div class="wrap">{sec_head(s["feat"], c["features_title"])}<div class="bento4">{tiles}</div></div></section>'
+    # feature explorer: each tab drives the live demo into the matching scene (same idea as the Notchify feature switcher)
+    scenes = importlib.import_module(f"app_pages_data_{slug}").SCENES
+    assert len(scenes) == len(c["features"]), (slug, len(scenes), len(c["features"]))
+    tabs = ""
+    for i, (ic, t_, d_) in enumerate(c["features"]):
+        sel = i == 0
+        tabs += (f'<button class="tab" role="tab" type="button" id="tab-{i}" aria-selected="{"true" if sel else "false"}" aria-controls="explorer-stage" tabindex="{0 if sel else -1}">'
+                 f'<span class="ic">{B.icon(ic)}</span><div><strong>{e(t_)}</strong><div class="more"><div><p>{e(d_)}</p></div></div></div></button>')
+    if demo["kind"] == "script":
+        opts2 = dict(demo["opts"])
+        if demo.get("lang"):
+            opts2["lang"] = lang
+        demo2 = f'<div class="demo-box demo-script" data-api="{demo["api"]}" data-opts="{e(json.dumps(opts2))}"></div>'
+    else:
+        src2 = demo["src"] + (("&" if "?" in demo["src"] else "?") + "lang=" + lang if demo.get("lang") else "")
+        demo2 = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}"><iframe src="{e(src2)}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
+    features = (f'<section id="features"><div class="wrap">{sec_head(s["feat"], c["features_title"])}<div class="fs rv" id="explorer" data-kind="{demo["kind"]}" data-scenes="{e(json.dumps(scenes))}">'
+                f'<div class="tabs" role="tablist" aria-orientation="vertical" aria-label="{e(s["feat"])}">{tabs}</div>'
+                f'<div class="fs-stage" id="explorer-stage" role="tabpanel"><div class="stage-frame">{demo2}</div><p class="stage-note">{e(hd["explorer_note"])}</p></div></div></div></section>')
     specs = "".join(f'<div class="spec"><small>{e(k)}</small><p>{e(v)}</p></div>' for k, v in c["details"])
     specs_sec = f'<section><div class="wrap"><div class="specs rv">{specs}</div></div></section>'
     cmp_cards = "".join(f'<article class="cmp rv"><h3 class="t">{e(n)}</h3><span class="tag">{e(tag)}</span><h3 class="k">{e(s["pick"])}</h3><p>{e(pick)}</p></article>' for n, tag, _sh, _df, pick in D["compare"]["items"])
@@ -275,7 +283,7 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     faq = "".join(f'<details class="rv"><summary>{e(q)}{PLUS}</summary><p>{e(a)}</p></details>' for q, a in c["faq"])
     faq_sec = (f'<section id="faq"><div class="wrap">{sec_head(s["faq"], s["faq_title"])}<div class="faq">{faq}</div>'
                f'<div class="center"><a class="more-link" href="{sub_path(lang, "faq")}">{e(s["more_q"])} {ARROW}</a></div></div></section>')
-    body = hero + stats_sec + how + gallery + features + specs_sec + compare + faq_sec + final_cta(slug, app, lang) + apps_row(slug, lang)
+    body = hero + stats_sec + how + features + specs_sec + compare + faq_sec + final_cta(slug, app, lang) + apps_row(slug, lang)
     ld = [{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": app.get("os", "Windows 10, Windows 11"),
            "applicationCategory": app["category"], "description": c["desc"], "url": canon, "image": f"https://{slug}.kingpindev.com/img/og-{slug}.jpg",
            "installUrl": store, "inLanguage": lang, "author": {"@type": "Person", "name": "Burak Pekel", "url": "https://kingpindev.com/"},

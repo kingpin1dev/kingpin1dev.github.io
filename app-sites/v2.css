@@ -157,7 +157,7 @@ footer a:hover{color:var(--text)}
 /* ── responsive ── */
 
 @media(max-width:1020px){
-  .fs{grid-template-columns:1fr;gap:24px}
+  .fs{grid-template-columns:minmax(0,1fr);gap:24px}
   .fs-stage{position:relative;top:0;order:-1}
   .steps{grid-template-columns:1fr}
   .bento{grid-template-columns:repeat(2,1fr)}
@@ -192,6 +192,31 @@ footer a:hover{color:var(--text)}
   .meter i{width:var(--w)}
   .pause{display:none}
 }
+
+/* ── feature explorer (tabs drive the live demo) ── */
+
+.fs{display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);gap:40px;margin-top:56px;align-items:start}
+.tabs{display:flex;flex-direction:column;gap:6px}
+.tab{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;text-align:left;width:100%;padding:14px 16px;border-radius:var(--r2);border:1px solid transparent;background:transparent;color:var(--muted);font:inherit;transition:background .25s,border-color .25s,color .25s}
+.tab:hover{background:var(--s2);color:var(--text)}
+.tab .ic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--s3);border:1px solid var(--line)}
+.tab .ic svg{width:20px;height:20px}
+.tab strong{display:block;font-size:17px;letter-spacing:-.015em;line-height:1.35;color:var(--text);padding-top:7px;transition:padding .25s}
+.tab .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
+.tab .more>div{overflow:hidden}
+.tab .more p{margin:8px 0 0;font-size:15.5px;line-height:1.55;color:var(--muted)}
+.tab .more ul{margin:12px 0 4px;padding:0;list-style:none;display:grid;gap:8px}
+.tab .more li{display:flex;gap:10px;font-size:15px;color:var(--text)}
+.tab .more li::before{content:"";flex:none;margin-top:9px;width:6px;height:6px;border-radius:50%;background:var(--grad)}
+.tab[aria-selected=true]{background:var(--s2);border-color:var(--line2);color:var(--text)}
+.tab[aria-selected=true] .ic{background:var(--grad);border-color:transparent;color:var(--on)}
+.tab[aria-selected=true] .more{grid-template-rows:1fr}
+.fs-stage{position:sticky;top:110px}
+
+
+.fs-stage .stage-note{margin-top:14px}
+.fs>*,.fs-stage,.stage-frame,.demo-box{min-width:0}
+.demo-frame{max-width:100%}
 
 /* ── app-site additions ── */
 .bar .brand img{width:30px;height:30px}
@@ -359,3 +384,6 @@ footer a:hover{color:var(--text)}
   .steps3::after{width:76%;transition:none}
   .gpause{display:none}
 }
+
+@media(max-width:1020px){.fs{grid-template-columns:minmax(0,1fr);gap:24px}.fs-stage{position:relative;top:0;order:-1}}
+@media(max-width:680px){.tab{padding:12px}}

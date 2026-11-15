@@ -715,13 +715,31 @@
     root.addEventListener("pointerdown", () => { tip.style.opacity = 0; }, { once: true });
     renderAll(); fit(); requestAnimationFrame(frame);
     if ("ResizeObserver" in window) new ResizeObserver(() => { fit(); }).observe(root);
+    // Scene controller used by the app site's feature explorer: every call drives the same working model a visitor drives with the mouse.
+    return {
+      apply(d) {
+        d = d || {};
+        if (d.reset) { S.view = "main"; S.page = "audio"; S.fly = false; S.winOpen = true; S.libOpen = false; S.osd.show = false; S.mix = -0.1; S.eqTab = "game"; S.g.chat.out = "def"; APPS.forEach((a) => { if (a.id === "nvidia" || a.id === "wallpaper") a.g = null; }); }
+        if (d.view) { S.view = d.view; S.winOpen = true; S.libOpen = false; }
+        if (d.page) S.page = d.page;
+        if (d.eqTab) S.eqTab = d.eqTab;
+        if (d.assign) d.assign.forEach(([id, g]) => { const a = APPS.find((x) => x.id === id); if (a) a.g = g; });
+        if (d.out) Object.keys(d.out).forEach((g) => { S.g[g].out = d.out[g]; });
+        if (d.vols) Object.keys(d.vols).forEach((g) => { S.g[g].vol = d.vols[g]; S.g[g].mute = false; });
+        if (typeof d.mix === "number") S.mix = d.mix;
+        if (typeof d.fly === "boolean") { S.fly = d.fly; if (d.fly) S.winOpen = false; }
+        renderAll();
+        if (d.osd) showOsd(d.osd, d.osdMs || 3000);
+      },
+    };
   }
 
   window.MixoraDemo = {
     mount(root, opts) {
       opts = opts || {}; if (root.__mounted) return; root.__mounted = true; injectCss();
       root.classList.add("mx-demo"); L = T[opts.lang === "tr" ? "tr" : "en"];
-      Demo(root, opts.logo || "/img/FluentMixer.png");
+      root.__mx = Demo(root, opts.logo || "/img/FluentMixer.png");
+      return root.__mx;
     },
   };
 })();
