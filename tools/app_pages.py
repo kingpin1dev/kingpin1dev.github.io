@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites"
-SLUGS = ("mixora", "lunadock")
+SLUGS = ("mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop", "goliath", "lolable", "glidesnap")
 KINDS = ("faq", "changelog", "compare", "press", "privacy")
 LASTMOD = "2026-11-16"
 ASSET_V = "20261116"
@@ -80,6 +80,15 @@ ARROW = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="cur
 PAUSE_IC = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'
 
 
+def cta_of(app: dict, lang: str) -> dict:
+    """Primary call to action: the Microsoft Store page, or the app's own link (Discord invite, installer download)."""
+    B = _b()
+    c = app.get("cta")
+    if c:
+        return {"url": c["url"], "label": c[lang], "short": c[lang + "_short"], "text": c.get(lang + "_text"), "logo": "" if c.get("nologo") else B.WIN_LOGO, "dl": " download" if c.get("download") else ""}
+    return {"url": B.STORE.format(app["store"]), "label": SUBUI[lang]["get"], "short": SUBUI[lang]["get_short"], "text": None, "logo": B.WIN_LOGO, "dl": ""}
+
+
 def _b():
     return importlib.import_module("build_app_sites")
 
@@ -135,7 +144,7 @@ def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, bod
     B = _b()
     s = SUBUI[lang]
     other = "en" if lang == "tr" else "tr"
-    store = B.STORE.format(app["store"])
+    ci = cta_of(app, lang)
     home = base(slug, lang)
     ld_html = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in ld)
     footer_links = "".join('<a href="%s">%s</a>' % (sub_path(lang, k), s[k]) for k in KINDS)
@@ -180,7 +189,7 @@ def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, bod
   <nav class="links glass" id="navlinks" aria-label="{e(s["menu"])}">{_links(slug, lang, kind if kind != "home" else None)}</nav>
   <div class="right">
     <a class="lang-pill glass" href="{other_url}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{LANGNAME[other]}</a>
-    <a class="cta-sm" href="{store}">{e(s["get_short"])}</a>
+    <a class="cta-sm" href="{ci["url"]}"{ci["dl"]}>{e(ci["short"])}</a>
     <button class="burger glass" id="burger" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="{e(s["menu"])}">{BURGER}</button>
   </div>
 </header>
@@ -197,7 +206,7 @@ def footer(slug, app, lang, footer_links) -> str:
     s = SUBUI[lang]
     home = base(slug, lang)
     return (f'<div class="word" aria-hidden="true">{e(app["name"])}</div>'
-            f'<footer><div class="wrap"><span>{e(s["by"])} <a href="https://kingpindev.com/" style="display:inline;min-height:0;text-decoration:underline">Kingpindev</a></span>'
+            f'<footer><div class="wrap"><span>{e(app.get("by", {}).get(lang, s["by"]))} <a href="https://kingpindev.com/" style="display:inline;min-height:0;text-decoration:underline">Kingpindev</a></span>'
             f'<nav><a href="{home}">{e(s["home"])}</a>{footer_links}<a href="https://kingpindev.com/#projects">{e(s["all_apps"])}</a></nav></div></footer>')
 
 
@@ -208,13 +217,13 @@ def sec_head(eyebrow: str, h2: str, sub: str = "") -> str:
 def final_cta(slug, app, lang, text=None) -> str:
     B = _b()
     s = SUBUI[lang]
-    store = B.STORE.format(app["store"])
+    ci = cta_of(app, lang)
     mail = data(slug, lang)["press"]["facts"][-1][1]
     paths = "".join('<path d="M-20 %d C 200 %d, 380 %d, 640 %d S 1000 %d, 1240 %d"/>' % (40 + i * 26, 10 + i * 30, 120 + i * 18, 60 + i * 24, 150 - i * 10, 70 + i * 20) for i in range(9))
     return (f'<section><div class="wrap"><div class="final rv"><svg class="paths" viewBox="0 0 1240 300" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="pg" x1="0" x2="1">'
             f'<stop offset="0" stop-color="var(--a1)" stop-opacity="0"/><stop offset=".5" stop-color="var(--a1)"/><stop offset="1" stop-color="var(--a2)" stop-opacity="0"/></linearGradient></defs>{paths}</svg>'
-            f'<h2>{e(s["cta_t"].format(app["name"]))}</h2><p>{e(text or s["cta_p"])} {e(s["write_us"])} <a href="mailto:{mail}">{mail}</a></p>'
-            f'<div class="btns"><a class="btn btn-p" href="{store}">{B.WIN_LOGO}<span>{e(s["get"])}</span></a></div></div></div></section>')
+            f'<h2>{e(s["cta_t"].format(app["name"]))}</h2><p>{e(text or ci["text"] or s["cta_p"])} {e(s["write_us"])} <a href="mailto:{mail}">{mail}</a></p>'
+            f'<div class="btns"><a class="btn btn-p" href="{ci["url"]}"{ci["dl"]}>{ci["logo"]}<span>{e(ci["label"])}</span></a></div></div></div></section>')
 
 
 def apps_row(slug, lang) -> str:
@@ -230,7 +239,7 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     B = _b()
     c, s, hd = app[lang], SUBUI[lang], home_data(slug, lang)
     D = data(slug, lang)
-    store = B.STORE.format(app["store"])
+    ci = cta_of(app, lang)
     canon, alt_en, alt_tr = base(slug, lang), base(slug, "en"), base(slug, "tr")
     other_url = base(slug, "en" if lang == "tr" else "tr")
     assert 25 <= len(c["desc"]) <= 160, (slug, lang, len(c["desc"]))
@@ -249,7 +258,7 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     trust = "".join(f"<span>{CHECK}{e(f)}</span>" for f in c["facts"])
     badge, chip_text = hd["chip"]
     hero = (f'<header class="hero"><div class="wrap"><div class="chip rv"><b>{e(badge)}</b>{e(chip_text)}</div><h1>{h1}</h1><p class="lead">{e(c["lead"])}</p>'
-            f'<div class="btns"><a class="btn btn-p" href="{store}">{B.WIN_LOGO}<span>{e(s["get"])}</span></a><a class="btn btn-g" href="#demo">{e(s["try"])}</a></div>'
+            f'<div class="btns"><a class="btn btn-p" href="{ci["url"]}"{ci["dl"]}>{ci["logo"]}<span>{e(ci["label"])}</span></a><a class="btn btn-g" href="#demo">{e(s["try"])}</a></div>'
             f'<div class="trust">{trust}</div>'
             f'<div class="stage" id="demo"><div class="stage-frame">{demo_html}</div><p class="stage-note">{e(c["demo_note"])}</p></div></div></header>')
     stats = "".join(f'<div><b data-count="{n}" data-suffix="{suf}">{n}{suf}</b><span>{e(lbl)}</span></div>' for n, suf, lbl in hd["stats"])
@@ -286,7 +295,7 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     body = hero + stats_sec + how + features + specs_sec + compare + faq_sec + final_cta(slug, app, lang) + apps_row(slug, lang)
     ld = [{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": app.get("os", "Windows 10, Windows 11"),
            "applicationCategory": app["category"], "description": c["desc"], "url": canon, "image": f"https://{slug}.kingpindev.com/img/og-{slug}.jpg",
-           "installUrl": store, "inLanguage": lang, "author": {"@type": "Person", "name": "Burak Pekel", "url": "https://kingpindev.com/"},
+           "installUrl": ci["url"], "inLanguage": lang, "author": {"@type": "Person", "name": "Burak Pekel", "url": "https://kingpindev.com/"},
            "publisher": {"@type": "Organization", "name": "Kingpindev", "url": "https://kingpindev.com/"}},
           {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": lang, "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in c["faq"]]}]
     return shell(slug, app, lang, "home", c["title"], c["desc"], body, ld, canon, alt_en, alt_tr, other_url)
@@ -331,10 +340,15 @@ def privacy_page(slug, app, lang):
         inner = ("<ul>" + "".join(f"<li>{e(p)}</li>" for p in paras) + "</ul>") if h in ("Summary", "Özet") else "".join(f"<p>{e(p)}</p>" for p in paras)
         secs += f"<h2>{e(h)}</h2>{inner}"
     mail = D["press"]["facts"][-1][1]
+    mod = importlib.import_module(f"app_pages_data_{slug}")
+    full = ""
+    if getattr(mod, "PRIVACY_URL", None):
+        lbl = ("Full Privacy Policy", "Terms of Service") if lang == "en" else ("Tam Gizlilik Politikası", "Kullanım Şartları")
+        full = f'<p><a href="{mod.PRIVACY_URL}" rel="noopener">{lbl[0]}</a>' + (f' · <a href="{mod.TERMS_URL}" rel="noopener">{lbl[1]}</a>' if getattr(mod, "TERMS_URL", None) else "") + "</p>"
     contact = {"en": ("Contact", "If you have any questions about this policy, contact us at"), "tr": ("İletişim", "Bu politika hakkında sorularınız varsa bize şu adresten ulaşın:")}[lang]
     pub = "Publisher: Kingpindev" if lang == "en" else "Yayıncı: Kingpindev"
     body = (sub_hero(app, lang, "privacy") + f'<section class="prose"><div class="wrap"><p class="meta">{e(meta)} · {e(pub)}</p>{secs}'
-            f'<h2>{contact[0]}</h2><p>{e(contact[1])} <a href="mailto:{mail}">{mail}</a>.</p></div></section>')
+            f'{full}<h2>{contact[0]}</h2><p>{e(contact[1])} <a href="mailto:{mail}">{mail}</a>.</p></div></section>')
     return body, []
 
 

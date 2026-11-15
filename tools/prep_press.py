@@ -31,8 +31,25 @@ SPEC = {
 }
 
 
+VICE = PROJECTS / "ViceSonar"
+# Apps whose screenshots are captured from the app sites (tools/capture_press_shots.cjs writes img/press/<slug>/shot-N.jpg; thumbnails are made here)
+CAPTURED = {
+    "vorganizer": PROJECTS / "vOrganizer" / "assets" / "icon_620.png",
+    "aurora": PROJECTS / "Aurora Radios" / "assets" / "Logo.png",
+    "spotidrop": PROJECTS / "SpotiDrop" / "resources" / "logo-source.png",
+    "goliath": ROOT / "img" / "Goliath.png",
+    "lolable": PROJECTS / "Lolable" / "assets" / "logo.png",
+    "glidesnap": PROJECTS / "GlideSnap" / "Branding" / "logo-windows-blue.png",
+}
+SPEC["vicesonar"] = {
+    "logo": VICE / "store_logos" / "logo_300x300.png",
+    "shots": [(VICE / "screenshots" / (n + ".png"), n) for n in ("panels_main", "panels_full", "themes_grid", "themes_dark", "panels_horizontal")],
+}
+
+
 def jpg(src: Path, dst: Path, width: int, q: int) -> None:
     im = Image.open(src).convert("RGB")
+    width = min(width, im.width)   # never upscale
     im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
     im.save(dst, "JPEG", quality=q, optimize=True, progressive=True)
 
@@ -55,3 +72,22 @@ for slug, spec in SPEC.items():
             z.write(d / f, f)
     total = sum(p.stat().st_size for p in d.iterdir())
     print(slug, len(names), "screenshots,", round(total / 1024), "KB")
+
+for slug, logo_path in CAPTURED.items():
+    d = OUT / slug
+    d.mkdir(parents=True, exist_ok=True)
+    logo = Image.open(logo_path).convert("RGBA")
+    w = min(1024, logo.width)
+    big = logo.resize((w, round(logo.height * w / logo.width)), Image.LANCZOS)
+    big.save(d / (slug + "-logo.png"), optimize=True)
+    big.resize((320, round(big.height * 320 / big.width)), Image.LANCZOS).save(d / (slug + "-logo-thumb.png"), optimize=True)
+    logo.resize((256, 256), Image.LANCZOS).save(d / (slug + "-icon-256.png"), optimize=True)
+    names = []
+    for i in range(1, 5):
+        src = d / f"shot-{i}.jpg"
+        jpg(src, d / f"shot-{i}-thumb.jpg", 480, 80)
+        names.append(f"shot-{i}")
+    with zipfile.ZipFile(d / (slug + "-press-kit.zip"), "w", zipfile.ZIP_DEFLATED) as z:
+        for f in (slug + "-logo.png", slug + "-icon-256.png", *(n + ".jpg" for n in names)):
+            z.write(d / f, f)
+    print(slug, len(names), "screenshots,", round(sum(p.stat().st_size for p in d.iterdir()) / 1024), "KB")

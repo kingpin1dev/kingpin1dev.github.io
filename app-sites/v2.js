@@ -128,6 +128,23 @@
   }
 
 
+
+  // Framed demos that are the real app UI (Aurora, SpotiDrop, vOrganizer): a scene step clicks a button by its label or selector, or types into a field
+  function frameDo(w, d) {
+    var doc = w.document;
+    var visible = function (e) { return e.getClientRects().length > 0; };
+    if (d.clickText) {
+      var all = [].slice.call(doc.querySelectorAll("button,a,[role=button],[role=tab]")).filter(function (e) { var tx = (e.innerText || "").replace(/\s+/g, " ").trim(); return visible(e) && (d.starts ? tx.indexOf(d.clickText) === 0 : tx === d.clickText); });
+      if (all[d.nth || 0]) all[d.nth || 0].click();
+    }
+    if (d.click) { var el = doc.querySelector(d.click); if (el) el.click(); }
+    if (d.type) {
+      var inp = doc.querySelector(d.type.sel); if (inp) {
+        var setter = Object.getOwnPropertyDescriptor(w.HTMLInputElement.prototype, "value").set; setter.call(inp, d.type.value);
+        inp.dispatchEvent(new w.Event("input", { bubbles: true }));
+      }
+    }
+  }
   // Feature explorer: each tab drives the live demo into its scene (a list of [delay, state] steps)
   var ex = document.getElementById("explorer");
   if (ex) {
@@ -136,7 +153,7 @@
     var applyState = function (d) {
       try {
         if (kind === "script") { if (demoBox.__api && demoBox.__api.apply) demoBox.__api.apply(d); }
-        else { var w = demoBox.querySelector("iframe").contentWindow; if (w && w.LunaDockDemo) w.LunaDockDemo.set(d); }
+        else { var w = demoBox.querySelector("iframe").contentWindow; if (w && w.LunaDockDemo) w.LunaDockDemo.set(d); else if (w) frameDo(w, d); }
       } catch (e) { /* demo not ready yet */ }
     };
     var run = function (i) {

@@ -292,6 +292,19 @@ html:has(#cur) .gl-demo *{cursor:none!important}
     });
 
     botMsg({ text: L.welcome });
+    // Scene controller for the app site's feature explorer: types a command into the box and sends it, like a visitor would.
+    let typing = null;
+    return {
+      send(text) {
+        clearInterval(typing); let i = 0; input.value = "";
+        typing = setInterval(() => {
+          input.value = text.slice(0, ++i);
+          if (i >= text.length) { clearInterval(typing); setTimeout(() => { input.value = ""; ac.classList.remove("show"); run(text); }, 250); }
+        }, 32);
+      },
+      apply(d) { d = d || {}; if (d.clear) this.clear(); if (d.send) this.send(d.send); },
+      clear() { clearInterval(typing); input.value = ""; msgs.innerHTML = `<div class="gl-day">${L.today}</div>`; },
+    };
   }
 
   window.GoliathDemo = {
@@ -300,7 +313,8 @@ html:has(#cur) .gl-demo *{cursor:none!important}
       root.__mounted = true;
       injectCss();
       root.classList.add("gl-demo");
-      Demo(root, T[opts.lang === "en" ? "en" : "tr"], opts.img || "/img/");
+      root.__api = Demo(root, T[opts.lang === "en" ? "en" : "tr"], opts.img || "/img/");
+      return root.__api;
     },
   };
 })();

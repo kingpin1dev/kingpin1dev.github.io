@@ -216,6 +216,25 @@ html:has(#cur) .gs-demo *{cursor:none!important}
 
     addEventListener("resize", fit);
     fit(); render(); syncKey(); requestAnimationFrame(fit);
+    // Scene controller for the app site's feature explorer: moves the same windows a visitor moves with Alt + drag.
+    const INIT = JSON.parse(JSON.stringify(wins));
+    const half = (side) => ({ x: side === "left" ? 0 : AREA.w / 2, y: AREA.y, w: AREA.w / 2, h: AREA.h });
+    const winEl = (id) => layer.querySelector(`[data-win="${id}"]`);
+    return {
+      apply(d) {
+        d = d || {};
+        if (d.reset) { wins.forEach((w, i) => Object.assign(w, JSON.parse(JSON.stringify(INIT[i])))); z = wins.map((w) => w.id); render(); }
+        if ("alt" in d) { altLatch = !!d.alt; syncKey(); }
+        if ("tip" in d) setTip(d.tip);
+        if (d.move) Object.keys(d.move).forEach((id) => { const w = wins.find((x) => x.id === id); const el = winEl(id); if (el) el.classList.add("anim"); Object.assign(w, d.move[id]); place(w); });
+        if (d.snap) Object.keys(d.snap).forEach((id) => { const w = wins.find((x) => x.id === id); const el = winEl(id); if (!w.max) w.max = { x: w.x, y: w.y, w: w.w, h: w.h }; if (el) el.classList.add("anim"); Object.assign(w, d.snap[id] === "top" ? AREA : half(d.snap[id])); place(w); });
+        if (d.restore) { const w = wins.find((x) => x.id === d.restore); const el = winEl(w.id); if (w.max) { if (el) el.classList.add("anim"); Object.assign(w, w.max); w.max = null; place(w); } }
+        if (d.pin) Object.keys(d.pin).forEach((id) => { wins.find((x) => x.id === id).pin = !!d.pin[id]; });
+        if (d.front) front(d.front);
+        if (typeof d.opHud === "number") showHud(`${L.opacity}: ${Math.round(d.opHud * 100)}%`);
+        if (typeof d.sizeHud === "string") showHud(d.sizeHud);
+      },
+    };
   }
 
   window.GlideSnapDemo = {
@@ -224,7 +243,8 @@ html:has(#cur) .gs-demo *{cursor:none!important}
       root.__mounted = true;
       injectCss();
       root.classList.add("gs-demo");
-      Demo(root, T[opts.lang === "en" ? "en" : "tr"], opts.img || "/img/");
+      root.__api = Demo(root, T[opts.lang === "en" ? "en" : "tr"], opts.img || "/img/");
+      return root.__api;
     },
   };
 })();

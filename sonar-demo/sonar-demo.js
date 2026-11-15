@@ -83,6 +83,8 @@ html:has(#cur) .vs-demo *{cursor:none!important}
 .vs-name{width:46px;font-size:13px;color:#E0F2FE}
 .vs-sl{position:relative;flex:1;height:22px;touch-action:none}
 .vs-sl i{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;border-radius:2px;background:rgba(255,255,255,.1)}
+.vs-sl.anim b{transition:width .8s cubic-bezier(.3,.7,.2,1)}
+.vs-sl.anim em{transition:left .8s cubic-bezier(.3,.7,.2,1)}
 .vs-sl b{position:absolute;left:0;top:50%;height:4px;margin-top:-2px;border-radius:2px;background:${AC}}
 .vs-sl em{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:${AC};transition:background .12s}
 .vs-sl:hover em{background:${AC_H}}
@@ -343,6 +345,15 @@ html:has(#cur) .vs-demo *{cursor:none!important}
     });
     window.addEventListener("resize", fit);
     render();
+    // Scene controller for the app site's feature explorer: drives the same state a visitor drives with the mouse.
+    return {
+      apply(d) {
+        d = d || {};
+        ["view", "tab", "open", "eqOpen", "mix", "applied", "waiting", "step"].forEach((k) => { if (k in d) s[k] = d[k]; });
+        ["vol", "route", "eq", "muted", "keys"].forEach((k) => { if (d[k]) Object.assign(s[k], d[k]); });
+        if ("mix" in d && Object.keys(d).length === 1) { const els = root.querySelectorAll(".vs-sl"); els.forEach((el) => el.classList.add("anim")); update(); setTimeout(() => els.forEach((el) => el.classList.remove("anim")), 900); } else render();
+      },
+    };
   }
 
   window.SonarDemo = {
@@ -351,7 +362,8 @@ html:has(#cur) .vs-demo *{cursor:none!important}
       root.__mounted = true;
       injectCss();
       root.classList.add("vs-demo");
-      Demo(root, opts.logo || "/img/vice-sonar.png");
+      root.__api = Demo(root, opts.logo || "/img/vice-sonar.png");
+      return root.__api;
     },
   };
 })();
