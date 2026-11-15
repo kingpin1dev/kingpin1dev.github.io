@@ -1,0 +1,32 @@
+{
+ "lunadock": {
+  "avg": 0.0,
+  "count": 0,
+  "fetched": "2026-11-16"
+ },
+ "mixora": {
+  "avg": 5.0,
+  "count": 4,
+  "fetched": "2026-11-16"
+ },
+ "vicesonar": {
+  "avg": 4.3,
+  "count": 6,
+  "fetched": "2026-11-16"
+ },
+ "vorganizer": {
+  "avg": 3.0,
+  "count": 2,
+  "fetched": "2026-11-16"
+ },
+ "aurora": {
+  "avg": 5.0,
+  "count": 1,
+  "fetched": "2026-11-16"
+ },
+ "glidesnap": {
+  "avg": 5.0,
+  "count": 2,
+  "fetched": "2026-11-16"
+ }
+}

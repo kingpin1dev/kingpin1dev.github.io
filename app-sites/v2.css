@@ -445,3 +445,6 @@ tr.only td.f{box-shadow:inset 3px 0 0 var(--a1)}
   .sstep2 p{max-width:none}
 }
 @media(prefers-reduced-motion:reduce){.sstep2{opacity:1}}
+
+.trust .rate{color:var(--text);font-weight:600}
+.trust .rate svg{color:#ffd166}

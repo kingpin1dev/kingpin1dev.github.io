@@ -19,6 +19,7 @@ OUT = ROOT / "sites"
 SLUGS = ("mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop", "goliath", "lolable", "glidesnap")
 KINDS = ("faq", "changelog", "compare", "press", "privacy")
 LASTMOD = "2026-11-16"
+MIN_RATINGS = 4      # a Store rating line is shown only from this many ratings on (see tools/fetch_store_ratings.py)
 ASSET_V = "20261116"
 
 SUBUI = {
@@ -38,7 +39,7 @@ SUBUI = {
                  "compare": "How {} compares with the tools people ask about, with where each one is the better pick.",
                  "press": "Download the {} logo and screenshots, copy ready-made descriptions and find the facts and contact for press and reviewers.",
                  "privacy": "The {} privacy policy: no account, no analytics, no tracking. Everything stays on your device."},
-        "yes": "Yes", "no": "Not confirmed", "get": "Get it from Microsoft Store", "questions_none": "Still have a question?", "write_us": "Write to us at",
+        "yes": "Yes", "no": "Not confirmed", "rated": "Rated {avg} on the Microsoft Store ({n} ratings)", "get": "Get it from Microsoft Store", "questions_none": "Still have a question?", "write_us": "Write to us at",
         "shines": "Where it shines", "differs": "Where {} differs", "pick": "Pick it if", "how": "How it works", "feat": "Features", "details": "Details",
         "faq_title": "Questions", "onel": "One line", "shortd": "Short description", "longd": "Full description", "copy": "Copy", "copied": "Copied", "facts": "Key facts",
         "assets": "Downloads", "logo": "Logo", "logo_note": "PNG with transparent background", "icon": "App icon", "shots": "Screenshots", "zip": "Download everything (ZIP)",
@@ -62,7 +63,7 @@ SUBUI = {
                  "compare": "{} uygulamasının sorulan araçlarla karşılaştırması ve her birinin daha iyi bir seçim olduğu durumlar.",
                  "press": "{} logosunu ve ekran görüntülerini indirin, hazır açıklamaları kopyalayın; basın ve inceleyiciler için bilgi ve iletişim.",
                  "privacy": "{} gizlilik politikası: hesap, analiz ya da takip yok. Her şey cihazınızda kalır."},
-        "yes": "Evet", "no": "Doğrulanmadı", "get": "Microsoft Store'dan edinin", "questions_none": "Başka bir sorunuz mu var?", "write_us": "Bize yazın:",
+        "yes": "Evet", "no": "Doğrulanmadı", "rated": "Microsoft Store'da {avg} puan ({n} değerlendirme)", "get": "Microsoft Store'dan edinin", "questions_none": "Başka bir sorunuz mu var?", "write_us": "Bize yazın:",
         "shines": "Güçlü olduğu yer", "differs": "{} nerede farklı", "pick": "Şu durumda seçin", "how": "Nasıl çalışır", "feat": "Özellikler", "details": "Ayrıntılar",
         "faq_title": "Sık sorulanlar", "onel": "Tek cümle", "shortd": "Kısa açıklama", "longd": "Tam açıklama", "copy": "Kopyala", "copied": "Kopyalandı", "facts": "Önemli bilgiler",
         "assets": "İndirmeler", "logo": "Logo", "logo_note": "Saydam arka planlı PNG", "icon": "Uygulama ikonu", "shots": "Ekran görüntüleri", "zip": "Hepsini indirin (ZIP)",
@@ -236,6 +237,18 @@ def matrix_html(slug: str, lang: str) -> str:
             f'<div class="cmp-bars rv"><h3>{e(m["bars"])} ({len(rows)})</h3><div class="bars">{bars}</div></div>')
 
 
+def rating_span(slug: str, lang: str) -> str:
+    """Real Microsoft Store rating (tools/store_ratings.json), only when there are enough ratings to mean something."""
+    f = ROOT / "tools" / "store_ratings.json"
+    if not f.exists():
+        return ""
+    r = json.loads(f.read_text(encoding="utf-8")).get(slug)
+    if not r or r["count"] < MIN_RATINGS:
+        return ""
+    avg = f"{r['avg']:.1f}".replace(".", ",") if lang == "tr" else f"{r['avg']:.1f}"
+    return f'<span class="rate"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z"/></svg>{e(SUBUI[lang]["rated"].format(avg=avg, n=r["count"]))}</span>'
+
+
 def sec_head(eyebrow: str, h2: str, sub: str = "") -> str:
     return (f'<div class="center rv"><div class="eyebrow">{e(eyebrow)}</div><h2>{e(h2)}</h2>' + (f'<p class="sub">{e(sub)}</p>' if sub else "") + "</div>")
 
@@ -281,7 +294,7 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     else:
         src = demo["src"] + (("&" if "?" in demo["src"] else "?") + "lang=" + lang if demo.get("lang") else "")
         demo_html = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}"><iframe src="{e(src)}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
-    trust = "".join(f"<span>{CHECK}{e(f)}</span>" for f in c["facts"])
+    trust = rating_span(slug, lang) + "".join(f"<span>{CHECK}{e(f)}</span>" for f in c["facts"])
     badge, chip_text = hd["chip"]
     hero = (f'<header class="hero"><div class="wrap"><div class="chip rv"><b>{e(badge)}</b>{e(chip_text)}</div><h1>{h1}</h1><p class="lead">{e(c["lead"])}</p>'
             f'<div class="btns"><a class="btn btn-p" href="{ci["url"]}"{ci["dl"]}>{ci["logo"]}<span>{e(ci["label"])}</span></a><a class="btn btn-g" href="#demo">{e(s["try"])}</a></div>'
