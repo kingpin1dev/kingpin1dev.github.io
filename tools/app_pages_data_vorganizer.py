@@ -157,14 +157,14 @@ HOME = {
         "stats": [(8, "", "file categories"), (0, "", "files deleted"), (1, "", "click to undo the last run"), (0, "", "accounts or uploads")],
         "explorer_note": "Pick a feature and the real vOrganizer interface runs it on example folders. Nothing on your computer is touched.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the app.",
-        "compare_title": "How vOrganizer compares", "compare_sub": "Sorting by hand and automation tools both work. Here is where each one fits.",
+        "compare_title": "How vOrganizer compares", "compare_sub": 'File Explorer shows a folder by type, vOrganizer moves the files. Here is the difference.',
     },
     "tr": {
         "emph": "saniyeler içinde", "chip": ("Windows", "Klasörü türe göre düzenler ve geri almanızı sağlar"),
         "stats": [(8, "", "dosya kategorisi"), (0, "", "silinen dosya"), (1, "", "tıkla son çalıştırmayı geri al"), (0, "", "hesap ya da yükleme")],
         "explorer_note": "Bir özellik seçin, gerçek vOrganizer arayüzü onu örnek klasörlerde çalıştırır. Bilgisayarınızdaki hiçbir şeye dokunulmaz.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Uygulamadan ekranlar.",
-        "compare_title": "vOrganizer nasıl bir yerde duruyor", "compare_sub": "Elle düzenleme ve otomasyon araçları ikisi de işe yarar. İşte her birinin uygun olduğu yer.",
+        "compare_title": "vOrganizer nasıl bir yerde duruyor", "compare_sub": 'Dosya Gezgini bir klasörü türe göre gösterir, vOrganizer dosyaları taşır. İşte fark.',
     },
 }
 
@@ -182,5 +182,23 @@ SCENES = [
 
 # "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
 STORY = [0, 2, 3]
+
+# Feature matrix for the comparison table. A tick = the app does it, a dash = it is not offered as a feature.
+MATRIX = {
+    "en": {
+        "cols": [('vOrganizer', 'This app'), ('File Explorer', 'Built in to Windows')],
+        "rows": [('Moves a whole folder into category folders in one step', [1, 0]), ('Preview of what will move before anything moves', [1, 0]), ('Turn file categories on or off', [1, 0]), ("Group or sort a folder's view by type", [0, 1]), ('Works offline, no account', [1, 1])],
+        "legend": 'A tick means the app does it; a dash means it does not offer it as a feature. File Explorer groups and sorts how a folder looks, but it does not move files into category folders for you. We did not compare automation tools one by one.',
+        "bars": 'Confirmed features',
+        "checked": 'Checked on 16 November 2026.',
+    },
+    "tr": {
+        "cols": [('vOrganizer', 'Bu uygulama'), ('Dosya Gezgini', "Windows'ta yerleşik")],
+        "rows": [('Bütün bir klasörü tek adımda kategori klasörlerine taşıma', [1, 0]), ('Bir şey taşınmadan önce neyin taşınacağını önizleme', [1, 0]), ('Dosya kategorilerini açıp kapatma', [1, 0]), ('Klasör görünümünü türe göre gruplama ya da sıralama', [0, 1]), ('Çevrimdışı çalışma, hesap yok', [1, 1])],
+        "legend": 'Onay işareti, uygulamanın bunu yaptığı; çizgi, bunu bir özellik olarak sunmadığı anlamına gelir. Dosya Gezgini klasörün nasıl göründüğünü gruplar ve sıralar ama dosyaları sizin için kategori klasörlerine taşımaz. Otomasyon araçlarını tek tek karşılaştırmadık.',
+        "bars": 'Doğrulanan özellikler',
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
 
 DATA = {"en": EN, "tr": TR}

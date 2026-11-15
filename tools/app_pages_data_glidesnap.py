@@ -77,18 +77,18 @@ EN = {
         ("Changes to this policy", ["If this policy changes, we will update this page and the date above."]),
     ],
     "compare": {
-        "intro": "There are a few ways to manage windows on Windows. Here is an honest look at how GlideSnap fits next to the two things people usually compare it with, and where each is the better pick.",
+        "intro": "Moving and resizing windows from anywhere inside them is not a new idea. Here is an honest look at how GlideSnap fits next to two well-known tools that do the same gesture, and where each is the better pick.",
         "items": [
-            ("Windows' built-in window management", "Snap layouts and shortcuts in Windows 11",
-             "Free, built in: snap layouts, the Win key shortcuts and Snap assist cover everyday tiling with no extra app.",
-             "GlideSnap lets you move and resize from anywhere inside a window with Alt and the mouse, change transparency with the wheel and pin windows on top, none of which need the title bar.",
-             "Stay with the built-in tools if keyboard shortcuts and snap layouts already fit how you work."),
-            ("Tiling and zone tools", "Utilities such as PowerToys FancyZones",
-             "Custom zone layouts that you design once and snap windows into, with a lot of configuration.",
-             "GlideSnap focuses on the gestures: Alt-drag move, Alt-right-drag resize, wheel opacity. It is a small native app, and it also offers simple edge snapping and grids.",
-             "Pick a zone tool if you want elaborate custom layouts for several monitors."),
+            ("PowerToys Grab And Move", "Part of Microsoft PowerToys",
+             "Hold Alt or the Windows key and drag anywhere inside a window to move it, or drag with the right button to resize from the nearest edge or corner. It has excluded apps, an option to show the window size and a setting that keeps it off while Game Mode is on.",
+             "GlideSnap adds edge snapping with optional grids, opacity with the mouse wheel and pinning a window on top with a middle click, lets you choose Alt, Ctrl or Shift, and is a small standalone app from the Microsoft Store.",
+             "Pick Grab And Move if you already use PowerToys and move and resize are all you need."),
+            ("AltSnap", "Open source, GPL-3.0",
+             "A long-running Alt-drag tool for Windows that moves and resizes windows from anywhere, drags windows transparently, has a maximize action and blacklists, runs from the tray and supports Windows from NT 4 to Windows 11.",
+             "GlideSnap is a Microsoft Store app with edge snapping, grids, wheel opacity and always-on-top, and it is updated through the Store.",
+             "Pick AltSnap if you want open source or need to run on very old Windows versions."),
         ],
-        "foot": "Checked on 16 November 2026. Tools change; if something here is out of date, tell us at admin@kingpindev.com and we will fix it.",
+        "foot": "Checked on 16 November 2026 from the tools' own pages. Tools change; if something here is out of date, tell us at admin@kingpindev.com and we will fix it.",
     },
 }
 
@@ -162,18 +162,18 @@ TR = {
         ("Bu politikadaki değişiklikler", ["Bu politika değişirse bu sayfayı ve yukarıdaki tarihi güncelleriz."]),
     ],
     "compare": {
-        "intro": "Windows'ta pencereleri yönetmenin birkaç yolu var. İşte GlideSnap'in insanların onu genellikle karşılaştırdığı iki şeyin yanında nerede durduğuna ve her birinin daha iyi seçim olduğu yerlere dürüst bir bakış.",
+        "intro": "Pencereleri içlerindeki herhangi bir yerden taşımak ve boyutlandırmak yeni bir fikir değil. İşte GlideSnap'in aynı hareketi yapan iki tanınmış aracın yanında nerede durduğuna ve her birinin daha iyi seçim olduğu yerlere dürüst bir bakış.",
         "items": [
-            ("Windows'un yerleşik pencere yönetimi", "Windows 11'de hizalama düzenleri ve kısayollar",
-             "Ücretsiz ve yerleşik: hizalama düzenleri, Win tuşu kısayolları ve Snap yardımcısı günlük döşemeyi ek uygulama olmadan karşılar.",
-             "GlideSnap, Alt ve fareyle bir pencerenin içindeki herhangi bir yerden taşımanızı ve boyutlandırmanızı, tekerlekle saydamlığı değiştirmenizi ve pencereleri üstte sabitlemenizi sağlar; bunların hiçbiri başlık çubuğu gerektirmez.",
-             "Klavye kısayolları ve hizalama düzenleri çalışma şeklinize zaten uyuyorsa yerleşik araçlarda kalın."),
-            ("Döşeme ve bölge araçları", "PowerToys FancyZones gibi yardımcı programlar",
-             "Bir kez tasarlayıp pencereleri içine hizaladığınız özel bölge düzenleri; çok fazla yapılandırma ile.",
-             "GlideSnap hareketlere odaklanır: Alt-sürükle taşı, Alt-sağ-sürükle boyutlandır, tekerlek saydamlığı. Küçük, yerel bir uygulamadır ve basit kenar hizalama ve ızgaralar da sunar.",
-             "Birden çok monitör için ayrıntılı özel düzenler istiyorsanız bir bölge aracı seçin."),
+            ("PowerToys Grab And Move", "Microsoft PowerToys'ın parçası",
+             "Alt ya da Windows tuşuna basılı tutup bir pencerenin içinde herhangi bir yerden sürükleyerek taşıyın ya da sağ düğmeyle sürükleyerek en yakın kenar ya da köşeden boyutlandırın. Hariç tutulan uygulamaları, pencere boyutunu gösterme seçeneği ve Oyun Modu açıkken devre dışı kalma ayarı vardır.",
+             "GlideSnap, isteğe bağlı ızgaralı kenar hizalama, fare tekerleğiyle saydamlık ve orta tıkla pencereyi üstte sabitleme ekler; Alt, Ctrl ya da Shift seçmenize izin verir ve Microsoft Store'dan gelen küçük, bağımsız bir uygulamadır.",
+             "Zaten PowerToys kullanıyorsanız ve ihtiyacınız yalnızca taşıma ve boyutlandırmaysa Grab And Move'u seçin."),
+            ("AltSnap", "Açık kaynak, GPL-3.0",
+             "Windows için uzun süredir var olan, pencereleri herhangi bir yerden taşıyıp boyutlandıran, pencereleri saydam sürükleyen, büyütme eylemi ve kara listeleri olan, tepsiden çalışan ve Windows NT 4'ten Windows 11'e destekleyen bir Alt-sürükleme aracı.",
+             "GlideSnap, kenar hizalama, ızgaralar, tekerlekle saydamlık ve her zaman üstte özelliklerine sahip bir Microsoft Store uygulamasıdır ve Store üzerinden güncellenir.",
+             "Açık kaynak istiyorsanız ya da çok eski Windows sürümlerinde çalışmanız gerekiyorsa AltSnap'i seçin."),
         ],
-        "foot": "16 Kasım 2026'da kontrol edildi. Araçlar değişir; burada eskimiş bir bilgi görürseniz admin@kingpindev.com adresine yazın, düzeltelim.",
+        "foot": "16 Kasım 2026'da araçların kendi sayfalarından kontrol edildi. Araçlar değişir; burada eskimiş bir bilgi görürseniz admin@kingpindev.com adresine yazın, düzeltelim.",
     },
 }
 
@@ -183,14 +183,14 @@ HOME = {
         "stats": [(5, "", "mouse gestures with Alt"), (4, "", "snapping grids"), (1, "", "MB: a small native app"), (0, "", "accounts to create")],
         "explorer_note": "Pick a feature and the live desktop shows it. Try it yourself: hold Alt, or tap the on-screen Alt key, then drag a window.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the app.",
-        "compare_title": "How GlideSnap compares", "compare_sub": "Windows' own tools and zone utilities are both good. Here is where each one fits.",
+        "compare_title": "How GlideSnap compares", "compare_sub": 'PowerToys Grab And Move and AltSnap do the same gesture. Here is where each one fits.',
     },
     "tr": {
         "emph": "her yerinden", "chip": ("Alt + sürükle", "7 günlük deneme, hesap yok"),
         "stats": [(5, "", "Alt ile fare hareketi"), (4, "", "hizalama ızgarası"), (1, "", "MB: küçük, yerel bir uygulama"), (0, "", "oluşturulacak hesap")],
         "explorer_note": "Bir özellik seçin, canlı masaüstü onu gösterir. Kendiniz deneyin: Alt'a basılı tutun ya da ekrandaki Alt tuşuna dokunun, sonra bir pencereyi sürükleyin.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Uygulamadan ekranlar.",
-        "compare_title": "GlideSnap nasıl bir yerde duruyor", "compare_sub": "Windows'un kendi araçları ve bölge yardımcı programları ikisi de iyi. İşte her birinin uygun olduğu yer.",
+        "compare_title": "GlideSnap nasıl bir yerde duruyor", "compare_sub": 'PowerToys Grab And Move ve AltSnap aynı hareketi yapar. İşte her birinin uygun olduğu yer.',
     },
 }
 
@@ -208,5 +208,23 @@ SCENES = [
 
 # "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
 STORY = [0, 1, 2]
+
+# Feature matrix for the comparison table. A tick = confirmed on the tool's own page (checked 2026-11-16), a dash = not mentioned there.
+MATRIX = {
+    "en": {
+        "cols": [('GlideSnap', 'This app'), ('PowerToys Grab And Move', 'Microsoft PowerToys'), ('AltSnap', 'Open source (GPL-3.0)')],
+        "rows": [('Move a window by dragging anywhere in it', [1, 1, 1]), ('Resize with a right-button drag', [1, 1, 1]), ('Choose the modifier key', [1, 1, 0]), ('Snap to screen edges', [1, 0, 0]), ('Optional 2×1, 3×1, 2×2 and 3×2 grids', [1, 0, 0]), ('Change window opacity with the mouse wheel', [1, 0, 0]), ('Pin a window on top with a middle click', [1, 0, 0]), ('Excluded apps', [1, 1, 1])],
+        "legend": "A tick means we confirmed it on the tool's own page (Microsoft Learn for Grab And Move, the AltSnap project page). A dash means it is not mentioned there. Grab And Move lets you choose Alt or the Windows key; AltSnap also drags windows transparently and runs from Windows NT 4 to Windows 11.",
+        "bars": 'Confirmed features',
+        "checked": 'Checked on 16 November 2026.',
+    },
+    "tr": {
+        "cols": [('GlideSnap', 'Bu uygulama'), ('PowerToys Grab And Move', 'Microsoft PowerToys'), ('AltSnap', 'Açık kaynak (GPL-3.0)')],
+        "rows": [('Pencereyi içindeki herhangi bir yerden sürükleyerek taşıma', [1, 1, 1]), ('Sağ düğmeyle sürükleyerek boyutlandırma', [1, 1, 1]), ('Değiştirici tuşu seçme', [1, 1, 0]), ('Ekran kenarlarına hizalama', [1, 0, 0]), ('İsteğe bağlı 2×1, 3×1, 2×2 ve 3×2 ızgaraları', [1, 0, 0]), ('Fare tekerleğiyle pencere saydamlığını değiştirme', [1, 0, 0]), ('Orta tıkla pencereyi üstte sabitleme', [1, 0, 0]), ('Hariç tutulan uygulamalar', [1, 1, 1])],
+        "legend": "Onay işareti, aracın kendi sayfasında (Grab And Move için Microsoft Learn, AltSnap için proje sayfası) doğruladığımız anlamına gelir. Çizgi, orada anılmadığı anlamına gelir. Grab And Move Alt ya da Windows tuşunu seçmenize izin verir; AltSnap ayrıca pencereleri saydam sürükler ve Windows NT 4'ten Windows 11'e çalışır.",
+        "bars": 'Doğrulanan özellikler',
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
 
 DATA = {"en": EN, "tr": TR}

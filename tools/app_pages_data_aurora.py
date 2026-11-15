@@ -176,14 +176,14 @@ HOME = {
         "stats": [(200, "+", "countries of stations"), (12, "", "moods, from Chill to Late Night"), (2, "", "themes"), (0, "", "ads or accounts")],
         "explorer_note": "Pick a feature and the real Aurora Radios interface shows it with live stations.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the app.",
-        "compare_title": "How Aurora Radios compares", "compare_sub": "Radio websites and streaming services are both good. Here is where each one fits.",
+        "compare_title": "How Aurora Radios compares", "compare_sub": 'TuneIn and Radio Garden are good ways to listen too. Here is where each one fits.',
     },
     "tr": {
         "emph": "ruh halinize göre", "chip": ("Canlı radyo", "Hesap yok, reklam yok, binlerce istasyon"),
         "stats": [(200, "+", "ülkeden istasyon"), (12, "", "ruh hâli, Chill'den Late Night'a"), (2, "", "tema"), (0, "", "reklam ya da hesap")],
         "explorer_note": "Bir özellik seçin, gerçek Aurora Radios arayüzü onu canlı istasyonlarla gösterir.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Uygulamadan ekranlar.",
-        "compare_title": "Aurora Radios nasıl bir yerde duruyor", "compare_sub": "Radyo siteleri ve akış hizmetleri ikisi de iyi. İşte her birinin uygun olduğu yer.",
+        "compare_title": "Aurora Radios nasıl bir yerde duruyor", "compare_sub": 'TuneIn ve Radio Garden de dinlemenin iyi yolları. İşte her birinin uygun olduğu yer.',
     },
 }
 
@@ -201,5 +201,23 @@ SCENES = [
 
 # "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
 STORY = [2, 2, 4]
+
+# Feature matrix for the comparison table. A tick = confirmed on the service's own page (checked 2026-11-16), a dash = the page does not mention it.
+MATRIX = {
+    "en": {
+        "cols": [('Aurora Radios', 'This app'), ('TuneIn', 'tunein.com'), ('Radio Garden', 'radio.garden')],
+        "rows": [('Live radio stations', [1, 1, 1]), ('Browse by mood', [1, 0, 0]), ('Browse by genre', [1, 1, 0]), ('Explore stations on a rotating globe', [0, 0, 1]), ('Podcasts and audiobooks', [0, 1, 0]), ('Live sports and news', [0, 1, 0]), ('Windows desktop app', [1, 0, 0]), ('No account and no ads', [1, 0, 0])],
+        "legend": "A tick means we confirmed it on the service's own page. A dash means the page does not mention it, so it may exist. TuneIn lists apps for iOS and Android and says it is on hundreds of devices; Radio Garden's page only describes the globe.",
+        "bars": 'Confirmed features',
+        "checked": 'Checked on 16 November 2026.',
+    },
+    "tr": {
+        "cols": [('Aurora Radios', 'Bu uygulama'), ('TuneIn', 'tunein.com'), ('Radio Garden', 'radio.garden')],
+        "rows": [('Canlı radyo istasyonları', [1, 1, 1]), ('Ruh hâline göre gezinme', [1, 0, 0]), ('Türe göre gezinme', [1, 1, 0]), ('İstasyonları dönen bir küre üzerinde keşfetme', [0, 0, 1]), ("Podcast'ler ve sesli kitaplar", [0, 1, 0]), ('Canlı spor ve haber', [0, 1, 0]), ('Windows masaüstü uygulaması', [1, 0, 0]), ('Hesap ve reklam yok', [1, 0, 0])],
+        "legend": "Onay işareti, hizmetin kendi sayfasında doğruladığımız anlamına gelir. Çizgi, sayfanın bunu anmadığı, yani var olabileceği anlamına gelir. TuneIn iOS ve Android uygulamalarını listeler ve yüzlerce cihazda olduğunu söyler; Radio Garden'ın sayfası yalnızca küreyi anlatır.",
+        "bars": 'Doğrulanan özellikler',
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
 
 DATA = {"en": EN, "tr": TR}

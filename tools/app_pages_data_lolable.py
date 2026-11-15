@@ -180,14 +180,14 @@ HOME = {
         "stats": [(13, "", "slash commands"), (9, "", "commands to try in the live demo"), (90, "", "days of league history kept"), (2, "", "commands to delete your data")],
         "explorer_note": "Pick a feature and the live Discord channel runs it. Players and numbers are made up, and the bot replies in Turkish.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the demo.",
-        "compare_title": "How Lolable compares", "compare_sub": "Stat websites and general game bots are both good. Here is where each one fits.",
+        "compare_title": "How Lolable compares", "compare_sub": 'OP.GG is the big stats website. Lolable brings a slice of it into Discord.',
     },
     "tr": {
         "emph": "League istatistikleri", "chip": ("Riot API", "Lig, form, canlı oyunlar ve bir sunucu sıralaması"),
         "stats": [(13, "", "slash komutu"), (9, "", "canlı demoda denenecek komut"), (90, "", "gün lig geçmişi tutulur"), (2, "", "verinizi silen komut")],
         "explorer_note": "Bir özellik seçin, canlı Discord kanalı onu çalıştırır. Oyuncular ve sayılar uydurmadır; bot Türkçe yanıt verir.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Demodan ekranlar.",
-        "compare_title": "Lolable nasıl bir yerde duruyor", "compare_sub": "İstatistik siteleri ve genel oyun botları ikisi de iyi. İşte her birinin uygun olduğu yer.",
+        "compare_title": "Lolable nasıl bir yerde duruyor", "compare_sub": "OP.GG büyük istatistik sitesidir. Lolable onun bir dilimini Discord'a getirir.",
     },
 }
 
@@ -205,5 +205,23 @@ SCENES = [
 
 # "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
 STORY = [1, 1, 3]
+
+# Feature matrix for the comparison table. A tick = confirmed on the tool's own page or in the bot (checked 2026-11-16), a dash = not mentioned there or not offered.
+MATRIX = {
+    "en": {
+        "cols": [('Lolable', 'Discord bot'), ('OP.GG', 'op.gg')],
+        "rows": [('Look up any Riot ID', [1, 1]), ('Live game scouting', [1, 1]), ('Ban suggestions in live scouting', [1, 0]), ("Leaderboard of your own server's players", [1, 0]), ('Global ranked leaderboards', [0, 1]), ('Champion stats and tier lists', [0, 1]), ('Match results posted to a Discord channel', [1, 0]), ('Runs inside Discord with slash commands', [1, 0])],
+        "legend": "A tick means we confirmed it on the tool's own page or in the bot. A dash means OP.GG's page does not mention it (the page lists profiles, spectate, leaderboards and champion stats, and no Discord bot) or Lolable does not do it. Lolable is not endorsed by Riot Games.",
+        "bars": 'Confirmed features',
+        "checked": 'Checked on 16 November 2026.',
+    },
+    "tr": {
+        "cols": [('Lolable', 'Discord botu'), ('OP.GG', 'op.gg')],
+        "rows": [("Herhangi bir Riot ID'sine bakma", [1, 1]), ('Canlı oyun keşfi', [1, 1]), ('Canlı keşifte yasak önerileri', [1, 0]), ('Kendi sunucunuzdaki oyuncuların sıralaması', [1, 0]), ('Genel dereceli sıralamalar', [0, 1]), ('Şampiyon istatistikleri ve kademe listeleri', [0, 1]), ('Maç sonuçlarını bir Discord kanalına gönderme', [1, 0]), ('Slash komutlarıyla Discord içinde çalışma', [1, 0])],
+        "legend": "Onay işareti, aracın kendi sayfasında ya da botta doğruladığımız anlamına gelir. Çizgi, OP.GG sayfasının bunu anmadığı (sayfa profilleri, izlemeyi, sıralamaları ve şampiyon istatistiklerini listeler, Discord botu yok) ya da Lolable'ın bunu yapmadığı anlamına gelir. Lolable, Riot Games tarafından onaylanmamıştır.",
+        "bars": 'Doğrulanan özellikler',
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
 
 DATA = {"en": EN, "tr": TR}

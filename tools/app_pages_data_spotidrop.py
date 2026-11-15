@@ -187,14 +187,14 @@ HOME = {
         "stats": [(6, "", "tabs: link, search, Spotify, library, guide, settings"), (44, ".1 kHz", "MP3 with title, artist, album and cover"), (122, " MB", "installer with everything bundled"), (0, "", "accounts to create")],
         "explorer_note": "Pick a feature and the real SpotiDrop interface shows it. It reads a made-up album and fakes the downloads, so nothing is saved.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the app.",
-        "compare_title": "How SpotiDrop compares", "compare_sub": "yt-dlp and Spotify's own offline mode are both good. Here is where each one fits.",
+        "compare_title": "How SpotiDrop compares", "compare_sub": 'yt-dlp is the engine SpotiDrop is built on. Here is what SpotiDrop adds on top.',
     },
     "tr": {
         "emph": "etiketli müzik", "chip": ("0.6.0", "yt-dlp ve ffmpeg dâhil, hesap gerekmez"),
         "stats": [(6, "", "sekme: bağlantı, arama, Spotify, kütüphane, rehber, ayarlar"), (44, ",1 kHz", "başlık, sanatçı, albüm ve kapaklı MP3"), (122, " MB", "her şeyi içeren yükleyici"), (0, "", "oluşturulacak hesap")],
         "explorer_note": "Bir özellik seçin, gerçek SpotiDrop arayüzü onu gösterir. Uydurma bir albümü okur ve indirmeleri taklit eder, hiçbir şey kaydedilmez.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Uygulamadan ekranlar.",
-        "compare_title": "SpotiDrop nasıl bir yerde duruyor", "compare_sub": "yt-dlp ve Spotify'ın kendi çevrimdışı modu ikisi de iyi. İşte her birinin uygun olduğu yer.",
+        "compare_title": "SpotiDrop nasıl bir yerde duruyor", "compare_sub": "yt-dlp, SpotiDrop'un üzerine kurulduğu motordur. İşte SpotiDrop'un üstüne eklediği.",
     },
 }
 
@@ -212,5 +212,23 @@ SCENES = [
 
 # "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
 STORY = [0, 4, 3]
+
+# Feature matrix for the comparison table. A tick = confirmed (yt-dlp's own page, the app itself; checked 2026-11-16), a dash = not mentioned there.
+MATRIX = {
+    "en": {
+        "cols": [('SpotiDrop', 'This app'), ('yt-dlp', 'Command line, open source')],
+        "rows": [('Point-and-click interface', [1, 0]), ('Works with thousands of sites', [1, 1]), ('Audio to MP3', [1, 1]), ('Whole playlists', [1, 1]), ('Embeds title, artist and cover art', [1, 1]), ('Reads Spotify track, album and playlist links', [1, 0]), ("Tags files with Spotify's metadata automatically", [1, 0]), ('Matches files you already own to tags', [1, 0]), ('Updates its own download engine', [1, 1])],
+        "legend": 'A tick means we confirmed it: the yt-dlp project page for yt-dlp, the SpotiDrop app for SpotiDrop. A dash means it is not mentioned there. SpotiDrop is built on yt-dlp and bundles it. Use either only for content you have the right to download.',
+        "bars": 'Confirmed features',
+        "checked": 'Checked on 16 November 2026.',
+    },
+    "tr": {
+        "cols": [('SpotiDrop', 'Bu uygulama'), ('yt-dlp', 'Komut satırı, açık kaynak')],
+        "rows": [('Göster-tıkla arayüz', [1, 0]), ('Binlerce siteyle çalışma', [1, 1]), ("Sesi MP3'e çevirme", [1, 1]), ('Bütün çalma listeleri', [1, 1]), ('Başlık, sanatçı ve kapak resmini gömme', [1, 1]), ('Spotify parça, albüm ve çalma listesi bağlantılarını okuma', [1, 0]), ('Dosyaları Spotify künyesiyle kendiliğinden etiketleme', [1, 0]), ('Zaten sahip olduğunuz dosyaları etiketlerle eşleştirme', [1, 0]), ('Kendi indirme motorunu güncelleme', [1, 1])],
+        "legend": 'Onay işareti, doğruladığımız anlamına gelir: yt-dlp için yt-dlp proje sayfası, SpotiDrop için SpotiDrop uygulaması. Çizgi, orada anılmadığı anlamına gelir. SpotiDrop yt-dlp üzerine kuruludur ve onu içinde taşır. İkisini de yalnızca indirme hakkına sahip olduğunuz içerikler için kullanın.',
+        "bars": 'Doğrulanan özellikler',
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
 
 DATA = {"en": EN, "tr": TR}

@@ -190,14 +190,14 @@ HOME = {
         "stats": [(6, "", "audio channels to control"), (7, "", "built-in themes"), (7, "", "interface languages"), (0, "", "taskbar clutter")],
         "explorer_note": "Pick a feature and the live VICE Sonar widget shows it. It works like the real app: drag the sliders, open the menus.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the app.",
-        "compare_title": "How VICE Sonar compares", "compare_sub": "SteelSeries GG and the Windows mixer are both good. Here is where each one fits.",
+        "compare_title": "How VICE Sonar compares", "compare_sub": 'SteelSeries Sonar is the full app and VICE Sonar is a small companion for it. Here is what each one does.',
     },
     "tr": {
         "emph": "tık uzağınızda", "chip": ("Sonar", "SteelSeries Sonar için kompakt bir kontrol widget'ı"),
         "stats": [(6, "", "yönetilen ses kanalı"), (7, "", "yerleşik tema"), (7, "", "arayüz dili"), (0, "", "görev çubuğu kalabalığı")],
         "explorer_note": "Bir özellik seçin, canlı VICE Sonar widget'ı onu gösterir. Gerçek uygulama gibi çalışır: kaydırıcıları sürükleyin, menüleri açın.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Uygulamadan ekranlar.",
-        "compare_title": "VICE Sonar nasıl bir yerde duruyor", "compare_sub": "SteelSeries GG ve Windows mikseri ikisi de iyi. İşte her birinin uygun olduğu yer.",
+        "compare_title": "VICE Sonar nasıl bir yerde duruyor", "compare_sub": 'SteelSeries Sonar tam uygulamadır, VICE Sonar onun için küçük bir yardımcıdır. İşte her birinin yaptığı.',
     },
 }
 
@@ -215,5 +215,23 @@ SCENES = [
 
 # "How it works" scroll story: the feature-explorer scene shown for each of the three steps.
 STORY = [0, 2, 3]
+
+# Feature matrix for the comparison table. A tick = confirmed (Sonar's own page, the app itself; checked 2026-11-16), a dash = not mentioned or not offered.
+MATRIX = {
+    "en": {
+        "cols": [('VICE Sonar', 'This widget'), ('SteelSeries GG Sonar', 'From SteelSeries')],
+        "rows": [('Volume for Game, Chat, Media, Aux and Mic', [1, 1]), ('ChatMix: game and chat balance', [1, 1]), ('Pick your saved EQ presets', [1, 1]), ('Build your own parametric EQ', [0, 1]), ('Spatial audio for headsets', [0, 1]), ('AI noise cancellation for your mic', [0, 1]), ('Small always-on-top widget or floating bubble', [1, 0]), ('Volume hotkeys for each channel', [1, 0])],
+        "legend": "A tick means we confirmed it: Sonar's own page for Sonar, the VICE Sonar app for VICE Sonar. A dash means it is not mentioned there, or the tool does not do it. VICE Sonar is a companion that needs SteelSeries GG with Sonar running; it does not replace it.",
+        "bars": 'Confirmed features',
+        "checked": 'Checked on 16 November 2026.',
+    },
+    "tr": {
+        "cols": [('VICE Sonar', 'Bu widget'), ('SteelSeries GG Sonar', "SteelSeries'tan")],
+        "rows": [('Oyun, Sohbet, Medya, Aux ve Mikrofon için ses', [1, 1]), ('ChatMix: oyun ve sohbet dengesi', [1, 1]), ('Kayıtlı EQ ön ayarlarınızı seçme', [1, 1]), ("Kendi parametrik EQ'nuzu oluşturma", [0, 1]), ('Kulaklıklar için uzamsal ses', [0, 1]), ('Mikrofon için yapay zekâ gürültü engelleme', [0, 1]), ('Küçük, her zaman üstte widget ya da yüzen balon', [1, 0]), ('Her kanal için ses kısayolları', [1, 0])],
+        "legend": "Onay işareti, doğruladığımız anlamına gelir: Sonar için Sonar'ın kendi sayfası, VICE Sonar için VICE Sonar uygulaması. Çizgi, orada anılmadığı ya da aracın bunu yapmadığı anlamına gelir. VICE Sonar, SteelSeries GG'de Sonar'ın çalışıyor olmasını isteyen bir yardımcıdır; onun yerini almaz.",
+        "bars": 'Doğrulanan özellikler',
+        "checked": "16 Kasım 2026'da kontrol edildi.",
+    },
+}
 
 DATA = {"en": EN, "tr": TR}
