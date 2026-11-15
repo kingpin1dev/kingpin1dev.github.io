@@ -227,4 +227,19 @@ TR = {
     },
 }
 
+HOME = {
+    "en": {
+        "emph": "groups", "chip": ("1.1.1", "Equalizer, compressor and noise reduction for every group"),
+        "stats": [(350, "+", "ready equalizer profiles"), (10, "", "equalizer bands in every group"), (6, "", "interface languages"), (0, "", "virtual drivers needed")],
+        "gallery_title": "See it in action", "gallery_note": "Screens from the Microsoft Store listing.",
+        "compare_title": "How Mixora compares", "compare_sub": "Windows' own mixer, EarTrumpet and Voicemeeter are all good. Here is where each one fits.",
+    },
+    "tr": {
+        "emph": "gruplarla", "chip": ("1.1.1", "Her gruba ekolayzır, kompresör ve gürültü azaltma"),
+        "stats": [(350, "+", "hazır ekolayzır profili"), (10, "", "her gruptaki ekolayzır bandı"), (6, "", "arayüz dili"), (0, "", "gereken sanal sürücü")],
+        "gallery_title": "Çalışırken görün", "gallery_note": "Microsoft Store sayfasından ekranlar.",
+        "compare_title": "Mixora nasıl bir yerde duruyor", "compare_sub": "Windows'un kendi mikseri, EarTrumpet ve Voicemeeter'ın hepsi iyi. İşte her birinin uygun olduğu yer.",
+    },
+}
+
 DATA = {"en": EN, "tr": TR}

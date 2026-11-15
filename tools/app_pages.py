@@ -1,9 +1,11 @@
-"""Side pages for the <slug>.kingpindev.com app sites: FAQ, changelog, press kit, privacy and compare (English and Turkish).
+"""Home and side pages for the redesigned <slug>.kingpindev.com app sites (Mixora, LunaDock): English and Turkish.
 
-    python tools/build_app_sites.py        # builds the home pages and calls build_sub_pages() for the slugs listed in SLUGS
+    python tools/build_app_sites.py        # builds every app site; the slugs in SLUGS get the redesigned pages from here
 
-Content lives in app_pages_data_<slug>.py. Press-kit images are prepared once by tools/prep_press.py into img/press/<slug>/.
-Pages share the stylesheet and script in app-sites/. The header and footer of the home pages pick up the links through hooks().
+Home page: hero with the live demo, stats band, how it works, screenshot gallery, feature bento, details, comparison teaser, FAQ, call to action.
+Side pages: FAQ, changelog, compare, press kit, privacy. The look is the Notchify site's design system (app-sites/v2.css + v2.js) with each app's own
+accent colours. Content lives in app_pages_data_<slug>.py (side pages, home extras) and in APPS in build_app_sites.py (home copy).
+Press-kit images are prepared by tools/prep_press.py into img/press/<slug>/.
 """
 from __future__ import annotations
 
@@ -16,12 +18,13 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites"
 SLUGS = ("mixora", "lunadock")
 KINDS = ("faq", "changelog", "compare", "press", "privacy")
-LASTMOD = "2026-11-15"
+LASTMOD = "2026-11-16"
+ASSET_V = "20261116"
 
 SUBUI = {
     "en": {
         "faq": "FAQ", "changelog": "Changelog", "compare": "Compare", "press": "Press kit", "privacy": "Privacy", "home": "Home", "more_q": "All questions",
-        "demo": "Demo", "features": "Features", "menu": "Pages",
+        "demo": "Demo", "features": "Features", "skip": "Skip to content", "menu": "Menu", "get_short": "Get it",
         "h1": {"faq": "Frequently asked questions", "changelog": "What's new in {}", "compare": "{} compared", "press": "{} press kit", "privacy": "{} privacy policy"},
         "lead": {"faq": "Straight answers about {}: setup, how it works, privacy and support.",
                  "changelog": "Every release of {}, newest first. Updates arrive automatically through the Microsoft Store.",
@@ -35,15 +38,17 @@ SUBUI = {
                  "compare": "How {} compares with the tools people ask about, with where each one is the better pick.",
                  "press": "Download the {} logo and screenshots, copy ready-made descriptions and find the facts and contact for press and reviewers.",
                  "privacy": "The {} privacy policy: no account, no analytics, no tracking. Everything stays on your device."},
-        "get": "Get it from Microsoft Store", "contact": "Contact", "questions_none": "Still have a question?", "write_us": "Write to us at",
-        "shines": "Where it shines", "differs": "Where {} differs", "pick": "Pick it if", "tag": "Version", "released": "Released",
-        "onel": "One line", "shortd": "Short description", "longd": "Full description", "copy": "Copy", "copied": "Copied", "facts": "Key facts",
+        "get": "Get it from Microsoft Store", "questions_none": "Still have a question?", "write_us": "Write to us at",
+        "shines": "Where it shines", "differs": "Where {} differs", "pick": "Pick it if", "how": "How it works", "feat": "Features", "details": "Details",
+        "faq_title": "Questions", "onel": "One line", "shortd": "Short description", "longd": "Full description", "copy": "Copy", "copied": "Copied", "facts": "Key facts",
         "assets": "Downloads", "logo": "Logo", "logo_note": "PNG with transparent background", "icon": "App icon", "shots": "Screenshots", "zip": "Download everything (ZIP)",
-        "download": "Download", "notes": "Notes for writers", "updated": "Last updated", "toc": "On this page", "back": "Back to {}",
+        "download": "Download", "notes": "Notes for writers", "toc": "On this page", "all_compare": "Read the full comparison", "pause": "Pause", "play": "Play",
+        "more_apps": "More apps by Kingpindev", "more_apps_sub": "Small Windows tools, made by one developer.", "try": "Try the live demo", "all_apps": "All apps",
+        "cta_t": "Ready to try {}?", "cta_p": "Get it from the Microsoft Store and set it up in a minute.", "by": "A Windows app by", "gallery_h": "Screenshots",
     },
     "tr": {
         "faq": "SSS", "changelog": "Sürümler", "compare": "Karşılaştırma", "press": "Basın kiti", "privacy": "Gizlilik", "home": "Ana sayfa", "more_q": "Tüm sorular",
-        "demo": "Demo", "features": "Özellikler", "menu": "Sayfalar",
+        "demo": "Demo", "features": "Özellikler", "skip": "İçeriğe geç", "menu": "Menü", "get_short": "Edinin",
         "h1": {"faq": "Sık sorulan sorular", "changelog": "{}: yenilikler", "compare": "{} karşılaştırması", "press": "{} basın kiti", "privacy": "{} gizlilik politikası"},
         "lead": {"faq": "{} hakkında net yanıtlar: kurulum, nasıl çalıştığı, gizlilik ve destek.",
                  "changelog": "{} için çıkan her sürüm, en yenisi üstte. Güncellemeler Microsoft Store üzerinden otomatik gelir.",
@@ -57,14 +62,22 @@ SUBUI = {
                  "compare": "{} uygulamasının sorulan araçlarla karşılaştırması ve her birinin daha iyi bir seçim olduğu durumlar.",
                  "press": "{} logosunu ve ekran görüntülerini indirin, hazır açıklamaları kopyalayın; basın ve inceleyiciler için bilgi ve iletişim.",
                  "privacy": "{} gizlilik politikası: hesap, analiz ya da takip yok. Her şey cihazınızda kalır."},
-        "get": "Microsoft Store'dan edinin", "contact": "İletişim", "questions_none": "Başka bir sorunuz mu var?", "write_us": "Bize yazın:",
-        "shines": "Güçlü olduğu yer", "differs": "{} nerede farklı", "pick": "Şu durumda seçin", "tag": "Sürüm", "released": "Yayın",
-        "onel": "Tek cümle", "shortd": "Kısa açıklama", "longd": "Tam açıklama", "copy": "Kopyala", "copied": "Kopyalandı", "facts": "Önemli bilgiler",
+        "get": "Microsoft Store'dan edinin", "questions_none": "Başka bir sorunuz mu var?", "write_us": "Bize yazın:",
+        "shines": "Güçlü olduğu yer", "differs": "{} nerede farklı", "pick": "Şu durumda seçin", "how": "Nasıl çalışır", "feat": "Özellikler", "details": "Ayrıntılar",
+        "faq_title": "Sık sorulanlar", "onel": "Tek cümle", "shortd": "Kısa açıklama", "longd": "Tam açıklama", "copy": "Kopyala", "copied": "Kopyalandı", "facts": "Önemli bilgiler",
         "assets": "İndirmeler", "logo": "Logo", "logo_note": "Saydam arka planlı PNG", "icon": "Uygulama ikonu", "shots": "Ekran görüntüleri", "zip": "Hepsini indirin (ZIP)",
-        "download": "İndir", "notes": "Yazarlar için notlar", "updated": "Son güncelleme", "toc": "Bu sayfada", "back": "{} sayfasına dön",
+        "download": "İndir", "notes": "Yazarlar için notlar", "toc": "Bu sayfada", "all_compare": "Karşılaştırmanın tamamını okuyun", "pause": "Duraklat", "play": "Oynat",
+        "more_apps": "Kingpindev'in diğer uygulamaları", "more_apps_sub": "Tek bir geliştiriciden küçük Windows araçları.", "try": "Canlı demoyu deneyin", "all_apps": "Tüm uygulamalar",
+        "cta_t": "{} denemeye hazır mısınız?", "cta_p": "Microsoft Store'dan indirin, bir dakikada kurun.", "by": "Bir Kingpindev Windows uygulaması:", "gallery_h": "Ekran görüntüleri",
     },
 }
-MONTHS = {"2026-11-15": ("15 November 2026", "15 Kasım 2026")}
+LANGNAME = {"en": "English", "tr": "Türkçe"}
+MONTHS = {"2026-11-16": ("16 November 2026", "16 Kasım 2026")}
+PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>'
+CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>'
+BURGER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
+ARROW = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+PAUSE_IC = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'
 
 
 def _b():
@@ -79,6 +92,10 @@ def data(slug: str, lang: str) -> dict:
     return importlib.import_module(f"app_pages_data_{slug}").DATA[lang]
 
 
+def home_data(slug: str, lang: str) -> dict:
+    return importlib.import_module(f"app_pages_data_{slug}").HOME[lang]
+
+
 def base(slug: str, lang: str) -> str:
     return f"https://{slug}.kingpindev.com/" + ("tr/" if lang == "tr" else "")
 
@@ -91,42 +108,37 @@ def sub_path(lang: str, kind: str) -> str:
     return ("/tr/" if lang == "tr" else "/") + kind + "/"
 
 
-def hooks(slug: str, lang: str):
-    """Header/footer pieces for the home page of an app that has side pages (None otherwise)."""
-    if slug not in SLUGS:
-        return None
+def _rgb(hex_color: str) -> str:
+    h = hex_color.lstrip("#")
+    return ",".join(str(int(h[i:i + 2], 16)) for i in (0, 2, 4))
+
+
+def _light(hex_color: str, k: float) -> str:
+    h = hex_color.lstrip("#")
+    c = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#%02x%02x%02x" % tuple(round(v + (255 - v) * k) for v in c)
+
+
+def _theme(app: dict) -> str:
+    a1, a2 = app["accent"], app["accent2"]
+    return (f":root{{--a1:{a1};--a2:{a2};--rgb1:{_rgb(a1)};--rgb2:{_rgb(a2)};--eb:{_light(a1, .25)};--ebl:{_light(a1, .55)}}}")
+
+
+def _links(slug: str, lang: str, current=None) -> str:
     s = SUBUI[lang]
     home = "/tr/" if lang == "tr" else "/"
-    links = (f'<a href="#demo">{s["demo"]}</a><a href="#features">{s["features"]}</a><a href="{sub_path(lang, "faq")}">{s["faq"]}</a>'
-             f'<a href="{sub_path(lang, "changelog")}">{s["changelog"]}</a><a href="{sub_path(lang, "compare")}">{s["compare"]}</a><a href="{sub_path(lang, "press")}">{s["press"]}</a>')
-    return {"links": links, "strip": strip(slug, lang, None), "privacy_url": sub_url(slug, lang, "privacy"),
-            "faq_more": f'<p class="more-q"><a href="{sub_path(lang, "faq")}">{s["more_q"]} &rarr;</a></p>', "home": home}
+    items = [(home + "#demo", s["demo"], None), (home + "#features", s["features"], None)] + [(sub_path(lang, k), s[k], k) for k in ("compare", "faq", "changelog", "press")]
+    return "".join('<a href="%s"%s>%s</a>' % (h, ' aria-current="page"' if k and k == current else "", e(t)) for h, t, k in items)
 
 
-def strip(slug: str, lang: str, current):
-    """Mobile page strip (the header links are hidden on phones)."""
-    s = SUBUI[lang]
-    home = "/tr/" if lang == "tr" else "/"
-    items = [("home", home, s["home"])] + [(k, sub_path(lang, k), s[k]) for k in ("faq", "changelog", "compare", "press", "privacy")]
-    return ('<nav class="strip" aria-label="%s"><div class="wrap">%s</div></nav>'
-            % (e(s["menu"]), "".join('<a href="%s"%s>%s</a>' % (h, ' aria-current="page"' if k == current else "", e(t)) for k, h, t in items)))
-
-
-def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, body: str, ld: list) -> str:
+def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, body: str, ld: list, canon: str, alt_en: str, alt_tr: str, other_url: str) -> str:
     B = _b()
-    u = B.UI[lang]
     s = SUBUI[lang]
     other = "en" if lang == "tr" else "tr"
     store = B.STORE.format(app["store"])
-    canon, alt_en, alt_tr = sub_url(slug, lang, kind), sub_url(slug, "en", kind), sub_url(slug, "tr", kind)
     home = base(slug, lang)
-    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": app["name"], "item": home}, {"@type": "ListItem", "position": 2, "name": s[kind], "item": canon}]}
-    ld = [crumbs] + ld
     ld_html = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in ld)
-    links = (f'<a href="{home}#demo">{s["demo"]}</a><a href="{home}#features">{s["features"]}</a>'
-             + "".join('<a href="%s"%s>%s</a>' % (sub_path(lang, k), ' aria-current="page"' if k == kind else "", s[k]) for k in ("faq", "changelog", "compare", "press")))
-    footer_links = " · ".join('<a href="%s">%s</a>' % (sub_path(lang, k), s[k]) for k in KINDS)
+    footer_links = "".join('<a href="%s">%s</a>' % (sub_path(lang, k), s[k]) for k in KINDS)
     return f"""<!doctype html>
 <html lang="{lang}" translate="no">
 <head>
@@ -149,52 +161,135 @@ def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, bod
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#070a12">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" href="{app["icon"]}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/app-sites/site.css">
-<script src="/app-sites/site.js" defer></script>
+<link rel="stylesheet" href="/app-sites/v2.css?v={ASSET_V}">
+<style>{_theme(app)}</style>
+<script>document.documentElement.className+=" js"</script>
+<script src="/app-sites/v2.js?v={ASSET_V}" defer></script>
 {ld_html}
-<style>:root{{--accent:{app["accent"]};--accent2:{app["accent2"]}}}</style>
 </head>
-<body data-lang="{lang}" data-other="{sub_url(slug, other, kind)}" data-copied="{e(s["copied"])}">
-<header class="top">
-  <div class="wrap top-in">
-    <a class="brand" href="{home}"><img src="{app["icon"]}" alt="" width="32" height="32"><span>{e(app["name"])}</span></a>
-    <nav class="links">{links}</nav>
-    <a class="lang" href="{sub_url(slug, other, kind)}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{u["other_label"]}</a>
-    <a class="btn btn-sm" href="{store}">{B.WIN_LOGO}<span>{u["store_short"]}</span></a>
+<body data-lang="{lang}" data-other="{other_url}" data-copied="{e(s["copied"])}">
+<a class="skip" href="#main">{e(s["skip"])}</a>
+<header class="bar">
+  <a class="brand" href="{home}"><img src="{app["icon"]}" alt="" width="30" height="30"><span>{e(app["name"])}</span></a>
+  <nav class="links glass" id="navlinks" aria-label="{e(s["menu"])}">{_links(slug, lang, kind if kind != "home" else None)}</nav>
+  <div class="right">
+    <a class="lang-pill glass" href="{other_url}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{LANGNAME[other]}</a>
+    <a class="cta-sm" href="{store}">{e(s["get_short"])}</a>
+    <button class="burger glass" id="burger" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="{e(s["menu"])}">{BURGER}</button>
   </div>
 </header>
-{strip(slug, lang, kind)}
-<main>
+<main id="main">
 {body}
 </main>
-<footer class="foot">
-  <div class="wrap">{u["by"]} <a href="https://kingpindev.com/">Kingpindev</a> · <a href="{home}">{e(app["name"])}</a> · {footer_links}</div>
-</footer>
+{footer(slug, app, lang, footer_links)}
 </body>
 </html>
 """
 
 
-def hero(app, lang, kind, extra=""):
+def footer(slug, app, lang, footer_links) -> str:
     s = SUBUI[lang]
-    name = app["name"]
-    return (f'<section class="hero sub-hero"><div class="wrap"><p class="eyebrow">{e(name)}</p><h1>{e(s["h1"][kind].format(name))}</h1>'
-            f'<p class="lead">{e(s["lead"][kind].format(name))}</p>{extra}</div></section>')
+    home = base(slug, lang)
+    return (f'<div class="word" aria-hidden="true">{e(app["name"])}</div>'
+            f'<footer><div class="wrap"><span>{e(s["by"])} <a href="https://kingpindev.com/" style="display:inline;min-height:0;text-decoration:underline">Kingpindev</a></span>'
+            f'<nav><a href="{home}">{e(s["home"])}</a>{footer_links}<a href="https://kingpindev.com/#projects">{e(s["all_apps"])}</a></nav></div></footer>')
 
 
-def cta(slug, app, lang, text=None):
+def sec_head(eyebrow: str, h2: str, sub: str = "") -> str:
+    return (f'<div class="center rv"><div class="eyebrow">{e(eyebrow)}</div><h2>{e(h2)}</h2>' + (f'<p class="sub">{e(sub)}</p>' if sub else "") + "</div>")
+
+
+def final_cta(slug, app, lang, text=None) -> str:
     B = _b()
     s = SUBUI[lang]
     store = B.STORE.format(app["store"])
     mail = data(slug, lang)["press"]["facts"][-1][1]
-    return (f'<section class="final"><div class="wrap"><img src="{app["icon"]}" alt="" width="72" height="72" loading="lazy">'
-            f'<h2>{e(B.UI[lang]["cta_title"].format(app["name"]))}</h2><p>{e(text or B.UI[lang]["cta_text"])} {s["write_us"]} <a href="mailto:{mail}">{mail}</a></p>'
-            f'<a class="btn" href="{store}">{B.WIN_LOGO}<span>{s["get"]}</span></a></div></section>')
+    paths = "".join('<path d="M-20 %d C 200 %d, 380 %d, 640 %d S 1000 %d, 1240 %d"/>' % (40 + i * 26, 10 + i * 30, 120 + i * 18, 60 + i * 24, 150 - i * 10, 70 + i * 20) for i in range(9))
+    return (f'<section><div class="wrap"><div class="final rv"><svg class="paths" viewBox="0 0 1240 300" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="pg" x1="0" x2="1">'
+            f'<stop offset="0" stop-color="var(--a1)" stop-opacity="0"/><stop offset=".5" stop-color="var(--a1)"/><stop offset="1" stop-color="var(--a2)" stop-opacity="0"/></linearGradient></defs>{paths}</svg>'
+            f'<h2>{e(s["cta_t"].format(app["name"]))}</h2><p>{e(text or s["cta_p"])} {e(s["write_us"])} <a href="mailto:{mail}">{mail}</a></p>'
+            f'<div class="btns"><a class="btn btn-p" href="{store}">{B.WIN_LOGO}<span>{e(s["get"])}</span></a></div></div></div></section>')
+
+
+def apps_row(slug, lang) -> str:
+    B = _b()
+    s = SUBUI[lang]
+    chips = "".join(f'<a class="app-chip" href="{B.url(sl, lang)}"><img src="{ic}" alt="" width="38" height="38" loading="lazy"><span>{e(n)}</span></a>' for sl, n, ic in B.OTHER_APPS if sl != slug)
+    chips += '<a class="app-chip" href="https://notchify.app/"><img src="/img/notchify.png" alt="" width="38" height="38" loading="lazy"><span>Notchify</span></a>'
+    return f'<section><div class="wrap">{sec_head("Kingpindev", s["more_apps"], s["more_apps_sub"])}<div class="apps-row rv">{chips}</div></div></section>'
+
+
+# ---------------------------------------------------------------- home
+def home_page(slug: str, app: dict, lang: str) -> str:
+    B = _b()
+    c, s, hd = app[lang], SUBUI[lang], home_data(slug, lang)
+    D = data(slug, lang)
+    store = B.STORE.format(app["store"])
+    canon, alt_en, alt_tr = base(slug, lang), base(slug, "en"), base(slug, "tr")
+    other_url = base(slug, "en" if lang == "tr" else "tr")
+    assert 25 <= len(c["desc"]) <= 160, (slug, lang, len(c["desc"]))
+    h1 = e(c["h1"])
+    assert hd["emph"] in c["h1"], (slug, lang, hd["emph"])
+    h1 = h1.replace(e(hd["emph"]), "<em>" + e(hd["emph"]) + "</em>", 1)
+    demo = app["demo"]
+    if demo["kind"] == "script":
+        opts = dict(demo["opts"])
+        if demo.get("lang"):
+            opts["lang"] = lang
+        demo_html = (f'<div class="demo-box demo-script" data-api="{demo["api"]}" data-opts="{e(json.dumps(opts))}"></div><script src="{demo["src"]}" defer></script>')
+    else:
+        src = demo["src"] + (("&" if "?" in demo["src"] else "?") + "lang=" + lang if demo.get("lang") else "")
+        demo_html = (f'<div class="demo-box demo-frame" data-w="{demo["w"]}" data-h="{demo["h"]}"><iframe src="{e(src)}" width="{demo["w"]}" height="{demo["h"]}" title="{e(app["name"])} demo" loading="lazy"></iframe></div>')
+    trust = "".join(f"<span>{CHECK}{e(f)}</span>" for f in c["facts"])
+    badge, chip_text = hd["chip"]
+    hero = (f'<header class="hero"><div class="wrap"><div class="chip rv"><b>{e(badge)}</b>{e(chip_text)}</div><h1>{h1}</h1><p class="lead">{e(c["lead"])}</p>'
+            f'<div class="btns"><a class="btn btn-p" href="{store}">{B.WIN_LOGO}<span>{e(s["get"])}</span></a><a class="btn btn-g" href="#demo">{e(s["try"])}</a></div>'
+            f'<div class="trust">{trust}</div>'
+            f'<div class="stage" id="demo"><div class="stage-frame">{demo_html}</div><p class="stage-note">{e(c["demo_note"])}</p></div></div></header>')
+    stats = "".join(f'<div><b data-count="{n}" data-suffix="{suf}">{n}{suf}</b><span>{e(lbl)}</span></div>' for n, suf, lbl in hd["stats"])
+    stats_sec = f'<section><div class="wrap"><div class="stats rv">{stats}</div></div></section>'
+    steps = "".join(f'<div class="step3"><div class="num">{n}</div><h3>{e(t)}</h3><p>{e(d)}</p></div>' for n, (t, d) in enumerate(c["steps"], 1))
+    how = f'<section id="how"><div class="wrap">{sec_head(app["name"], c["steps_title"])}<div class="steps3">{steps}</div></div></section>'
+    # gallery (the real screenshots of the Store listing)
+    folder = f"/img/press/{slug}/"
+    prefix = "tr-" if (slug == "mixora" and lang == "tr") else ""
+    shots = D["press"]["shots"]
+    gtabs = "".join(f'<button class="gtab" role="tab" type="button" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}"><i></i>{e(cap)}</button>' for i, (f, cap) in enumerate(shots))
+    gimgs = "".join(f'<img src="{folder}{prefix}{f}.jpg" alt="{e(cap)}" width="1600" height="900" loading="{"eager" if i == 0 else "lazy"}"{" class=on" if i == 0 else ""}>' for i, (f, cap) in enumerate(shots))
+    gallery = (f'<section id="gallery"><div class="wrap">{sec_head(s["gallery_h"], hd["gallery_title"], hd["gallery_note"])}<div class="gal rv"><div class="gtabs" role="tablist" aria-label="{e(s["gallery_h"])}">{gtabs}</div>'
+               f'<div class="gstage"><div class="gshot">{gimgs}</div><button class="gpause" type="button" aria-pressed="false" data-pause="{e(s["pause"])}" data-play="{e(s["play"])}">{PAUSE_IC}<span>{e(s["pause"])}</span></button></div></div></div></section>')
+    spans = [2, 1, 1, 1, 2, 1, 2, 2]
+    tiles = "".join(f'<article class="tile rv{" s2" if spans[i % 8] == 2 else ""}"><div class="ic">{B.icon(ic)}</div><h3>{e(t)}</h3><p>{e(d)}</p></article>' for i, (ic, t, d) in enumerate(c["features"]))
+    features = f'<section id="features"><div class="wrap">{sec_head(s["feat"], c["features_title"])}<div class="bento4">{tiles}</div></div></section>'
+    specs = "".join(f'<div class="spec"><small>{e(k)}</small><p>{e(v)}</p></div>' for k, v in c["details"])
+    specs_sec = f'<section><div class="wrap"><div class="specs rv">{specs}</div></div></section>'
+    cmp_cards = "".join(f'<article class="cmp rv"><h3 class="t">{e(n)}</h3><span class="tag">{e(tag)}</span><h3 class="k">{e(s["pick"])}</h3><p>{e(pick)}</p></article>' for n, tag, _sh, _df, pick in D["compare"]["items"])
+    compare = (f'<section id="compare"><div class="wrap">{sec_head(s["compare"], hd["compare_title"], hd["compare_sub"])}<div class="cmp-grid">{cmp_cards}</div>'
+               f'<div class="center"><a class="more-link" href="{sub_path(lang, "compare")}">{e(s["all_compare"])} {ARROW}</a></div></div></section>')
+    faq = "".join(f'<details class="rv"><summary>{e(q)}{PLUS}</summary><p>{e(a)}</p></details>' for q, a in c["faq"])
+    faq_sec = (f'<section id="faq"><div class="wrap">{sec_head(s["faq"], s["faq_title"])}<div class="faq">{faq}</div>'
+               f'<div class="center"><a class="more-link" href="{sub_path(lang, "faq")}">{e(s["more_q"])} {ARROW}</a></div></div></section>')
+    body = hero + stats_sec + how + gallery + features + specs_sec + compare + faq_sec + final_cta(slug, app, lang) + apps_row(slug, lang)
+    ld = [{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": app.get("os", "Windows 10, Windows 11"),
+           "applicationCategory": app["category"], "description": c["desc"], "url": canon, "image": f"https://{slug}.kingpindev.com/img/og-{slug}.jpg",
+           "installUrl": store, "inLanguage": lang, "author": {"@type": "Person", "name": "Burak Pekel", "url": "https://kingpindev.com/"},
+           "publisher": {"@type": "Organization", "name": "Kingpindev", "url": "https://kingpindev.com/"}},
+          {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": lang, "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in c["faq"]]}]
+    return shell(slug, app, lang, "home", c["title"], c["desc"], body, ld, canon, alt_en, alt_tr, other_url)
+
+
+# ---------------------------------------------------------------- side pages
+def sub_hero(app, lang, kind, extra=""):
+    s = SUBUI[lang]
+    name = app["name"]
+    return (f'<header class="sub-hero"><div class="wrap"><div class="eyebrow">{e(name)}</div><h1>{e(s["h1"][kind].format(name))}</h1>'
+            f'<p class="lead">{e(s["lead"][kind].format(name))}</p>{extra}</div></header>')
 
 
 def faq_page(slug, app, lang):
@@ -203,41 +298,34 @@ def faq_page(slug, app, lang):
     toc = "".join(f'<a href="#g{i}">{e(g)}</a>' for i, (g, _) in enumerate(d))
     groups, qa = "", []
     for i, (g, items) in enumerate(d):
-        det = "".join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in items)
-        groups += f'<section class="faq fgroup" id="g{i}"><div class="wrap"><h2>{e(g)}</h2>{det}</div></section>'
+        det = "".join(f'<details><summary>{e(q)}{PLUS}</summary><p>{e(a)}</p></details>' for q, a in items)
+        groups += f'<section class="fgroup" id="g{i}"><div class="wrap"><h2>{e(g)}</h2><div class="faq">{det}</div></div></section>'
         qa += [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in items]
     ld = [{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": lang, "mainEntity": qa}]
-    body = hero(app, lang, "faq", f'<nav class="chips" aria-label="{e(s["toc"])}">{toc}</nav>') + groups + cta(slug, app, lang, s["questions_none"])
-    return body, ld
+    return sub_hero(app, lang, "faq", f'<nav class="chips" aria-label="{e(s["toc"])}">{toc}</nav>') + groups + final_cta(slug, app, lang, s["questions_none"]), ld
 
 
 def changelog_page(slug, app, lang):
-    d = data(slug, lang)["changelog"]
-    s = SUBUI[lang]
     rows = ""
-    for ver, date, headline, items in d:
+    for ver, date, headline, items in data(slug, lang)["changelog"]:
         rid = "v" + ver.replace(" ", "").replace(".", "-")
         lis = "".join(f"<li>{e(x)}</li>" for x in items)
         rows += (f'<article class="rel" id="{rid}"><div class="rel-side"><span class="ver">{e(ver)}</span><time>{e(date)}</time></div>'
                  f'<div class="rel-main"><h2>{e(headline)}</h2><ul>{lis}</ul></div></article>')
-    body = hero(app, lang, "changelog") + f'<section class="rels"><div class="wrap">{rows}</div></section>' + cta(slug, app, lang)
-    return body, []
+    return sub_hero(app, lang, "changelog") + f'<section class="rels"><div class="wrap">{rows}</div></section>' + final_cta(slug, app, lang), []
 
 
 def privacy_page(slug, app, lang):
     D = data(slug, lang)
-    s = SUBUI[lang]
-    meta = D.get("privacy_meta") or (f'Effective date: {MONTHS[LASTMOD][0]}' if lang == "en" else f'Yürürlük tarihi: {MONTHS[LASTMOD][1]}')
+    meta = D.get("privacy_meta") or (f"Effective date: {MONTHS[LASTMOD][0]}" if lang == "en" else f"Yürürlük tarihi: {MONTHS[LASTMOD][1]}")
     secs = ""
     for h, paras in D["privacy"]:
-        if h in ("Summary", "Özet"):
-            inner = "<ul>" + "".join(f"<li>{e(p)}</li>" for p in paras) + "</ul>"
-        else:
-            inner = "".join(f"<p>{e(p)}</p>" for p in paras)
+        inner = ("<ul>" + "".join(f"<li>{e(p)}</li>" for p in paras) + "</ul>") if h in ("Summary", "Özet") else "".join(f"<p>{e(p)}</p>" for p in paras)
         secs += f"<h2>{e(h)}</h2>{inner}"
     mail = D["press"]["facts"][-1][1]
-    contact = {"en": ("Contact", f"If you have any questions about this policy, contact us at"), "tr": ("İletişim", "Bu politika hakkında sorularınız varsa bize şu adresten ulaşın:")}[lang]
-    body = (hero(app, lang, "privacy") + f'<section class="prose"><div class="wrap"><p class="meta">{e(meta)} · {e("Publisher: Kingpindev" if lang == "en" else "Yayıncı: Kingpindev")}</p>{secs}'
+    contact = {"en": ("Contact", "If you have any questions about this policy, contact us at"), "tr": ("İletişim", "Bu politika hakkında sorularınız varsa bize şu adresten ulaşın:")}[lang]
+    pub = "Publisher: Kingpindev" if lang == "en" else "Yayıncı: Kingpindev"
+    body = (sub_hero(app, lang, "privacy") + f'<section class="prose"><div class="wrap"><p class="meta">{e(meta)} · {e(pub)}</p>{secs}'
             f'<h2>{contact[0]}</h2><p>{e(contact[1])} <a href="mailto:{mail}">{mail}</a>.</p></div></section>')
     return body, []
 
@@ -245,13 +333,11 @@ def privacy_page(slug, app, lang):
 def compare_page(slug, app, lang):
     D = data(slug, lang)["compare"]
     s = SUBUI[lang]
-    cards = ""
-    for name, tag, shines, differs, pick in D["items"]:
-        cards += (f'<article class="cmp"><h2>{e(name)}</h2><p class="tag">{e(tag)}</p>'
-                  f'<h3>{e(s["shines"])}</h3><p>{e(shines)}</p><h3>{e(s["differs"].format(app["name"]))}</h3><p>{e(differs)}</p>'
-                  f'<h3>{e(s["pick"])}</h3><p>{e(pick)}</p></article>')
-    body = (hero(app, lang, "compare") + f'<section class="cmps"><div class="wrap"><p class="intro">{e(D["intro"])}</p><div class="cmp-grid">{cards}</div>'
-            f'<p class="note">{e(D["foot"])}</p></div></section>' + cta(slug, app, lang))
+    cards = "".join(f'<article class="cmp rv"><h2>{e(n)}</h2><span class="tag">{e(tag)}</span><h3 class="k">{e(s["shines"])}</h3><p>{e(sh)}</p>'
+                    f'<h3 class="k">{e(s["differs"].format(app["name"]))}</h3><p>{e(df)}</p><div class="pick"><h3 class="k">{e(s["pick"])}</h3><p>{e(pk)}</p></div></article>'
+                    for n, tag, sh, df, pk in D["items"])
+    body = (sub_hero(app, lang, "compare") + f'<section><div class="wrap"><p class="sub center" style="margin-inline:auto;text-align:center;max-width:760px">{e(D["intro"])}</p>'
+            f'<div class="cmp-grid">{cards}</div><p class="foot-note center" style="text-align:center">{e(D["foot"])}</p></div></section>' + final_cta(slug, app, lang))
     return body, []
 
 
@@ -262,32 +348,29 @@ def press_page(slug, app, lang):
     facts = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in D["facts"])
     blocks = ""
     for i, (label, key) in enumerate(((s["onel"], "oneliner"), (s["shortd"], "short"), (s["longd"], "long"))):
-        blocks += (f'<div class="copyblock"><div class="cb-head"><h3>{e(label)}</h3><button type="button" class="btn btn-ghost btn-sm" data-copy="cp{i}">{e(s["copy"])}</button></div>'
-                   f'<p id="cp{i}">{e(D[key])}</p></div>')
+        blocks += (f'<div class="copyblock"><div class="cb-head"><h3>{e(label)}</h3><button type="button" class="btn btn-g btn-sm" data-copy="cp{i}">{e(s["copy"])}</button></div><p id="cp{i}">{e(D[key])}</p></div>')
     folder = f"/img/press/{slug}/"
     prefix = "tr-" if (slug == "mixora" and lang == "tr") else ""
     shots = "".join(f'<figure class="shot"><a href="{folder}{prefix}{f}.jpg" download><img src="{folder}{prefix}{f}-thumb.jpg" alt="{e(cap)}" width="480" height="270" loading="lazy"></a>'
                     f'<figcaption>{e(cap)} <a href="{folder}{prefix}{f}.jpg" download>{e(s["download"])}</a></figcaption></figure>' for f, cap in D["shots"])
     notes = "".join(f"<li>{e(n)}</li>" for n in D["notes"])
-    body = (hero(app, lang, "press")
+    body = (sub_hero(app, lang, "press")
             + f'<section class="pk"><div class="wrap"><h2>{e(s["facts"])}</h2><dl class="kdl">{facts}</dl></div></section>'
             + f'<section class="pk"><div class="wrap"><h2>{e(s["onel"])} / {e(s["shortd"])} / {e(s["longd"])}</h2>{blocks}</div></section>'
             + f'<section class="pk"><div class="wrap"><h2>{e(s["assets"])}</h2><div class="logos">'
               f'<a class="logo-card" href="{folder}{slug}-logo.png" download><img src="{folder}{slug}-logo-thumb.png" alt="{e(name)}" width="160" height="160" loading="lazy"><span><b>{e(s["logo"])}</b><small>{e(s["logo_note"])}</small></span></a>'
               f'<a class="logo-card" href="{folder}{slug}-icon-256.png" download><img src="{folder}{slug}-icon-256.png" alt="" width="96" height="96" loading="lazy"><span><b>{e(s["icon"])}</b><small>PNG 256 × 256</small></span></a>'
-              f'<a class="btn" href="{folder}{slug}-press-kit.zip" download>{e(s["zip"])}</a></div>'
+              f'<a class="btn btn-p" href="{folder}{slug}-press-kit.zip" download>{e(s["zip"])}</a></div>'
               f'<h3 class="sub-h">{e(s["shots"])}</h3><div class="shots">{shots}</div></div></section>'
             + f'<section class="pk"><div class="wrap"><h2>{e(s["notes"])}</h2><ul class="notes">{notes}</ul></div></section>'
-            + cta(slug, app, lang))
+            + final_cta(slug, app, lang))
     return body, []
 
 
 BUILDERS = {"faq": faq_page, "changelog": changelog_page, "compare": compare_page, "press": press_page, "privacy": privacy_page}
 
 
-def build_sub_pages(slug: str, app: dict) -> list[str]:
-    """Writes the side pages of one app (both languages). Returns the list of URL paths for the sitemap."""
-    paths = []
+def build_sub_pages(slug: str, app: dict) -> None:
     for lang in ("en", "tr"):
         s = SUBUI[lang]
         for kind in KINDS:
@@ -295,8 +378,18 @@ def build_sub_pages(slug: str, app: dict) -> list[str]:
             name = app["name"]
             title, desc = s["title"][kind].format(name), s["desc"][kind].format(name)
             assert 25 <= len(desc) <= 175, (slug, lang, kind, len(desc))
+            home = base(slug, lang)
+            crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": name, "item": home}, {"@type": "ListItem", "position": 2, "name": s[kind], "item": sub_url(slug, lang, kind)}]}
+            other = "en" if lang == "tr" else "tr"
+            page_html = shell(slug, app, lang, kind, title, desc, body, [crumbs] + ld, sub_url(slug, lang, kind), sub_url(slug, "en", kind), sub_url(slug, "tr", kind), sub_url(slug, other, kind))
             d = OUT / slug / ("tr" if lang == "tr" else "") / kind
             d.mkdir(parents=True, exist_ok=True)
-            (d / "index.html").write_text(shell(slug, app, lang, kind, title, desc, body, ld), encoding="utf-8", newline="\n")
-            paths.append((kind, lang))
-    return paths
+            (d / "index.html").write_text(page_html, encoding="utf-8", newline="\n")
+
+
+def build_home_pages(slug: str, app: dict) -> None:
+    d = OUT / slug
+    (d / "tr").mkdir(parents=True, exist_ok=True)
+    (d / "index.html").write_text(home_page(slug, app, "en"), encoding="utf-8", newline="\n")
+    (d / "tr" / "index.html").write_text(home_page(slug, app, "tr"), encoding="utf-8", newline="\n")

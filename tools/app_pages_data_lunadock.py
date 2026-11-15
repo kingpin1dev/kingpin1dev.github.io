@@ -219,4 +219,19 @@ TR = {
     },
 }
 
+HOME = {
+    "en": {
+        "emph": "tidy stacks", "chip": ("Windows 10 & 11", "A desktop organizer that never moves your files"),
+        "stats": [(20, "+", "icon packs"), (16, "", "languages"), (4, "", "screen edges to dock on"), (0, "", "files moved")],
+        "gallery_title": "See it in action", "gallery_note": "Screens from the Microsoft Store listing.",
+        "compare_title": "How LunaDock compares", "compare_sub": "Plain Windows and Stardock Fences both tidy a desktop. Here is where each one fits.",
+    },
+    "tr": {
+        "emph": "düzenli yığınlar", "chip": ("Windows 10 ve 11", "Dosyalarınızı asla taşımayan bir masaüstü düzenleyicisi"),
+        "stats": [(20, "+", "ikon paketi"), (16, "", "dil"), (4, "", "yerleştirilebilir ekran kenarı"), (0, "", "taşınan dosya")],
+        "gallery_title": "Çalışırken görün", "gallery_note": "Microsoft Store sayfasından ekranlar.",
+        "compare_title": "LunaDock nasıl bir yerde duruyor", "compare_sub": "Düz Windows ve Stardock Fences masaüstünü düzene sokar. İşte her birinin uygun olduğu yer.",
+    },
+}
+
 DATA = {"en": EN, "tr": TR}
