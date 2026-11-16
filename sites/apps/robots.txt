@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /concept/
+Disallow: /tr/concept/
 
 Sitemap: https://apps.kingpindev.com/sitemap.xml

@@ -448,3 +448,37 @@ tr.only td.f{box-shadow:inset 3px 0 0 var(--a1)}
 
 .trust .rate{color:var(--text);font-weight:600}
 .trust .rate svg{color:#ffd166}
+
+/* ── apps hub (concept): live app switcher, grid, flagship band ── */
+.hubtab{--grad:linear-gradient(135deg,var(--a1),var(--a2))}
+.hubtab .aic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;overflow:hidden;background:var(--s3);border:1px solid var(--line)}
+.hubtab .aic img{width:100%;height:100%;object-fit:cover;display:block}
+.hubtab[aria-selected=true]{border-color:color-mix(in srgb,var(--a1) 55%,transparent)}
+.hubtab[aria-selected=true] .aic{border-color:transparent;box-shadow:0 0 0 2px var(--a1)}
+.hubtab strong .kind{font-style:normal;margin-inline-start:10px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.tab .more .rate{display:block;margin-top:10px;color:var(--muted);font-size:14px}
+.hlinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.hl{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font-weight:600;font-size:14.5px;background:var(--grad);color:#0a0d16;border:1px solid transparent;transition:filter .2s,transform .2s}
+.hl:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.hl.alt{background:var(--s2);color:var(--text);border-color:var(--line2)}
+.hl.alt:hover{background:var(--s3)}
+#hubframe{background:radial-gradient(60% 80% at 20% 0%,var(--glow1,rgba(167,139,250,.28)),transparent 70%),radial-gradient(60% 80% at 90% 100%,var(--glow2,rgba(56,189,248,.2)),transparent 70%),var(--s1);min-height:360px}
+.hubload{display:none}
+.hubfilter{display:flex;gap:8px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.chipb{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line2);background:var(--s1);color:var(--muted);font:500 15px/1 inherit}
+.chipb:hover{color:var(--text);background:var(--s3)}
+.chipb.on{background:var(--grad);color:var(--on);border-color:transparent;font-weight:600}
+.hubgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.acard{grid-column:auto;min-height:330px}
+.acard.hide{display:none}
+.achead{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.achead img{border-radius:14px}
+.chipk{padding:5px 12px;border-radius:999px;border:1px solid var(--line2);font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em}
+.acard h3{font-size:26px}
+.acard .tag1{margin:8px 0 0;color:var(--eb);font-weight:600;font-size:15.5px}
+.acard .hlinks{margin-top:auto;padding-top:20px}
+.flagband{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;padding:56px;border-radius:36px;border:1px solid var(--line2);overflow:hidden;background:radial-gradient(70% 130% at 0% 0%,rgba(214,35,254,.34),transparent 70%),radial-gradient(60% 100% at 100% 100%,rgba(143,53,238,.3),transparent 70%),var(--s1)}
+.flagband h2{margin:12px 0 0;max-width:16ch}
+.fb-ic{border-radius:44px;box-shadow:0 30px 80px rgba(214,35,254,.35)}
+@media(max-width:1020px){.hubgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.flagband{grid-template-columns:1fr;padding:36px 26px}.fb-ic{width:110px;height:110px;order:-1}}
+@media(max-width:680px){.hubgrid{grid-template-columns:minmax(0,1fr)}.acard{min-height:0}#hubframe{min-height:240px}}

@@ -13,7 +13,8 @@ import html
 import json
 from pathlib import Path
 
-import app_pages as _ap  # redesigned home + side pages for the apps listed in _ap.SLUGS (Mixora, LunaDock)
+import app_pages as _ap
+import hub_concept as _hub  # redesigned home + side pages for the apps listed in _ap.SLUGS (Mixora, LunaDock)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites"
@@ -1074,7 +1075,7 @@ def build_hub() -> None:
     (d / "tr").mkdir(parents=True, exist_ok=True)
     (d / "index.html").write_text(hub_page("en"), encoding="utf-8", newline=nl)
     (d / "tr" / "index.html").write_text(hub_page("tr"), encoding="utf-8", newline=nl)
-    (d / "robots.txt").write_text(nl.join(["User-agent: *", "Allow: /", "", "Sitemap: https://apps.kingpindev.com/sitemap.xml", ""]), encoding="utf-8", newline=nl)
+    (d / "robots.txt").write_text(nl.join(["User-agent: *", "Allow: /", "Disallow: /concept/", "Disallow: /tr/concept/", "", "Sitemap: https://apps.kingpindev.com/sitemap.xml", ""]), encoding="utf-8", newline=nl)
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     for lang in ("en", "tr"):
         sm.append(f"  <url><loc>{hub_url(lang)}</loc><lastmod>{LASTMOD}</lastmod>"
@@ -1083,6 +1084,7 @@ def build_hub() -> None:
     sm.append("</urlset>")
     (d / "sitemap.xml").write_text(nl.join(sm) + nl, encoding="utf-8", newline=nl)
     print("built apps hub")
+    _hub.build_concept()
 
 
 def main() -> None:
