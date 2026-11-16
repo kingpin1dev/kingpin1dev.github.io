@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites"
-SLUGS = ("mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop", "goliath", "lolable", "glidesnap")
+SLUGS = ("mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop", "hotpad", "goliath", "lolable", "glidesnap")
 KINDS = ("faq", "changelog", "compare", "press", "privacy")
 LASTMOD = "2026-11-16"
 MIN_RATINGS = 4      # a Store rating line is shown only from this many ratings on (see tools/fetch_store_ratings.py)

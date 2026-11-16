@@ -39,6 +39,7 @@ CAPTURED = {
     "spotidrop": PROJECTS / "SpotiDrop" / "resources" / "logo-source.png",
     "goliath": ROOT / "img" / "Goliath.png",
     "lolable": PROJECTS / "Lolable" / "assets" / "logo.png",
+    "hotpad": ROOT / "img" / "Hotpad.png",
     "glidesnap": PROJECTS / "GlideSnap" / "Branding" / "logo-windows-blue.png",
 }
 SPEC["vicesonar"] = {

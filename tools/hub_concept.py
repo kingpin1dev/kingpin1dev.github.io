@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites" / "apps"
 ASSET_V = "20261116"
-ORDER = ["mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop", "goliath", "lolable", "glidesnap"]
+ORDER = ["mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop", "hotpad", "goliath", "lolable", "glidesnap"]
 
 T = {
     "en": {
