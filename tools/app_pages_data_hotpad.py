@@ -177,14 +177,14 @@ HOME = {
         "stats": [(5, "", "actions per key: program, text, shortcut, sequence, microphone"), (2, "", "keyboards, only one of them captured"), (15, " s", "to pick your keyboard by pressing a key"), (0, "", "accounts, analytics or data sent")],
         "explorer_note": "Pick a feature and the real Hotpad interface shows it. The keyboard is made up and nothing is saved or run.",
         "gallery_title": "See it in action", "gallery_note": "Screens from the app.",
-        "compare_title": "How Hotpad compares", "compare_sub": "Two well-known ways to remap keys on Windows, and what Hotpad does differently.",
+        "compare_title": "Why choose Hotpad", "compare_sub": "Two well-known ways to remap keys on Windows, and what Hotpad does differently.",
     },
     "tr": {
         "emph": "işe yarasın", "chip": ("1.0.0", "Kişisel kullanım için ücretsiz, bir dakikada kurulur"),
         "stats": [(5, "", "tuş başına eylem: program, metin, kısayol, dizi, mikrofon"), (2, "", "klavye, yalnızca biri yakalanır"), (15, " sn", "içinde bir tuşa basarak klavyenizi seçin"), (0, "", "hesap, analiz ya da gönderilen veri")],
         "explorer_note": "Bir özellik seçin, gerçek Hotpad arayüzü onu gösterir. Klavye uydurmadır, hiçbir şey kaydedilmez ya da çalıştırılmaz.",
         "gallery_title": "Çalışırken görün", "gallery_note": "Uygulamadan ekranlar.",
-        "compare_title": "Hotpad nasıl bir yerde duruyor", "compare_sub": "Windows'ta tuşları yeniden eşlemenin iki bilinen yolu ve Hotpad'in farklı yaptığı.",
+        "compare_title": "Neden Hotpad'i tercih etmelisiniz", "compare_sub": "Windows'ta tuşları yeniden eşlemenin iki bilinen yolu ve Hotpad'in farklı yaptığı.",
     },
 }
 
