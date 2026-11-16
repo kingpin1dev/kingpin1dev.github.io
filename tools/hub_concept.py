@@ -145,7 +145,7 @@ def page(lang: str) -> str:
 <meta property="og:description" content="{e(t["desc"])}">
 <meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark">
-<link rel="icon" type="image/png" href="/img/logo_300x300.png">
+<link rel="icon" type="image/png" href="/img/kingpindev.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
@@ -159,7 +159,7 @@ def page(lang: str) -> str:
 <body data-lang="{lang}" data-other="{base(other)}">
 <a class="skip" href="#main">{e(t["skip"])}</a>
 <header class="bar">
-  <a class="brand" href="{base(lang)}"><img src="/img/logo_300x300.png" alt="" width="30" height="30"><span>Kingpindev</span></a>
+  <a class="brand" href="{base(lang)}"><img src="/img/kingpindev.png" alt="" width="30" height="30"><span>Kingpindev</span></a>
   <nav class="links glass" id="navlinks" aria-label="{e(t["menu"])}"><a href="#try">{e(t["try_e"])}</a><a href="#all">{e(t["all_e"])}</a><a href="https://notchify.app/">Notchify</a><a href="{home}">{e(t["home"])}</a></nav>
   <div class="right">
     <a class="lang-pill glass" href="{base(other)}" hreflang="{other}" lang="{other}" data-lang-switch="{other}">{t["other_label"]}</a>
