@@ -504,7 +504,7 @@ APPS: dict[str, dict] = {
                         ("Price", "Free for personal use"), ("Driver", "Optional Interception driver, installed on request")],
             "faq": [("Why does it need a driver?", "Windows sees all keyboards as one. The open-source Interception driver lets Hotpad tell your second keyboard apart. Setup installs it only if you tick the box."),
                     ("Will my main keyboard be affected?", "No. Only the keyboard you pick is captured. If Hotpad closes, keyboards go back to normal on their own."),
-                    ("Can I use it in online games?", "Be careful: some anti-cheat systems block input drivers. It is best for single-player games and everyday apps."),
+                    ("Can I use it in online games?", "Yes, but the responsibility is yours. Check the rules of every game you play before using a macro tool: some games and their anti-cheat systems restrict input drivers or automation. League of Legends now blocks macro programs at the kernel level, so Hotpad does not work in that game."),
                     ("Where are my settings?", "In %LOCALAPPDATA%\\Hotpad\\macros.json. Updates and uninstalling keep it.")],
         },
         "tr": {
@@ -535,7 +535,7 @@ APPS: dict[str, dict] = {
                         ("Fiyat", "Kişisel kullanım için ücretsiz"), ("Sürücü", "İsteğe bağlı Interception sürücüsü, istenirse kurulur")],
             "faq": [("Neden sürücü gerekiyor?", "Windows tüm klavyeleri tek görür. Açık kaynaklı Interception sürücüsü Hotpad'in ikinci klavyenizi ayırt etmesini sağlar. Kurulum onu yalnızca kutuyu işaretlerseniz kurar."),
                     ("Ana klavyem etkilenir mi?", "Hayır. Yalnızca seçtiğiniz klavye yakalanır. Hotpad kapanırsa klavyeler kendiliğinden normale döner."),
-                    ("Çevrimiçi oyunlarda kullanabilir miyim?", "Dikkatli olun: bazı hile önleme sistemleri giriş sürücülerini engeller. En çok tek kişilik oyunlar ve günlük uygulamalar için uygundur."),
+                    ("Çevrimiçi oyunlarda kullanabilir miyim?", "Evet, kullanabilirsiniz; ancak sorumluluk size aittir. Bir makro aracı kullanmadan önce oynadığınız her oyunun kurallarını kontrol edin: bazı oyunlar ve hile önleme sistemleri giriş sürücülerini ya da otomasyonu kısıtlar. League of Legends artık makro programlarını çekirdek (kernel) seviyesinde engelliyor; bu yüzden Hotpad bu oyunda çalışmıyor."),
                     ("Ayarlarım nerede?", "%LOCALAPPDATA%\\Hotpad\\macros.json içinde. Güncelleme ve kaldırma onu korur.")],
         },
     },

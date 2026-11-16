@@ -5,7 +5,7 @@ Facts: the Hotpad project's README, installer script (Hotpad.iss), install notes
 Hotpad is distributed as an installer from kingpindev.com/hotpad, not through the Microsoft Store.
 """
 
-CONTACT = "admin@kingpindev.com"
+CONTACT = "hotpad@kingpindev.com"
 
 EN = {
     "faq": [
@@ -19,7 +19,7 @@ EN = {
             ("Why does it need a driver?", "Windows treats every keyboard as one input device. To react to only one of them, Hotpad uses the open-source Interception driver, which lets it see which keyboard a key came from before Windows does."),
             ("Does the installer install the driver?", "Only if you tick the optional box, and only if it is not installed yet. It needs administrator approval and a restart. If the driver is already there, setup leaves it alone."),
             ("What happens if Hotpad crashes or is closed?", "The driver stops sending keys to Hotpad and your keyboards go back to normal on their own, so you cannot get locked out."),
-            ("Can I use it in online games?", "Be careful. Anti-cheat systems such as Vanguard, Easy Anti-Cheat or BattlEye can block or flag input drivers, and one key running several actions can count as automation in some games. Single-player games and everyday apps are fine."),
+            ("Can I use it in online games?", "Yes, but the responsibility is yours. Check the rules of every game you play before using a macro tool: some games and their anti-cheat systems restrict input drivers or automation. League of Legends now blocks macro programs at the kernel level, so Hotpad does not work in that game."),
         ]),
         ("Using Hotpad", [
             ("How do I pick my second keyboard?", "Press Select keyboard and tap any key on the small keyboard within 15 seconds. Hotpad remembers its hardware ID. If two keyboards share the same ID, Hotpad asks you to choose again instead of guessing."),
@@ -31,7 +31,7 @@ EN = {
         ("Your data", [
             ("Where are my settings?", "In %LOCALAPPDATA%\\Hotpad\\macros.json. Updating or uninstalling Hotpad keeps that file. You can also export all profiles from Settings."),
             ("Does Hotpad collect my data?", "No accounts, analytics or advertising. Hotpad does not send anything over the internet. See the privacy page."),
-            ("How do I get help or report a problem?", "Write to admin@kingpindev.com with your Windows version, your Hotpad version and what you were doing."),
+            ("How do I get help or report a problem?", "Write to hotpad@kingpindev.com with your Windows version, your Hotpad version and what you were doing."),
         ]),
     ],
     "changelog": [
@@ -61,7 +61,7 @@ EN = {
             ("Press contact", CONTACT),
         ],
         "shots": [("shot-1", "Macros and the key layout"), ("shot-2", "Assigning a program"), ("shot-3", "A step sequence"), ("shot-4", "Settings")],
-        "notes": ["Hotpad is not affiliated with Microsoft or with the Interception project. Please do not describe it as their product.", "Screenshots show example macros. Please do not alter the logo.", "Please mention that some online games block input drivers, so Hotpad is best for single-player games and everyday apps."],
+        "notes": ["Hotpad is not affiliated with Microsoft or with the Interception project. Please do not describe it as their product.", "Screenshots show example macros. Please do not alter the logo.", "Please mention that people are responsible for checking the rules of the games they play. League of Legends blocks macro programs at the kernel level, so Hotpad does not work in that game."],
     },
     "privacy": [
         ("Summary", ["Hotpad does not collect, sell or share your personal data.", "Hotpad does not use analytics, telemetry, advertising or tracking.", "Hotpad does not require an account.", "Your profiles and settings stay on your device."]),
@@ -85,7 +85,7 @@ EN = {
              "Hotpad needs no scripting: you pick a keyboard, click a key and choose an action in a visual editor, and changes apply live.",
              "Use AutoHotkey when you want full scripting power and complex logic, and do not mind writing code."),
         ],
-        "foot": "Checked on 16 November 2026 against Microsoft Learn and autohotkey.com. Tools change; if something here is out of date, tell us at admin@kingpindev.com and we will fix it.",
+        "foot": "Checked on 16 November 2026 against Microsoft Learn and autohotkey.com. Tools change; if something here is out of date, tell us at hotpad@kingpindev.com and we will fix it.",
     },
 }
 
@@ -101,7 +101,7 @@ TR = {
             ("Neden sürücü gerekiyor?", "Windows tüm klavyeleri tek bir giriş aygıtı olarak görür. Yalnızca birine tepki verebilmek için Hotpad, bir tuşun hangi klavyeden geldiğini Windows'tan önce görmesini sağlayan açık kaynaklı Interception sürücüsünü kullanır."),
             ("Yükleyici sürücüyü kuruyor mu?", "Yalnızca isteğe bağlı kutuyu işaretlerseniz ve sürücü henüz kurulu değilse. Yönetici izni ve yeniden başlatma gerekir. Sürücü zaten varsa kurulum ona dokunmaz."),
             ("Hotpad çökerse ya da kapanırsa ne olur?", "Sürücü tuşları Hotpad'e göndermeyi bırakır ve klavyeleriniz kendiliğinden normale döner; dışarıda kalmazsınız."),
-            ("Çevrimiçi oyunlarda kullanabilir miyim?", "Dikkatli olun. Vanguard, Easy Anti-Cheat ya da BattlEye gibi hile önleme sistemleri giriş sürücülerini engelleyebilir ya da işaretleyebilir; tek tuşla birkaç işlem bazı oyunlarda otomasyon sayılabilir. Tek kişilik oyunlar ve günlük uygulamalarda sorun yoktur."),
+            ("Çevrimiçi oyunlarda kullanabilir miyim?", "Evet, kullanabilirsiniz; ancak sorumluluk size aittir. Bir makro aracı kullanmadan önce oynadığınız her oyunun kurallarını kontrol edin: bazı oyunlar ve hile önleme sistemleri giriş sürücülerini ya da otomasyonu kısıtlar. League of Legends artık makro programlarını çekirdek (kernel) seviyesinde engelliyor; bu yüzden Hotpad bu oyunda çalışmıyor."),
         ]),
         ("Hotpad'i kullanma", [
             ("İkinci klavyemi nasıl seçerim?", "Klavye seç'e basın ve 15 saniye içinde küçük klavyede bir tuşa dokunun. Hotpad donanım kimliğini hatırlar. İki klavye aynı kimliği paylaşıyorsa Hotpad tahmin etmek yerine yeniden seçmenizi ister."),
@@ -113,7 +113,7 @@ TR = {
         ("Verileriniz", [
             ("Ayarlarım nerede?", "%LOCALAPPDATA%\\Hotpad\\macros.json içinde. Hotpad'i güncellemek ya da kaldırmak bu dosyayı silmez. Ayarlar'dan tüm profilleri dışa da aktarabilirsiniz."),
             ("Hotpad verilerimi topluyor mu?", "Hesap, analiz ya da reklam yoktur. Hotpad internet üzerinden hiçbir şey göndermez. Gizlilik sayfasına bakın."),
-            ("Yardımı nasıl alırım, sorunu nasıl bildiririm?", "admin@kingpindev.com adresine Windows sürümünüzle, Hotpad sürümünüzle ve ne yaptığınızla birlikte yazın."),
+            ("Yardımı nasıl alırım, sorunu nasıl bildiririm?", "hotpad@kingpindev.com adresine Windows sürümünüzle, Hotpad sürümünüzle ve ne yaptığınızla birlikte yazın."),
         ]),
     ],
     "changelog": [
@@ -143,7 +143,7 @@ TR = {
             ("Basın iletişimi", CONTACT),
         ],
         "shots": [("shot-1", "Makrolar ve tuş düzeni"), ("shot-2", "Program atama"), ("shot-3", "Adım dizisi"), ("shot-4", "Ayarlar")],
-        "notes": ["Hotpad, Microsoft ya da Interception projesiyle bağlantılı değildir. Lütfen onların ürünü olarak tanıtmayın.", "Ekran görüntüleri örnek makroları gösterir. Lütfen logoyu değiştirmeyin.", "Lütfen bazı çevrimiçi oyunların giriş sürücülerini engellediğini, bu yüzden Hotpad'in en çok tek kişilik oyunlar ve günlük uygulamalar için uygun olduğunu belirtin."],
+        "notes": ["Hotpad, Microsoft ya da Interception projesiyle bağlantılı değildir. Lütfen onların ürünü olarak tanıtmayın.", "Ekran görüntüleri örnek makroları gösterir. Lütfen logoyu değiştirmeyin.", "Lütfen insanların oynadıkları oyunların kurallarını kontrol etmekten kendilerinin sorumlu olduğunu belirtin. League of Legends makro programlarını çekirdek seviyesinde engelliyor, bu yüzden Hotpad bu oyunda çalışmıyor."],
     },
     "privacy": [
         ("Özet", ["Hotpad kişisel verilerinizi toplamaz, satmaz ve paylaşmaz.", "Hotpad analiz, telemetri, reklam ya da takip kullanmaz.", "Hotpad hesap gerektirmez.", "Profilleriniz ve ayarlarınız cihazınızda kalır."]),
@@ -167,7 +167,7 @@ TR = {
              "Hotpad betik gerektirmez: bir klavye seçer, bir tuşa tıklar ve görsel düzenleyicide bir eylem seçersiniz; değişiklikler canlı uygulanır.",
              "Tam betik gücü ve karmaşık mantık istiyor ve kod yazmaya aldırmıyorsanız AutoHotkey'i kullanın."),
         ],
-        "foot": "16 Kasım 2026'da Microsoft Learn ve autohotkey.com'a karşı kontrol edildi. Araçlar değişir; burada eskimiş bir bilgi görürseniz admin@kingpindev.com adresine yazın, düzeltelim.",
+        "foot": "16 Kasım 2026'da Microsoft Learn ve autohotkey.com'a karşı kontrol edildi. Araçlar değişir; burada eskimiş bir bilgi görürseniz hotpad@kingpindev.com adresine yazın, düzeltelim.",
     },
 }
 
