@@ -44,7 +44,7 @@ SUBUI = {
         "faq_title": "Questions", "onel": "One line", "shortd": "Short description", "longd": "Full description", "copy": "Copy", "copied": "Copied", "facts": "Key facts",
         "assets": "Downloads", "logo": "Logo", "logo_note": "PNG with transparent background", "icon": "App icon", "shots": "Screenshots", "zip": "Download everything (ZIP)",
         "download": "Download", "notes": "Notes for writers", "toc": "On this page", "all_compare": "Read the full comparison", "pause": "Pause", "play": "Play",
-        "more_apps": "More apps by Kingpindev", "more_apps_sub": "Small Windows tools, made by one developer.", "try": "Try the live demo", "all_apps": "All apps",
+        "more_apps": "More apps by Kingpindev", "more_apps_sub": "Small tools, made by one developer.", "try": "Try the live demo", "all_apps": "All apps",
         "cta_t": "Ready to try {}?", "cta_p": "Get it from the Microsoft Store and set it up in a minute.", "by": "A Windows app by", "gallery_h": "Screenshots",
     },
     "tr": {
@@ -68,7 +68,7 @@ SUBUI = {
         "faq_title": "Sık sorulanlar", "onel": "Tek cümle", "shortd": "Kısa açıklama", "longd": "Tam açıklama", "copy": "Kopyala", "copied": "Kopyalandı", "facts": "Önemli bilgiler",
         "assets": "İndirmeler", "logo": "Logo", "logo_note": "Saydam arka planlı PNG", "icon": "Uygulama ikonu", "shots": "Ekran görüntüleri", "zip": "Hepsini indirin (ZIP)",
         "download": "İndir", "notes": "Yazarlar için notlar", "toc": "Bu sayfada", "all_compare": "Karşılaştırmanın tamamını okuyun", "pause": "Duraklat", "play": "Oynat",
-        "more_apps": "Kingpindev'in diğer uygulamaları", "more_apps_sub": "Tek bir geliştiriciden küçük Windows araçları.", "try": "Canlı demoyu deneyin", "all_apps": "Tüm uygulamalar",
+        "more_apps": "Kingpindev'in diğer uygulamaları", "more_apps_sub": "Tek bir geliştiriciden küçük araçlar.", "try": "Canlı demoyu deneyin", "all_apps": "Tüm uygulamalar",
         "cta_t": "{} denemeye hazır mısınız?", "cta_p": "Microsoft Store'dan indirin, bir dakikada kurun.", "by": "Bir Kingpindev Windows uygulaması:", "gallery_h": "Ekran görüntüleri",
     },
 }
@@ -270,6 +270,7 @@ def apps_row(slug, lang) -> str:
     s = SUBUI[lang]
     chips = "".join(f'<a class="app-chip" href="{B.url(sl, lang)}"><img src="{ic}" alt="" width="38" height="38" loading="lazy"><span>{e(n)}</span></a>' for sl, n, ic in B.OTHER_APPS if sl != slug)
     chips += '<a class="app-chip" href="https://notchify.app/"><img src="/img/notchify.png" alt="" width="38" height="38" loading="lazy"><span>Notchify</span></a>'
+    chips += '<a class="app-chip" href="https://bokmails.com/"><img src="/img/BokMail.png" alt="" width="38" height="38" loading="lazy"><span>BokMail</span></a>'
     return f'<section><div class="wrap">{sec_head("Kingpindev", s["more_apps"], s["more_apps_sub"])}<div class="apps-row rv">{chips}</div></div></section>'
 
 

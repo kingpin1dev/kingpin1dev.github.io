@@ -816,6 +816,7 @@ def page(slug: str, app: dict, lang: str) -> str:
         f'<a class="other" href="{url(s, lang)}"><img src="{ic}" alt="" width="40" height="40" loading="lazy"><span>{e(n)}</span></a>'
         for s, n, ic in OTHER_APPS if s != slug)
     others += f'<a class="other" href="https://notchify.app/"><img src="/img/notchify.png" alt="" width="40" height="40" loading="lazy"><span>Notchify</span></a>'
+    others += f'<a class="other" href="https://bokmails.com/"><img src="/img/BokMail.png" alt="" width="40" height="40" loading="lazy"><span>BokMail</span></a>'
     privacy = f' · <a href="{app["privacy"]}">{u["privacy"]}</a>' if app.get("privacy") else ""
     for label, href in app.get("extra_links", {}).get(lang, []):
         privacy += f' · <a href="{href}">{e(label)}</a>'
