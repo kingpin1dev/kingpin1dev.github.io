@@ -3774,6 +3774,19 @@
         showMixer: false
       },
       {
+        id: 'hotpad',
+        visual: 'hotpad',
+        accent: 'rgba(96,205,255,1)',
+        accentBg: 'rgba(96,205,255,.22)',
+        icon: 'img/Hotpad.png',
+        pill: 'Windows Uygulaması',
+        title: 'Hotpad',
+        desc: 'Hotpad, ikinci bir klavyeyi (küçük bir oyun tuş takımı, yarım klavye ya da elinizdeki boş bir klavye) özel bir makro klavyeye çeviren bir Windows uygulamasıdır. Bu klavyenin tuşları Windows\'a ulaşmaz, yalnızca sizin atadığınız makroları çalıştırır; ana klavyeniz normal çalışmaya devam eder. Kişisel kullanım için ücretsizdir.',
+        tags: ['Makro Klavye', 'İkinci Klavye', 'Tuş Başına Makro', 'Ücretsiz'],
+        links: [{ text: 'İndir · Windows (53 MB)', url: '/hotpad/Hotpad-Setup-latest.exe', download: true }, { text: 'Tanıtım Sayfası', url: 'https://hotpad.kingpindev.com/tr/' }],
+        showMixer: false
+      },
+      {
         id: 'lolable',
         visual: 'lol',
         accent: 'rgba(10,200,185,1)',
@@ -3905,6 +3918,7 @@
       notch: notchifyDemo, groupy: groupyDemo, sonar: sonarDemo, luna: lunaDemo,
       bokmail: scriptDemo('bokmail', 'BokMailDemo'), glidesnap: scriptDemo('glidesnap', 'GlideSnapDemo'), goliath: scriptDemo('goliath', 'GoliathDemo'), lol: scriptDemo('lolable', 'LolableDemo'),
       drop: frameDemo('drop', '/spotidrop-demo/index.html', 1180, 800, 'SpotiDrop canlı demo'),
+      hotpad: frameDemo('hotpad', '/hotpad-demo/index.html?lang=' + (window.KPD_LANG || 'tr'), 1080, 780, 'Hotpad canlı demo'),
       files: frameDemo('files', '/vorganizer-demo/index.html', 860, 780, 'vOrganizer canlı demo'),
       aurora: frameDemo('aurora', '/aurora-demo/index.html', 980, 680, 'Aurora Radios canlı demo'),
     };
@@ -4586,7 +4600,7 @@
         'MOBO : ASUS Prime A620M-K',
         'COOL : Thermalright Aqua Elite 240 ARGB',
       ];
-      const APPS_LIST = ['Mixora', 'BokMail', 'Notchify', 'LunaDock', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath', 'SpotiDrop', 'Lolable'];
+      const APPS_LIST = ['Mixora', 'BokMail', 'Notchify', 'LunaDock', 'VICE Sonar', 'GlideSnap', 'vOrganizer', 'Aurora Radios', 'Goliath', 'SpotiDrop', 'Hotpad', 'Lolable'];
       const history = [];
       let hIndex = -1;
 
