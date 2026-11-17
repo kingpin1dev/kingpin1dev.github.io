@@ -341,8 +341,11 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     specs_sec = f'<section><div class="wrap"><div class="specs rv">{specs}</div></div></section>'
     cmp_cards = "".join(f'<article class="cmp rv"><h3 class="t">{e(n)}</h3><span class="tag">{e(tag)}</span><h3 class="k">{e(s["pick"])}</h3><p>{e(pick)}</p></article>' for n, tag, _sh, _df, pick in D["compare"]["items"])
     mx = matrix_html(slug, lang)
-    compare = (f'<section id="compare"><div class="wrap">{sec_head(s["compare"], hd["compare_title"], hd["compare_sub"])}{mx if mx else f'<div class="cmp-grid">{cmp_cards}</div>'}'
-               f'<div class="center"><a class="more-link" href="{sub_path(lang, "compare")}">{e(s["all_compare"])} {ARROW}</a></div></div></section>')
+    if D["compare"].get("none"):
+        compare = f'<section id="compare"><div class="wrap">{sec_head(s["compare"], hd["compare_title"], hd["compare_sub"])}</div></section>'
+    else:
+        compare = (f'<section id="compare"><div class="wrap">{sec_head(s["compare"], hd["compare_title"], hd["compare_sub"])}{mx if mx else f'<div class="cmp-grid">{cmp_cards}</div>'}'
+                   f'<div class="center"><a class="more-link" href="{sub_path(lang, "compare")}">{e(s["all_compare"])} {ARROW}</a></div></div></section>')
     faq = "".join(f'<details class="rv"><summary>{e(q)}{PLUS}</summary><p>{e(a)}</p></details>' for q, a in c["faq"])
     faq_sec = (f'<section id="faq"><div class="wrap">{sec_head(s["faq"], s["faq_title"])}<div class="faq">{faq}</div>'
                f'<div class="center"><a class="more-link" href="{sub_path(lang, "faq")}">{e(s["more_q"])} {ARROW}</a></div></div></section>')
@@ -356,11 +359,11 @@ def home_page(slug: str, app: dict, lang: str) -> str:
 
 
 # ---------------------------------------------------------------- side pages
-def sub_hero(app, lang, kind, extra=""):
+def sub_hero(app, lang, kind, extra="", h1=None, lead=None):
     s = SUBUI[lang]
     name = app["name"]
-    return (f'<header class="sub-hero"><div class="wrap"><div class="eyebrow">{e(name)}</div><h1>{e(s["h1"][kind].format(name))}</h1>'
-            f'<p class="lead">{e(s["lead"][kind].format(name))}</p>{extra}</div></header>')
+    return (f'<header class="sub-hero"><div class="wrap"><div class="eyebrow">{e(name)}</div><h1>{e(h1 or s["h1"][kind].format(name))}</h1>'
+            f'<p class="lead">{e(lead or s["lead"][kind].format(name))}</p>{extra}</div></header>')
 
 
 def faq_page(slug, app, lang):
@@ -412,7 +415,7 @@ def compare_page(slug, app, lang):
     cards = "".join(f'<article class="cmp rv"><h2>{e(n)}</h2><span class="tag">{e(tag)}</span><h3 class="k">{e(s["shines"])}</h3><p>{e(sh)}</p>'
                     f'<h3 class="k">{e(s["differs"].format(app["name"]))}</h3><p>{e(df)}</p><div class="pick"><h3 class="k">{e(s["pick"])}</h3><p>{e(pk)}</p></div></article>'
                     for n, tag, sh, df, pk in D["items"])
-    body = (sub_hero(app, lang, "compare") + f'<section><div class="wrap"><p class="sub center" style="margin-inline:auto;text-align:center;max-width:760px">{e(D["intro"])}</p>'
+    body = (sub_hero(app, lang, "compare", h1=D.get("h1"), lead=D.get("lead")) + f'<section><div class="wrap"><p class="sub center" style="margin-inline:auto;text-align:center;max-width:760px">{e(D["intro"])}</p>'
             f'{matrix_html(slug, lang)}<div class="cmp-grid">{cards}</div><p class="foot-note center" style="text-align:center">{e(D["foot"])}</p></div></section>' + final_cta(slug, app, lang))
     return body, []
 
@@ -453,6 +456,9 @@ def build_sub_pages(slug: str, app: dict) -> None:
             body, ld = BUILDERS[kind](slug, app, lang)
             name = app["name"]
             title, desc = s["title"][kind].format(name), s["desc"][kind].format(name)
+            if kind == "compare":
+                cd = data(slug, lang)["compare"]
+                title, desc = cd.get("title", title), cd.get("desc", desc)
             assert 25 <= len(desc) <= 175, (slug, lang, kind, len(desc))
             home = base(slug, lang)
             crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
