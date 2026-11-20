@@ -1,0 +1,105 @@
+/* LunaDock: pre-dawn light. Pale sky, a moon behind the demo, serif type, sheets stacked on each other (stacks), moon phases as section marks. */
+body.sk-lunadock{
+  --bg:#f3f5ff;--s1:#ffffff;--s2:#f7f8ff;--s3:#e9ecfc;--line:rgba(20,26,58,.1);--line2:rgba(20,26,58,.2);
+  --text:#141a3a;--muted:#474f7a;--soft:#6a7299;--a1:#4f55e0;--a2:#7dd3fc;--rgb1:79,85,224;--rgb2:125,211,252;--on:#ffffff;--eb:#4f55e0;--ebl:#3a3fc4;--ring:#4f55e0;
+  --grad:linear-gradient(135deg,#4f55e0,#6b72ee);--r1:30px;--r2:22px;--r3:14px;--navy:#141a3a;
+  --serif:"Fraunces",Georgia,serif;
+  font-family:"Figtree",system-ui,sans-serif;color:var(--text);
+  background-color:#f3f5ff;background-image:linear-gradient(180deg,#e7ecff 0,#f3f5ff 560px);background-repeat:no-repeat}
+.sk-lunadock ::selection{background:#c9ceff;color:var(--navy)}
+.sk-lunadock html,.sk-lunadock{scrollbar-color:#b8bfee transparent}
+
+/* bar */
+.sk-lunadock .glass{background:rgba(255,255,255,.72);border-color:var(--line2);box-shadow:0 8px 30px rgba(20,26,58,.08)}
+.sk-lunadock .links a:hover,.sk-lunadock .links a[aria-current=page]{background:rgba(20,26,58,.06);color:var(--text)}
+.sk-lunadock .links a{font-weight:600}
+.sk-lunadock .cta-sm{background:var(--navy);color:#fff}
+.sk-lunadock .brand{font:600 19px/1 var(--serif);letter-spacing:-.01em}
+.sk-lunadock .burger{color:var(--text)}
+
+/* type */
+.sk-lunadock h1,.sk-lunadock h2,.sk-lunadock h3{font-family:var(--serif);font-weight:560;color:var(--text)}
+.sk-lunadock h1{font-size:clamp(46px,7.4vw,98px);line-height:1;letter-spacing:-.035em;max-width:14ch}
+.sk-lunadock h1 em{font-style:italic;font-weight:480;background:none;-webkit-text-fill-color:currentColor;color:var(--a1)}
+.sk-lunadock h2{font-size:clamp(34px,5vw,62px);line-height:1.04;letter-spacing:-.03em;max-width:18ch}
+.sk-lunadock h3{letter-spacing:-.02em}
+.sk-lunadock .lead,.sk-lunadock .sub{color:var(--muted)}
+.sk-lunadock .eyebrow{display:none}
+.sk-lunadock section .center::before{content:"";display:block;width:20px;height:20px;margin:0 auto 20px;border-radius:50%;border:2px solid var(--a1);box-shadow:inset 0 0 0 0 var(--a1)}
+.sk-lunadock section:nth-of-type(5n+2) .center::before{box-shadow:inset 6px 0 0 0 var(--a1)}
+.sk-lunadock section:nth-of-type(5n+3) .center::before{box-shadow:inset 10px 0 0 0 var(--a1)}
+.sk-lunadock section:nth-of-type(5n+4) .center::before{box-shadow:inset 14px 0 0 0 var(--a1)}
+.sk-lunadock section:nth-of-type(5n) .center::before{background:var(--a1)}
+
+/* hero: a moon rising behind the stage */
+.sk-lunadock .hero{padding-top:150px}
+.sk-lunadock .hero::before{height:900px;background:radial-gradient(circle at 50% 56%,#fff 0 22%,rgba(214,222,255,.85) 22.5% 34%,rgba(214,222,255,.45) 34.5% 48%,rgba(214,222,255,.2) 48.5% 62%,transparent 62.5%);-webkit-mask:none;mask:none}
+.sk-lunadock .hero::after{display:none}
+.sk-lunadock .chip{background:#fff;border-color:var(--line2);color:var(--muted);font-weight:500;box-shadow:0 6px 20px rgba(20,26,58,.06)}
+.sk-lunadock .chip b{background:var(--navy);color:#fff}
+.sk-lunadock .btn{font-weight:600}
+.sk-lunadock .btn-p{background:var(--navy);color:#fff;box-shadow:0 14px 34px rgba(20,26,58,.28)}
+.sk-lunadock .btn-g{background:#fff;color:var(--text);border-color:var(--line2)}
+.sk-lunadock .btn-g:hover{background:var(--s3)}
+.sk-lunadock .trust{color:var(--soft)}.sk-lunadock .trust .rate{color:var(--text)}
+.sk-lunadock .stage{isolation:isolate}
+.sk-lunadock .stage::after{inset:auto;left:7%;right:-7%;top:16px;bottom:-16px;height:auto;filter:none;border-radius:34px;background:#d9defa;z-index:-1}
+.sk-lunadock .stage::before{content:"";position:absolute;left:3.5%;right:-3.5%;top:8px;bottom:-8px;border-radius:32px;background:#e8ebff;z-index:-1;box-shadow:0 30px 60px rgba(20,26,58,.12)}
+.sk-lunadock .stage .stage-frame,.sk-lunadock .stage-frame{border-color:rgba(20,26,58,.14);box-shadow:0 30px 70px rgba(20,26,58,.18);background:#fff}
+.sk-lunadock .stage .stage-frame{transform:none!important}
+.sk-lunadock .stage-note{color:var(--soft)}
+
+/* stats: three big numerals on a line, no boxes */
+.sk-lunadock .stats{display:flex;flex-wrap:wrap;justify-content:center;border:0;border-radius:0;background:none;gap:0;margin-top:20px}
+.sk-lunadock .stats>div{flex:1 1 190px;background:none;padding:10px 26px;border-left:1px solid var(--line2);text-align:center}
+.sk-lunadock .stats>div:first-child{border-left:0}
+.sk-lunadock .stats b{font-family:var(--serif);font-weight:500;background:none;-webkit-text-fill-color:currentColor;color:var(--text);font-size:clamp(50px,6.4vw,84px);letter-spacing:-.04em}
+.sk-lunadock .stats span{color:var(--muted);font-size:15px}
+
+/* how + features */
+.sk-lunadock .sstep2 .num{font:italic 500 22px/1 var(--serif);border-color:var(--line2)}
+.sk-lunadock .sstep2.on .num{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sk-lunadock .sstep2 h3{font-size:clamp(28px,3vw,38px)}
+.sk-lunadock .tab{border-radius:24px}
+.sk-lunadock .tab:hover{background:#fff}
+.sk-lunadock .tab .ic{border-radius:50%;background:var(--s3);color:var(--a1)}
+.sk-lunadock .tab[aria-selected=true]{background:#fff;border-color:var(--line);box-shadow:0 18px 44px rgba(20,26,58,.12),7px 7px 0 -1px #e3e7ff,12px 12px 0 -2px #eef0ff}
+.sk-lunadock .tab[aria-selected=true] .ic{background:var(--navy);color:#fff}
+.sk-lunadock .tab strong{font-family:var(--serif);font-weight:560;font-size:19px}
+.sk-lunadock .tab .more li::before{background:var(--a1)}
+
+/* specs as stacked sheets */
+.sk-lunadock .spec{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:5px 5px 0 -1px #e8ebff,10px 10px 0 -2px #f1f3ff}
+.sk-lunadock .spec small{color:var(--a1);font-family:var(--serif);font-style:italic;font-weight:500;font-size:16px;letter-spacing:0;text-transform:none}
+
+/* compare, faq */
+.sk-lunadock .cmp-wrap,.sk-lunadock .cmp{background:#fff;border-radius:26px;box-shadow:0 20px 50px rgba(20,26,58,.07)}
+.sk-lunadock thead th{background:#eef0ff;color:var(--muted)}
+.sk-lunadock td.us,.sk-lunadock th.us{background:rgba(79,85,224,.07)}
+.sk-lunadock thead th.us{color:var(--navy)}
+.sk-lunadock .y{background:var(--navy);color:#fff}
+.sk-lunadock .meter i{background:#cfd5f5}.sk-lunadock .bar-row.us .meter i{background:var(--navy)}
+.sk-lunadock details{background:#fff;border-radius:24px}
+.sk-lunadock details[open]{background:#fff;box-shadow:0 16px 44px rgba(20,26,58,.1)}
+.sk-lunadock summary{font-family:var(--serif);font-weight:540;font-size:19px}
+.sk-lunadock details a,.sk-lunadock .prose a,.sk-lunadock .notes a{color:var(--a1)}
+
+/* final: the night panel */
+.sk-lunadock .final{background:radial-gradient(circle at 82% 8%,rgba(255,255,255,.2) 0 90px,transparent 91px),radial-gradient(60% 90% at 90% 0%,rgba(125,211,252,.35),transparent 70%),var(--navy);color:#eef0ff;border:0;border-radius:46px}
+.sk-lunadock .final .paths{opacity:.22}
+.sk-lunadock .final h2{color:#fff}.sk-lunadock .final p{color:#c9d0f5}.sk-lunadock .final p a{color:#fff}
+.sk-lunadock .final .btn-p{background:#fff;color:var(--navy);box-shadow:none}
+
+.sk-lunadock .app-chip{background:#fff;border-radius:999px}.sk-lunadock .app-chip:hover{background:var(--s3)}
+.sk-lunadock .word{font-family:var(--serif);font-style:italic;font-weight:500;background:none;-webkit-text-fill-color:currentColor;color:rgba(79,85,224,.09);letter-spacing:-.05em}
+.sk-lunadock footer{background:transparent;border-top-color:var(--line)}
+.sk-lunadock footer a{color:var(--muted)}.sk-lunadock footer a:hover{color:var(--text)}
+
+/* sub pages */
+.sk-lunadock .sub-hero h1{font-size:clamp(40px,6vw,76px)}
+.sk-lunadock .ver{background:var(--navy);color:#fff}
+.sk-lunadock .kdl,.sk-lunadock .copyblock,.sk-lunadock .logo-card,.sk-lunadock .chips a{background:#fff}
+.sk-lunadock .shot img{border-color:var(--line)}
+
+@media(max-width:1020px){.sk-lunadock .stats>div{flex:1 1 40%;border-left:0}.sk-lunadock .hero::before{height:700px}}
+@media(max-width:680px){.sk-lunadock .stage::before,.sk-lunadock .stage::after{display:none}.sk-lunadock .final{border-radius:30px}}

@@ -1,0 +1,100 @@
+@font-face{font-family:'Sora';font-style:normal;font-weight:400 700;font-display:swap;src:url(/app-sites/fonts/Sora-normal-latin-ext-xMQ9uFFYT72X5wkB_18qmnndmSdSnh2BAfO5mnuyOo1lfiQwWa-xsaQ.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Sora';font-style:normal;font-weight:400 700;font-display:swap;src:url(/app-sites/fonts/Sora-normal-latin-xMQ9uFFYT72X5wkB_18qmnndmSdSnh2BAfO5mnuyOo1lfiQwV6-x.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/app-sites/fonts/IBMPlexMono-normal-latin-ext--F63fjptAgt5VM-kVkqdyU8n1iEq129k.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/app-sites/fonts/IBMPlexMono-normal-latin--F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/app-sites/fonts/IBMPlexMono-normal-latin-ext--F6qfjptAgt5VM-kVkqdyU8n3twJwl5FgtIU.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/app-sites/fonts/IBMPlexMono-normal-latin--F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* GlideSnap: a window being placed on a grid. Graph paper, dashed snap guides, headings marked with a half-snapped window, feature tiles that tile like windows, a mint snap-zone for the selected one. */
+body.sk-glidesnap{
+  --bg:#f1f3f5;--s1:#ffffff;--s2:#f8f9fb;--s3:#e4e8ee;--line:rgba(20,30,50,.12);--line2:rgba(20,30,50,.3);
+  --text:#121926;--muted:#455064;--soft:#6a7588;--a1:#2563eb;--a2:#16c784;--rgb1:37,99,235;--rgb2:22,199,132;--on:#ffffff;--eb:#2563eb;--ebl:#1d4fc4;--ring:#2563eb;
+  --grad:linear-gradient(180deg,#3b78f2,#2563eb);--r1:10px;--r2:8px;--r3:6px;--ok:#16a06b;--mono:"IBM Plex Mono",ui-monospace,monospace;--zone:rgba(22,199,132,.16);
+  font-family:"Sora",system-ui,sans-serif;color:var(--text);
+  background-color:var(--bg);background-image:repeating-linear-gradient(90deg,rgba(20,30,50,.05) 0 1px,transparent 1px 24px),repeating-linear-gradient(0deg,rgba(20,30,50,.05) 0 1px,transparent 1px 24px)}
+body.sk-glidesnap ::selection{background:#bcd3ff;color:#0b1a3a}
+
+/* bar */
+body.sk-glidesnap .glass{background:rgba(255,255,255,.82);border-color:var(--line2);border-radius:10px;box-shadow:0 6px 20px rgba(20,30,50,.1)}
+body.sk-glidesnap .links{border-radius:10px}
+body.sk-glidesnap .links a{border-radius:6px;font:500 13px/1 var(--mono);color:var(--muted)}
+body.sk-glidesnap .links a:hover,body.sk-glidesnap .links a[aria-current=page]{background:rgba(37,99,235,.1);color:var(--ebl)}
+body.sk-glidesnap .brand{font:700 18px/1 "Sora",sans-serif}
+body.sk-glidesnap .cta-sm{border-radius:8px;background:var(--a1);color:#fff;font-weight:600}
+body.sk-glidesnap .lang-pill,body.sk-glidesnap .burger{border-radius:8px;font:500 13px/1 var(--mono);color:var(--text)}
+
+/* type */
+body.sk-glidesnap h1,body.sk-glidesnap h2,body.sk-glidesnap h3{font-family:"Sora",sans-serif;font-weight:700;color:var(--text)}
+body.sk-glidesnap h1{font-size:clamp(40px,5.6vw,80px);line-height:1.02;letter-spacing:-.05em;max-width:none}
+body.sk-glidesnap h1 em{font-style:normal;background:none;-webkit-text-fill-color:currentColor;color:var(--a1);box-shadow:inset 0 -.14em 0 var(--zone);padding:0 .05em}
+body.sk-glidesnap h2{font-size:clamp(28px,3.4vw,46px);line-height:1.05;letter-spacing:-.045em}
+body.sk-glidesnap .eyebrow{display:none}
+body.sk-glidesnap .lead,body.sk-glidesnap .sub{color:var(--muted)}
+/* heading mark: a window snapped to a half / quarter / third of the screen */
+body.sk-glidesnap section .center:has(>h2)::before{content:"";display:block;width:46px;height:30px;margin-bottom:20px;border:2px solid var(--a1);border-radius:4px;background:linear-gradient(90deg,rgba(37,99,235,.28) 50%,transparent 50%)}
+body.sk-glidesnap section:nth-of-type(4n+2) .center:has(>h2)::before{background:linear-gradient(90deg,transparent 50%,rgba(37,99,235,.28) 50%)}
+body.sk-glidesnap section:nth-of-type(4n+3) .center:has(>h2)::before{background:linear-gradient(rgba(37,99,235,.28) 50%,transparent 50%) 0 0/50% 100% no-repeat}
+body.sk-glidesnap section:nth-of-type(4n) .center:has(>h2)::before{background:linear-gradient(90deg,rgba(37,99,235,.28) 33.3%,transparent 33.3%)}
+body.sk-glidesnap[data-heads=center] section .center:has(>h2)::before{margin-inline:auto}
+
+/* hero: the demo with snap guides behind it */
+body.sk-glidesnap .hero::before,body.sk-glidesnap .hero::after{display:none}
+body.sk-glidesnap .chip{background:#fff;border-color:var(--line2);border-radius:8px;font:500 13px/1 var(--mono);min-height:36px;color:var(--muted)}
+body.sk-glidesnap .chip b{border-radius:5px;background:var(--a1);color:#fff;font-family:var(--mono)}
+body.sk-glidesnap .btn{border-radius:8px;font-weight:600}
+body.sk-glidesnap .btn-p{background:var(--a1);color:#fff;box-shadow:0 8px 24px rgba(37,99,235,.3)}
+body.sk-glidesnap .btn-p:hover{filter:none;background:#1d4fc4}
+body.sk-glidesnap .btn-g{background:#fff;color:var(--text);border-color:var(--line2)}
+body.sk-glidesnap .btn-g:hover{background:var(--s3)}
+body.sk-glidesnap .trust{font-family:var(--mono);font-size:12.5px;color:var(--muted)}body.sk-glidesnap .trust .rate{color:var(--text)}
+body.sk-glidesnap .stage{isolation:isolate}
+body.sk-glidesnap .stage::after{display:block;inset:-26px;height:auto;filter:none;border-radius:0;z-index:-1;background:repeating-linear-gradient(90deg,var(--a1) 0 6px,transparent 6px 12px) 50% 0/1px 100% no-repeat,repeating-linear-gradient(0deg,var(--a1) 0 6px,transparent 6px 12px) 0 50%/100% 1px no-repeat,linear-gradient(var(--zone),var(--zone)) 0 0/50% 50% no-repeat;opacity:.9}
+body.sk-glidesnap .stage-frame{border-radius:10px;border:1px solid var(--line2);box-shadow:0 24px 60px rgba(20,30,50,.2),0 0 0 1px #fff inset;background:#fff}
+body.sk-glidesnap .stage-note{font-family:var(--mono);font-size:12px;color:var(--soft)}
+
+/* stats */
+body.sk-glidesnap .stats>div{border-left:1px solid var(--line2)}body.sk-glidesnap .stats>div:first-child{border-left:0}
+body.sk-glidesnap .stats b{font-family:"Sora",sans-serif;background:none;-webkit-text-fill-color:currentColor;color:var(--text);font-weight:700;letter-spacing:-.06em;font-size:clamp(44px,5.6vw,76px)}
+body.sk-glidesnap .stats span{font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+/* how: numbered cols with a dashed rule */
+body.sk-glidesnap .sstep2{border-top:2px dashed var(--line2);padding-top:22px}
+body.sk-glidesnap .sstep2 .num{border-radius:6px;border:2px solid var(--a1);color:var(--a1);font:600 16px/1 var(--mono);width:44px;height:44px;background:#fff}
+body.sk-glidesnap .sstep2.on .num{background:var(--a1);color:#fff}
+
+/* features: tiles, the selected one is a snap zone */
+body.sk-glidesnap .tab{border-radius:8px;background:#fff;border:1px solid var(--line2);padding:16px;color:var(--muted)}
+body.sk-glidesnap .tab .ic{border-radius:6px;background:var(--s3);border:0;color:var(--a1)}
+body.sk-glidesnap .tab strong{font:600 16px/1.3 "Sora",sans-serif}
+body.sk-glidesnap .tab:hover{background:var(--s2)}
+body.sk-glidesnap .tab[aria-selected=true]{background:var(--zone);border:2px dashed var(--a2)}
+body.sk-glidesnap .tab[aria-selected=true] .ic{background:var(--a2);color:#fff}
+body.sk-glidesnap .tab .more p{color:var(--muted)}
+
+/* specs strip, compare, faq */
+body.sk-glidesnap .specs{background:#fff}
+body.sk-glidesnap .spec small{font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--a1)}
+body.sk-glidesnap .cmp-wrap,body.sk-glidesnap .cmp{background:#fff;border-radius:10px;border-color:var(--line2);box-shadow:0 10px 30px rgba(20,30,50,.06)}
+body.sk-glidesnap thead th{background:var(--s3);color:var(--text);font-family:var(--mono)}
+body.sk-glidesnap td.us,body.sk-glidesnap th.us{background:rgba(37,99,235,.07)}
+body.sk-glidesnap .y{background:var(--a1);color:#fff;border-radius:6px}
+body.sk-glidesnap .meter i{background:#bcc5d4}body.sk-glidesnap .bar-row.us .meter i{background:var(--a1)}
+body.sk-glidesnap details{background:#fff;border-radius:8px;border-color:var(--line2)}
+body.sk-glidesnap details[open]{background:#fff;border-color:var(--a1);box-shadow:0 12px 30px rgba(37,99,235,.1)}
+body.sk-glidesnap summary{font:600 16px/1.35 "Sora",sans-serif}
+body.sk-glidesnap details a,body.sk-glidesnap .prose a,body.sk-glidesnap .notes a{color:var(--ebl)}
+
+/* final: a solid blue window with a mint zone */
+body.sk-glidesnap .final{background:linear-gradient(90deg,rgba(22,199,132,.28) 0 50%,transparent 50%),var(--a1);color:#fff;border:0;border-radius:12px;box-shadow:0 24px 60px rgba(37,99,235,.35)}
+body.sk-glidesnap .final .paths{display:none}
+body.sk-glidesnap .final h2{color:#fff}body.sk-glidesnap .final p{color:#dbe6ff}body.sk-glidesnap .final p a{color:#fff}
+body.sk-glidesnap .final .btn-p{background:#fff;color:var(--a1);box-shadow:none}
+body.sk-glidesnap .app-chip{background:#fff;border-radius:8px;border-color:var(--line2)}body.sk-glidesnap .app-chip:hover{background:var(--s3)}
+body.sk-glidesnap .word{font-family:var(--mono);font-weight:500;letter-spacing:-.08em;background:none;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.5px rgba(37,99,235,.2)}
+body.sk-glidesnap footer{background:transparent;border-top-color:var(--line2);font-family:var(--mono);font-size:12.5px}
+body.sk-glidesnap footer a{color:var(--muted)}body.sk-glidesnap footer a:hover{color:var(--text)}
+body.sk-glidesnap .sub-hero .eyebrow{display:block;font:500 12px/1 var(--mono);color:var(--a1)}
+body.sk-glidesnap .ver{background:var(--a1);color:#fff;border-radius:6px;font-family:var(--mono)}
+body.sk-glidesnap .kdl,body.sk-glidesnap .copyblock,body.sk-glidesnap .logo-card,body.sk-glidesnap .chips a{background:#fff;border-radius:8px}
+@media(max-width:1020px){body.sk-glidesnap .stage::after{inset:-14px}}
+@media(max-width:680px){body.sk-glidesnap .stage::after{display:none}}

@@ -1,0 +1,93 @@
+/* GlideSnap: a window being placed on a grid. Graph paper, dashed snap guides, headings marked with a half-snapped window, feature tiles that tile like windows, a mint snap-zone for the selected one. */
+body.sk-glidesnap{
+  --bg:#f1f3f5;--s1:#ffffff;--s2:#f8f9fb;--s3:#e4e8ee;--line:rgba(20,30,50,.12);--line2:rgba(20,30,50,.3);
+  --text:#121926;--muted:#455064;--soft:#6a7588;--a1:#2563eb;--a2:#16c784;--rgb1:37,99,235;--rgb2:22,199,132;--on:#ffffff;--eb:#2563eb;--ebl:#1d4fc4;--ring:#2563eb;
+  --grad:linear-gradient(180deg,#3b78f2,#2563eb);--r1:10px;--r2:8px;--r3:6px;--ok:#16a06b;--mono:"IBM Plex Mono",ui-monospace,monospace;--zone:rgba(22,199,132,.16);
+  font-family:"Sora",system-ui,sans-serif;color:var(--text);
+  background-color:var(--bg);background-image:repeating-linear-gradient(90deg,rgba(20,30,50,.05) 0 1px,transparent 1px 24px),repeating-linear-gradient(0deg,rgba(20,30,50,.05) 0 1px,transparent 1px 24px)}
+.sk-glidesnap ::selection{background:#bcd3ff;color:#0b1a3a}
+
+/* bar */
+.sk-glidesnap .glass{background:rgba(255,255,255,.82);border-color:var(--line2);border-radius:10px;box-shadow:0 6px 20px rgba(20,30,50,.1)}
+.sk-glidesnap .links{border-radius:10px}
+.sk-glidesnap .links a{border-radius:6px;font:500 13px/1 var(--mono);color:var(--muted)}
+.sk-glidesnap .links a:hover,.sk-glidesnap .links a[aria-current=page]{background:rgba(37,99,235,.1);color:var(--ebl)}
+.sk-glidesnap .brand{font:700 18px/1 "Sora",sans-serif}
+.sk-glidesnap .cta-sm{border-radius:8px;background:var(--a1);color:#fff;font-weight:600}
+.sk-glidesnap .lang-pill,.sk-glidesnap .burger{border-radius:8px;font:500 13px/1 var(--mono);color:var(--text)}
+
+/* type */
+.sk-glidesnap h1,.sk-glidesnap h2,.sk-glidesnap h3{font-family:"Sora",sans-serif;font-weight:700;color:var(--text)}
+.sk-glidesnap h1{font-size:clamp(40px,5.6vw,80px);line-height:1.02;letter-spacing:-.05em;max-width:none}
+.sk-glidesnap h1 em{font-style:normal;background:none;-webkit-text-fill-color:currentColor;color:var(--a1);box-shadow:inset 0 -.14em 0 var(--zone);padding:0 .05em}
+.sk-glidesnap h2{font-size:clamp(28px,3.4vw,46px);line-height:1.05;letter-spacing:-.045em}
+.sk-glidesnap .eyebrow{display:none}
+.sk-glidesnap .lead,.sk-glidesnap .sub{color:var(--muted)}
+/* heading mark: a window snapped to a half / quarter / third of the screen */
+.sk-glidesnap section .center:has(>h2)::before{content:"";display:block;width:46px;height:30px;margin-bottom:20px;border:2px solid var(--a1);border-radius:4px;background:linear-gradient(90deg,rgba(37,99,235,.28) 50%,transparent 50%)}
+.sk-glidesnap section:nth-of-type(4n+2) .center:has(>h2)::before{background:linear-gradient(90deg,transparent 50%,rgba(37,99,235,.28) 50%)}
+.sk-glidesnap section:nth-of-type(4n+3) .center:has(>h2)::before{background:linear-gradient(rgba(37,99,235,.28) 50%,transparent 50%) 0 0/50% 100% no-repeat}
+.sk-glidesnap section:nth-of-type(4n) .center:has(>h2)::before{background:linear-gradient(90deg,rgba(37,99,235,.28) 33.3%,transparent 33.3%)}
+body.sk-glidesnap[data-heads=center] section .center:has(>h2)::before{margin-inline:auto}
+
+/* hero: the demo with snap guides behind it */
+.sk-glidesnap .hero::before,.sk-glidesnap .hero::after{display:none}
+.sk-glidesnap .chip{background:#fff;border-color:var(--line2);border-radius:8px;font:500 13px/1 var(--mono);min-height:36px;color:var(--muted)}
+.sk-glidesnap .chip b{border-radius:5px;background:var(--a1);color:#fff;font-family:var(--mono)}
+.sk-glidesnap .btn{border-radius:8px;font-weight:600}
+.sk-glidesnap .btn-p{background:var(--a1);color:#fff;box-shadow:0 8px 24px rgba(37,99,235,.3)}
+.sk-glidesnap .btn-p:hover{filter:none;background:#1d4fc4}
+.sk-glidesnap .btn-g{background:#fff;color:var(--text);border-color:var(--line2)}
+.sk-glidesnap .btn-g:hover{background:var(--s3)}
+.sk-glidesnap .trust{font-family:var(--mono);font-size:12.5px;color:var(--muted)}.sk-glidesnap .trust .rate{color:var(--text)}
+.sk-glidesnap .stage{isolation:isolate}
+.sk-glidesnap .stage::after{display:block;inset:-26px;height:auto;filter:none;border-radius:0;z-index:-1;background:repeating-linear-gradient(90deg,var(--a1) 0 6px,transparent 6px 12px) 50% 0/1px 100% no-repeat,repeating-linear-gradient(0deg,var(--a1) 0 6px,transparent 6px 12px) 0 50%/100% 1px no-repeat,linear-gradient(var(--zone),var(--zone)) 0 0/50% 50% no-repeat;opacity:.9}
+.sk-glidesnap .stage-frame{border-radius:10px;border:1px solid var(--line2);box-shadow:0 24px 60px rgba(20,30,50,.2),0 0 0 1px #fff inset;background:#fff}
+.sk-glidesnap .stage-note{font-family:var(--mono);font-size:12px;color:var(--soft)}
+
+/* stats */
+.sk-glidesnap .stats>div{border-left:1px solid var(--line2)}.sk-glidesnap .stats>div:first-child{border-left:0}
+.sk-glidesnap .stats b{font-family:"Sora",sans-serif;background:none;-webkit-text-fill-color:currentColor;color:var(--text);font-weight:700;letter-spacing:-.06em;font-size:clamp(44px,5.6vw,76px)}
+.sk-glidesnap .stats span{font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+/* how: numbered cols with a dashed rule */
+.sk-glidesnap .sstep2{border-top:2px dashed var(--line2);padding-top:22px}
+.sk-glidesnap .sstep2 .num{border-radius:6px;border:2px solid var(--a1);color:var(--a1);font:600 16px/1 var(--mono);width:44px;height:44px;background:#fff}
+.sk-glidesnap .sstep2.on .num{background:var(--a1);color:#fff}
+
+/* features: tiles, the selected one is a snap zone */
+.sk-glidesnap .tab{border-radius:8px;background:#fff;border:1px solid var(--line2);padding:16px;color:var(--muted)}
+.sk-glidesnap .tab .ic{border-radius:6px;background:var(--s3);border:0;color:var(--a1)}
+.sk-glidesnap .tab strong{font:600 16px/1.3 "Sora",sans-serif}
+.sk-glidesnap .tab:hover{background:var(--s2)}
+.sk-glidesnap .tab[aria-selected=true]{background:var(--zone);border:2px dashed var(--a2)}
+.sk-glidesnap .tab[aria-selected=true] .ic{background:var(--a2);color:#fff}
+.sk-glidesnap .tab .more p{color:var(--muted)}
+
+/* specs strip, compare, faq */
+.sk-glidesnap .specs{background:#fff}
+.sk-glidesnap .spec small{font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--a1)}
+.sk-glidesnap .cmp-wrap,.sk-glidesnap .cmp{background:#fff;border-radius:10px;border-color:var(--line2);box-shadow:0 10px 30px rgba(20,30,50,.06)}
+.sk-glidesnap thead th{background:var(--s3);color:var(--text);font-family:var(--mono)}
+.sk-glidesnap td.us,.sk-glidesnap th.us{background:rgba(37,99,235,.07)}
+.sk-glidesnap .y{background:var(--a1);color:#fff;border-radius:6px}
+.sk-glidesnap .meter i{background:#bcc5d4}.sk-glidesnap .bar-row.us .meter i{background:var(--a1)}
+.sk-glidesnap details{background:#fff;border-radius:8px;border-color:var(--line2)}
+.sk-glidesnap details[open]{background:#fff;border-color:var(--a1);box-shadow:0 12px 30px rgba(37,99,235,.1)}
+.sk-glidesnap summary{font:600 16px/1.35 "Sora",sans-serif}
+.sk-glidesnap details a,.sk-glidesnap .prose a,.sk-glidesnap .notes a{color:var(--ebl)}
+
+/* final: a solid blue window with a mint zone */
+.sk-glidesnap .final{background:linear-gradient(90deg,rgba(22,199,132,.28) 0 50%,transparent 50%),var(--a1);color:#fff;border:0;border-radius:12px;box-shadow:0 24px 60px rgba(37,99,235,.35)}
+.sk-glidesnap .final .paths{display:none}
+.sk-glidesnap .final h2{color:#fff}.sk-glidesnap .final p{color:#dbe6ff}.sk-glidesnap .final p a{color:#fff}
+.sk-glidesnap .final .btn-p{background:#fff;color:var(--a1);box-shadow:none}
+.sk-glidesnap .app-chip{background:#fff;border-radius:8px;border-color:var(--line2)}.sk-glidesnap .app-chip:hover{background:var(--s3)}
+.sk-glidesnap .word{font-family:var(--mono);font-weight:500;letter-spacing:-.08em;background:none;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.5px rgba(37,99,235,.2)}
+.sk-glidesnap footer{background:transparent;border-top-color:var(--line2);font-family:var(--mono);font-size:12.5px}
+.sk-glidesnap footer a{color:var(--muted)}.sk-glidesnap footer a:hover{color:var(--text)}
+.sk-glidesnap .sub-hero .eyebrow{display:block;font:500 12px/1 var(--mono);color:var(--a1)}
+.sk-glidesnap .ver{background:var(--a1);color:#fff;border-radius:6px;font-family:var(--mono)}
+.sk-glidesnap .kdl,.sk-glidesnap .copyblock,.sk-glidesnap .logo-card,.sk-glidesnap .chips a{background:#fff;border-radius:8px}
+@media(max-width:1020px){.sk-glidesnap .stage::after{inset:-14px}}
+@media(max-width:680px){.sk-glidesnap .stage::after{display:none}}

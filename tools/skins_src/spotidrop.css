@@ -1,0 +1,101 @@
+/* SpotiDrop: loud and flat. Pure black, thick white rules, hard offset shadows, huge condensed capitals, a moving tape band. No rounded corners anywhere. */
+body.sk-spotidrop{
+  --bg:#000;--s1:#0c0c0c;--s2:#161616;--s3:#212121;--line:rgba(255,255,255,.28);--line2:#fff;
+  --text:#fff;--muted:#d0d0d0;--soft:#a8a8a8;--a1:#1ed760;--a2:#22d3ee;--rgb1:30,215,96;--rgb2:34,211,238;--on:#000;--eb:#1ed760;--ebl:#7dffb0;--ring:#1ed760;
+  --grad:linear-gradient(0deg,#1ed760,#1ed760);--r1:0;--r2:0;--r3:0;--ok:#1ed760;--disp:"Anton","Impact",sans-serif;
+  font-family:"Archivo",system-ui,sans-serif;font-weight:500;background:var(--bg)}
+.sk-spotidrop ::selection{background:var(--a1);color:#000}
+
+/* bar: black slab, lime floor line */
+body.sk-spotidrop[data-nav=bar] .bar{background:#000;border-bottom:4px solid var(--a1);height:68px}
+.sk-spotidrop .links a{border-radius:0;font:700 14px/1 "Archivo",sans-serif;text-transform:uppercase;letter-spacing:.06em;color:#fff}
+.sk-spotidrop .links a:hover,.sk-spotidrop .links a[aria-current=page]{background:var(--a1);color:#000}
+.sk-spotidrop .brand{font:400 26px/1 var(--disp);text-transform:uppercase;letter-spacing:.02em}
+.sk-spotidrop .brand img{border-radius:0}
+.sk-spotidrop .cta-sm{border-radius:0;background:var(--a1);color:#000;font:700 14px/1 "Archivo",sans-serif;text-transform:uppercase;letter-spacing:.06em;box-shadow:4px 4px 0 #fff}
+.sk-spotidrop .lang-pill,.sk-spotidrop .burger{border-radius:0;border:2px solid #fff;font-weight:700;text-transform:uppercase}
+
+/* type */
+.sk-spotidrop h1,.sk-spotidrop h2,.sk-spotidrop h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:.005em}
+.sk-spotidrop h1{font-size:clamp(58px,12.5vw,200px);line-height:.86}
+.sk-spotidrop h1 em{background:none;-webkit-text-fill-color:currentColor;color:var(--a1)}
+.sk-spotidrop h2{font-size:clamp(44px,7vw,104px);line-height:.88;max-width:14ch}
+.sk-spotidrop h3{font-size:clamp(24px,2.6vw,34px);line-height:1}
+.sk-spotidrop .eyebrow{display:none}
+.sk-spotidrop .lead{font-size:clamp(18px,1.9vw,22px);font-weight:500;color:#e4e4e4;max-width:34ch}
+.sk-spotidrop section{padding-top:96px}
+
+/* hero + tape */
+.sk-spotidrop .hero{padding-top:104px;padding-bottom:0}
+.sk-spotidrop .hero::before,.sk-spotidrop .hero::after{display:none}
+.sk-spotidrop .hero::after{display:block;content:"";position:absolute;left:0;right:0;bottom:-1px;height:26px;background:repeating-linear-gradient(-45deg,var(--a1) 0 16px,#000 16px 32px);animation:tape 1.1s linear infinite;z-index:1}
+@keyframes tape{to{background-position:45.25px 0}}
+.sk-spotidrop .hero .wrap{padding-bottom:70px}
+.sk-spotidrop .chip{border-radius:0;background:var(--a1);color:#000;border:0;padding:6px 14px 6px 6px;font:700 14px/1 "Archivo",sans-serif;text-transform:uppercase;letter-spacing:.04em;transform:rotate(-1.5deg)}
+.sk-spotidrop .chip b{border-radius:0;background:#000;color:var(--a1)}
+.sk-spotidrop .btn{border-radius:0;min-height:58px;padding:0 30px;font:700 17px/1 "Archivo",sans-serif;text-transform:uppercase;letter-spacing:.04em;border:3px solid #fff;transition:transform .12s,box-shadow .12s}
+.sk-spotidrop .btn-p{background:var(--a1);color:#000;box-shadow:6px 6px 0 #fff}
+.sk-spotidrop .btn-p:hover{filter:none;transform:translate(3px,3px);box-shadow:3px 3px 0 #fff}
+.sk-spotidrop .btn-g{background:#000;color:#fff;box-shadow:6px 6px 0 var(--a1)}
+.sk-spotidrop .btn-g:hover{background:#000;transform:translate(3px,3px);box-shadow:3px 3px 0 var(--a1)}
+.sk-spotidrop .trust{font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.06em;color:#e0e0e0}
+.sk-spotidrop .trust svg{color:var(--a1)}
+.sk-spotidrop .stage::after{display:none}
+.sk-spotidrop .stage-frame{border-radius:0;border:4px solid #fff;box-shadow:14px 14px 0 var(--a1)}
+.sk-spotidrop .stage-note{font-weight:600;color:var(--soft)}
+
+/* stats: four slabs with thick rules */
+.sk-spotidrop .stats{border:4px solid #fff;border-radius:0;background:#fff;gap:4px}
+.sk-spotidrop .stats>div{background:#000;padding:28px 24px;text-align:left}
+.sk-spotidrop .stats b{font-family:var(--disp);font-weight:400;background:none;-webkit-text-fill-color:currentColor;color:var(--a1);font-size:clamp(60px,8vw,120px);letter-spacing:0;line-height:.9}
+.sk-spotidrop .stats span{font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:14px;color:#fff}
+
+/* how: huge outline numerals */
+.sk-spotidrop .sstep2{border-top:4px solid #fff;padding-top:22px}
+.sk-spotidrop .sstep2 .num{border:0;width:auto;height:auto;background:none;border-radius:0;font:400 clamp(90px,10vw,150px)/.9 var(--disp);color:transparent;-webkit-text-stroke:2px var(--a1);margin-bottom:12px}
+.sk-spotidrop .sstep2.on .num{background:none;color:transparent}
+.sk-spotidrop .sstep2 p{font-size:17px;font-weight:500;color:#e0e0e0}
+
+/* features: slabs as a tab bar */
+.sk-spotidrop .tab{border-radius:0;border:3px solid #fff;background:#000;color:#fff;padding:8px 16px 8px 8px}
+.sk-spotidrop .tab strong{font:700 15px/1.2 "Archivo",sans-serif;text-transform:uppercase;letter-spacing:.05em;color:inherit}
+.sk-spotidrop .tab .ic{border-radius:0;background:var(--s3);border:0;color:#fff}
+.sk-spotidrop .tab:hover{background:var(--s2)}
+.sk-spotidrop .tab[aria-selected=true]{background:var(--a1);color:#000;border-color:var(--a1);box-shadow:5px 5px 0 #fff}
+.sk-spotidrop .tab[aria-selected=true] strong{color:#000}
+.sk-spotidrop .tab[aria-selected=true] .ic{background:#000;color:var(--a1)}
+
+/* specs rows, thick */
+.sk-spotidrop .spec{border-bottom:3px solid #fff}
+.sk-spotidrop .spec small{font:700 13px/1 "Archivo",sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--a1)}
+.sk-spotidrop .spec p{font-weight:700;font-size:17px}
+
+/* compare + faq */
+.sk-spotidrop .cmp-wrap,.sk-spotidrop .cmp{border:4px solid #fff;border-radius:0;box-shadow:10px 10px 0 var(--a1);background:#000}
+.sk-spotidrop thead th{background:#fff;color:#000;text-transform:uppercase;letter-spacing:.06em;font-weight:800}
+.sk-spotidrop thead th.us{background:var(--a1);border-top:0;color:#000}
+.sk-spotidrop td.us,.sk-spotidrop th.us{background:rgba(30,215,96,.14)}
+.sk-spotidrop .y{border-radius:0;background:var(--a1);color:#000}
+.sk-spotidrop .meter,.sk-spotidrop .meter i{border-radius:0}.sk-spotidrop .meter i{background:#555}.sk-spotidrop .bar-row.us .meter i{background:var(--a1)}
+.sk-spotidrop details{border:3px solid #fff;border-radius:0;background:#000}
+.sk-spotidrop details[open]{background:var(--a1);color:#000;box-shadow:6px 6px 0 #fff}
+.sk-spotidrop details[open] summary,.sk-spotidrop details[open] p,.sk-spotidrop details[open] summary svg{color:#000}
+.sk-spotidrop summary{font:400 24px/1.05 var(--disp);text-transform:uppercase;letter-spacing:.01em;padding:18px 20px}
+.sk-spotidrop details p{padding:0 20px 22px;font-weight:600;font-size:17px;color:#e0e0e0}
+.sk-spotidrop details a{color:#000;text-decoration:underline}
+
+/* final: a solid lime slab */
+.sk-spotidrop .final{border-radius:0;border:4px solid #fff;background:var(--a1);color:#000;box-shadow:14px 14px 0 #fff}
+.sk-spotidrop .final .paths{display:none}
+.sk-spotidrop .final h2{color:#000;font-size:clamp(50px,8vw,120px);max-width:12ch}
+.sk-spotidrop .final p{color:#000;font-weight:600;font-size:18px}.sk-spotidrop .final p a{color:#000;text-decoration:underline}
+.sk-spotidrop .final .btn-p{background:#000;color:var(--a1);border-color:#000;box-shadow:6px 6px 0 #fff}
+.sk-spotidrop .app-chip{border-radius:0;border:3px solid #fff;background:#000;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.sk-spotidrop .app-chip:hover{background:var(--a1);color:#000}.sk-spotidrop .app-chip img{border-radius:0}
+.sk-spotidrop .word{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:0;background:none;-webkit-text-fill-color:var(--a1);color:var(--a1);margin-bottom:-.1em}
+.sk-spotidrop footer{background:#000;border-top:4px solid #fff;font-weight:600}
+.sk-spotidrop .sub-hero .eyebrow{display:block;font:700 14px/1 "Archivo",sans-serif;color:var(--a1);letter-spacing:.14em}
+.sk-spotidrop .ver{border-radius:0;background:var(--a1);color:#000}
+.sk-spotidrop .kdl,.sk-spotidrop .copyblock,.sk-spotidrop .logo-card,.sk-spotidrop .chips a{border-radius:0;border:3px solid #fff;background:#000}
+@media(max-width:680px){.sk-spotidrop .stage-frame{box-shadow:8px 8px 0 var(--a1)}.sk-spotidrop .final{box-shadow:8px 8px 0 #fff}}
+@media(prefers-reduced-motion:reduce){.sk-spotidrop .hero::after{animation:none}}

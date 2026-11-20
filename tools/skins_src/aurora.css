@@ -1,0 +1,89 @@
+/* Aurora Radios: a night sky with northern lights drifting behind, a radio dial scale over each section, light serif headlines, no boxes. */
+body.sk-aurora{
+  --bg:#031512;--s1:#071f1b;--s2:#0b2a25;--s3:#11382f;--line:rgba(176,255,228,.12);--line2:rgba(176,255,228,.28);
+  --text:#ebfff8;--muted:#a9d2c6;--soft:#7fa99b;--a1:#5cf2c0;--a2:#b78cff;--rgb1:92,242,192;--rgb2:183,140,255;--on:#03110d;--eb:#8ff7d6;--ebl:#c3fbe9;--ring:#8ff7d6;
+  --grad:linear-gradient(180deg,#6df5c8,#43dba9);--r1:22px;--r2:16px;--r3:10px;--serif:"Instrument Serif",Georgia,serif;
+  font-family:"Manrope",system-ui,sans-serif;background:var(--bg);isolation:isolate}
+.sk-aurora ::selection{background:var(--a1);color:var(--on)}
+body.sk-aurora::before{content:"";position:fixed;inset:-25% -10% auto -10%;height:86vh;z-index:-1;pointer-events:none;filter:blur(34px);opacity:.9;
+  background:radial-gradient(38% 52% at 22% 34%,rgba(92,242,192,.34),transparent 70%),radial-gradient(34% 50% at 68% 18%,rgba(183,140,255,.3),transparent 70%),radial-gradient(30% 46% at 52% 62%,rgba(92,242,192,.18),transparent 70%);animation:auroraDrift 26s ease-in-out infinite alternate}
+body.sk-aurora::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(1.2px 1.2px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 38% 8%,#cfe,transparent),radial-gradient(1.4px 1.4px at 71% 24%,#fff,transparent),radial-gradient(1px 1px at 88% 12%,#dfe,transparent),radial-gradient(1px 1px at 55% 40%,#fff,transparent),radial-gradient(1.2px 1.2px at 6% 52%,#cfe,transparent);opacity:.7}
+@keyframes auroraDrift{from{transform:translate3d(-3%,0,0) scale(1)}to{transform:translate3d(4%,6%,0) scale(1.08)}}
+
+/* bar */
+.sk-aurora .glass{background:rgba(3,21,18,.6);border-color:var(--line2)}
+.sk-aurora .links a{font-weight:600}
+.sk-aurora .links a:hover,.sk-aurora .links a[aria-current=page]{background:rgba(92,242,192,.12);color:var(--ebl)}
+.sk-aurora .brand{font:400 24px/1 var(--serif);letter-spacing:.01em}
+.sk-aurora .cta-sm{background:var(--a1);color:var(--on);font-weight:700}
+
+/* type */
+.sk-aurora h1,.sk-aurora h2,.sk-aurora h3{font-family:var(--serif);font-weight:400;color:var(--text)}
+.sk-aurora h1{font-size:clamp(54px,9vw,132px);line-height:.94;letter-spacing:-.03em;max-width:13ch}
+.sk-aurora h1 em{font-style:italic;background:none;-webkit-text-fill-color:currentColor;color:var(--a1)}
+.sk-aurora h2{font-size:clamp(36px,4.6vw,66px);line-height:.98;letter-spacing:-.025em}
+.sk-aurora h3{font-size:clamp(22px,2.4vw,30px);letter-spacing:-.01em}
+.sk-aurora .eyebrow{display:none}
+.sk-aurora .lead{max-width:56ch}
+
+/* dial scale over every section heading */
+.sk-aurora section .center:has(>h2)::before{content:"";display:block;height:30px;margin-bottom:22px;max-width:420px;
+  background:linear-gradient(var(--a1),var(--a1)) var(--k,30%) 0/2px 100% no-repeat,repeating-linear-gradient(90deg,rgba(176,255,228,.5) 0 1px,transparent 1px 10px) 0 100%/100% 10px no-repeat,repeating-linear-gradient(90deg,rgba(176,255,228,.7) 0 1px,transparent 1px 50px) 0 100%/100% 20px no-repeat}
+.sk-aurora section:nth-of-type(3n+1) .center:has(>h2)::before{--k:62%}.sk-aurora section:nth-of-type(3n+2) .center:has(>h2)::before{--k:24%}.sk-aurora section:nth-of-type(3n) .center:has(>h2)::before{--k:81%}
+body.sk-aurora[data-heads=center] section .center:has(>h2)::before{margin-inline:auto}
+
+/* hero */
+.sk-aurora .hero{padding-top:156px}
+.sk-aurora .hero::before,.sk-aurora .hero::after{display:none}
+.sk-aurora .chip{background:rgba(7,31,27,.7);border-color:var(--line2);color:var(--muted)}
+.sk-aurora .chip b{background:var(--a1);color:var(--on)}
+.sk-aurora .btn{border-radius:999px;font-weight:700}
+.sk-aurora .btn-p{background:var(--a1);color:var(--on);box-shadow:0 12px 50px rgba(92,242,192,.35)}
+.sk-aurora .btn-p:hover{filter:none;background:#8ff7d6}
+.sk-aurora .btn-g{background:transparent;border-color:var(--line2);color:var(--text)}
+.sk-aurora .btn-g:hover{background:rgba(92,242,192,.1)}
+.sk-aurora .stage::after{display:none}
+.sk-aurora .stage-frame{border-radius:26px;border-color:var(--line2);box-shadow:0 0 0 1px rgba(92,242,192,.12),0 40px 120px rgba(92,242,192,.16),0 20px 60px rgba(0,0,0,.6)}
+
+/* how: story lines instead of badges */
+.sk-aurora .sstep2 .num{border-radius:0;border:0;border-bottom:1px solid var(--a1);width:auto;height:auto;padding-bottom:6px;margin-bottom:18px;font:italic 400 30px/1 var(--serif);color:var(--a1);background:none}
+.sk-aurora .sstep2.on .num{background:none;color:var(--a1)}
+.sk-aurora .sstep2 h3{font-size:clamp(30px,3.2vw,44px)}
+
+/* features: translucent station cards */
+.sk-aurora .tab{border-radius:20px;background:rgba(7,31,27,.55);border:1px solid var(--line)}
+.sk-aurora .tab .ic{border-radius:50%;background:rgba(92,242,192,.1);border:0;color:var(--a1)}
+.sk-aurora .tab strong{font:400 22px/1.2 var(--serif);padding-top:2px}
+.sk-aurora .tab[aria-selected=true]{background:rgba(92,242,192,.1);border-color:rgba(92,242,192,.5)}
+.sk-aurora .tab[aria-selected=true] .ic{background:var(--a1);color:var(--on)}
+.sk-aurora .tab .more li::before{background:var(--a1)}
+
+/* specs: strip with hairlines */
+.sk-aurora .spec small{font:italic 400 17px/1 var(--serif);letter-spacing:0;text-transform:none;color:var(--a1)}
+.sk-aurora .spec p{font-size:16px}
+
+/* compare + faq */
+.sk-aurora .cmp-wrap,.sk-aurora .cmp{background:rgba(7,31,27,.6);border-radius:22px}
+.sk-aurora thead th{background:rgba(11,42,37,.9)}
+.sk-aurora td.us,.sk-aurora th.us{background:rgba(92,242,192,.09)}
+.sk-aurora .y{background:var(--a1);color:var(--on)}
+.sk-aurora .meter i{background:#2a4d44}.sk-aurora .bar-row.us .meter i{background:var(--a1)}
+.sk-aurora .faq{max-width:900px;margin-left:0;margin-right:0;gap:0;border-top:1px solid var(--line2)}
+.sk-aurora details{background:none;border:0;border-bottom:1px solid var(--line2);border-radius:0}
+.sk-aurora details[open]{background:none}
+.sk-aurora summary{font:400 25px/1.2 var(--serif);padding:22px 4px;letter-spacing:-.005em}
+.sk-aurora details p{padding:0 4px 24px;max-width:62ch}
+.sk-aurora details a,.sk-aurora .prose a,.sk-aurora .notes a{color:var(--a1)}
+
+/* final: the open sky */
+.sk-aurora .final{background:radial-gradient(50% 90% at 50% 0%,rgba(92,242,192,.3),transparent 70%),radial-gradient(40% 70% at 90% 100%,rgba(183,140,255,.28),transparent 70%),rgba(7,31,27,.7);border-color:var(--line2);border-radius:40px}
+.sk-aurora .final .paths{opacity:.3}
+.sk-aurora .final h2{font-size:clamp(40px,5.6vw,80px)}
+.sk-aurora .app-chip{background:rgba(7,31,27,.6)}
+.sk-aurora .word{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.04em;background:none;-webkit-text-fill-color:currentColor;color:rgba(92,242,192,.06)}
+.sk-aurora footer{background:transparent}
+.sk-aurora .ver{background:var(--a1);color:var(--on)}
+.sk-aurora .kdl,.sk-aurora .copyblock,.sk-aurora .logo-card,.sk-aurora .chips a{background:rgba(7,31,27,.6)}
+.sk-aurora .sub-hero .eyebrow{display:block;color:var(--a1)}
+@media(prefers-reduced-motion:reduce){body.sk-aurora::before{animation:none}}
+@media(max-width:680px){.sk-aurora summary{font-size:21px}}

@@ -1,0 +1,116 @@
+/* Mixora: a studio mixing desk. Warm charcoal panel, orange LEDs, silkscreen labels, fader tracks under the headings. */
+body.sk-mixora{
+  --bg:#14110d;--s1:#1b1712;--s2:#241f18;--s3:#2e2820;--line:rgba(255,236,210,.1);--line2:rgba(255,236,210,.22);
+  --text:#f4ede2;--muted:#c4b9a8;--soft:#a09484;--a1:#ff8a4c;--a2:#ffb27d;--rgb1:255,138,76;--rgb2:255,178,125;--on:#1a0f06;--eb:#ffb27d;--ebl:#ffd2b0;
+  --grad:linear-gradient(180deg,#ff9a5f,#ff7a33);--r1:6px;--r2:5px;--r3:3px;--ring:#ffd2b0;
+  --disp:"Barlow Condensed","Arial Narrow",sans-serif;--mono:"DM Mono",ui-monospace,monospace;
+  font-family:"Barlow",system-ui,sans-serif;
+  background:var(--bg) repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,236,210,.012) 3px 4px)}
+.sk-mixora ::selection{background:var(--a1);color:var(--on)}
+
+/* top bar: a plain control strip */
+.sk-mixora .glass{background:rgba(20,17,13,.86);border-radius:6px;box-shadow:none;border:1px solid var(--line2)}
+.sk-mixora .links{border-radius:6px;padding:3px}
+.sk-mixora .links a{border-radius:4px;font:500 12.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.sk-mixora .links a:hover,.sk-mixora .links a[aria-current=page]{background:rgba(255,138,76,.16);color:var(--ebl)}
+.sk-mixora .lang-pill,.sk-mixora .burger{border-radius:6px;font-family:var(--mono);font-size:12.5px}
+.sk-mixora .cta-sm{border-radius:5px;font:700 15px/1 var(--disp);letter-spacing:.07em;text-transform:uppercase;box-shadow:0 2px 0 #b8531a}
+.sk-mixora .brand{font:700 20px/1 var(--disp);letter-spacing:.06em;text-transform:uppercase}
+.sk-mixora .brand img{border-radius:6px}
+
+/* type */
+.sk-mixora h1,.sk-mixora h2,.sk-mixora h3{font-family:var(--disp);text-transform:uppercase}
+.sk-mixora h1{font-size:clamp(52px,6.6vw,96px);font-weight:700;line-height:.92;letter-spacing:-.005em;max-width:none;margin:0}
+.sk-mixora h1 em{background:none;-webkit-text-fill-color:currentColor;color:var(--a1)}
+.sk-mixora h2{font-size:clamp(38px,5.4vw,70px);font-weight:700;line-height:.92;letter-spacing:0;max-width:16ch;margin:0}
+.sk-mixora h3{font-weight:600;letter-spacing:.02em;font-size:clamp(22px,2.4vw,28px)}
+.sk-mixora .eyebrow{display:none}
+.sk-mixora .lead{margin:22px 0 0;font-size:clamp(17px,1.7vw,20px);max-width:46ch}
+
+/* hero: text left, the real mixer in a bezel right */
+.sk-mixora .hero{text-align:left;padding:128px 0 30px}
+.sk-mixora .hero::before{height:760px;background:repeating-linear-gradient(90deg,transparent 0 119px,rgba(255,236,210,.045) 119px 120px),radial-gradient(46% 60% at 86% 22%,rgba(255,138,76,.2),transparent 70%)}
+.sk-mixora .hero::after{display:none}
+.sk-mixora .hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:52px;align-content:center;grid-template-rows:auto auto auto auto 1fr;grid-template-areas:"chip stage" "h1 stage" "lead stage" "btns stage" "trust stage"}
+.sk-mixora .chip{grid-area:chip;justify-self:start;align-self:end;border-radius:3px;padding:6px 12px 6px 6px;font:500 12px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;background:transparent;min-height:34px;margin-bottom:20px}
+.sk-mixora .chip b{border-radius:2px;background:var(--a1);color:var(--on)}
+.sk-mixora .hero h1{grid-area:h1}.sk-mixora .hero .lead{grid-area:lead}
+.sk-mixora .hero .btns{grid-area:btns;justify-content:flex-start}
+.sk-mixora .hero .trust{grid-area:trust;justify-content:flex-start;align-self:start;font-family:var(--mono);font-size:12.5px}
+.sk-mixora .hero .stage{grid-area:stage;align-self:start;margin:36px 0 0;max-width:none;perspective:none}
+.sk-mixora .hero .stage::after{display:none}
+.sk-mixora .stage .stage-frame{transform:none!important;border-radius:8px;border:2px solid #3b3126;box-shadow:0 0 0 6px #1d1913,0 0 0 7px var(--line2),0 40px 80px rgba(0,0,0,.6)}
+.sk-mixora .stage-note{text-align:left;margin-left:0;font-family:var(--mono);font-size:12px}
+
+/* buttons: hardware keys */
+.sk-mixora .btn{border-radius:5px;min-height:54px;font:700 18px/1 var(--disp);letter-spacing:.08em;text-transform:uppercase}
+.sk-mixora .btn-p{box-shadow:0 3px 0 #b8531a;background:var(--a1)}
+.sk-mixora .btn-p:hover{filter:none;background:#ff9a60}.sk-mixora .btn-p:active{transform:translateY(3px);box-shadow:none}
+.sk-mixora .btn-g{background:var(--s2);box-shadow:0 3px 0 #0e0c09}
+
+/* section heads: a fader track, knob at a different spot per section */
+.sk-mixora section .center{text-align:left}
+.sk-mixora section .center h2,.sk-mixora section .center .sub{margin-left:0}
+.sk-mixora section .center.rv::before{content:"";display:block;height:16px;margin-bottom:26px;background:linear-gradient(var(--line2),var(--line2)) 0 50%/100% 2px no-repeat,linear-gradient(var(--a1),var(--a1)) var(--k,6%) 50%/34px 14px no-repeat,repeating-linear-gradient(90deg,var(--line2) 0 1px,transparent 1px 24px) 0 100%/100% 6px no-repeat;border-radius:2px}
+.sk-mixora section:nth-of-type(3n+1) .center.rv::before{--k:62%}.sk-mixora section:nth-of-type(3n+2) .center.rv::before{--k:28%}.sk-mixora section:nth-of-type(3n) .center.rv::before{--k:86%}
+.sk-mixora section .more-link{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+
+/* stats: LED readouts */
+.sk-mixora .stats{border-radius:6px;gap:1px}
+.sk-mixora .stats>div{text-align:left;padding:28px 24px 26px;background:var(--s1)}
+.sk-mixora .stats b{background:none;-webkit-text-fill-color:currentColor;color:var(--a1);font:500 clamp(40px,5vw,60px)/1 var(--mono);letter-spacing:-.04em}
+.sk-mixora .stats span{font:500 13px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.sk-mixora .stats>div::after{content:"";display:block;height:9px;margin-top:18px;background:repeating-linear-gradient(90deg,var(--a1) 0 9px,transparent 9px 13px);-webkit-mask:linear-gradient(90deg,#000 var(--lvl,70%),rgba(0,0,0,.18) var(--lvl,70%));mask:linear-gradient(90deg,#000 var(--lvl,70%),rgba(0,0,0,.18) var(--lvl,70%))}
+.sk-mixora .stats>div:nth-child(1){--lvl:88%}.sk-mixora .stats>div:nth-child(2){--lvl:62%}.sk-mixora .stats>div:nth-child(3){--lvl:74%}.sk-mixora .stats>div:nth-child(4){--lvl:38%}
+
+/* how + features: channel strips */
+.sk-mixora .sstep2 .num{border-radius:4px;font-family:var(--mono)}
+.sk-mixora .sstep2 p{font-size:19px}
+.sk-mixora .stage-frame{border-radius:8px}
+.sk-mixora .tab{border-radius:5px;border:1px solid var(--line);background:var(--s1);padding:12px 14px}
+.sk-mixora .tab+.tab{margin-top:0}
+.sk-mixora .tab .ic{border-radius:3px;background:var(--s3)}
+.sk-mixora .tab[aria-selected=true]{border-color:var(--a1);background:var(--s2);box-shadow:inset 4px 0 0 var(--a1)}
+.sk-mixora .tab strong{font:600 21px/1.2 var(--disp);letter-spacing:.03em;text-transform:uppercase;padding-top:8px}
+
+/* specs: engraved plate rows */
+.sk-mixora .specs{grid-template-columns:repeat(2,1fr);gap:0 56px;margin-top:40px}
+.sk-mixora .spec{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 2px;border:0;border-bottom:1px dashed var(--line2);border-radius:0;background:none}
+.sk-mixora .spec small{font:500 12.5px/1.3 var(--mono);color:var(--soft);flex:none}
+.sk-mixora .spec p{margin:0;text-align:right;font-size:16.5px}
+
+/* compare + faq */
+.sk-mixora .cmp-wrap,.sk-mixora .cmp{border-radius:6px}
+.sk-mixora thead th{font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;font-size:12px}
+.sk-mixora td.us,.sk-mixora th.us{background:rgba(255,138,76,.09)}
+.sk-mixora details{border-radius:0;border:0;border-bottom:1px solid var(--line2);background:none}
+.sk-mixora details[open]{background:none}
+.sk-mixora summary{font:600 21px/1.25 var(--disp);letter-spacing:.03em;text-transform:uppercase;padding:18px 4px}
+.sk-mixora details p{padding:0 4px 22px;max-width:70ch}
+.sk-mixora .faq{max-width:none;margin-top:36px;border-top:1px solid var(--line2)}
+
+/* final: a solid orange master section */
+.sk-mixora .final{border-radius:6px;border:0;background:var(--a1);color:var(--on);text-align:left;padding:72px 56px}
+.sk-mixora .final .paths{display:none}
+.sk-mixora .final h2{color:var(--on);max-width:12ch;margin:0}
+.sk-mixora .final p{color:rgba(26,15,6,.78);margin-left:0;max-width:52ch}
+.sk-mixora .final p a{color:var(--on)}
+.sk-mixora .final .btns{justify-content:flex-start}
+.sk-mixora .final .btn-p{background:var(--on);color:var(--a1);box-shadow:0 3px 0 #000}
+
+.sk-mixora .app-chip{border-radius:5px}
+.sk-mixora .word{background:none;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.5px rgba(255,236,210,.16);font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:0}
+.sk-mixora footer{font-family:var(--mono);font-size:12.5px}
+
+/* sub pages */
+.sk-mixora .sub-hero{text-align:left}.sk-mixora .sub-hero .eyebrow{display:block;font:500 12px/1 var(--mono);color:var(--a1)}
+.sk-mixora .sub-hero h1{font-size:clamp(44px,6.4vw,88px);max-width:18ch}.sk-mixora .sub-hero .lead{margin-left:0}
+.sk-mixora .ver{border-radius:3px;font-family:var(--mono)}.sk-mixora .rel h2{font-family:var(--disp)}
+.sk-mixora .kdl,.sk-mixora .copyblock,.sk-mixora .logo-card{border-radius:6px}
+
+@media(max-width:1020px){
+  .sk-mixora .hero .wrap{display:block}
+  .sk-mixora .hero .stage{margin-top:40px}
+  .sk-mixora .specs{grid-template-columns:1fr}
+  .sk-mixora .final{padding:44px 24px}
+}

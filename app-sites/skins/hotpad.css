@@ -1,0 +1,104 @@
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/app-sites/fonts/SpaceMono-normal-latin-ext-i7dPIFZifjKcF5UAWdDRYE98RWq7.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/app-sites/fonts/SpaceMono-normal-latin-i7dPIFZifjKcF5UAWdDRYEF8RQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/app-sites/fonts/SpaceMono-normal-latin-ext-i7dMIFZifjKcF5UAWdDRaPpZUFuaHjyV.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/app-sites/fonts/SpaceMono-normal-latin-i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400 700;font-display:swap;src:url(/app-sites/fonts/Outfit-normal-latin-ext-QGYvz_MVcBeNP4NJuktqQ4E.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400 700;font-display:swap;src:url(/app-sites/fonts/Outfit-normal-latin-QGYvz_MVcBeNP4NJtEtq.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* Hotpad: a keyboard on a desk. Warm beige case, everything pressable is a keycap (bevel, thick lower edge, it sinks when pressed), mono legends, the demo in a dark bezel. */
+body.sk-hotpad{
+  --bg:#e6e1d8;--s1:#f3f0e8;--s2:#faf8f3;--s3:#d6d0c3;--line:rgba(40,34,26,.14);--line2:rgba(40,34,26,.3);
+  --text:#25211b;--muted:#585145;--soft:#7a7364;--a1:#0f8fe0;--a2:#60cdff;--rgb1:15,143,224;--rgb2:96,205,255;--on:#ffffff;--eb:#0f8fe0;--ebl:#0a6fb0;--ring:#0f8fe0;
+  --grad:linear-gradient(180deg,#34aef5,#0f8fe0);--r1:20px;--r2:14px;--r3:10px;--mono:"Space Mono",ui-monospace,monospace;--disp:"Outfit",system-ui,sans-serif;
+  --cap:linear-gradient(180deg,#fdfbf6,#ece7dc);--edge:#b9b1a1;
+  font-family:"Outfit",system-ui,sans-serif;color:var(--text);
+  background-color:var(--bg);background-image:repeating-linear-gradient(90deg,rgba(40,34,26,.04) 0 1px,transparent 1px 72px),repeating-linear-gradient(0deg,rgba(40,34,26,.04) 0 1px,transparent 1px 72px)}
+body.sk-hotpad ::selection{background:#9bd8ff;color:#0b1d2a}
+
+/* the keycap itself */
+body.sk-hotpad .btn,body.sk-hotpad .cta-sm,body.sk-hotpad .lang-pill,body.sk-hotpad .tab,body.sk-hotpad .chip,body.sk-hotpad .app-chip,body.sk-hotpad .chips a,body.sk-hotpad .burger{
+  background:var(--cap);border:1px solid #cfc8ba;border-radius:12px;color:var(--text);
+  box-shadow:0 5px 0 var(--edge),0 7px 10px rgba(40,34,26,.18),inset 0 1px 0 #fff;transition:transform .08s,box-shadow .08s,background .2s}
+body.sk-hotpad .btn:active,body.sk-hotpad .cta-sm:active,body.sk-hotpad .tab:active,body.sk-hotpad .app-chip:active{transform:translateY(4px);box-shadow:0 1px 0 var(--edge),0 2px 4px rgba(40,34,26,.2),inset 0 1px 0 #fff}
+body.sk-hotpad .btn-p,body.sk-hotpad .cta-sm{background:var(--grad);border-color:#0a79c4;color:#fff;box-shadow:0 5px 0 #0a649f,0 7px 12px rgba(10,100,159,.35),inset 0 1px 0 rgba(255,255,255,.5)}
+body.sk-hotpad .btn-p:hover{filter:none;transform:none}
+body.sk-hotpad .btn-p:active,body.sk-hotpad .cta-sm:active{box-shadow:0 1px 0 #0a649f,inset 0 1px 0 rgba(255,255,255,.4)}
+body.sk-hotpad .btn{font:600 17px/1 var(--disp);letter-spacing:.01em;margin-bottom:5px}
+body.sk-hotpad .btn-g:hover{background:var(--cap)}
+
+/* bar */
+body.sk-hotpad .glass{background:rgba(243,240,232,.78);border-color:var(--line2);box-shadow:0 8px 24px rgba(40,34,26,.12)}
+body.sk-hotpad .links a{font:600 13px/1 var(--mono);letter-spacing:.02em;color:var(--muted)}
+body.sk-hotpad .links a:hover,body.sk-hotpad .links a[aria-current=page]{background:rgba(15,143,224,.12);color:var(--ebl)}
+body.sk-hotpad .brand{font:700 20px/1 var(--disp)}
+body.sk-hotpad .lang-pill,body.sk-hotpad .burger{font:600 13px/1 var(--mono);height:40px;color:var(--text)}
+body.sk-hotpad .cta-sm{height:40px;font:600 14px/1 var(--disp)}
+
+/* type */
+body.sk-hotpad h1,body.sk-hotpad h2,body.sk-hotpad h3{font-family:var(--disp);font-weight:600;color:var(--text)}
+body.sk-hotpad h1{font-size:clamp(46px,6.4vw,92px);line-height:.98;letter-spacing:-.045em}
+body.sk-hotpad h1 em{font-style:normal;background:none;-webkit-text-fill-color:currentColor;color:var(--a1);position:relative;display:inline-block;padding:0 .12em;border:3px solid var(--a1);border-radius:.2em;box-shadow:0 .07em 0 #0a649f;transform:rotate(-1.5deg)}
+body.sk-hotpad h2{font-size:clamp(32px,4.4vw,60px);line-height:1;letter-spacing:-.04em}
+body.sk-hotpad .eyebrow{display:none}
+body.sk-hotpad .lead,body.sk-hotpad .sub{color:var(--muted)}
+
+/* hero: demo on the left in a dark keyboard-case bezel */
+body.sk-hotpad .hero{padding-top:132px}
+body.sk-hotpad .hero::before,body.sk-hotpad .hero::after{display:none}
+body.sk-hotpad .chip{font:700 12.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;min-height:36px;padding:6px 14px 6px 6px;margin-bottom:22px}
+body.sk-hotpad .chip b{border-radius:7px;background:#25211b;color:#f3f0e8}
+body.sk-hotpad .trust{font-family:var(--mono);font-size:12.5px;color:var(--muted)}body.sk-hotpad .trust .rate{color:var(--text)}
+body.sk-hotpad .stage::after{display:none}
+body.sk-hotpad .stage-frame{border-radius:22px;border:12px solid #2b2823;box-shadow:0 0 0 2px #1c1a16,0 30px 60px rgba(40,34,26,.4),inset 0 0 0 1px rgba(255,255,255,.1);background:#1a1814}
+body.sk-hotpad .stage-note{font-family:var(--mono);font-size:12px;color:var(--soft)}
+
+/* stats */
+body.sk-hotpad .stats>div{background:var(--s1)}
+body.sk-hotpad .stats b{background:none;-webkit-text-fill-color:currentColor;color:var(--a1);font-family:var(--mono);font-weight:700;letter-spacing:-.06em}
+
+/* how */
+body.sk-hotpad .sstep2 .num{border-radius:12px;background:var(--cap);border:1px solid #cfc8ba;box-shadow:0 4px 0 var(--edge);font-family:var(--mono);color:var(--text)}
+body.sk-hotpad .sstep2.on .num{background:var(--grad);color:#fff;border-color:#0a79c4;box-shadow:0 4px 0 #0a649f}
+
+/* features: keycap cards with a numbered legend */
+body.sk-hotpad .tabs{counter-reset:k}
+body.sk-hotpad .tab{position:relative;padding:18px 16px 16px;margin-bottom:5px;color:var(--muted)}
+body.sk-hotpad .tab::before{counter-increment:k;content:counter(k,decimal-leading-zero);position:absolute;top:10px;right:14px;font:700 12px/1 var(--mono);color:var(--soft)}
+body.sk-hotpad .tab .ic{border-radius:9px;background:var(--s3);border:0;color:var(--text)}
+body.sk-hotpad .tab strong{font:600 18px/1.25 var(--disp);color:var(--text)}
+body.sk-hotpad .tab[aria-selected=true]{background:var(--grad);border-color:#0a79c4;box-shadow:0 5px 0 #0a649f,0 7px 14px rgba(10,100,159,.35),inset 0 1px 0 rgba(255,255,255,.45)}
+body.sk-hotpad .tab[aria-selected=true] strong,body.sk-hotpad .tab[aria-selected=true] .more p,body.sk-hotpad .tab[aria-selected=true]::before{color:#fff}
+body.sk-hotpad .tab[aria-selected=true] .ic{background:rgba(255,255,255,.25);color:#fff}
+body.sk-hotpad .tab .more p{color:var(--muted)}
+
+/* specs: a row of keycaps */
+body.sk-hotpad .specs{gap:14px;border:0;margin-top:44px}
+body.sk-hotpad .spec{background:var(--cap);border:1px solid #cfc8ba;border-radius:14px;box-shadow:0 5px 0 var(--edge),0 7px 10px rgba(40,34,26,.14),inset 0 1px 0 #fff;padding:20px}
+body.sk-hotpad .spec:first-child{border-left:1px solid #cfc8ba}
+body.sk-hotpad .spec small{font:700 12px/1 var(--mono);letter-spacing:.08em;color:var(--a1)}
+body.sk-hotpad .spec p{font-weight:500}
+
+/* compare, faq */
+body.sk-hotpad .cmp-wrap,body.sk-hotpad .cmp{background:var(--s2);border-radius:18px;border-color:var(--line2)}
+body.sk-hotpad thead th{background:var(--s3);font-family:var(--mono);color:var(--text)}
+body.sk-hotpad td.us,body.sk-hotpad th.us{background:rgba(15,143,224,.09)}body.sk-hotpad thead th.us{border-top-color:var(--a1)}
+body.sk-hotpad .y{background:var(--grad);color:#fff;border-radius:7px;box-shadow:0 2px 0 #0a649f}
+body.sk-hotpad .meter i{background:#c6bfb0}body.sk-hotpad .bar-row.us .meter i{background:var(--a1)}
+body.sk-hotpad details{background:var(--cap);border:1px solid #cfc8ba;border-radius:16px;box-shadow:0 4px 0 var(--edge)}
+body.sk-hotpad details[open]{background:var(--s2);box-shadow:0 4px 0 var(--edge),0 14px 28px rgba(40,34,26,.12)}
+body.sk-hotpad summary{font:600 18px/1.3 var(--disp)}
+body.sk-hotpad details a,body.sk-hotpad .prose a,body.sk-hotpad .notes a{color:var(--ebl)}
+
+/* final: a dark case with lit keys */
+body.sk-hotpad .final{background:radial-gradient(60% 100% at 90% 0%,rgba(96,205,255,.35),transparent 70%),#2b2823;color:#f3f0e8;border:0;border-radius:26px;box-shadow:0 6px 0 #1c1a16,0 24px 50px rgba(40,34,26,.4)}
+body.sk-hotpad .final .paths{display:none}
+body.sk-hotpad .final h2{color:#fff}body.sk-hotpad .final p{color:#d6d0c3}body.sk-hotpad .final p a{color:#9bd8ff}
+body.sk-hotpad .final .btn-p{margin-bottom:5px}
+body.sk-hotpad .app-chip{font:600 14px/1 var(--disp);margin-bottom:5px}
+body.sk-hotpad .word{font-family:var(--mono);font-weight:700;letter-spacing:-.09em;background:none;-webkit-text-fill-color:currentColor;color:rgba(40,34,26,.07)}
+body.sk-hotpad footer{background:transparent;font-family:var(--mono);font-size:12.5px;border-top-color:var(--line2)}
+body.sk-hotpad footer a{color:var(--muted)}body.sk-hotpad footer a:hover{color:var(--text)}
+body.sk-hotpad .sub-hero .eyebrow{display:block;font:700 12px/1 var(--mono);color:var(--a1)}
+body.sk-hotpad .ver{background:var(--grad);color:#fff;border-radius:9px;font-family:var(--mono);box-shadow:0 3px 0 #0a649f}
+body.sk-hotpad .kdl,body.sk-hotpad .copyblock,body.sk-hotpad .logo-card{background:var(--s2);border-radius:16px}
+@media(max-width:1020px){body.sk-hotpad .stage-frame{border-width:8px}}

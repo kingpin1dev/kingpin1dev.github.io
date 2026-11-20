@@ -160,7 +160,11 @@
     function isReady() {
       if (kind === "script") return !!(box.__api && box.__api.apply);
       var f = box.querySelector("iframe"), w = f && f.contentWindow;
-      try { return !!(w && (w.LunaDockDemo || (w.document && w.document.readyState === "complete"))); } catch (e) { return false; }
+      try {
+        if (!w || w.location.href === "about:blank") return false;
+        if (f.getAttribute("src").indexOf("hotpad-demo/") >= 0) return !!w.document.querySelector(".profile-nav button");
+        return !!(w.LunaDockDemo || (w.document && w.document.readyState === "complete"));
+      } catch (e) { return false; }
     }
     return {
       run: function (i) { timers.forEach(clearTimeout); timers = []; (scenes[i] || []).forEach(function (st) { timers.push(setTimeout(function () { apply(st[1]); }, st[0])); }); },
@@ -198,13 +202,27 @@
     var setStep = function (i) {
       if (i === scur) return; scur = i;
       steps.forEach(function (s, k) { s.classList.toggle("on", k === i); });
-      sp.ready(function () { sp.run(map[i]); });
+      sp.ready(function () { if (scur === i) sp.run(map[i]); });
     };
-    if ("IntersectionObserver" in window) {
-      var sio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) setStep(steps.indexOf(e.target)); }); }, { rootMargin: "-42% 0px -42% 0px" });
-      steps.forEach(function (s) { sio.observe(s); });
-    } else setStep(0);
-    steps.forEach(function (s, i) { s.addEventListener("click", function () { scur = -1; setStep(i); }); });
+    var scheduled = false;
+    function updateStep() {
+      scheduled = false;
+      var anchor = innerHeight * .5, nearest = 0, distance = Infinity;
+      steps.forEach(function (s, i) {
+        var r = s.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - anchor);
+        if (d < distance) { distance = d; nearest = i; }
+      });
+      setStep(nearest);
+    }
+    function scheduleStep() { if (!scheduled) { scheduled = true; requestAnimationFrame(updateStep); } }
+    addEventListener("scroll", scheduleStep, { passive: true });
+    addEventListener("resize", scheduleStep);
+    updateStep();
+    steps.forEach(function (s, i) {
+      function activate() { scur = -1; setStep(i); }
+      s.addEventListener("click", activate);
+      s.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); } });
+    });
   }
 
   // Press kit: copy buttons

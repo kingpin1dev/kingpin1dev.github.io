@@ -14,7 +14,7 @@ subprocess.run(["npx", "vite", "build", "--outDir", OUT, "--emptyOutDir"], cwd=o
 shutil.copy(os.path.join(ROOT, "hotpad-demo-src", "mock.js"), os.path.join(OUT, "mock.js"))
 p = os.path.join(OUT, "index.html")
 html = open(p, encoding="utf-8").read()
-html = html.replace("<title>Hotpad</title>", '<title>Hotpad</title>\n    <meta name="robots" content="noindex" />\n    <script src="/frame-bridge.js"></script>\n    <script src="./mock.js"></script>', 1)
+html = html.replace("<title>Hotpad</title>", '<title>Hotpad</title>\n    <meta name="robots" content="noindex" />\n    <script src="/frame-bridge.js"></script>\n    <script src="./mock.js?v=20261118-story2"></script>', 1)
 html = re.sub(r'<script type="module" crossorigin', '<script type="module" crossorigin', html)
 open(p, "w", encoding="utf-8").write(html)
 for f in os.listdir(os.path.join(OUT, "assets")):   # the app loads its logo from the site root ("/hotpad.png"); here it lives next to the demo

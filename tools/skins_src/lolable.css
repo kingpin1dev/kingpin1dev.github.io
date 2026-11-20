@@ -1,0 +1,92 @@
+/* Lolable: hextech. Deep navy, brushed gold lines, panels with cut corners, diamonds on the headings, a faint hexagon lattice, engraved serif capitals. */
+body.sk-lolable{
+  --bg:#010a13;--s1:#0a1428;--s2:#0f1d38;--s3:#16294a;--line:rgba(200,170,110,.2);--line2:rgba(200,170,110,.5);
+  --text:#f0e6d2;--muted:#b3bccd;--soft:#8590a8;--a1:#c8aa6e;--a2:#0ac8b9;--rgb1:200,170,110;--rgb2:10,200,185;--on:#0a1428;--eb:#e3c98f;--ebl:#f0dcae;--ring:#e3c98f;
+  --grad:linear-gradient(180deg,#e3c98f,#c8aa6e);--r1:0;--r2:0;--r3:0;--serif:"Cinzel",Georgia,serif;
+  --cut:polygon(16px 0,calc(100% - 16px) 0,100% 16px,100% calc(100% - 16px),calc(100% - 16px) 100%,16px 100%,0 calc(100% - 16px),0 16px);
+  --cut2:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px);
+  font-family:"Mulish",system-ui,sans-serif;
+  background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zM28 100L0 84V50M28 100l28-16V50' fill='none' stroke='%23c8aa6e' stroke-opacity='.08'/%3E%3C/svg%3E")}
+.sk-lolable ::selection{background:var(--a1);color:var(--on)}
+
+/* bar */
+.sk-lolable .glass{background:rgba(1,10,19,.78);border-color:var(--line2);border-radius:0;clip-path:var(--cut2)}
+.sk-lolable .links{border-radius:0;padding:3px}
+.sk-lolable .links a{border-radius:0;font:600 13px/1 var(--serif);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sk-lolable .links a:hover,.sk-lolable .links a[aria-current=page]{background:rgba(200,170,110,.14);color:var(--ebl)}
+.sk-lolable .brand{font:700 19px/1 var(--serif);letter-spacing:.1em;text-transform:uppercase}
+.sk-lolable .brand img{border-radius:0;clip-path:var(--cut2)}
+.sk-lolable .cta-sm{border-radius:0;clip-path:var(--cut2);background:var(--grad);color:var(--on);font:700 13px/1 var(--serif);letter-spacing:.1em;text-transform:uppercase}
+.sk-lolable .lang-pill,.sk-lolable .burger{border-radius:0;font:600 13px/1 var(--serif);letter-spacing:.08em}
+
+/* type */
+.sk-lolable h1,.sk-lolable h2,.sk-lolable h3{font-family:var(--serif);font-weight:700;color:var(--text);text-transform:uppercase}
+.sk-lolable h1{font-size:clamp(38px,6vw,88px);line-height:1.02;letter-spacing:.02em;max-width:15ch}
+.sk-lolable h1 em{background:none;-webkit-text-fill-color:currentColor;color:var(--a1);font-style:normal;text-shadow:0 0 36px rgba(200,170,110,.35)}
+.sk-lolable h2{font-size:clamp(28px,3.8vw,50px);line-height:1.08;letter-spacing:.04em}
+.sk-lolable h2::after{content:"";display:block;width:min(340px,70%);height:1px;margin:22px auto 0;background:linear-gradient(90deg,transparent,var(--a1),transparent)}
+.sk-lolable[data-heads=left] h2::after,.sk-lolable[data-heads=side] h2::after{margin-left:0;background:linear-gradient(90deg,var(--a1),transparent)}
+.sk-lolable h3{letter-spacing:.04em;font-size:clamp(18px,1.9vw,23px)}
+.sk-lolable .eyebrow{display:none}
+.sk-lolable section .center:has(>h2)::before{content:"";display:block;width:14px;height:14px;margin:0 auto 18px;background:var(--a1);transform:rotate(45deg);box-shadow:0 0 0 5px var(--bg),0 0 0 6px var(--a1),0 0 18px rgba(200,170,110,.5)}
+.sk-lolable .lead,.sk-lolable .sub{color:var(--muted)}
+
+/* hero: a gate */
+.sk-lolable .hero{padding-top:152px}
+.sk-lolable .hero::before{height:700px;background:radial-gradient(40% 55% at 50% 0%,rgba(10,200,185,.22),transparent 70%),radial-gradient(34% 40% at 18% 20%,rgba(200,170,110,.14),transparent 70%),radial-gradient(34% 40% at 82% 20%,rgba(200,170,110,.14),transparent 70%)}
+.sk-lolable .hero::after{display:none}
+.sk-lolable .chip{border-radius:0;clip-path:var(--cut2);background:rgba(200,170,110,.1);border:0;color:var(--ebl);font:600 12.5px/1 var(--serif);letter-spacing:.08em;text-transform:uppercase}
+.sk-lolable .chip b{border-radius:0;background:var(--a1);color:var(--on)}
+.sk-lolable .btn{border-radius:0;clip-path:var(--cut2);border:0;font:700 14.5px/1 var(--serif);letter-spacing:.1em;text-transform:uppercase;min-height:54px}
+.sk-lolable .btn-p{background:var(--grad);color:var(--on);box-shadow:none}
+.sk-lolable .btn-p:hover{filter:brightness(1.1);transform:none}
+.sk-lolable .btn-g{background:transparent;color:var(--ebl);box-shadow:inset 0 0 0 1px var(--a1)}
+.sk-lolable .btn-g:hover{background:rgba(200,170,110,.14)}
+.sk-lolable .trust{font-size:13.5px;color:var(--soft)}.sk-lolable .trust svg{color:var(--a2)}
+.sk-lolable .stage::after{background:radial-gradient(50% 100% at 50% 0%,rgba(10,200,185,.35),transparent 70%)}
+.sk-lolable .stage-frame{border-radius:0;border:1px solid var(--a1);box-shadow:0 0 0 5px var(--bg),0 0 0 6px var(--line2),0 40px 90px rgba(0,0,0,.7),0 0 80px rgba(10,200,185,.12)}
+.sk-lolable .stage-note{color:var(--soft)}
+
+/* stats: framed glyph plates */
+.sk-lolable .stats{border:0;gap:14px;background:none}
+.sk-lolable .stats>div{clip-path:var(--cut);background:linear-gradient(180deg,var(--s2),var(--s1));box-shadow:inset 0 0 0 1px var(--line2);padding:28px 20px}
+.sk-lolable .stats b{font-family:var(--serif);font-weight:700;background:none;-webkit-text-fill-color:currentColor;color:var(--a1);letter-spacing:.01em}
+.sk-lolable .stats span{font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* how + features */
+.sk-lolable .sstep2 .num{border-radius:0;width:46px;height:46px;border:0;background:none;box-shadow:none;color:var(--a1);font:700 22px/1 var(--serif);position:relative;transform:none}
+.sk-lolable .sstep2 .num::before{content:"";position:absolute;inset:0;border:1px solid var(--a1);transform:rotate(45deg) scale(.72);z-index:-1}
+.sk-lolable .sstep2.on .num{background:none;color:var(--on)}
+.sk-lolable .sstep2.on .num::before{background:var(--a1)}
+.sk-lolable .tab{border-radius:0;clip-path:var(--cut2);border:0;background:var(--s1);box-shadow:inset 0 0 0 1px var(--line);color:var(--muted);padding:7px 18px 7px 8px}
+.sk-lolable .tab strong{font:600 13px/1.2 var(--serif);letter-spacing:.07em;text-transform:uppercase;color:var(--text)}
+.sk-lolable .tab .ic{border-radius:0;clip-path:var(--cut2);background:var(--s3);border:0;color:var(--a1)}
+.sk-lolable .tab:hover{background:var(--s2)}
+.sk-lolable .tab[aria-selected=true]{background:rgba(200,170,110,.14);box-shadow:inset 0 0 0 1px var(--a1)}
+.sk-lolable .tab[aria-selected=true] .ic{background:var(--a1);color:var(--on)}
+
+/* specs, compare, faq */
+.sk-lolable .spec{clip-path:var(--cut2);border:0;background:linear-gradient(180deg,var(--s2),var(--s1));box-shadow:inset 0 0 0 1px var(--line2);padding:24px}
+.sk-lolable .spec small{font:700 11.5px/1 var(--serif);letter-spacing:.16em;color:var(--a2)}
+.sk-lolable .cmp-wrap,.sk-lolable .cmp{border-radius:0;border-color:var(--line2);background:var(--s1)}
+.sk-lolable thead th{background:var(--s3);font-family:var(--serif);letter-spacing:.08em;text-transform:uppercase;color:var(--ebl)}
+.sk-lolable td.us,.sk-lolable th.us{background:rgba(200,170,110,.1)}.sk-lolable thead th.us{border-top-color:var(--a2)}
+.sk-lolable .y{border-radius:0;transform:rotate(45deg) scale(.8);background:var(--a1);color:var(--on)}.sk-lolable .y svg{transform:rotate(-45deg)}
+.sk-lolable .meter,.sk-lolable .meter i{border-radius:0}.sk-lolable .meter i{background:#3a4660}.sk-lolable .bar-row.us .meter i{background:var(--a1)}
+.sk-lolable details{border-radius:0;clip-path:var(--cut2);border:0;background:var(--s1);box-shadow:inset 0 0 0 1px var(--line)}
+.sk-lolable details[open]{background:var(--s2);box-shadow:inset 0 0 0 1px var(--a1)}
+.sk-lolable summary{font:600 16px/1.35 var(--serif);letter-spacing:.03em}
+.sk-lolable details a,.sk-lolable .prose a,.sk-lolable .notes a{color:var(--a2)}
+
+/* final: the framed door */
+.sk-lolable .final{border:0;border-radius:0;clip-path:var(--cut);background:radial-gradient(60% 100% at 50% 0%,rgba(10,200,185,.28),transparent 70%),linear-gradient(180deg,var(--s3),var(--s1));box-shadow:inset 0 0 0 1px var(--a1)}
+.sk-lolable .final .paths{opacity:.25}
+.sk-lolable .final h2::after{display:block}
+.sk-lolable .app-chip{border-radius:0;clip-path:var(--cut2);border:0;background:var(--s1);box-shadow:inset 0 0 0 1px var(--line);font:600 13px/1 var(--serif);letter-spacing:.06em;text-transform:uppercase}
+.sk-lolable .app-chip img{border-radius:0}
+.sk-lolable .word{font-family:var(--serif);font-weight:700;text-transform:uppercase;letter-spacing:.02em;background:none;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(200,170,110,.25)}
+.sk-lolable footer{background:var(--bg);border-top:1px solid var(--line2)}
+.sk-lolable .sub-hero .eyebrow{display:block;font:600 12px/1 var(--serif);letter-spacing:.2em;color:var(--a1)}
+.sk-lolable .ver{border-radius:0;clip-path:var(--cut2);background:var(--grad);color:var(--on);font-family:var(--serif)}
+.sk-lolable .kdl,.sk-lolable .copyblock,.sk-lolable .logo-card,.sk-lolable .chips a{border-radius:0;border-color:var(--line2);background:var(--s1)}
+@media(max-width:680px){.sk-lolable .stats{gap:10px}}

@@ -202,13 +202,13 @@ def _key(row, col):
 
 
 SCENES = [
-    [[0, CLOSE], [200, MACROS], [400, _profile(1)]],
-    [[0, CLOSE], [200, MACROS], [400, _profile(1)], [1100, _key(1, 2)]],
-    [[0, CLOSE], [200, MACROS], [400, _profile(1)], [1100, _key(3, 2)]],
-    [[0, CLOSE], [200, MACROS], [400, _profile(1)], [1100, _key(5, 4)]],
-    [[0, CLOSE], [200, MACROS], [400, _profile(3)], [1100, _key(6, 3)]],
-    [[0, CLOSE], [200, MACROS], [400, _profile(2)], [1100, _key(1, 2)]],
-    [[0, CLOSE], [200, MACROS], [400, _profile(3)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(1)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(1)], [160, _key(1, 2)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(1)], [160, _key(3, 2)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(1)], [160, _key(5, 4)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(3)], [160, _key(6, 3)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(2)], [160, _key(1, 2)]],
+    [[0, CLOSE], [40, MACROS], [80, _profile(3)]],
     [[0, CLOSE], [200, {"click": ".app-navigation button:nth-child(2)"}]],
 ]
 

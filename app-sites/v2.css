@@ -390,7 +390,7 @@ footer a:hover{color:var(--text)}
 
 /* ── comparison matrix + bars ── */
 
-.cmp-wrap{margin-top:52px;border:1px solid var(--line);border-radius:var(--r1);overflow:auto;background:var(--s1)}
+.cmp-wrap{margin-top:52px;border:1px solid var(--line);border-radius:var(--r1);overflow:auto;background:var(--s1);contain:paint}
 table{border-collapse:separate;border-spacing:0;width:100%;min-width:620px;font-size:15px}
 th,td{padding:15px 18px;text-align:center;border-bottom:1px solid var(--line);vertical-align:middle}
 thead th{position:sticky;top:0;z-index:2;background:var(--s2);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}

@@ -12,7 +12,10 @@ from __future__ import annotations
 import html
 import importlib
 import json
+import re
 from pathlib import Path
+
+from skins import SKINS, order_of, layout_attrs, build_css as build_skin_css
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "sites"
@@ -20,7 +23,7 @@ SLUGS = ("mixora", "lunadock", "vicesonar", "vorganizer", "aurora", "spotidrop",
 KINDS = ("faq", "changelog", "compare", "press", "privacy")
 LASTMOD = "2026-11-16"
 MIN_RATINGS = 4      # a Store rating line is shown only from this many ratings on (see tools/fetch_store_ratings.py)
-ASSET_V = "20261116"
+ASSET_V = "20261120-skins2"
 
 SUBUI = {
     "en": {
@@ -149,7 +152,16 @@ def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, bod
     home = base(slug, lang)
     ld_html = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in ld)
     footer_links = "".join('<a href="%s">%s</a>' % (sub_path(lang, k), s[k]) for k in KINDS)
-    return f"""<!doctype html>
+    sk = SKINS.get(slug, {})
+    if sk:
+        fonts_head = ""
+        skin_link = (f'\n<link rel="stylesheet" href="/app-sites/layouts.css?v={ASSET_V}">'
+                     f'\n<link rel="stylesheet" href="/app-sites/skins/{slug}.css?v={ASSET_V}">')
+    else:
+        fonts_head = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+                      '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">\n')
+        skin_link = ""
+    out = f"""<!doctype html>
 <html lang="{lang}" translate="no">
 <head>
 <meta charset="utf-8">
@@ -171,19 +183,16 @@ def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, bod
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#000000">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="{sk.get("theme", "#000000")}">
+<meta name="color-scheme" content="{sk.get("scheme", "dark")}">
 <link rel="icon" type="image/png" href="{app["icon"]}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/app-sites/v2.css?v={ASSET_V}">
-<style>{_theme(app)}</style>
+{fonts_head}<link rel="stylesheet" href="/app-sites/v2.css?v={ASSET_V}">
+<style>{_theme(app)}</style>{skin_link}
 <script>document.documentElement.className+=" js"</script>
 <script src="/app-sites/v2.js?v={ASSET_V}" defer></script>
 {ld_html}
 </head>
-<body data-lang="{lang}" data-other="{other_url}" data-copied="{e(s["copied"])}">
+<body class="sk-{slug}" {layout_attrs(slug) if slug in SKINS else ""} data-kind="{kind}" data-lang="{lang}" data-other="{other_url}" data-copied="{e(s["copied"])}">
 <a class="skip" href="#main">{e(s["skip"])}</a>
 <header class="bar">
   <a class="brand" href="{home}"><img src="{app["icon"]}" alt="" width="30" height="30"><span>{e(app["name"])}</span></a>
@@ -201,6 +210,28 @@ def shell(slug: str, app: dict, lang: str, kind: str, title: str, desc: str, bod
 </body>
 </html>
 """
+    return tr_brands(out) if (lang == "tr" and slug in SKINS) else out
+
+
+# English brand names inside Turkish text: some skins set text-transform:uppercase, and Turkish casing turns "Mixora" into "MİXORA".
+_BRAND_RE = re.compile(r"\b(Microsoft|Windows|Discord|Spotify|SteelSeries|Riot|Mixora|Radios|SpotiDrop|GlideSnap|Kingpindev|Interception|Notchify|BokMail|vOrganizer|Premium|Explorer|Hotpad|Lolable)\b")
+
+
+def tr_brands(doc: str) -> str:
+    head, sep, rest = doc.partition("<body")
+    out, skip = [], None
+    for part in re.split(r"(<[^>]*>)", sep + rest):
+        if part.startswith("<"):
+            m = re.match(r"<(/?)(script|style|title)\b", part, re.I)
+            if m:
+                skip = None if m.group(1) else m.group(2).lower()
+            out.append(part)
+        elif skip is None:
+            out.append(_BRAND_RE.sub(lambda m: '<span lang="en">' + m.group(1) + "</span>", part))
+        else:
+            out.append(part)
+    return head + "".join(out)
+
 
 
 def footer(slug, app, lang, footer_links) -> str:
@@ -349,7 +380,9 @@ def home_page(slug: str, app: dict, lang: str) -> str:
     faq = "".join(f'<details class="rv"><summary>{e(q)}{PLUS}</summary><p>{e(a)}</p></details>' for q, a in c["faq"])
     faq_sec = (f'<section id="faq"><div class="wrap">{sec_head(s["faq"], s["faq_title"])}<div class="faq">{faq}</div>'
                f'<div class="center"><a class="more-link" href="{sub_path(lang, "faq")}">{e(s["more_q"])} {ARROW}</a></div></div></section>')
-    body = hero + stats_sec + how + features + specs_sec + compare + faq_sec + final_cta(slug, app, lang) + apps_row(slug, lang)
+    parts = {"hero": hero, "stats": stats_sec, "how": how, "features": features, "specs": specs_sec, "compare": compare, "faq": faq_sec,
+             "cta": final_cta(slug, app, lang), "apps": apps_row(slug, lang)}
+    body = "".join(parts[k] for k in order_of(slug))
     ld = [{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": app["name"], "operatingSystem": app.get("os", "Windows 10, Windows 11"),
            "applicationCategory": app["category"], "description": c["desc"], "url": canon, "image": f"https://{slug}.kingpindev.com/img/og-{slug}.jpg",
            "installUrl": ci["url"], "inLanguage": lang, "author": {"@type": "Person", "name": "Burak Pekel", "url": "https://kingpindev.com/"},

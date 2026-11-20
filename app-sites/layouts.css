@@ -1,0 +1,111 @@
+/* Layout kit for the per-app skins. Each app picks one variant per slot through data-* attributes on <body> (set from tools/skins.py LAYOUT).
+   This file only moves things around; colours, type and decoration live in the skin (app-sites/skins/<slug>.css). */
+
+/* ── nav ── */
+body[data-nav=bar] .bar{--barY:0px;top:0;height:66px;padding:0 28px;background:var(--bg);border-bottom:1px solid var(--line2);box-shadow:none}
+body[data-nav=bar] .bar .glass{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+body[data-nav=bar] .bar .links{margin-inline-start:28px;padding:0}
+body[data-nav=bar] .bar .lang-pill{border-color:var(--line2)}
+
+/* ── hero ── */
+body[data-hero=split] .hero,body[data-hero=splitrev] .hero,body[data-hero=poster] .hero,body[data-hero=stack] .hero{text-align:left}
+body[data-hero=split] .hero .wrap,body[data-hero=splitrev] .hero .wrap,body[data-hero=poster] .hero .wrap,body[data-hero=stack] .hero .wrap{display:grid;column-gap:clamp(28px,4vw,60px)}
+body[data-hero] .hero .btns,body[data-hero] .hero .trust{justify-content:flex-start}
+body[data-hero=center] .hero .btns,body[data-hero=center] .hero .trust{justify-content:center}
+body[data-hero=split] .hero .chip,body[data-hero=splitrev] .hero .chip,body[data-hero=poster] .hero .chip,body[data-hero=stack] .hero .chip{justify-self:start}
+body[data-hero=split] .hero h1,body[data-hero=splitrev] .hero h1,body[data-hero=poster] .hero h1,body[data-hero=stack] .hero h1{margin:0;max-width:none}
+body[data-hero=split] .hero .lead,body[data-hero=splitrev] .hero .lead,body[data-hero=poster] .hero .lead,body[data-hero=stack] .hero .lead{margin-left:0}
+body[data-hero=split] .hero .stage,body[data-hero=splitrev] .hero .stage,body[data-hero=poster] .hero .stage,body[data-hero=stack] .hero .stage{margin:0;max-width:none;perspective:none}
+body[data-hero] .hero .stage .stage-frame{transform:none!important}
+body[data-hero] .hero .stage-note{text-align:left;margin-left:0}
+.hero .chip{grid-area:chip}.hero h1{grid-area:h1}.hero .lead{grid-area:lead}.hero .btns{grid-area:btns}.hero .trust{grid-area:trust}.hero .stage{grid-area:stage}
+body[data-hero=split] .hero .wrap{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-content:center;grid-template-rows:auto auto auto auto 1fr;grid-template-areas:"chip stage" "h1 stage" "lead stage" "btns stage" "trust stage"}
+body[data-hero=splitrev] .hero .wrap{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-content:center;grid-template-rows:auto auto auto auto 1fr;grid-template-areas:"stage chip" "stage h1" "stage lead" "stage btns" "stage trust"}
+body[data-hero=poster] .hero .wrap{grid-template-columns:minmax(0,4fr) minmax(0,8fr);grid-template-areas:"chip chip" "h1 h1" "lead stage" "btns stage" "trust stage";grid-template-rows:auto auto auto auto 1fr}
+body[data-hero=poster] .hero .stage{margin-top:34px}
+body[data-hero=poster] .hero .lead{margin-top:34px}
+body[data-hero=stack] .hero .wrap{grid-template-columns:minmax(0,6fr) minmax(0,5fr);grid-template-areas:"stage stage" "chip chip" "h1 lead" "h1 btns" "h1 trust";grid-template-rows:auto auto auto auto 1fr}
+body[data-hero=stack] .hero{padding-top:118px}
+body[data-hero=stack] .hero .chip{margin:34px 0 18px}
+body[data-hero=stack] .hero .lead{margin-top:0;align-self:end}
+@media(max-width:1020px){
+  body[data-hero=split] .hero .wrap,body[data-hero=splitrev] .hero .wrap,body[data-hero=poster] .hero .wrap,body[data-hero=stack] .hero .wrap{display:block}
+  body[data-hero] .hero .stage{margin-top:36px}
+  body[data-hero=stack] .hero .stage{margin:0 0 30px}
+}
+
+/* ── section headings: center (default) | left | side (sticky rail) ── */
+body[data-heads=left] section .center:has(>h2),body[data-heads=side] section .center:has(>h2){text-align:left}
+body[data-heads=left] section .center:has(>h2) h2,body[data-heads=left] section .center:has(>h2) .sub,
+body[data-heads=side] section .center:has(>h2) h2,body[data-heads=side] section .center:has(>h2) .sub{margin-left:0;margin-right:0}
+body[data-heads=side] section>.wrap{display:grid;grid-template-columns:minmax(220px,3fr) minmax(0,9fr);column-gap:clamp(28px,4vw,64px);align-items:start}
+body[data-heads=side] section>.wrap>*{grid-column:2;min-width:0}
+body[data-heads=side] section>.wrap>.center:has(>h2){grid-column:1;grid-row:1/span 12;position:sticky;top:118px}
+body[data-heads=side] section>.wrap>.center:has(>h2) h2{font-size:clamp(30px,3.6vw,50px)}
+body[data-heads=side] section>.wrap>*:not(.center){margin-top:0}
+body[data-heads=side] .fs,body[data-heads=side] .story2,body[data-heads=side] .stats,body[data-heads=side] .specs,body[data-heads=side] .cmp-wrap,body[data-heads=side] .faq,body[data-heads=side] .apps-row{margin-top:0}
+body[data-heads=side] .final{margin-top:0}
+body[data-heads=side] .apps-row{justify-content:flex-start}
+@media(max-width:1020px){
+  body[data-heads=side] section>.wrap{display:block}
+  body[data-heads=side] section>.wrap>.center:has(>h2){position:static;margin-bottom:34px}
+}
+
+/* ── how it works: story (pinned demo, default) | cols (three columns, no demo) ── */
+body[data-how=cols] .story2{display:block;margin-top:50px}
+body[data-how=cols] .story-stage{display:none}
+body[data-how=cols] .story-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px);counter-reset:s}
+body[data-how=cols] .sstep2{min-height:0;opacity:1;justify-content:flex-start;padding-top:8px}
+body[data-how=cols] .sstep2 p{max-width:none}
+@media(max-width:1020px){body[data-how=cols] .story-steps{grid-template-columns:1fr;gap:34px}}
+
+/* ── features: side (tabs left, default) | top (tab bar above the demo) | cards (demo above, tabs as a grid) ── */
+body[data-feat=top] .fs{grid-template-columns:minmax(0,1fr);gap:26px}
+body[data-feat=top] .tabs{flex-direction:row;flex-wrap:wrap;gap:8px}
+body[data-feat=top] .tab{width:auto;grid-template-columns:auto auto;align-items:center;gap:10px;padding:8px 18px 8px 10px}
+body[data-feat=top] .tab strong{padding-top:0}
+body[data-feat=top] .tab .more{display:none}
+body[data-feat=top] .fs-stage{position:relative;top:0;max-width:1000px;margin:0 auto;width:100%}
+body[data-feat=cards] .fs{grid-template-columns:minmax(0,1fr);gap:30px}
+body[data-feat=cards] .fs-stage{order:-1;position:relative;top:0;max-width:1000px;margin:0 auto;width:100%}
+body[data-feat=cards] .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+body[data-feat=cards] .tab{grid-template-columns:1fr;gap:12px;align-content:start;height:100%}
+body[data-feat=cards] .tab strong{padding-top:0}
+body[data-feat=cards] .tab .more{grid-template-rows:1fr}
+@media(max-width:1020px){body[data-feat=cards] .tabs{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-feat=top] .fs-stage,body[data-feat=cards] .fs-stage{order:-1}}
+@media(max-width:680px){body[data-feat=cards] .tabs{grid-template-columns:1fr}body[data-feat=top] .tab{padding:8px 14px 8px 8px}}
+
+/* ── faq ── */
+body[data-faq=cols] .faq{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:12px 18px}
+@media(max-width:820px){body[data-faq=cols] .faq{grid-template-columns:1fr}}
+
+/* ── specs: cards (default) | rows | strip ── */
+body[data-spec=rows] .specs{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,5vw,64px)}
+body[data-spec=rows] .spec{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 2px;border:0;border-bottom:1px solid var(--line2);border-radius:0;background:none}
+body[data-spec=rows] .spec p{margin:0;text-align:right}
+body[data-spec=strip] .specs{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
+body[data-spec=strip] .spec{border:0;border-left:1px solid var(--line);border-radius:0;background:none;padding:26px 24px}
+body[data-spec=strip] .spec:first-child{border-left:0}
+@media(max-width:1020px){body[data-spec=strip] .specs{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-spec=strip] .spec:nth-child(odd){border-left:0}}
+@media(max-width:680px){body[data-spec=rows] .specs,body[data-spec=strip] .specs{grid-template-columns:1fr}body[data-spec=strip] .spec{border-left:0;border-top:1px solid var(--line)}}
+
+/* ── stats: band (default) | inline (big numerals, no box) ── */
+body[data-stats=inline] .stats{display:flex;flex-wrap:wrap;border:0;border-radius:0;background:none;gap:0}
+body[data-stats=inline] .stats>div{flex:1 1 180px;background:none;padding:10px 26px;border-left:1px solid var(--line2)}
+body[data-stats=inline] .stats>div:first-child{border-left:0}
+@media(max-width:1020px){body[data-stats=inline] .stats>div{flex:1 1 40%;border-left:0}}
+
+/* ── final call to action: panel (default) | left (left aligned) ── */
+body[data-cta=left] .final{text-align:left;padding:clamp(40px,6vw,84px)}
+body[data-cta=left] .final h2,body[data-cta=left] .final p{margin-left:0}
+body[data-cta=left] .final .btns{justify-content:flex-start}
+
+/* ── side pages (faq, changelog, compare, press, privacy) ── */
+body:not([data-kind=home]) .sub-hero h1{font-size:clamp(36px,6vw,84px);line-height:1}
+body:not([data-kind=home]) .sub-hero .eyebrow{margin-bottom:18px}
+body[data-heads=left]:not([data-kind=home]) .sub-hero,body[data-heads=side]:not([data-kind=home]) .sub-hero{text-align:left}
+body[data-heads=left]:not([data-kind=home]) .sub-hero h1,body[data-heads=side]:not([data-kind=home]) .sub-hero h1,
+body[data-heads=left]:not([data-kind=home]) .sub-hero .lead,body[data-heads=side]:not([data-kind=home]) .sub-hero .lead{margin-left:0}
+body[data-heads=left]:not([data-kind=home]) .chips,body[data-heads=side]:not([data-kind=home]) .chips{justify-content:flex-start}
+body[data-heads=left] .faq,body[data-heads=side] .faq{margin-left:0;margin-right:0}
+body[data-heads=side] .faq{margin-top:0}

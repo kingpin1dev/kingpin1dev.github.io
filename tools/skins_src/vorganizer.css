@@ -1,0 +1,93 @@
+/* vOrganizer: the filing office. Kraft paper, a manila folder around the demo, typewriter type, a rubber stamp, index cards. */
+body.sk-vorganizer{
+  --bg:#ece2c8;--s1:#fbf6e6;--s2:#f5edd5;--s3:#e3d5b0;--line:rgba(74,52,24,.2);--line2:rgba(74,52,24,.4);
+  --text:#2b2118;--muted:#5a4832;--soft:#7a6650;--a1:#c0392b;--a2:#2d4f8a;--rgb1:192,57,43;--rgb2:45,79,138;--on:#fff8ee;--eb:#c0392b;--ebl:#a52c20;--ring:#c0392b;
+  --grad:linear-gradient(180deg,#c9402f,#b23326);--r1:6px;--r2:4px;--r3:3px;--ok:#2f7d4f;--mono:"Courier Prime","Courier New",monospace;--manila:#d9b872;--manila2:#bf9a52;
+  font-family:"Public Sans",system-ui,sans-serif;color:var(--text);
+  background:var(--bg) radial-gradient(rgba(74,52,24,.07) 1px,transparent 1.2px) 0 0/6px 6px}
+.sk-vorganizer ::selection{background:#e8c26a;color:#2b2118}
+
+/* bar: a ruled paper header */
+body.sk-vorganizer[data-nav=bar] .bar{background:var(--s1);border-bottom:3px double var(--line2)}
+.sk-vorganizer .links a{border-radius:3px;font:700 14px/1 var(--mono);letter-spacing:.02em;color:var(--muted)}
+.sk-vorganizer .links a:hover,.sk-vorganizer .links a[aria-current=page]{background:rgba(192,57,43,.1);color:var(--a1)}
+.sk-vorganizer .brand{font:700 20px/1 var(--mono);letter-spacing:-.02em}
+.sk-vorganizer .cta-sm{border-radius:3px;background:var(--a1);color:var(--on);font:700 14px/1 var(--mono);box-shadow:3px 3px 0 var(--text)}
+.sk-vorganizer .lang-pill,.sk-vorganizer .burger{border-radius:3px;font-family:var(--mono);color:var(--text);background:var(--s1)}
+
+/* type */
+.sk-vorganizer h1,.sk-vorganizer h2,.sk-vorganizer h3{font-family:var(--mono);font-weight:700;color:var(--text)}
+.sk-vorganizer h1{font-size:clamp(40px,5.8vw,82px);line-height:1;letter-spacing:-.05em;max-width:none}
+.sk-vorganizer h1 em{background:none;-webkit-text-fill-color:currentColor;color:var(--a1);font-style:normal;text-decoration:underline wavy rgba(192,57,43,.55);text-decoration-thickness:3px;text-underline-offset:10px}
+.sk-vorganizer h2{font-size:clamp(30px,4vw,54px);line-height:1.02;letter-spacing:-.05em;max-width:18ch;display:inline;background:linear-gradient(transparent 64%,rgba(232,194,106,.65) 64% 92%,transparent 92%);padding:0 .1em}
+.sk-vorganizer .center:has(>h2){line-height:1.25}
+.sk-vorganizer h3{letter-spacing:-.03em}
+.sk-vorganizer .eyebrow{display:none}
+.sk-vorganizer .lead,.sk-vorganizer .sub{color:var(--muted)}
+
+/* hero: the demo sits in a manila folder, text under it */
+.sk-vorganizer .chip{background:transparent;border:0;padding:0;min-height:0;margin:0}
+.sk-vorganizer .chip b{border-radius:3px;background:transparent;color:var(--a1);border:3px solid var(--a1);padding:6px 14px;font:700 15px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;transform:rotate(-4deg);outline:2px solid rgba(192,57,43,.35);outline-offset:2px}
+.sk-vorganizer .hero::before,.sk-vorganizer .hero::after{display:none}
+.sk-vorganizer .stage{padding-top:34px;width:min(100%,900px);justify-self:center}
+.sk-vorganizer .stage::before{content:"";position:absolute;left:34px;top:0;width:200px;height:48px;background:var(--manila);border-radius:12px 12px 0 0;box-shadow:inset 0 2px 0 rgba(255,255,255,.4),0 0 0 1px var(--manila2);clip-path:polygon(0 100%,0 18%,6% 0,70% 0,78% 100%)}
+.sk-vorganizer .stage::after{display:none}
+.sk-vorganizer .stage .stage-frame,.sk-vorganizer .stage-frame{border-radius:4px 10px 10px 10px;border:0;box-shadow:0 0 0 12px var(--manila),0 0 0 13px var(--manila2),0 24px 50px rgba(74,52,24,.35)}
+.sk-vorganizer .stage-note{color:var(--soft);font-family:var(--mono);font-size:13px;margin-top:28px}
+.sk-vorganizer .btn{border-radius:3px;font:700 16px/1 var(--mono);letter-spacing:-.02em;border:2px solid var(--text)}
+.sk-vorganizer .btn-p{background:var(--a1);color:var(--on);box-shadow:4px 4px 0 var(--text)}
+.sk-vorganizer .btn-p:hover{filter:none;transform:translate(2px,2px);box-shadow:2px 2px 0 var(--text)}
+.sk-vorganizer .btn-g{background:var(--s1);color:var(--text);box-shadow:4px 4px 0 var(--manila2)}
+.sk-vorganizer .trust{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.sk-vorganizer .trust .rate{color:var(--text)}
+
+/* stats: index numbers */
+.sk-vorganizer .stats>div{border-left:2px dashed var(--line2)}.sk-vorganizer .stats>div:first-child{border-left:0}
+.sk-vorganizer .stats b{font-family:var(--mono);background:none;-webkit-text-fill-color:currentColor;color:var(--a1);font-size:clamp(46px,6vw,80px);letter-spacing:-.07em}
+.sk-vorganizer .stats span{font-family:var(--mono);font-size:14px;color:var(--muted)}
+
+/* how: three file cards */
+.sk-vorganizer .sstep2{background:var(--s1);border:1px solid var(--line2);border-radius:4px;padding:26px 26px 28px;box-shadow:5px 6px 0 rgba(74,52,24,.16);position:relative}
+.sk-vorganizer .sstep2:nth-child(2){transform:rotate(.6deg)}.sk-vorganizer .sstep2:nth-child(3){transform:rotate(-.5deg)}
+.sk-vorganizer .sstep2 .num{border:3px solid var(--a2);color:var(--a2);border-radius:50%;font:700 22px/1 var(--mono);width:52px;height:52px;transform:rotate(-8deg);background:transparent}
+.sk-vorganizer .sstep2 h3{font-size:24px}.sk-vorganizer .sstep2 p{font-size:16.5px}
+
+/* features: folder tabs down the side */
+.sk-vorganizer .tab{border-radius:4px;background:var(--s1);border:1px solid var(--line2);box-shadow:3px 3px 0 rgba(74,52,24,.14)}
+.sk-vorganizer .tab strong{font:700 17px/1.3 var(--mono);letter-spacing:-.03em}
+.sk-vorganizer .tab .ic{border-radius:3px;background:var(--s3);color:var(--text)}
+.sk-vorganizer .tab[aria-selected=true]{background:var(--manila);border-color:var(--manila2)}
+.sk-vorganizer .tab[aria-selected=true] .ic{background:var(--text);color:var(--manila)}
+.sk-vorganizer .tab[aria-selected=true] .more p{color:var(--text)}
+
+/* specs: form lines */
+.sk-vorganizer .spec{border-bottom:2px dotted var(--line2)}
+.sk-vorganizer .spec small{font:700 13px/1.2 var(--mono);color:var(--a2);text-transform:uppercase;letter-spacing:.08em}
+.sk-vorganizer .spec p{font-family:var(--mono);font-size:16px}
+
+/* compare + faq: index cards */
+.sk-vorganizer .cmp-wrap,.sk-vorganizer .cmp{background:var(--s1);border-radius:4px;border-color:var(--line2);box-shadow:5px 6px 0 rgba(74,52,24,.14)}
+.sk-vorganizer thead th{background:var(--s3);font-family:var(--mono);color:var(--text)}
+.sk-vorganizer td.us,.sk-vorganizer th.us{background:rgba(232,194,106,.28)}
+.sk-vorganizer .y{background:var(--ok);color:#fff;border-radius:3px}
+.sk-vorganizer .meter i{background:#c9b98f}.sk-vorganizer .bar-row.us .meter i{background:var(--a1)}
+.sk-vorganizer details{background:var(--s1);border-radius:3px;border:1px solid var(--line2);border-top:3px solid var(--a1);box-shadow:3px 4px 0 rgba(74,52,24,.12);background-image:repeating-linear-gradient(transparent 0 27px,rgba(45,79,138,.12) 27px 28px)}
+.sk-vorganizer details:nth-child(even){transform:rotate(.35deg)}.sk-vorganizer details:nth-child(odd){transform:rotate(-.25deg)}
+.sk-vorganizer details[open]{background-color:#fffdf2;transform:none}
+.sk-vorganizer summary{font:700 17px/1.35 var(--mono);letter-spacing:-.03em}
+.sk-vorganizer details a,.sk-vorganizer .prose a,.sk-vorganizer .notes a{color:var(--a2)}
+
+/* final: a stamped slip */
+.sk-vorganizer .final{background:var(--s1);color:var(--text);border:3px double var(--text);border-radius:3px;box-shadow:8px 8px 0 var(--manila2)}
+.sk-vorganizer .final .paths{display:none}
+.sk-vorganizer .final p{color:var(--muted)}.sk-vorganizer .final p a{color:var(--a2)}
+.sk-vorganizer .final::after{content:"";position:absolute;right:34px;top:26px;width:92px;height:92px;border:4px solid rgba(192,57,43,.55);border-radius:50%;box-shadow:inset 0 0 0 5px var(--s1),inset 0 0 0 8px rgba(192,57,43,.4);transform:rotate(-14deg);z-index:-1}
+.sk-vorganizer .app-chip{background:var(--s1);border-radius:4px;border-color:var(--line2);font-family:var(--mono);box-shadow:3px 3px 0 rgba(74,52,24,.14)}
+.sk-vorganizer .word{font-family:var(--mono);font-weight:700;letter-spacing:-.08em;background:none;-webkit-text-fill-color:transparent;-webkit-text-stroke:2px rgba(74,52,24,.18)}
+.sk-vorganizer footer{background:transparent;border-top:3px double var(--line2);font-family:var(--mono)}
+.sk-vorganizer footer a{color:var(--muted)}.sk-vorganizer footer a:hover{color:var(--a1)}
+.sk-vorganizer .sub-hero .eyebrow{display:block;font:700 13px/1 var(--mono);color:var(--a1);letter-spacing:.14em}
+.sk-vorganizer .ver{background:var(--a1);color:var(--on);border-radius:3px;font-family:var(--mono)}
+.sk-vorganizer .kdl,.sk-vorganizer .copyblock,.sk-vorganizer .logo-card,.sk-vorganizer .chips a{background:var(--s1);border-radius:4px;border-color:var(--line2)}
+
+@media(max-width:1020px){.sk-vorganizer .sstep2:nth-child(n){transform:none}.sk-vorganizer .stage-frame{box-shadow:0 0 0 8px var(--manila),0 0 0 9px var(--manila2)}.sk-vorganizer .stage::before{left:18px;width:150px}}

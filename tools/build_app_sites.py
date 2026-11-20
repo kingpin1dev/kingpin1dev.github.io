@@ -471,7 +471,7 @@ APPS: dict[str, dict] = {
     },
     "hotpad": {
         "name": "Hotpad", "icon": "/img/Hotpad.png", "accent": "#60cdff", "accent2": "#8b7bff",
-        "category": "UtilitiesApplication", "demo": {"kind": "frame", "src": "/hotpad-demo/index.html?v=1", "w": 1080, "h": 780, "lang": True},
+        "category": "UtilitiesApplication", "demo": {"kind": "frame", "src": "/hotpad-demo/index.html?v=20261118-story2", "w": 1080, "h": 780, "lang": True},
         "cta": {"url": "https://kingpindev.com/hotpad/Hotpad-Setup-latest.exe", "download": True,
                 "en": "Download for Windows", "tr": "Windows için indir", "en_short": "Download", "tr_short": "İndir",
                 "en_text": "Download the installer and set it up in a minute. A second keyboard is all you need.",
@@ -1159,6 +1159,7 @@ def build_hub() -> None:
 
 
 def main() -> None:
+    _ap.build_skin_css()
     for slug, app in APPS.items():
         d = OUT / slug
         (d / "tr").mkdir(parents=True, exist_ok=True)

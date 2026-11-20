@@ -58,7 +58,7 @@
   config.profiles.forEach(function (p) { p.bindings.forEach(function (b) { if (b.action === "launch") { var a = apps.filter(function (x) { return x.target === b.target; })[0]; if (a) { b.comment = b.comment || a.name; } } }); });
 
   var spare = [[18, "E"], [19, "R"], [20, "T"], [32, "D"], [33, "F"], [34, "G"], [44, "Z"], [48, "B"], [62, "F4"], [63, "F5"]], nextKey = 0;
-  var reply = function (m, extra) { var r = { requestId: m.requestId }; for (var k in extra) r[k] = extra[k]; emit(r); };
+  var reply = function (m, extra) { var r = { type: m.type, requestId: m.requestId }; for (var k in extra) r[k] = extra[k]; emit(r); };
 
   var host = {
     addEventListener: function (type, cb) { if (type === "message") listeners.push(cb); },
