@@ -445,11 +445,16 @@ def privacy_page(slug, app, lang):
 def compare_page(slug, app, lang):
     D = data(slug, lang)["compare"]
     s = SUBUI[lang]
+    sources = ""
+    if D.get("sources"):
+        label = "Official sources" if lang == "en" else "Resmî kaynaklar"
+        links = " · ".join(f'<a href="{e(url)}">{e(name)}</a>' for name, url in D["sources"])
+        sources = f'<p class="foot-note center" style="text-align:center">{label}: {links}</p>'
     cards = "".join(f'<article class="cmp rv"><h2>{e(n)}</h2><span class="tag">{e(tag)}</span><h3 class="k">{e(s["shines"])}</h3><p>{e(sh)}</p>'
                     f'<h3 class="k">{e(s["differs"].format(app["name"]))}</h3><p>{e(df)}</p><div class="pick"><h3 class="k">{e(s["pick"])}</h3><p>{e(pk)}</p></div></article>'
                     for n, tag, sh, df, pk in D["items"])
     body = (sub_hero(app, lang, "compare", h1=D.get("h1"), lead=D.get("lead")) + f'<section><div class="wrap"><p class="sub center" style="margin-inline:auto;text-align:center;max-width:760px">{e(D["intro"])}</p>'
-            f'{matrix_html(slug, lang)}<div class="cmp-grid">{cards}</div><p class="foot-note center" style="text-align:center">{e(D["foot"])}</p></div></section>' + final_cta(slug, app, lang))
+            f'{matrix_html(slug, lang)}<div class="cmp-grid">{cards}</div>{sources}<p class="foot-note center" style="text-align:center">{e(D["foot"])}</p></div></section>' + final_cta(slug, app, lang))
     return body, []
 
 
