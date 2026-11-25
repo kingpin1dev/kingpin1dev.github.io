@@ -1,0 +1,58 @@
+{
+  "noon": [
+    {
+      "images": "noon-1.webp",
+      "credit": "NASA",
+      "videos": "noon-1.mp4",
+      "page": "https://images.nasa.gov/details/iss071e439624"
+    },
+    {
+      "images": "noon-2.webp",
+      "credit": "NASA",
+      "videos": "noon-2.mp4",
+      "page": "https://images.nasa.gov/details/iss073e0028091"
+    }
+  ],
+  "day": [
+    {
+      "images": "day-1.webp",
+      "credit": "NASA",
+      "videos": "day-1.mp4",
+      "page": "https://images.nasa.gov/details/s04-41-1206"
+    },
+    {
+      "images": "day-2.webp",
+      "credit": "NASA",
+      "videos": "day-2.mp4",
+      "page": "https://images.nasa.gov/details/sl4-137-3566"
+    }
+  ],
+  "evening": [
+    {
+      "images": "evening-1.webp",
+      "credit": "NASA / Don Pettit",
+      "videos": "evening-1.mp4",
+      "page": "https://images.nasa.gov/details/iss072e757530"
+    },
+    {
+      "images": "evening-2.webp",
+      "credit": "NASA",
+      "videos": "evening-2.mp4",
+      "page": "https://images.nasa.gov/details/iss074e0046371"
+    }
+  ],
+  "night": [
+    {
+      "images": "night-1.webp",
+      "credit": "NASA",
+      "videos": "night-1.mp4",
+      "page": "https://images.nasa.gov/details/iss073e0982823"
+    },
+    {
+      "images": "night-2.webp",
+      "credit": "NASA",
+      "videos": "night-2.mp4",
+      "page": "https://images.nasa.gov/details/iss071e364425"
+    }
+  ]
+}

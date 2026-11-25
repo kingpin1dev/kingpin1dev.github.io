@@ -1,0 +1,10 @@
+{
+   "extensionName": {
+      "message": "Lalune",
+      "description": "extension name"
+   },
+   "extensionDesc": {
+      "message": "Uma nova aba bonita e personalizável inspirada no iOS, pensada para uma experiência de navegação calma e focada.",
+      "description": "extension description"
+   }
+}

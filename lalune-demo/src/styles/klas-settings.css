@@ -1,0 +1,149 @@
+/* Shared glass palette for the cards and settings panel. */
+:root {
+  --glass-text: #fcfcff;
+  --glass-muted: #f4eeffc5;
+  --glass-border: #ffffff35;
+  --glass-rim: #ffffff64;
+  --glass-focus: #eee7ffad;
+  --glass-surface: radial-gradient(ellipse at 7% 0%, #ffffff2b, transparent 65%), linear-gradient(146deg, #ffffff0e, #18151e26 52%, #ffffff09);
+  --glass-control: linear-gradient(145deg, #ffffff24, #15142323);
+  --glass-field: linear-gradient(150deg, #ffffff23, #1516262b);
+  --glass-inset: inset 0 1px 1px #ffffff35;
+  --glass-hover: #f6f1ff23;
+  --glass-active: #eae3ff37;
+}
+
+#settings {
+  --panel-tint: #14132032;
+  --panel-menu: #242334eb;
+  --panel-track: #ffffff32;
+  --panel-accent: #c9b9ff;
+  --panel-accent-text: #e4dbff;
+  --panel-danger: #ffd0d9;
+  --color-text: var(--glass-text);
+  --color-light-text: var(--glass-muted);
+  --color-border: var(--glass-border);
+  --color-settings: var(--panel-tint);
+  --color-input: #ffffff20;
+  --color-input-outside: #ffffff20;
+  --color-focused: var(--glass-active);
+  --color-areas: #ffffff16;
+  --color-placeholder: var(--glass-muted);
+  color-scheme: dark;
+  color: var(--glass-text);
+  text-shadow: 0 1px 3px #130e1470;
+  background: var(--glass-surface) var(--panel-tint);
+  border-inline-start: 1px solid var(--glass-rim);
+  backdrop-filter: blur(7px) saturate(1.45);
+  box-shadow: var(--glass-inset), -12px 0 34px #0b071c44;
+  scrollbar-width: thin;
+  scrollbar-color: var(--glass-rim) transparent;
+}
+
+[data-theme="light"] #settings {
+  --glass-text: #211e2d;
+  --glass-muted: #463e55;
+  --glass-border: #21142d2c;
+  --glass-rim: #ffffffbd;
+  --glass-focus: #6352a3;
+  --glass-control: linear-gradient(145deg, #fff9, #d0c9e14d);
+  --glass-field: linear-gradient(150deg, #fffa, #e0dae963);
+  --glass-hover: #ffffff85;
+  --glass-active: #c7b6ed69;
+  --panel-tint: #f4f0f78c;
+  --panel-menu: #f4eff8f5;
+  --panel-track: #5a4d7438;
+  --panel-accent: #7761b4;
+  --panel-accent-text: #503f86;
+  --panel-danger: #8c2943;
+  --color-input: #ffffff6b;
+  --color-input-outside: #ffffff6b;
+  --color-areas: #ffffff45;
+  color-scheme: light;
+  text-shadow: none;
+}
+
+#settings.shown { box-shadow: var(--glass-inset), -12px 0 34px #0b071c44; }
+#settings .param {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-rim);
+  border-radius: 19px;
+  box-shadow: var(--glass-inset);
+}
+#settings .settings-title h2 { color: var(--glass-text); font-size: 14px; font-weight: 620; }
+#settings hr { border-bottom-color: var(--glass-border); }
+#settings a, #settings .inline-btn { color: var(--panel-accent-text); }
+
+#settings :is(.param-btn, .input-btn, .tooltip, form.valid button),
+#show-settings button,
+#show-settings.shown button {
+  color: var(--glass-text);
+  background: var(--glass-control);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-rim);
+  box-shadow: var(--glass-inset);
+}
+#settings :is(.param-btn, .input-btn, form.valid button) { border-radius: 10px; }
+#settings :is(.param-btn, .input-btn, .tooltip, form.valid button):not(:disabled):hover,
+#show-settings button:hover,
+#show-settings.shown button:hover {
+  background-color: var(--glass-hover);
+}
+#settings .param-btn.btn-red:hover { color: var(--panel-danger); background-color: #ff61752b; }
+#show-settings button, #show-settings.shown button { backdrop-filter: blur(7px) saturate(1.45); }
+
+#settings :is(select, textarea, input:not([type="range"], [type="checkbox"], [type="file"], [type="color"]), .prism-code-editor, .tooltiptext) {
+  background: var(--glass-field);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-rim);
+  border-radius: 10px;
+  color: var(--glass-text);
+  box-shadow: var(--glass-inset);
+}
+#settings :is(select, button, textarea, input, summary):focus-visible,
+#show-settings button:focus-visible { outline: 1px solid var(--glass-focus); outline-offset: 2px; }
+#settings select option { color: var(--glass-text); background-color: var(--panel-menu); }
+@supports (appearance: base-select) {
+  #settings select, #settings select::picker(select) { appearance: base-select; }
+  #settings select::picker(select) {
+    margin: 4px 0;
+    padding: 4px;
+    color: var(--glass-text);
+    background: var(--glass-surface) var(--panel-menu);
+    border: 1px solid var(--glass-border);
+    border-top-color: var(--glass-rim);
+    border-radius: 11px;
+    box-shadow: var(--glass-inset), 0 6px 20px #12102038;
+    backdrop-filter: blur(12px);
+  }
+  #settings select option { border-radius: 7px; background: transparent; }
+  #settings select option:hover, #settings select option:focus-visible { background: var(--glass-active); }
+}
+
+#settings .switch {
+  background: var(--glass-field);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-rim);
+  box-shadow: var(--glass-inset);
+}
+#settings .switch:checked, #settings .switch:checked:hover { background-color: var(--panel-accent); }
+#settings .switch::after {
+  background: linear-gradient(160deg, #fff, #e3d9f6);
+  box-shadow: 0 2px 5px #170f3538;
+}
+#settings input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(var(--panel-accent), var(--panel-accent)) left / var(--sx) 100% no-repeat, var(--panel-track);
+}
+html:dir(rtl) #settings input[type="range"]::-webkit-slider-runnable-track {
+  background-position: right;
+}
+#settings input[type="range"]::-webkit-slider-thumb { background: linear-gradient(160deg, #fff, #e3d9f6); }
+
+@media (min-width: 701px) {
+  #settings { border-radius: 22px 0 0 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #settings, #show-settings button, #show-settings svg { transition-duration: 0s; }
+}
+

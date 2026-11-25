@@ -1,0 +1,10 @@
+{
+   "extensionDesc": {
+      "description": "extension description",
+      "message": "iOSにインスパイアされた、美しくカスタマイズ可能な新しいタブページ。落ち着いた集中できるブラウジング体験のために設計されました。"
+   },
+   "extensionName": {
+      "description": "extension name",
+      "message": "Lalune"
+   }
+}

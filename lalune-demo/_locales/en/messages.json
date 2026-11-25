@@ -1,0 +1,10 @@
+{
+   "extensionDesc": {
+      "description": "extension description",
+      "message": "A beautiful and customizable new tab page inspired by iOS, designed for a calm and focused browsing experience."
+   },
+   "extensionName": {
+      "description": "extension name",
+      "message": "Lalune"
+   }
+}
