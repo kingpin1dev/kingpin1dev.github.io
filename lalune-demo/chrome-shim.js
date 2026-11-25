@@ -31,12 +31,14 @@
     bm('16', 'Spotify', 'https://open.spotify.com/'),
   ] };
   const local = area(), sync = area();
+  const LANG = (new URLSearchParams(location.search).get('lang') || 'tr').toLowerCase().slice(0, 2) === 'en' ? 'en' : 'tr';
+  sync.set({ lang: LANG });
   const L = (id, title, url) => ({ id, title, url });
   local.set({ klasBookmarkCategories: [
     { id: '0', name: 'Social', links: [L('a1', 'Instagram', 'https://www.instagram.com/'), L('a2', 'Reddit', 'https://www.reddit.com/'), L('a3', 'X', 'https://x.com/'), L('a4', 'YouTube', 'https://www.youtube.com/')] },
     { id: '1', name: 'Business', links: [L('b1', 'Gmail', 'https://mail.google.com/'), L('b2', 'Notion', 'https://www.notion.so/'), L('b3', 'Slack', 'https://slack.com/'), L('b4', 'Figma', 'https://www.figma.com/')] },
-    { id: '2', name: 'Diğer', links: [L('c1', 'Wikipedia', 'https://www.wikipedia.org/'), L('c2', 'Spotify', 'https://open.spotify.com/'), L('c3', 'Netflix', 'https://www.netflix.com/')] },
-    { id: '3', name: 'Araçlar', links: [L('d1', 'GitHub', 'https://github.com/'), L('d2', 'ChatGPT', 'https://chatgpt.com/'), L('d3', 'Google Translate', 'https://translate.google.com/')] },
+    { id: '2', name: LANG === 'en' ? 'Other' : 'Diğer', links: [L('c1', 'Wikipedia', 'https://www.wikipedia.org/'), L('c2', 'Spotify', 'https://open.spotify.com/'), L('c3', 'Netflix', 'https://www.netflix.com/')] },
+    { id: '3', name: LANG === 'en' ? 'Tools' : 'Araçlar', links: [L('d1', 'GitHub', 'https://github.com/'), L('d2', 'ChatGPT', 'https://chatgpt.com/'), L('d3', 'Google Translate', 'https://translate.google.com/')] },
   ] });
   window.chrome = {
     storage: { local, sync, onChanged: ev() },
@@ -54,4 +56,23 @@
     tabs: { create: (o) => { window.open(o.url, '_blank', 'noopener'); } },
     action: { onClicked: ev() },
   };
+
+  // Links open in a new tab; the demo itself never navigates away.
+  document.addEventListener('click', (e) => {
+    const a = e.composedPath().find((n) => n && n.tagName === 'A' && n.href);
+    if (!a || !/^https?:/i.test(a.href)) return;
+    e.preventDefault();
+    window.open(a.href, '_blank', 'noopener');
+  }, true);
+  // Site icons come from small local tiles instead of the browser's favicon service.
+  const srcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+  Object.defineProperty(HTMLImageElement.prototype, 'src', {
+    configurable: true, enumerable: srcDesc.enumerable, get: srcDesc.get,
+    set(v) {
+      if (typeof v === 'string' && v.includes('_favicon')) {
+        try { v = 'fav/' + new URL(new URL(v, location.href).searchParams.get('pageUrl')).hostname.replace(/^www\./, '') + '.svg'; } catch (err) {}
+      }
+      srcDesc.set.call(this, v);
+    },
+  });
 })();

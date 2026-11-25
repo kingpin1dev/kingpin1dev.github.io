@@ -937,7 +937,7 @@
 
     .showcase-grid {
       display: grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1fr;
       gap: 18px;
     }
 
@@ -1313,8 +1313,10 @@
 
     .project-side {
       display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 18px;
     }
+    @media (max-width: 720px) { .project-side { grid-template-columns: 1fr; } }
 
     .project-small {
       min-height: 251px;
@@ -3945,7 +3947,7 @@
       hotpad: frameDemo('hotpad', '/hotpad-demo/index.html?lang=' + (window.KPD_LANG || 'tr'), 1080, 780, 'Hotpad canlı demo'),
       files: frameDemo('files', '/vorganizer-demo/index.html', 860, 780, 'vOrganizer canlı demo'),
       aurora: frameDemo('aurora', '/aurora-demo/index.html', 980, 680, 'Aurora Radios canlı demo'),
-      lalune: frameDemo('lalune', '/lalune-demo/index.html', 1180, 740, 'Lalune canlı demo'),
+      lalune: frameDemo('lalune', '/lalune-demo/index.html?lang=' + (window.KPD_LANG || 'tr'), 1180, 740, 'Lalune canlı demo'),
     };
 
     function renderFeatured(app) {
